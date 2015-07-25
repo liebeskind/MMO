@@ -65,11 +65,20 @@ extension CGPoint {
   }
 }
 
-struct PhysicsCategory {
-  static let None      : UInt32 = 0
-  static let All       : UInt32 = UInt32.max
-  static let Monster   : UInt32 = 0b1       // 1
-  static let Projectile: UInt32 = 0b10      // 2
+//struct PhysicsCategory {
+//  static let None      : UInt32 = 0
+//  static let All       : UInt32 = UInt32.max
+//  static let Monster   : UInt32 = 0b1       // 1
+//  static let Projectile: UInt32 = 0b10      // 2
+//  static let Player: UInt32 = 0b110 // 3
+//}
+
+enum PhysicsCategory : UInt32 {
+  case None   = 0
+  case All    = 0xFFFFFFFF
+  case Monster  = 0b001
+  case Projectile = 0b010
+  case Player = 0b100
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -79,10 +88,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   
   override func didMoveToView(view: SKView) {
   
-    playBackgroundMusic("background-music-aac.caf")
+//    playBackgroundMusic("background-music-aac.caf")
   
     backgroundColor = SKColor.whiteColor()
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+    
+//    player.physicsBody = SKPhysicsBody(rectangleOfSize: player.size)
+    player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/3)
+    player.physicsBody?.dynamic = true
+    player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
+    player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
+    player.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+    
     addChild(player)
     
     physicsWorld.gravity = CGVectorMake(0, 0)
@@ -111,11 +128,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     // Create sprite
     let monster = SKSpriteNode(imageNamed: "monster")
-    monster.physicsBody = SKPhysicsBody(rectangleOfSize: monster.size)
+    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
     monster.physicsBody?.dynamic = true
-    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster
-    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile
-    monster.physicsBody?.collisionBitMask = PhysicsCategory.None
+    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+    monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
     // Determine where to spawn the monster along the Y axis
     let actualY = random(min: monster.size.height/2, max: size.height - monster.size.height/2)
@@ -138,13 +156,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       let gameOverScene = GameOverScene(size: self.size, won: false)
       self.view?.presentScene(gameOverScene, transition: reveal)
     }
-    monster.runAction(SKAction.sequence([actionMove, loseAction, actionMoveDone]))
+    monster.runAction(SKAction.sequence([
+      actionMove,
+//      loseAction,
+      actionMoveDone]))
 
   }
-    
+  
+  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    for touch in (touches as! Set<UITouch>) {
+      
+      let touchLocation = touch.locationInNode(self)
+      let spriteLocation = player.position
+      
+      let angle = atan2(spriteLocation.y - touchLocation.y, spriteLocation.x - touchLocation.x)
+      
+      var moveAction = SKAction.moveTo(touchLocation, duration: 1)
+      let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+      
+      player.runAction(SKAction.sequence([rotateAction, moveAction]))
+    }
+  }
+  
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
 
-    runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+//    runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
 
     // 1 - Choose one of the touches to work with
     let touch = touches.first as! UITouch
@@ -156,16 +192,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
     projectile.physicsBody?.dynamic = true
-    projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile
-    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster
-    projectile.physicsBody?.collisionBitMask = PhysicsCategory.None
+    projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
+    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
+    projectile.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     projectile.physicsBody?.usesPreciseCollisionDetection = true
     
     // 3 - Determine offset of location to projectile
     let offset = touchLocation - projectile.position
     
     // 4 - Bail out if you are shooting down or backwards
-    if (offset.x < 0) { return }
+//    if (offset.x < 0) { return }
     
     // 5 - OK to add now - you've double checked position
     addChild(projectile)
@@ -183,8 +219,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let actionMove = SKAction.moveTo(realDest, duration: 0.4)
     let actionMoveDone = SKAction.removeFromParent()
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
-    
   }
+
   
   func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
     println("Hit")
@@ -200,25 +236,66 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
   }
   
-  func didBeginContact(contact: SKPhysicsContact) {
-
-    // 1
-    var firstBody: SKPhysicsBody
-    var secondBody: SKPhysicsBody
-    if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-      firstBody = contact.bodyA
-      secondBody = contact.bodyB
-    } else {
-      firstBody = contact.bodyB
-      secondBody = contact.bodyA
-    }
+  func monsterDidCollideWithPlayer() {
+    println("Monster got the player!")
     
-    // 2
-    if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
-        (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
-      projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
-    }
+//    let loseAction = SKAction.runBlock() {
+      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+      let gameOverScene = GameOverScene(size: self.size, won: false)
+      self.view?.presentScene(gameOverScene, transition: reveal)
+//    }
     
+//    player.runAction(loseAction)
   }
   
+  func didBeginContact(contact: SKPhysicsContact) {
+    println(contact)
+
+//    // 1
+//    var firstBody: SKPhysicsBody
+//    var secondBody: SKPhysicsBody
+//    if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
+//      firstBody = contact.bodyA
+//      secondBody = contact.bodyB
+//    } else {
+//      firstBody = contact.bodyB
+//      secondBody = contact.bodyA
+//    }
+//    
+//    // 2
+//    if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+//        (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
+//      projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
+//    }
+//    
+//    // Deal with monster hitting player
+//    if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
+//        (secondBody.categoryBitMask & PhysicsCategory.Player != 0)) {
+//      monsterDidCollideWithPlayer()
+//    }
+    
+    // Step 1. Bitiwse OR the bodies' categories to find out what kind of contact we have
+    let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+    switch contactMask {
+      
+    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Projectile.rawValue:
+      
+      // Step 2. Disambiguate the bodies in the contact
+      if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
+        projectileDidCollideWithMonster(contact.bodyB.node as! SKSpriteNode, monster: contact.bodyA.node as! SKSpriteNode)
+      } else {
+        projectileDidCollideWithMonster(contact.bodyA.node as! SKSpriteNode, monster: contact.bodyB.node as! SKSpriteNode)
+      }
+      
+    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Player.rawValue:
+      
+      // Here we don't care which body is which, the scene is ending
+      monsterDidCollideWithPlayer()
+      
+    case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue:
+      println("projectile + player")
+    default:
+      fatalError("other collision: \(contactMask)")
+    }
+  }
 }

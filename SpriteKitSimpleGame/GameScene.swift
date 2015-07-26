@@ -173,6 +173,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
   }
   
+  override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    for touch in (touches as! Set<UITouch>) {
+      
+      let touchLocation = touch.locationInNode(self)
+      let spriteLocation = player.position
+      
+      let angle = atan2(spriteLocation.y - touchLocation.y, spriteLocation.x - touchLocation.x)
+      
+//      var moveAction = SKAction.moveTo(touchLocation, duration: 1)
+      let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+      
+      player.runAction(SKAction.sequence([rotateAction]))
+    }
+  }
+  
   override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
       

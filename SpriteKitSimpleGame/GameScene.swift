@@ -85,6 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   
   let player = SKSpriteNode(imageNamed: "player")
   var monstersDestroyed = 0
+  let scoreBoard = SKLabelNode(fontNamed: "Avenir")
   
   override func didMoveToView(view: SKView) {
   
@@ -113,6 +114,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         SKAction.waitForDuration(1.0)
       ])
     ))
+    
+    scoreBoard.position = CGPoint(x: size.width / 2, y: size.height-40)
+    scoreBoard.fontColor = UIColor.blackColor()
+    scoreBoard.fontSize = 40
+//    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
+//    scoreBoard.font = UIFont.systemFontOfSize(20)
+    scoreBoard.text = "Score: \(monstersDestroyed)"
+    
+    addChild(scoreBoard)
     
   }
   
@@ -228,6 +238,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     monster.removeFromParent()
     
     monstersDestroyed++
+    scoreBoard.text = "Score: \(monstersDestroyed)"
     if (monstersDestroyed > 30) {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
       let gameOverScene = GameOverScene(size: self.size, won: true)

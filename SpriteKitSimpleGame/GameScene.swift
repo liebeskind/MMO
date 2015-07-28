@@ -381,6 +381,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
     if analogStick.isEqual(moveAnalogStick) {
       aN.position = CGPointMake(aN.position.x + (velocity.x * 0.02), aN.position.y + (velocity.y * 0.02))
       
+      // Prevents player from going off screen
+      
+      if aN.position.x > self.frame.width {
+        aN.position.x = self.frame.width
+      }
+      
+      if aN.position.x < 0 {
+        aN.position.x = 0
+      }
+      
+      if aN.position.y > self.frame.height {
+        aN.position.y = self.frame.height
+      }
+      
+      if aN.position.y < 0 {
+        aN.position.y = 0
+      }
+      
       let angle = atan2(spriteLocation.y - aN.position.y, spriteLocation.x - aN.position.x)
       var rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
       

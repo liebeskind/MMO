@@ -65,14 +65,6 @@ extension CGPoint {
   }
 }
 
-//struct PhysicsCategory {
-//  static let None      : UInt32 = 0
-//  static let All       : UInt32 = UInt32.max
-//  static let Monster   : UInt32 = 0b1       // 1
-//  static let Projectile: UInt32 = 0b10      // 2
-//  static let Player: UInt32 = 0b110 // 3
-//}
-
 enum PhysicsCategory : UInt32 {
   case None   = 0
   case All    = 0xFFFFFFFF
@@ -81,7 +73,12 @@ enum PhysicsCategory : UInt32 {
   case Player = 0b100
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
+  
+  var appleNode: SKSpriteNode?
+  
+  let moveAnalogStick: AnalogStick = AnalogStick()
+  let rotateAnalogStick: AnalogStick = AnalogStick()
   
   let player = SKSpriteNode(imageNamed: "player")
   var monstersDestroyed = 0
@@ -147,6 +144,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     addChild(highScoreBoard)
     
+    // Analog Joystick setup
+    let bgDiametr: CGFloat = 120
+    let thumbDiametr: CGFloat = 60
+    let joysticksRadius = bgDiametr / 2
+    moveAnalogStick.bgNodeDiametr = bgDiametr
+    moveAnalogStick.thumbNodeDiametr = thumbDiametr
+    moveAnalogStick.position = CGPointMake(joysticksRadius + 15, joysticksRadius + 15)
+    moveAnalogStick.delegate = self
+    self.addChild(moveAnalogStick)
+    
+    //Can add rotation joystick, but probably not necessary
+//    rotateAnalogStick.bgNodeDiametr = bgDiametr
+//    rotateAnalogStick.thumbNodeDiametr = thumbDiametr
+//    rotateAnalogStick.position = CGPointMake(CGRectGetMaxX(self.frame) - joysticksRadius - 15, joysticksRadius + 15)
+//    rotateAnalogStick.delegate = self
+//    self.addChild(rotateAnalogStick)
   }
   
   func random() -> CGFloat {
@@ -358,6 +371,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       println("projectile + player")
     default:
       fatalError("other collision: \(contactMask)")
+    }
+  }
+  
+  // MARK: AnalogStickProtocol
+  func moveAnalogStick(analogStick: AnalogStick, velocity: CGPoint, angularVelocity: Float) {
+    let aN = player
+    let spriteLocation = player.position
+    if analogStick.isEqual(moveAnalogStick) {
+      aN.position = CGPointMake(aN.position.x + (velocity.x * 0.02), aN.position.y + (velocity.y * 0.02))
+      
+      let angle = atan2(spriteLocation.y - aN.position.y, spriteLocation.x - aN.position.x)
+      var rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
+      
+      player.runAction(SKAction.sequence([rotateAction]))
     }
   }
 }

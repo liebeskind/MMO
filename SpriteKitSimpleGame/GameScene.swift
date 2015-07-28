@@ -338,10 +338,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     case PhysicsCategory.Monster.rawValue | PhysicsCategory.Projectile.rawValue:
       
       // Step 2. Disambiguate the bodies in the contact
-      if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
-        projectileDidCollideWithMonster(contact.bodyB.node as! SKSpriteNode, monster: contact.bodyA.node as! SKSpriteNode)
-      } else {
-        projectileDidCollideWithMonster(contact.bodyA.node as! SKSpriteNode, monster: contact.bodyB.node as! SKSpriteNode)
+      
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
+            projectileDidCollideWithMonster(bodyB, monster: bodyA)
+          } else {
+            projectileDidCollideWithMonster(bodyA, monster: bodyB)
+          }
+        }
       }
       
     case PhysicsCategory.Monster.rawValue | PhysicsCategory.Player.rawValue:

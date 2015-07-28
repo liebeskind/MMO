@@ -86,16 +86,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   let player = SKSpriteNode(imageNamed: "player")
   var monstersDestroyed = 0
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
+  let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
   
   override func didMoveToView(view: SKView) {
+    if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+    } else {
+      NSUserDefaults.standardUserDefaults().setObject(0,forKey:"HighestScore")
+    }
   
 //    playBackgroundMusic("background-music-aac.caf")
   
     backgroundColor = SKColor.whiteColor()
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+    var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
+
     
 //    player.physicsBody = SKPhysicsBody(rectangleOfSize: player.size)
-    player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/3)
+
+    player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/4)
     player.physicsBody?.dynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
@@ -115,14 +123,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       ])
     ))
     
-    scoreBoard.position = CGPoint(x: size.width / 2, y: size.height-40)
+    scoreBoard.position = CGPoint(x: size.width - 50, y: size.height-30)
     scoreBoard.fontColor = UIColor.blackColor()
-    scoreBoard.fontSize = 40
+    scoreBoard.fontSize = 15
+    scoreBoard.horizontalAlignmentMode = .Right
 //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
 //    scoreBoard.font = UIFont.systemFontOfSize(20)
     scoreBoard.text = "Score: \(monstersDestroyed)"
     
     addChild(scoreBoard)
+    
+    highScoreBoard.position = CGPoint(x: size.width - 50, y: size.height-50)
+    highScoreBoard.fontColor = UIColor.blackColor()
+    highScoreBoard.fontSize = 15
+    highScoreBoard.horizontalAlignmentMode = .Right
+    //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
+    //    scoreBoard.font = UIFont.systemFontOfSize(20)
+    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+      highScoreBoard.text = "High Score: \(savedScore)"
+    } else {
+      highScoreBoard.text = "High Score: \(0)"
+    }
+    
+    addChild(highScoreBoard)
     
   }
   
@@ -254,11 +277,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     monstersDestroyed++
     scoreBoard.text = "Score: \(monstersDestroyed)"
-    if (monstersDestroyed > 30) {
-      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: true)
-      self.view?.presentScene(gameOverScene, transition: reveal)
+    
+    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+      if monstersDestroyed > savedScore {
+        NSUserDefaults.standardUserDefaults().setObject(monstersDestroyed,forKey:"HighestScore")
+        highScoreBoard.text = "High Score: \(monstersDestroyed)"
+      }
     }
+    
+//    if (monstersDestroyed > 30) {
+//      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+//      let gameOverScene = GameOverScene(size: self.size, won: true)
+//      self.view?.presentScene(gameOverScene, transition: reveal)
+//    }
     
   }
   

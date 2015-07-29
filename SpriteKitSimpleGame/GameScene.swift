@@ -242,18 +242,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
     
     // Create the actions
-    let actionMove = SKAction.moveTo(CGPoint(x: -monster.size.width/2, y: actualY), duration: NSTimeInterval(actualDuration))
+    let actionMove = SKAction.moveTo(CGPoint(x: -monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
     let actionMoveDone = SKAction.removeFromParent()
-    let loseAction = SKAction.runBlock() {
-      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
-      self.view?.presentScene(gameOverScene, transition: reveal)
-    }
-    monster.runAction(SKAction.sequence([
-      actionMove,
-//      loseAction,
-      actionMoveDone]))
 
+    monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
   }
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {

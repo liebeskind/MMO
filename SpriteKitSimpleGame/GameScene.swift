@@ -353,7 +353,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // set up the speed
       
-//        shipSpeedX = 2 
+//        shipSpeedX = 2
 //        shipSpeedY = 2
 
         let multiplier:CGFloat = 0.02
@@ -385,8 +385,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       ball.runAction(fade)
       base.runAction(fade)
       
-      shipSpeedX = 0
-      shipSpeedY = 0
+      shipSpeedX /= 2
+      shipSpeedY /= 2
     }
 
   }
@@ -554,21 +554,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
     } else {
       
-      if player.position.x > self.frame.width {
-        player.position.x = self.frame.width
+      if player.position.x >= self.frame.width {
+        player.position.x = self.frame.width - 1
         
-      } else if player.position.x < 0 {
-        player.position.x = 0
+      } else if player.position.x <= 0 {
+        player.position.x = 1
       
-      } else if player.position.y > self.frame.height {
-        player.position.y = self.frame.height
+      } else if player.position.y >= self.frame.height {
+        player.position.y = self.frame.height - 1
       
-      } else if player.position.y < 0 {
-        player.position.y = 0
+      } else if player.position.y <= 0 {
+        player.position.y = 1
       
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
       }
+      println(player.position)
     }
   }
 }

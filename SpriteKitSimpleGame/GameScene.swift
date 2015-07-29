@@ -73,17 +73,47 @@ enum PhysicsCategory : UInt32 {
   case Player = 0b100
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
+//enum BodyType:UInt32 {
+//  
+//  case player = 1
+//  case ground = 2
+//  case anotherBody1 = 4
+//  case anotherBody2 = 8
+//  case anotherBody3 = 16
+//  
+//}
+
+enum MoveStates:Int {
+  
+  case N,S,E,W,NE,NW,SE,SW
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var appleNode: SKSpriteNode?
   
-  let moveAnalogStick: AnalogStick = AnalogStick()
-  let rotateAnalogStick: AnalogStick = AnalogStick()
+//  let moveAnalogStick: AnalogStick = AnalogStick()
+//  let rotateAnalogStick: AnalogStick = AnalogStick()
   
   let player = SKSpriteNode(imageNamed: "player")
   var monstersDestroyed = 0
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
   let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
+  
+  var currentState = MoveStates.N
+  
+  let base = SKSpriteNode(imageNamed:"aSBgImg")
+  let ball = SKSpriteNode(imageNamed:"aSThumbImg")
+  
+  var stickActive:Bool = false
+  var playerMoving: Bool = false
+  
+  var shipSpeedX:CGFloat = 0.0
+  var shipSpeedY:CGFloat = 0.0
+  var strictCompassMovements:Bool = false
+
+  let attackButton = SKSpriteNode(imageNamed: "AttackButton")
+
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -144,15 +174,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
     
     addChild(highScoreBoard)
     
-    // Analog Joystick setup
-    let bgDiametr: CGFloat = 120
-    let thumbDiametr: CGFloat = 60
-    let joysticksRadius = bgDiametr / 2
-    moveAnalogStick.bgNodeDiametr = bgDiametr
-    moveAnalogStick.thumbNodeDiametr = thumbDiametr
-    moveAnalogStick.position = CGPointMake(joysticksRadius + 15, joysticksRadius + 15)
-    moveAnalogStick.delegate = self
-    self.addChild(moveAnalogStick)
+//    // Analog Joystick setup
+//    let bgDiametr: CGFloat = 120
+//    let thumbDiametr: CGFloat = 60
+//    let joysticksRadius = bgDiametr / 2
+//    moveAnalogStick.bgNodeDiametr = bgDiametr
+//    moveAnalogStick.thumbNodeDiametr = thumbDiametr
+//    moveAnalogStick.position = CGPointMake(joysticksRadius + 15, joysticksRadius + 15)
+//    moveAnalogStick.delegate = self
+//    self.addChild(moveAnalogStick)
     
     //Can add rotation joystick, but probably not necessary
 //    rotateAnalogStick.bgNodeDiametr = bgDiametr
@@ -160,6 +190,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
 //    rotateAnalogStick.position = CGPointMake(CGRectGetMaxX(self.frame) - joysticksRadius - 15, joysticksRadius + 15)
 //    rotateAnalogStick.delegate = self
 //    self.addChild(rotateAnalogStick)
+    
+//    self.anchorPoint = CGPointMake(0.5, 0.5)
+    
+    addChild(base)
+    base.position = CGPointMake(0, -100)
+    base.size = CGSize(width: 100.0, height: 100.0)
+    
+    addChild(ball)
+    ball.position = base.position
+    ball.size = CGSize(width: 25.0, height: 25.0)
+    
+    ball.alpha = 0.4
+    base.alpha = 0.4
+
+//    attackButton.position = CGPoint(x: self.frame.width - 100, y: 75)
+//  
+//    self.addChild(attackButton)
   }
   
   func random() -> CGFloat {
@@ -210,42 +257,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
   }
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    
     for touch in (touches as! Set<UITouch>) {
       
       let touchLocation = touch.locationInNode(self)
       let spriteLocation = player.position
       
-      let angle = atan2(spriteLocation.y - touchLocation.y, spriteLocation.x - touchLocation.x)
+      stickActive = true
       
-//      var moveAction = SKAction.moveTo(touchLocation, duration: 1)
-      let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-      
-      player.runAction(SKAction.sequence([rotateAction]))
+      if (CGRectContainsPoint(ball.frame, touchLocation)) {
+        
+        
+      } else {
+        
+        ball.alpha = 0.4
+        base.alpha = 0.4
+        
+        base.position = touchLocation
+        ball.position = touchLocation
+        
+      }
     }
-  }
-  
-  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
-      
-      let touchLocation = touch.locationInNode(self)
-      let spriteLocation = player.position
-      
-      let angle = atan2(spriteLocation.y - touchLocation.y, spriteLocation.x - touchLocation.x)
-      
-      var moveAction = SKAction.moveTo(touchLocation, duration: 1)
-      let rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-      
-      player.runAction(SKAction.sequence([rotateAction, moveAction]))
-    }
-  }
-  
-  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-
-//    runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-
+    
     // 1 - Choose one of the touches to work with
     let touch = touches.first as! UITouch
     let touchLocation = touch.locationInNode(self)
+    var offset = CGPoint()
     
     // 2 - Set up initial location of projectile
     let projectile = SKSpriteNode(imageNamed: "projectile")
@@ -258,28 +295,100 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
     projectile.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     projectile.physicsBody?.usesPreciseCollisionDetection = true
     
-    // 3 - Determine offset of location to projectile
-    let offset = touchLocation - projectile.position
+    var vector = CGVector()
     
-    // 4 - Bail out if you are shooting down or backwards
-//    if (offset.x < 0) { return }
+    offset = base.position - projectile.position
     
-    // 5 - OK to add now - you've double checked position
     addChild(projectile)
     
-    // 6 - Get the direction of where to shoot
     let direction = offset.normalized()
-    
-    // 7 - Setting the shoot distance so doesn't go too far
     let shootAmount = direction * 200
-    
-    // 8 - Add the shoot amount to the current position
     let realDest = shootAmount + projectile.position
     
-    // 9 - Create the actions
     let actionMove = SKAction.moveTo(realDest, duration: 0.4)
     let actionMoveDone = SKAction.removeFromParent()
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+    
+    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
+    let angle = atan2(v.dy, v.dx)
+    player.zRotation = angle - 1.57079633
+  }
+  
+  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    for touch in (touches as! Set<UITouch>) {
+      
+      let touchLocation = touch.locationInNode(self)
+//      let spriteLocation = player.position
+      
+      if (stickActive == true) {
+        
+        playerMoving = true
+        
+        let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
+        let angle = atan2(v.dy, v.dx)
+        
+        let deg = angle * CGFloat( 180 / M_PI)
+        //println( deg + 180 )
+        
+        self.figureOutDirection( deg + 180)
+        
+        let length:CGFloat = base.frame.size.height / 2
+        
+        //let length:CGFloat = 40
+        
+        let xDist:CGFloat = sin(angle - 1.57079633) * length
+        let yDist:CGFloat = cos(angle - 1.57079633) * length
+        
+        if (CGRectContainsPoint(base.frame, touchLocation)) {
+          
+          ball.position = touchLocation
+          
+        } else {
+          
+          ball.position = CGPointMake( base.position.x - xDist, base.position.y + yDist)
+          
+        }
+        
+        player.zRotation = angle - 1.57079633
+        
+        // set up the speed
+      
+//        shipSpeedX = 2 
+//        shipSpeedY = 2
+
+        let multiplier:CGFloat = 0.02
+        
+        shipSpeedX = v.dx * multiplier
+        shipSpeedY = v.dy * multiplier
+        
+        println(shipSpeedX)
+        println(shipSpeedY)
+        
+      } // ends stickActive test
+    }
+  }
+  
+  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+
+//    runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
+
+    if (stickActive == true) {
+      stickActive = false
+      
+      let move:SKAction = SKAction.moveTo(base.position, duration: 0.2)
+      move.timingMode = .EaseOut
+      
+      ball.runAction(move)
+      
+      let fade:SKAction = SKAction.fadeAlphaTo(0, duration: 0.3)
+      
+      ball.runAction(fade)
+      base.runAction(fade)
+      
+      shipSpeedX = 0
+      shipSpeedY = 0
+    }
+
   }
 
   
@@ -297,52 +406,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
         highScoreBoard.text = "High Score: \(monstersDestroyed)"
       }
     }
-    
-//    if (monstersDestroyed > 30) {
-//      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-//      let gameOverScene = GameOverScene(size: self.size, won: true)
-//      self.view?.presentScene(gameOverScene, transition: reveal)
-//    }
-    
   }
   
   func monsterDidCollideWithPlayer() {
     println("Monster got the player!")
     
-//    let loseAction = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
       let gameOverScene = GameOverScene(size: self.size, won: false)
       self.view?.presentScene(gameOverScene, transition: reveal)
-//    }
-    
-//    player.runAction(loseAction)
+
   }
   
   func didBeginContact(contact: SKPhysicsContact) {
-    println(contact)
-
-//    // 1
-//    var firstBody: SKPhysicsBody
-//    var secondBody: SKPhysicsBody
-//    if contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask {
-//      firstBody = contact.bodyA
-//      secondBody = contact.bodyB
-//    } else {
-//      firstBody = contact.bodyB
-//      secondBody = contact.bodyA
-//    }
-//    
-//    // 2
-//    if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
-//        (secondBody.categoryBitMask & PhysicsCategory.Projectile != 0)) {
-//      projectileDidCollideWithMonster(firstBody.node as! SKSpriteNode, monster: secondBody.node as! SKSpriteNode)
-//    }
-//    
-//    // Deal with monster hitting player
-//    if ((firstBody.categoryBitMask & PhysicsCategory.Monster != 0) &&
-//        (secondBody.categoryBitMask & PhysicsCategory.Player != 0)) {
-//      monsterDidCollideWithPlayer()
-//    }
     
     // Step 1. Bitiwse OR the bodies' categories to find out what kind of contact we have
     let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
@@ -374,35 +449,126 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AnalogStickProtocol {
     }
   }
   
-  // MARK: AnalogStickProtocol
-  func moveAnalogStick(analogStick: AnalogStick, velocity: CGPoint, angularVelocity: Float) {
-    let aN = player
-    let spriteLocation = player.position
-    if analogStick.isEqual(moveAnalogStick) {
-      aN.position = CGPointMake(aN.position.x + (velocity.x * 0.02), aN.position.y + (velocity.y * 0.02))
+  func figureOutDirection(degree:CGFloat) {
+    
+    if (degree <= 360 && degree >= 335) {
       
-      // Prevents player from going off screen
+      currentState = MoveStates.W
       
-      if aN.position.x > self.frame.width {
-        aN.position.x = self.frame.width
+    }
+    else if (degree <= 334 && degree >= 290) {
+      
+      currentState = MoveStates.NW
+      
+    }
+    else if (degree <= 289 && degree >= 245) {
+      
+      currentState = MoveStates.N
+      
+    }
+    else if (degree <= 244 && degree >= 200) {
+      
+      currentState = MoveStates.NE
+      
+    }
+    else if (degree <= 199 && degree >= 155) {
+      
+      currentState = MoveStates.E
+      
+    }
+    else if (degree <= 154 && degree >= 110) {
+      
+      currentState = MoveStates.SE
+      
+    }
+    else if (degree <= 109 && degree >= 65) {
+      
+      currentState = MoveStates.S
+      
+    }
+    else if (degree <= 64 && degree >= 20) {
+      
+      currentState = MoveStates.SW
+      
+    }
+    else if (degree <= 19 && degree <= 0) {
+      
+      currentState = MoveStates.W
+      
+    }
+  }
+  
+  override func update(currentTime: CFTimeInterval) {
+    /* Called before each frame is rendered */
+    
+    
+    if ( strictCompassMovements == true) {
+
+      var xMove:CGFloat = 0
+      var yMove:CGFloat = 0
+      
+      switch (currentState) {
+        
+      case .N:
+        yMove = 0.1
+      case .S:
+        yMove = -0.1
+      case .E:
+        xMove = 0.1
+      case .W:
+        xMove = -0.1
+      case .NE:
+        yMove = 0.1
+        xMove = 0.1
+      case .SE:
+        yMove = -0.1
+        xMove = 0.1
+      case .NW:
+        xMove = -0.1
+        yMove = 0.1
+      case .SW:
+        xMove = -0.1
+        yMove = -0.1
+        
+      default:
+        break
+        
       }
       
-      if aN.position.x < 0 {
-        aN.position.x = 0
+      if player.position.x > self.frame.width {
+        player.position.x = self.frame.width
+      
+      } else if player.position.x < 0 {
+        player.position.x = 0
+      
+      } else if player.position.y > self.frame.height {
+        player.position.y = self.frame.height
+      
+      } else if player.position.y < 0 {
+        player.position.y = 0
+      
+      } else {
+        player.position = CGPointMake(player.position.x + xMove, player.position.y + yMove)
       }
       
-      if aN.position.y > self.frame.height {
-        aN.position.y = self.frame.height
+      
+    } else {
+      
+      if player.position.x > self.frame.width {
+        player.position.x = self.frame.width
+        
+      } else if player.position.x < 0 {
+        player.position.x = 0
+      
+      } else if player.position.y > self.frame.height {
+        player.position.y = self.frame.height
+      
+      } else if player.position.y < 0 {
+        player.position.y = 0
+      
+      } else {
+        player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
       }
-      
-      if aN.position.y < 0 {
-        aN.position.y = 0
-      }
-      
-      let angle = atan2(spriteLocation.y - aN.position.y, spriteLocation.x - aN.position.x)
-      var rotateAction = SKAction.rotateToAngle(angle + CGFloat(M_PI*0.5), duration: 0.0)
-      
-      player.runAction(SKAction.sequence([rotateAction]))
     }
   }
 }

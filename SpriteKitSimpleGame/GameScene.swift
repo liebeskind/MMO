@@ -320,7 +320,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let angle = atan2(v.dy, v.dx)
         
         let deg = angle * CGFloat( 180 / M_PI)
-        //println( deg + 180 )
         
         self.figureOutDirection( deg + 180)
         
@@ -344,14 +343,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         player.zRotation = angle - 1.57079633
         
         // set up the speed
-      
-//        shipSpeedX = 2
-//        shipSpeedY = 2
 
         let multiplier:CGFloat = 0.02
         
-        shipSpeedX = v.dx * multiplier
-        shipSpeedY = v.dy * multiplier
+        shipSpeedX = min(v.dx * multiplier, 2.0)
+        shipSpeedY = min(v.dy * multiplier, 2.0)
         
         println(shipSpeedX)
         println(shipSpeedY)
@@ -561,7 +557,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
       }
-      println(player.position)
     }
   }
 }

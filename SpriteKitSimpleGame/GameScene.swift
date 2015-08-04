@@ -114,6 +114,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var strictCompassMovements:Bool = false
 
   let attackButton = SKSpriteNode(imageNamed: "AttackButton")
+  var mostRecentBallPosition = CGPoint() // Used for aiming attack when not moving
+  var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
 
   
   override func didMoveToView(view: SKView) {
@@ -211,9 +213,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     ball.alpha = 0.4
     base.alpha = 0.4
 
-//    attackButton.position = CGPoint(x: self.frame.width - 100, y: 75)
-//  
-//    self.addChild(attackButton)
+    attackButton.position = CGPoint(x: self.frame.width - 100, y: 75)
+  
+    self.addChild(attackButton)
   }
   
   func random() -> CGFloat {
@@ -273,31 +275,95 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-    
     for touch in (touches as! Set<UITouch>) {
-      
+    stickActive = true
+    
       let touchLocation = touch.locationInNode(self)
       let spriteLocation = player.position
-      
-      stickActive = true
-      
-      if (CGRectContainsPoint(ball.frame, touchLocation)) {
-        
-        
+    
+      if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+        attackButtonPushed()
       } else {
+          ball.alpha = 0.4
+          base.alpha = 0.4
         
-        ball.alpha = 0.4
-        base.alpha = 0.4
-        
-        base.position = touchLocation
-        ball.position = touchLocation
-        
+          base.position = touchLocation
+          ball.position = touchLocation
+          mostRecentBasePosition = base.position
+          mostRecentBallPosition = ball.position
       }
     }
-    
-    // 1 - Choose one of the touches to work with
-    let touch = touches.first as! UITouch
+  }
+  
+  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+    for touch in (touches as! Set<UITouch>) {
     let touchLocation = touch.locationInNode(self)
+      if (stickActive == true) {
+        playerMoving = true
+        
+        let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
+        let angle = atan2(v.dy, v.dx)
+        
+        let deg = angle * CGFloat( 180 / M_PI)
+        
+        self.figureOutDirection( deg + 180)
+        
+        let length:CGFloat = base.frame.size.height / 2
+        let xDist:CGFloat = sin(angle - 1.57079633) * length
+        let yDist:CGFloat = cos(angle - 1.57079633) * length
+        
+        if (CGRectContainsPoint(base.frame, touchLocation)) {
+          
+          ball.position = touchLocation
+          mostRecentBasePosition = base.position
+          mostRecentBallPosition = ball.position
+          
+        } else if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+          return
+
+        } else {
+          ball.position = CGPointMake( base.position.x - xDist, base.position.y + yDist)
+          mostRecentBasePosition = base.position
+          mostRecentBallPosition = ball.position
+        }
+        
+        player.zRotation = angle - 1.57079633
+        
+        // set up the speed
+        let multiplier:CGFloat = 0.02
+        
+        shipSpeedX = min(v.dx * multiplier, 2.0)
+        shipSpeedY = min(v.dy * multiplier, 2.0)
+        
+      } // ends stickActive test
+    }
+  }
+  
+  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    if (stickActive == true) {
+//      stickActive = false
+//      
+//      let move:SKAction = SKAction.moveTo(base.position, duration: 0.2)
+//      move.timingMode = .EaseOut
+//      
+//      ball.runAction(move)
+//      
+//      let fade:SKAction = SKAction.fadeAlphaTo(0, duration: 0.3)
+//      
+//      ball.runAction(fade)
+//      base.runAction(fade)
+      
+//      shipSpeedX /= 2
+//      shipSpeedY /= 2
+      
+//      shipSpeedX = 0
+//      shipSpeedY = 0
+    }
+  }
+  
+  func attackButtonPushed() {
+    println("attack")
+    
     var offset = CGPoint()
     
     // 2 - Set up initial location of projectile
@@ -313,7 +379,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var vector = CGVector()
     
-    offset = base.position - projectile.position
+    if ball.position != base.position {
+      offset = ball.position - base.position
+    } else {
+      offset = mostRecentBallPosition - mostRecentBasePosition
+    }
     
     addChild(projectile)
     
@@ -325,82 +395,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let actionMoveDone = SKAction.removeFromParent()
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     
-    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
-    let angle = atan2(v.dy, v.dx)
-    player.zRotation = angle - 1.57079633
-  }
-  
-  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
-      
-      let touchLocation = touch.locationInNode(self)
-//      let spriteLocation = player.position
-      
-      if (stickActive == true) {
-        
-        playerMoving = true
-        
-        let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
-        let angle = atan2(v.dy, v.dx)
-        
-        let deg = angle * CGFloat( 180 / M_PI)
-        
-        self.figureOutDirection( deg + 180)
-        
-        let length:CGFloat = base.frame.size.height / 2
-        
-        //let length:CGFloat = 40
-        
-        let xDist:CGFloat = sin(angle - 1.57079633) * length
-        let yDist:CGFloat = cos(angle - 1.57079633) * length
-        
-        if (CGRectContainsPoint(base.frame, touchLocation)) {
-          
-          ball.position = touchLocation
-          
-        } else {
-          
-          ball.position = CGPointMake( base.position.x - xDist, base.position.y + yDist)
-          
-        }
-        
-        player.zRotation = angle - 1.57079633
-        
-        // set up the speed
-
-        let multiplier:CGFloat = 0.02
-        
-        shipSpeedX = min(v.dx * multiplier, 2.0)
-        shipSpeedY = min(v.dy * multiplier, 2.0)
-        
-        println(shipSpeedX)
-        println(shipSpeedY)
-        
-      } // ends stickActive test
-    }
-  }
-  
-  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-
-//    runAction(SKAction.playSoundFileNamed("pew-pew-lei.caf", waitForCompletion: false))
-
-    if (stickActive == true) {
-      stickActive = false
-      
-      let move:SKAction = SKAction.moveTo(base.position, duration: 0.2)
-      move.timingMode = .EaseOut
-      
-      ball.runAction(move)
-      
-      let fade:SKAction = SKAction.fadeAlphaTo(0, duration: 0.3)
-      
-      ball.runAction(fade)
-      base.runAction(fade)
-      
-      shipSpeedX /= 2
-      shipSpeedY /= 2
-    }
-
+//    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
+//    let angle = atan2(v.dy, v.dx)
+//    player.zRotation = angle - 1.57079633
   }
 
   

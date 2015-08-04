@@ -265,7 +265,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     addChild(monster)
     
     // Determine speed of the monster
-    let actualDuration = random(min: CGFloat(2.0), max: CGFloat(4.0))
+    let minimum = max(Double(3 - coinsCollected/20), 0.5)
+    let maximum = minimum + 1.5
+    let actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
     
     // Create the actions
     let actionMove = SKAction.moveTo(CGPoint(x: -monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
@@ -330,7 +332,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         player.zRotation = angle - 1.57079633
         
         // set up the speed
-        let multiplier:CGFloat = 0.02
+        let multiplier:CGFloat = 0.04
         
         shipSpeedX = min(v.dx * multiplier, 2.0)
         shipSpeedY = min(v.dy * multiplier, 2.0)

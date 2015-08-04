@@ -91,11 +91,6 @@ enum MoveStates:Int {
 
 class GameScene: SKScene, SKPhysicsContactDelegate{
   
-  var appleNode: SKSpriteNode?
-  
-//  let moveAnalogStick: AnalogStick = AnalogStick()
-//  let rotateAnalogStick: AnalogStick = AnalogStick()
-  
   let player = SKSpriteNode(imageNamed: "player")
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -117,7 +112,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let attackButton = SKSpriteNode(imageNamed: "AttackButton")
   var mostRecentBallPosition = CGPoint() // Used for aiming attack when not moving
   var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
-
+  
+  var coinCount = 0
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -147,7 +143,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     physicsWorld.contactDelegate = self
     
     addMonster()
-    addCoin()
+    addCoins()
     
     runAction(SKAction.repeatActionForever(
       SKAction.sequence([
@@ -156,9 +152,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       ])
     ))
     
-    runAction(SKAction.repeatAction(
-      SKAction.runBlock(addCoin), count: 10)
-    )
+//    runAction(SKAction.repeatAction(
+//      SKAction.runBlock(addCoin), count: 10)
+//    )
     
     scoreBoard.position = CGPoint(x: size.width - 50, y: size.height-30)
     scoreBoard.fontColor = UIColor.blackColor()
@@ -227,21 +223,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     return random() * (max - min) + min
   }
   
-  func addCoin() {
-    let coin = SKSpriteNode(imageNamed: "coin")
-    coin.physicsBody = SKPhysicsBody(circleOfRadius: coin.size.width/2)
-//    coin.physicsBody?.dynamic = true
-    coin.physicsBody?.categoryBitMask = PhysicsCategory.Coin.rawValue
-//    coin.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
-//    coin.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-    
-    // Determine where to spawn the coin along the Y axis
-    let actualY = random(min: coin.size.height/2, max: size.height - coin.size.height/2)
-    let actualX = random(min: coin.size.width/2, max: size.width - coin.size.width/2)
-    
-    coin.position = CGPoint(x: actualX, y: actualY)
+  func addCoins() {
+    while coinCount < 11 {
+      let coin = SKSpriteNode(imageNamed: "coin")
+      coin.physicsBody = SKPhysicsBody(circleOfRadius: coin.size.width/2)
+      coin.physicsBody?.dynamic = true
+      coin.physicsBody?.categoryBitMask = PhysicsCategory.Coin.rawValue
+  //    coin.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+      coin.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      
+      // Determine where to spawn the coin along the Y axis
+      let actualY = random(min: coin.size.height, max: self.frame.size.height - coin.size.height)
+      let actualX = random(min: coin.size.width, max: self.frame.size.width - coin.size.width)
+      
+      coin.position = CGPoint(x: actualX, y: actualY)
 
-    addChild(coin)
+      self.addChild(coin)
+      coinCount++
+    }
   }
 
   func addMonster() {
@@ -421,7 +420,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {
     println("Collected coin")
+    
     coin.removeFromParent()
+    coinCount--
     
     coinsCollected++
     scoreBoard.text = "Score: \(coinsCollected)"
@@ -432,6 +433,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         highScoreBoard.text = "High Score: \(coinsCollected)"
       }
     }
+    
+    
   }
   
   func didBeginContact(contact: SKPhysicsContact) {
@@ -539,6 +542,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   override func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
     
+    addCoins()
     
     if ( strictCompassMovements == true) {
 

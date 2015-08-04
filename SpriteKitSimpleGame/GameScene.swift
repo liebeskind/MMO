@@ -71,6 +71,7 @@ enum PhysicsCategory : UInt32 {
   case Monster  = 0b001
   case Projectile = 0b010
   case Player = 0b100
+  case Coin = 01000
 }
 
 //enum BodyType:UInt32 {
@@ -134,6 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.physicsBody?.dynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
+    player.physicsBody?.contactTestBitMask = PhysicsCategory.Coin.rawValue
     player.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
     addChild(player)
@@ -142,6 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     physicsWorld.contactDelegate = self
     
     addMonster()
+    addCoin()
     
     runAction(SKAction.repeatActionForever(
       SKAction.sequence([
@@ -149,6 +152,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         SKAction.waitForDuration(1.0)
       ])
     ))
+    
+    runAction(SKAction.repeatAction(
+      SKAction.runBlock(addCoin), count: 10)
+    )
     
     scoreBoard.position = CGPoint(x: size.width - 50, y: size.height-30)
     scoreBoard.fontColor = UIColor.blackColor()
@@ -215,6 +222,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
   func random(#min: CGFloat, max: CGFloat) -> CGFloat {
     return random() * (max - min) + min
+  }
+  
+  func addCoin() {
+    let coin = SKSpriteNode(imageNamed: "coin")
+    coin.physicsBody = SKPhysicsBody(circleOfRadius: coin.size.width/2)
+//    coin.physicsBody?.dynamic = true
+    coin.physicsBody?.categoryBitMask = PhysicsCategory.Coin.rawValue
+//    coin.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+//    coin.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+    
+    // Determine where to spawn the coin along the Y axis
+    let actualY = random(min: coin.size.height/2, max: size.height - coin.size.height/2)
+    let actualX = random(min: coin.size.width/2, max: size.width - coin.size.width/2)
+    
+    coin.position = CGPoint(x: actualX, y: actualY)
+
+    addChild(coin)
   }
 
   func addMonster() {
@@ -405,6 +429,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
   }
   
+  func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {
+    println("Collected coin")
+    coin.removeFromParent()
+    
+    monstersDestroyed++
+    scoreBoard.text = "Score: \(monstersDestroyed)"
+    
+    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+      if monstersDestroyed > savedScore {
+        NSUserDefaults.standardUserDefaults().setObject(monstersDestroyed,forKey:"HighestScore")
+        highScoreBoard.text = "High Score: \(monstersDestroyed)"
+      }
+    }
+  }
+  
   func didBeginContact(contact: SKPhysicsContact) {
     
     // Step 1. Bitiwse OR the bodies' categories to find out what kind of contact we have
@@ -430,8 +469,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       // Here we don't care which body is which, the scene is ending
       monsterDidCollideWithPlayer()
       
+    case PhysicsCategory.Player.rawValue | PhysicsCategory.Coin.rawValue:
+      
+      // Here we don't care which body is which, the scene is ending
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Coin.rawValue {
+            playerCollectedCoin(bodyB, coin: bodyA)
+          } else {
+            playerCollectedCoin(bodyA, coin: bodyB)
+          }
+        }
+      }
+
+      
     case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue:
       println("projectile + player")
+    
+    case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Coin.rawValue:
+      println("projectile + coin")
+
+    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Coin.rawValue:
+      println("monster + coin")
+      
     default:
       fatalError("other collision: \(contactMask)")
     }

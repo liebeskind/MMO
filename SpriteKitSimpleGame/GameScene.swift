@@ -98,6 +98,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let player = SKSpriteNode(imageNamed: "player")
   var monstersDestroyed = 0
+  var coinsCollected = 0
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
   let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
   
@@ -165,7 +166,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     scoreBoard.horizontalAlignmentMode = .Right
 //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
 //    scoreBoard.font = UIFont.systemFontOfSize(20)
-    scoreBoard.text = "Score: \(monstersDestroyed)"
+    scoreBoard.text = "Score: \(coinsCollected)"
     
     addChild(scoreBoard)
     
@@ -284,13 +285,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
         attackButtonPushed()
       } else {
-          ball.alpha = 0.4
-          base.alpha = 0.4
-        
-          base.position = touchLocation
-          ball.position = touchLocation
-          mostRecentBasePosition = base.position
-          mostRecentBallPosition = ball.position
+        ball.alpha = 0.4
+        base.alpha = 0.4
+      
+        base.position = touchLocation
+        ball.position = touchLocation
+        mostRecentBasePosition = base.position
+        mostRecentBallPosition = ball.position
       }
     }
   }
@@ -407,14 +408,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.removeFromParent()
     
     monstersDestroyed++
-    scoreBoard.text = "Score: \(monstersDestroyed)"
-    
-    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
-      if monstersDestroyed > savedScore {
-        NSUserDefaults.standardUserDefaults().setObject(monstersDestroyed,forKey:"HighestScore")
-        highScoreBoard.text = "High Score: \(monstersDestroyed)"
-      }
-    }
   }
   
   func monsterDidCollideWithPlayer() {
@@ -430,13 +423,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     println("Collected coin")
     coin.removeFromParent()
     
-    monstersDestroyed++
-    scoreBoard.text = "Score: \(monstersDestroyed)"
+    coinsCollected++
+    scoreBoard.text = "Score: \(coinsCollected)"
     
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
-      if monstersDestroyed > savedScore {
-        NSUserDefaults.standardUserDefaults().setObject(monstersDestroyed,forKey:"HighestScore")
-        highScoreBoard.text = "High Score: \(monstersDestroyed)"
+      if coinsCollected > savedScore {
+        NSUserDefaults.standardUserDefaults().setObject(coinsCollected,forKey:"HighestScore")
+        highScoreBoard.text = "High Score: \(coinsCollected)"
       }
     }
   }

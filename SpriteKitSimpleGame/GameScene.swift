@@ -91,7 +91,9 @@ enum MoveStates:Int {
 
 class GameScene: SKScene, SKPhysicsContactDelegate{
   
-  let player = SKSpriteNode(imageNamed: "player")
+  var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
+  var playerFlyingScenes: [SKTexture]!
+  
   var monstersDestroyed = 0
   var coinsCollected = 0
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
@@ -101,6 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let base = SKSpriteNode(imageNamed:"aSBgImg")
   let ball = SKSpriteNode(imageNamed:"aSThumbImg")
+  let baseSize = CGFloat(100.0)
   
   var stickActive:Bool = false
   var playerMoving: Bool = false
@@ -120,15 +123,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     } else {
       NSUserDefaults.standardUserDefaults().setObject(0,forKey:"HighestScore")
     }
+    
+    physicsWorld.gravity = CGVectorMake(0, 0)
+    physicsWorld.contactDelegate = self
   
 //    playBackgroundMusic("background-music-aac.caf")
   
     backgroundColor = SKColor.whiteColor()
-    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
-    var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
-
+   
     
-//    player.physicsBody = SKPhysicsBody(rectangleOfSize: player.size)
+    let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
+    var flyFrames = [SKTexture]()
+    
+    let numImages = playerAnimatedAtlas.textureNames.count
+    for var i=0; i<numImages; i++ {
+      let playerTextureName = "BlueDragonFlap\(i)"
+      flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
+    }
+    
+    //Makes wing flapping animation more fluid as doesn't just reset at end
+    for var i=numImages-1; i>=0; i-- {
+      let playerTextureName = "BlueDragonFlap\(i)"
+      flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
+    }
+    
+    playerFlyingScenes = flyFrames
+    
+    let firstFrame = playerFlyingScenes[0]
+    player = SKSpriteNode(texture: firstFrame)
+    
+    addChild(player)
+    
+    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+    player.size = CGSize(width: 50, height: 33)
+    var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
     player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/4)
     player.physicsBody?.dynamic = true
@@ -137,10 +165,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Coin.rawValue
     player.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
-    addChild(player)
-    
-    physicsWorld.gravity = CGVectorMake(0, 0)
-    physicsWorld.contactDelegate = self
+    flyingPlayer()
     
     addMonster()
     addCoins()
@@ -200,18 +225,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    self.anchorPoint = CGPointMake(0.5, 0.5)
     
     addChild(base)
-    base.position = CGPointMake(0, -100)
-    base.size = CGSize(width: 100.0, height: 100.0)
+    base.position = CGPointMake(10.0 + baseSize/2, baseSize/2)
+    base.size = CGSize(width: baseSize, height: baseSize)
     
     addChild(ball)
     ball.position = base.position
-    ball.size = CGSize(width: 25.0, height: 25.0)
+    ball.size = CGSize(width: baseSize/4, height: baseSize/4)
     
-    ball.alpha = 0.4
     base.alpha = 0.4
+    ball.alpha = 0.4
 
     attackButton.position = CGPoint(x: self.frame.width - 100, y: 75)
-  
     self.addChild(attackButton)
   }
   
@@ -221,6 +245,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
   func random(#min: CGFloat, max: CGFloat) -> CGFloat {
     return random() * (max - min) + min
+  }
+  
+  func flyingPlayer() {
+    //This is our general runAction method to make our bear walk.
+    player.runAction(SKAction.repeatActionForever(
+      SKAction.animateWithTextures(playerFlyingScenes,
+        timePerFrame: 0.1,
+        resize: false,
+        restore: true)),
+      withKey:"playerFlappingWings")
   }
   
   func addCoins() {
@@ -415,7 +449,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     println("Monster got the player!")
     
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let gameOverScene = GameOverScene(size: self.size, won: false)
+    let gameOverScene = GameOverScene(size: self.size, won: false, score: coinsCollected)
       self.view?.presentScene(gameOverScene, transition: reveal)
 
   }

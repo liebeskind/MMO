@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameOverScene: SKScene {
   
-  init(size: CGSize, won:Bool) {
+  init(size: CGSize, won:Bool, score: Int) {
     
     super.init(size: size)
     
@@ -19,7 +19,7 @@ class GameOverScene: SKScene {
     backgroundColor = SKColor.whiteColor()
     
     // 2
-    var message = won ? "You Won!" : "You Lose :["
+    var message = won ? "You Won!" : "You lose & only got \(score) coins :["
     
     // 3
     let label = SKLabelNode(fontNamed: "Avenir")

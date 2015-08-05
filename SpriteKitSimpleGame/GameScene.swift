@@ -402,7 +402,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         player.zRotation = angle - 1.57079633
         
         // set up the speed
-        let multiplier:CGFloat = 0.04
+        let multiplier:CGFloat = 0.06
         
         shipSpeedX = min(v.dx * multiplier, 2.0)
         shipSpeedY = min(v.dy * multiplier, 2.0)
@@ -482,6 +482,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     println("Hit")
     
     projectile.removeFromParent()
+    
+    monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
     
     let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.02)
     let removeArrow = SKAction.removeFromParent()

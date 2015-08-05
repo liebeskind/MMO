@@ -96,6 +96,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var flyingSpeed = 0.05
   
   var fireballScenes: [SKTexture]!
+  var arrowScenes: [SKTexture]!
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -161,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.size = CGSize(width: 50, height: 33)
     var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
-    player.physicsBody = SKPhysicsBody(circleOfRadius: player.size.width/4)
+    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-15, height: player.size.height-15))
     player.physicsBody?.dynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
@@ -180,6 +181,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     fireballScenes = fireballFrames
+    
+    let arrowAnimatedAtlas = SKTextureAtlas(named: "arrowImages")
+    var arrowFrames = [SKTexture]()
+    
+    let numArrowImages = arrowAnimatedAtlas.textureNames.count
+    for var i=0; i<numArrowImages; i++ {
+      let arrowTextureName = "Arrow\(i)"
+      arrowFrames.append(arrowAnimatedAtlas.textureNamed(arrowTextureName))
+    }
+    
+    arrowScenes = arrowFrames
     
     addMonster()
     addCoins()
@@ -300,8 +312,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func addMonster() {
 
     // Create sprite
-    let monster = SKSpriteNode(imageNamed: "monster")
-    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
+    let monster = SKSpriteNode(imageNamed: "Arrow0")
+    monster.size = CGSize(width: 50.0, height: 5.0)
+    monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
+//    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
     monster.physicsBody?.dynamic = true
     monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
     monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
@@ -466,7 +480,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     println("Hit")
     
     projectile.removeFromParent()
-    monster.removeFromParent()
+    
+    let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.03)
+    let removeArrow = SKAction.removeFromParent()
+    monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
     
     monstersDestroyed++
   }

@@ -162,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.size = CGSize(width: 50, height: 33)
     var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
-    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-15, height: player.size.height-15))
+    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-20, height: player.size.height-15))
     player.physicsBody?.dynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
@@ -256,12 +256,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     addChild(ball)
     ball.position = base.position
-    ball.size = CGSize(width: baseSize/4, height: baseSize/4)
+    ball.size = CGSize(width: baseSize/3, height: baseSize/3)
     
     base.alpha = 0.4
     ball.alpha = 0.4
 
     attackButton.position = CGPoint(x: self.frame.width - 100, y: 75)
+    attackButton.alpha = 0.6
     self.addChild(attackButton)
   }
   
@@ -357,7 +358,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         ball.alpha = 0.4
         base.alpha = 0.4
       
-        base.position = touchLocation
+        
+        base.position = CGPoint(x: max(touchLocation.x, baseSize/2), y: max(touchLocation.y, baseSize/2))
         ball.position = touchLocation
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position
@@ -481,7 +483,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     projectile.removeFromParent()
     
-    let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.03)
+    let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.02)
     let removeArrow = SKAction.removeFromParent()
     monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
     

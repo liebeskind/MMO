@@ -19,7 +19,7 @@ class GameOverScene: SKScene {
     backgroundColor = SKColor.whiteColor()
     
     // 2
-    var message = won ? "You Won!" : "You lose & only got \(score) coins :["
+    var message = won ? "You Won!" : "You died with \(score) coins :["
     
     // 3
     let label = SKLabelNode(fontNamed: "Avenir")

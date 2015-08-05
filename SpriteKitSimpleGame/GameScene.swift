@@ -93,6 +93,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
   var playerFlyingScenes: [SKTexture]!
+  var flyingSpeed = 0.05
+  
+  var fireballScenes: [SKTexture]!
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -166,6 +169,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
     flyingPlayer()
+    
+    let fireballAnimatedAtlas = SKTextureAtlas(named: "fireballImages")
+    var fireballFrames = [SKTexture]()
+    
+    let numFireballImages = fireballAnimatedAtlas.textureNames.count
+    for var i=0; i<numFireballImages; i++ {
+      let fireballTextureName = "Fireball\(i)"
+      fireballFrames.append(fireballAnimatedAtlas.textureNamed(fireballTextureName))
+    }
+    
+    fireballScenes = fireballFrames
     
     addMonster()
     addCoins()
@@ -248,10 +262,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func flyingPlayer() {
-    //This is our general runAction method to make our bear walk.
+    
+//    while playerMoving == true {
+//      let fly = SKAction.animateWithTextures(playerFlyingScenes, timePerFrame: 0.05)
+//      player.runAction(fly)
+//    }
+  
     player.runAction(SKAction.repeatActionForever(
+      
       SKAction.animateWithTextures(playerFlyingScenes,
-        timePerFrame: 0.1,
+        timePerFrame: flyingSpeed,
         resize: false,
         restore: true)),
       withKey:"playerFlappingWings")
@@ -377,8 +397,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
     if (stickActive == true) {
+//      playerMoving = false
 //      stickActive = false
-//      
+//
 //      let move:SKAction = SKAction.moveTo(base.position, duration: 0.2)
 //      move.timingMode = .EaseOut
 //      
@@ -403,8 +424,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     var offset = CGPoint()
     
     // 2 - Set up initial location of projectile
-    let projectile = SKSpriteNode(imageNamed: "projectile")
+    var projectile = SKSpriteNode(texture: fireballScenes[0])
+    
     projectile.position = player.position
+    projectile.size = CGSize(width: 25.0, height: 25.0)
     
     projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
     projectile.physicsBody?.dynamic = true
@@ -429,6 +452,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     let actionMove = SKAction.moveTo(realDest, duration: 0.4)
     let actionMoveDone = SKAction.removeFromParent()
+    let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
+    projectile.runAction(SKAction.repeatActionForever(shootFireball))
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     
 //    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
@@ -439,6 +464,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
     println("Hit")
+    
     projectile.removeFromParent()
     monster.removeFromParent()
     

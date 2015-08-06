@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
-		296354831B7299A5003E73D0 /* arrowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354821B7299A5003E73D0 /* arrowImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
+		296354891B72C975003E73D0 /* arrowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354881B72C975003E73D0 /* arrowImages.atlas */; };
 		357164E519DB1E4800ED38A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E419DB1E4800ED38A9 /* AppDelegate.swift */; };
 		357164E919DB1E4800ED38A9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E819DB1E4800ED38A9 /* GameScene.swift */; };
 		357164EB19DB1E4800ED38A9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164EA19DB1E4800ED38A9 /* GameViewController.swift */; };
@@ -35,8 +35,8 @@
 
 /* Begin PBXFileReference section */
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
-		296354821B7299A5003E73D0 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = arrowImages.atlas; path = fireballImages.atlas/arrowImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
+		296354881B72C975003E73D0 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = arrowImages.atlas; sourceTree = "<group>"; };
 		357164DF19DB1E4800ED38A9 /* SpriteKitSimpleGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitSimpleGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164E419DB1E4800ED38A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -94,7 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				3571650819DB1F5500ED38A9 /* Sounds */,
-				296354821B7299A5003E73D0 /* arrowImages.atlas */,
+				296354881B72C975003E73D0 /* arrowImages.atlas */,
 				296354841B729EC4003E73D0 /* fireballImages.atlas */,
 				296354761B727DE1003E73D0 /* playerImages.atlas */,
 				3571650B19DB1F5500ED38A9 /* sprites.atlas */,
@@ -230,7 +230,7 @@
 				357164F319DB1E4800ED38A9 /* LaunchScreen.xib in Resources */,
 				357164F019DB1E4800ED38A9 /* Images.xcassets in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
-				296354831B7299A5003E73D0 /* arrowImages.atlas in Resources */,
+				296354891B72C975003E73D0 /* arrowImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
 				3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */,
 			);

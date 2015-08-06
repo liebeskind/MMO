@@ -484,8 +484,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     projectile.removeFromParent()
     
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
+    monster.physicsBody?.dynamic = true
+    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+    monster.physicsBody?.contactTestBitMask = PhysicsCategory.None.rawValue
+    monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
-    let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.02)
+    monster.size = CGSize(width: 50.0, height: 30.0)
+    
+    let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.04)
     let removeArrow = SKAction.removeFromParent()
     monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
     
@@ -516,8 +522,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         highScoreBoard.text = "High Score: \(coinsCollected)"
       }
     }
-    
-    
   }
   
   func didBeginContact(contact: SKPhysicsContact) {

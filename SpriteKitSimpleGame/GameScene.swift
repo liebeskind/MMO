@@ -160,9 +160,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
     player.size = CGSize(width: 50, height: 33)
+    player.zRotation = -1.57079633 //Start off facing right
     var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
-    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-20, height: player.size.height-15))
+    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-25, height: player.size.height-15))
     player.physicsBody?.dynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
@@ -255,8 +256,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     base.size = CGSize(width: baseSize, height: baseSize)
     
     addChild(ball)
-    ball.position = base.position
-    ball.size = CGSize(width: baseSize/3, height: baseSize/3)
+    ball.position = CGPointMake(base.position.x + 1, base.position.y) //Makes player face right and fireballs shoot right if don't move first
+    ball.size = CGSize(width: baseSize/2, height: baseSize/2)
     
     base.alpha = 0.4
     ball.alpha = 0.4
@@ -359,7 +360,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         base.alpha = 0.4
       
         
-        base.position = CGPoint(x: max(touchLocation.x, baseSize/2), y: max(touchLocation.y, baseSize/2))
+        base.position = CGPoint(x: max(touchLocation.x, baseSize/2), y: baseSize/2)
         ball.position = touchLocation
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position

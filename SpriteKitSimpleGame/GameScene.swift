@@ -348,17 +348,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
-    stickActive = true
-    
       let touchLocation = touch.locationInNode(self)
-      let spriteLocation = player.position
-    
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
         attackButtonPushed()
-      } else {
-        ball.alpha = 0.4
-        base.alpha = 0.4
+      } else if stickActive != true {
+        println("touch wasn't active, but it now")
+        stickActive = true
       
+        ball.alpha = 0.4
+        base.alpha = 0.4      
         
         base.position = CGPoint(x: max(touchLocation.x, baseSize/2), y: baseSize/2)
         ball.position = touchLocation
@@ -414,6 +412,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
     if (stickActive == true) {
+//      stickActive = false
 //      playerMoving = false
 //      stickActive = false
 //

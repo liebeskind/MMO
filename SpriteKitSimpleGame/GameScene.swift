@@ -511,7 +511,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
-        flame.hidden = true
+        flame.removeFromParent()
       }
     }
     

@@ -124,7 +124,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
   
   var purchaseFlame = SKLabelNode(fontNamed: "Avenir")
-
+  let flameUpgradeCost = 40
+  var flamePurchased = false
+  
+  var flame = SKSpriteNode()
+  var flameScenes: [SKTexture]!
+  var flameStartScenes: [SKTexture]!
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -170,6 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
     player.size = CGSize(width: 50, height: 33)
+    player.zPosition = 10
     player.zRotation = -1.57079633 //Start off facing right
     var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
@@ -204,6 +210,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     arrowScenes = arrowFrames
     
+    let flameAnimatedAtlas = SKTextureAtlas(named: "fullFlameImages")
+    var flameFrames = [SKTexture]()
+    
+    let numFlameImages = flameAnimatedAtlas.textureNames.count
+    for var i=0; i<numFlameImages; i++ {
+      let flameTextureName = "FullFlame\(i)"
+      flameFrames.append(flameAnimatedAtlas.textureNamed(flameTextureName))
+    }
+    
+    flameScenes = flameFrames
+    
+    let flameStartAnimatedAtlas = SKTextureAtlas(named: "flameImages")
+    var flameStartFrames = [SKTexture]()
+    
+    let numFlameStartImages = flameStartAnimatedAtlas.textureNames.count
+    for var i=0; i<numFlameStartImages; i++ {
+      let flameStartTextureName = "Flame\(i)"
+      flameStartFrames.append(flameStartAnimatedAtlas.textureNamed(flameStartTextureName))
+    }
+    
+    flameStartScenes = flameStartFrames
+
     addMonster()
     addCoins()
     
@@ -289,7 +317,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     purchaseFlame.fontColor = UIColor.redColor()
     purchaseFlame.fontSize = 15
     purchaseFlame.horizontalAlignmentMode = .Right
-    purchaseFlame.text = "Purchase Flame Upgrade"
+    purchaseFlame.text = "Purchase Flame for $\(flameUpgradeCost)"
     purchaseFlame.position = CGPoint(x: size.width - 50, y: size.height-50)
     self.addChild(purchaseFlame)
   }
@@ -373,13 +401,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
   }
   
+  func upgradePurchased(upgrade: SKLabelNode) {
+    switch upgrade {
+    case purchaseFlame:
+      purchaseFlame.hidden = true
+      flamePurchased = true
+    default: return
+    }
+  }
+  
+  func convertAngleToVector(radians: Double) ->CGVector {
+    var vector = CGVector()
+    let floatRadians = CGFloat(radians)
+    vector.dx = cos(floatRadians) * flame.size.width/2
+    vector.dy = sin(floatRadians) * flame.size.width/2
+    return vector
+  }
+  
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+        flame = SKSpriteNode(texture: flameScenes[0])
+        flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
+
+        flame.zPosition = 1
+        
+//        let startFlame = SKAction.animateWithTextures(flameStartScenes, timePerFrame: 0.2)
+        let flameStart = SKAction.scaleBy(4.0, duration: 1)
+        let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.05)
+        let repeatForever = SKAction.repeatActionForever(animateFlame)
+        flame.runAction(SKAction.sequence([flameStart, repeatForever]))
+        
+        flame.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: flame.size.width, height: flame.size.height))
+        flame.physicsBody?.dynamic = true
+        flame.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
+        flame.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
+        flame.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+        
+        self.addChild(flame)
         attackButtonPushed()
+      } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) {
+        upgradePurchased(purchaseFlame)
       } else if stickActive != true {
-        println("touch wasn't active, but it now")
 //        stickActive = true
       
         ball.alpha = 0.4
@@ -427,7 +491,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
         
         player.zRotation = angle - 1.57079633
-        
+//        let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+//        flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+////        flame.position = CGPoint(x: player.position.x, y: player.position.y + player.size.height/2)
+//        flame.zRotation = player.zRotation + 1.57079633
+      
         // set up the speed
         let multiplier:CGFloat = 0.06
         
@@ -441,7 +509,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    for touch in (touches as! Set<UITouch>) {
+      let touchLocation = touch.locationInNode(self)
+      if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+        flame.hidden = true
+      }
+    }
+    
     stickActive = false
+//    flame.hidden = true
+    
     if (stickActive == true) {
 //      stickActive = false
 //      playerMoving = false
@@ -714,6 +791,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         player.position = CGPointMake(player.position.x + xMove, player.position.y + yMove)
       }
       
+      let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+//      flame.position = player.position + flamePosVector
+      flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+      //        CGPoint(x: player.position.x - player.zRotation*player.size.width/2, y: player.position.y)
+      flame.zRotation = player.zRotation + 1.57079633
+      
       
     } else {
       
@@ -732,6 +815,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
       }
+      
+      let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+      flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+      //        CGPoint(x: player.position.x - player.zRotation*player.size.width/2, y: player.position.y)
+      flame.zRotation = player.zRotation + 1.57079633
+
     }
   }
 }

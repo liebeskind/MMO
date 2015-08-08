@@ -100,6 +100,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var monstersDestroyed = 0
   var coinsCollected = 0
+  var coinCount = 0
+  var totalCoins = Int()
+  let totalCoinsBoard = SKLabelNode(fontNamed: "Avenir")
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
   let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
   
@@ -120,12 +123,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var mostRecentBallPosition = CGPoint() // Used for aiming attack when not moving
   var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
   
-  var coinCount = 0
+  var purchaseFlame = SKLabelNode(fontNamed: "Avenir")
+
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
     } else {
       NSUserDefaults.standardUserDefaults().setObject(0,forKey:"HighestScore")
+    }
+    
+    if let coins: Int = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int {
+      totalCoins = coins
+    } else {
+      NSUserDefaults.standardUserDefaults().setObject(0,forKey:"TotalCoins")
     }
     
     physicsWorld.gravity = CGVectorMake(0, 0)
@@ -163,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.zRotation = -1.57079633 //Start off facing right
     var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
-    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-25, height: player.size.height-15))
+    player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-35, height: player.size.height-20))
     player.physicsBody?.dynamic = true
     player.physicsBody?.categoryBitMask = PhysicsCategory.Player.rawValue
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
@@ -208,20 +218,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //      SKAction.runBlock(addCoin), count: 10)
 //    )
     
-    scoreBoard.position = CGPoint(x: size.width - 50, y: size.height-30)
+    totalCoinsBoard.position = CGPoint(x: size.width - 50, y: size.height-30)
+    totalCoinsBoard.fontColor = UIColor.blackColor()
+    totalCoinsBoard.fontSize = 15
+    totalCoinsBoard.horizontalAlignmentMode = .Right
+    //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
+    //    scoreBoard.font = UIFont.systemFontOfSize(20)
+    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+    
+    addChild(totalCoinsBoard)
+    
+    scoreBoard.position = CGPoint(x: 10, y: size.height-30)
     scoreBoard.fontColor = UIColor.blackColor()
     scoreBoard.fontSize = 15
-    scoreBoard.horizontalAlignmentMode = .Right
+    scoreBoard.horizontalAlignmentMode = .Left
 //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
 //    scoreBoard.font = UIFont.systemFontOfSize(20)
     scoreBoard.text = "Score: \(coinsCollected)"
     
     addChild(scoreBoard)
     
-    highScoreBoard.position = CGPoint(x: size.width - 50, y: size.height-50)
+    highScoreBoard.position = CGPoint(x: 10, y: size.height-50)
     highScoreBoard.fontColor = UIColor.blackColor()
     highScoreBoard.fontSize = 15
-    highScoreBoard.horizontalAlignmentMode = .Right
+    highScoreBoard.horizontalAlignmentMode = .Left
     //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
     //    scoreBoard.font = UIFont.systemFontOfSize(20)
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -262,9 +282,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     base.alpha = 0.4
     ball.alpha = 0.4
 
-    attackButton.position = CGPoint(x: self.frame.width - 100, y: 75)
+    attackButton.position = CGPoint(x: self.frame.width - attackButton.size.width/2 - 5, y: attackButton.size.height/2 + 5)
     attackButton.alpha = 0.6
     self.addChild(attackButton)
+    
+    purchaseFlame.fontColor = UIColor.redColor()
+    purchaseFlame.fontSize = 15
+    purchaseFlame.horizontalAlignmentMode = .Right
+    purchaseFlame.text = "Purchase Flame Upgrade"
+    purchaseFlame.position = CGPoint(x: size.width - 50, y: size.height-50)
+    self.addChild(purchaseFlame)
   }
   
   func random() -> CGFloat {
@@ -315,7 +342,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
     // Create sprite
     let monster = SKSpriteNode(imageNamed: "Arrow0")
-    monster.size = CGSize(width: 50.0, height: 5.0)
+    monster.size = CGSize(width: 50.0, height: 10.0)
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
 //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
     monster.physicsBody?.dynamic = true
@@ -353,13 +380,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         attackButtonPushed()
       } else if stickActive != true {
         println("touch wasn't active, but it now")
-        stickActive = true
+//        stickActive = true
       
         ball.alpha = 0.4
-        base.alpha = 0.4      
+        base.alpha = 0.4
         
-        base.position = CGPoint(x: max(touchLocation.x, baseSize/2), y: baseSize/2)
-        ball.position = touchLocation
+        base.position = CGPoint(x: min(max(touchLocation.x, baseSize/2), self.frame.width/2), y: baseSize/2)
+        ball.position = base.position
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position
       }
@@ -369,8 +396,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
     let touchLocation = touch.locationInNode(self)
-      if (stickActive == true) {
+//      if (stickActive == true) {
         playerMoving = true
+    stickActive = true
         
         let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
         let angle = atan2(v.dy, v.dx)
@@ -406,11 +434,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         shipSpeedX = min(v.dx * multiplier, 2.0)
         shipSpeedY = min(v.dy * multiplier, 2.0)
         
+//        stickActive = false
+      
       } // ends stickActive test
-    }
+//    }
   }
   
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    stickActive = false
     if (stickActive == true) {
 //      stickActive = false
 //      playerMoving = false
@@ -504,7 +535,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
     let gameOverScene = GameOverScene(size: self.size, won: false, score: coinsCollected)
       self.view?.presentScene(gameOverScene, transition: reveal)
-
   }
   
   func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {
@@ -514,7 +544,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     coinCount--
     
     coinsCollected++
+    totalCoins++
+    NSUserDefaults.standardUserDefaults().setObject(totalCoins,forKey:"TotalCoins")
+    
     scoreBoard.text = "Score: \(coinsCollected)"
+    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
     
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
       if coinsCollected > savedScore {

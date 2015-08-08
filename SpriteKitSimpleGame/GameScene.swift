@@ -422,24 +422,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
-        flame = SKSpriteNode(texture: flameScenes[0])
-        flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
-        flame.zPosition = 1
-        
-//        let startFlame = SKAction.animateWithTextures(flameStartScenes, timePerFrame: 0.2)
-        let flameStart = SKAction.scaleBy(4.0, duration: 1)
-        let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.05)
-        let repeatForever = SKAction.repeatActionForever(animateFlame)
-        flame.runAction(SKAction.sequence([flameStart, repeatForever]))
-        
-        flame.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: flame.size.width, height: flame.size.height))
-        flame.physicsBody?.dynamic = true
-        flame.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
-        flame.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
-        flame.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-        
-        self.addChild(flame)
         attackButtonPushed()
+        if flamePurchased == true {
+          flame = SKSpriteNode(texture: flameScenes[0])
+          flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
+          flame.zPosition = 1
+          
+  //        let startFlame = SKAction.animateWithTextures(flameStartScenes, timePerFrame: 0.2)
+          let flameStart = SKAction.scaleBy(4.0, duration: 0.5)
+          let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.05)
+          let repeatForever = SKAction.repeatActionForever(animateFlame)
+          flame.runAction(SKAction.sequence([flameStart, repeatForever]))
+          
+          flame.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: flame.size.width, height: flame.size.height))
+          flame.physicsBody?.dynamic = true
+          flame.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
+          flame.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
+          flame.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+          
+          self.addChild(flame)
+        } 
       } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) {
         upgradePurchased(purchaseFlame)
       } else if stickActive != true {

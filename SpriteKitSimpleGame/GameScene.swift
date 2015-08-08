@@ -413,8 +413,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func convertAngleToVector(radians: Double) ->CGVector {
     var vector = CGVector()
     let floatRadians = CGFloat(radians)
-    vector.dx = cos(floatRadians) * flame.size.width/2
-    vector.dy = sin(floatRadians) * flame.size.width/2
+    vector.dx = cos(floatRadians) * (flame.size.width/2 + 8)
+    vector.dy = sin(floatRadians) * (flame.size.width/2 + 8)
     return vector
   }
   
@@ -424,7 +424,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
         flame = SKSpriteNode(texture: flameScenes[0])
         flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
-
         flame.zPosition = 1
         
 //        let startFlame = SKAction.animateWithTextures(flameStartScenes, timePerFrame: 0.2)

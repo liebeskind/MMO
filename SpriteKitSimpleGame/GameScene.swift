@@ -413,8 +413,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func convertAngleToVector(radians: Double) ->CGVector {
     var vector = CGVector()
     let floatRadians = CGFloat(radians)
-    vector.dx = cos(floatRadians) * (flame.size.width/2 + 8)
-    vector.dy = sin(floatRadians) * (flame.size.width/2 + 8)
+    vector.dx = cos(floatRadians) * (flame.size.width/2 + 14)
+    vector.dy = sin(floatRadians) * (flame.size.width/2 + 14)
     return vector
   }
   
@@ -430,7 +430,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           
   //        let startFlame = SKAction.animateWithTextures(flameStartScenes, timePerFrame: 0.2)
           let flameStart = SKAction.scaleBy(4.0, duration: 0.5)
-          let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.05)
+          let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.07)
+//          let animateFlameDecreaseSize = SKAction.group([animateFlame, SKAction.scaleBy(0.9, duration: 0.5)])
+//          let animateFlameIncreaseSize = SKAction.group([animateFlame, SKAction.scaleBy(1.1, duration: 0.5)])
           let repeatForever = SKAction.repeatActionForever(animateFlame)
           flame.runAction(SKAction.sequence([flameStart, repeatForever]))
           

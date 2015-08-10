@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:SpriteKitSimpleGame.xcodeproj">
+      location = "self:/Users/dliebeskind/Dropbox/Hacking/iOS/MMO/DragoMerc.xcodeproj">
    </FileRef>
 </Workspace>

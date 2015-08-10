@@ -41,7 +41,7 @@
 		296354881B72C975003E73D0 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = arrowImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
 		2963548E1B75D426003E73D0 /* fullFlameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fullFlameImages.atlas; path = ../../../../Designs/MMO/fullFlameImages.atlas; sourceTree = "<group>"; };
-		357164DF19DB1E4800ED38A9 /* SpriteKitSimpleGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpriteKitSimpleGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		357164DF19DB1E4800ED38A9 /* DragoMerc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragoMerc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164E419DB1E4800ED38A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		357164E819DB1E4800ED38A9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		357164ED19DB1E4800ED38A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		357164EF19DB1E4800ED38A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		357164F219DB1E4800ED38A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		357164F819DB1E4800ED38A9 /* SpriteKitSimpleGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpriteKitSimpleGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		357164F819DB1E4800ED38A9 /* DragoMercTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DragoMercTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164FD19DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164FE19DB1E4800ED38A9 /* SpriteKitSimpleGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitSimpleGameTests.swift; sourceTree = "<group>"; };
 		3571650919DB1F5500ED38A9 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 		357164D619DB1E4800ED38A9 = {
 			isa = PBXGroup;
 			children = (
-				357164E119DB1E4800ED38A9 /* SpriteKitSimpleGame */,
+				357164E119DB1E4800ED38A9 /* DragoMerc */,
 				357164FB19DB1E4800ED38A9 /* SpriteKitSimpleGameTests */,
 				357164E019DB1E4800ED38A9 /* Products */,
 			);
@@ -88,13 +88,13 @@
 		357164E019DB1E4800ED38A9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				357164DF19DB1E4800ED38A9 /* SpriteKitSimpleGame.app */,
-				357164F819DB1E4800ED38A9 /* SpriteKitSimpleGameTests.xctest */,
+				357164DF19DB1E4800ED38A9 /* DragoMerc.app */,
+				357164F819DB1E4800ED38A9 /* DragoMercTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		357164E119DB1E4800ED38A9 /* SpriteKitSimpleGame */ = {
+		357164E119DB1E4800ED38A9 /* DragoMerc */ = {
 			isa = PBXGroup;
 			children = (
 				3571650819DB1F5500ED38A9 /* Sounds */,
@@ -113,6 +113,7 @@
 				357164F119DB1E4800ED38A9 /* LaunchScreen.xib */,
 				357164E219DB1E4800ED38A9 /* Supporting Files */,
 			);
+			name = DragoMerc;
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";
 		};
@@ -153,9 +154,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		357164DE19DB1E4800ED38A9 /* SpriteKitSimpleGame */ = {
+		357164DE19DB1E4800ED38A9 /* DragoMerc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "SpriteKitSimpleGame" */;
+			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMerc" */;
 			buildPhases = (
 				357164DB19DB1E4800ED38A9 /* Sources */,
 				357164DC19DB1E4800ED38A9 /* Frameworks */,
@@ -165,14 +166,14 @@
 			);
 			dependencies = (
 			);
-			name = SpriteKitSimpleGame;
+			name = DragoMerc;
 			productName = SpriteKitSimpleGame;
-			productReference = 357164DF19DB1E4800ED38A9 /* SpriteKitSimpleGame.app */;
+			productReference = 357164DF19DB1E4800ED38A9 /* DragoMerc.app */;
 			productType = "com.apple.product-type.application";
 		};
-		357164F719DB1E4800ED38A9 /* SpriteKitSimpleGameTests */ = {
+		357164F719DB1E4800ED38A9 /* DragoMercTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "SpriteKitSimpleGameTests" */;
+			buildConfigurationList = 3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMercTests" */;
 			buildPhases = (
 				357164F419DB1E4800ED38A9 /* Sources */,
 				357164F519DB1E4800ED38A9 /* Frameworks */,
@@ -183,9 +184,9 @@
 			dependencies = (
 				357164FA19DB1E4800ED38A9 /* PBXTargetDependency */,
 			);
-			name = SpriteKitSimpleGameTests;
+			name = DragoMercTests;
 			productName = SpriteKitSimpleGameTests;
-			productReference = 357164F819DB1E4800ED38A9 /* SpriteKitSimpleGameTests.xctest */;
+			productReference = 357164F819DB1E4800ED38A9 /* DragoMercTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -195,10 +196,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0600;
-				ORGANIZATIONNAME = "Razeware LLC";
+				ORGANIZATIONNAME = "Cybenex LLC";
 				TargetAttributes = {
 					357164DE19DB1E4800ED38A9 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = WBG667HX6D;
 					};
 					357164F719DB1E4800ED38A9 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -206,7 +208,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "SpriteKitSimpleGame" */;
+			buildConfigurationList = 357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "DragoMerc" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -219,8 +221,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				357164DE19DB1E4800ED38A9 /* SpriteKitSimpleGame */,
-				357164F719DB1E4800ED38A9 /* SpriteKitSimpleGameTests */,
+				357164DE19DB1E4800ED38A9 /* DragoMerc */,
+				357164F719DB1E4800ED38A9 /* DragoMercTests */,
 			);
 		};
 /* End PBXProject section */
@@ -278,7 +280,7 @@
 /* Begin PBXTargetDependency section */
 		357164FA19DB1E4800ED38A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 357164DE19DB1E4800ED38A9 /* SpriteKitSimpleGame */;
+			target = 357164DE19DB1E4800ED38A9 /* DragoMerc */;
 			targetProxy = 357164F919DB1E4800ED38A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -384,6 +386,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -394,6 +397,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -437,7 +441,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "SpriteKitSimpleGame" */ = {
+		357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "DragoMerc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3571650019DB1E4800ED38A9 /* Debug */,
@@ -446,7 +450,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "SpriteKitSimpleGame" */ = {
+		3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMerc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3571650319DB1E4800ED38A9 /* Debug */,
@@ -455,7 +459,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "SpriteKitSimpleGameTests" */ = {
+		3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMercTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3571650619DB1E4800ED38A9 /* Debug */,

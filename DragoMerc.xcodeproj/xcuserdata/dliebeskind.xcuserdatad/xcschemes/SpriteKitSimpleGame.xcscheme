@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-               BuildableName = "SpriteKitSimpleGame.app"
-               BlueprintName = "SpriteKitSimpleGame"
-               ReferencedContainer = "container:SpriteKitSimpleGame.xcodeproj">
+               BuildableName = "DragoMerc.app"
+               BlueprintName = "DragoMerc"
+               ReferencedContainer = "container:DragoMerc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "357164F719DB1E4800ED38A9"
-               BuildableName = "SpriteKitSimpleGameTests.xctest"
-               BlueprintName = "SpriteKitSimpleGameTests"
-               ReferencedContainer = "container:SpriteKitSimpleGame.xcodeproj">
+               BuildableName = "DragoMercTests.xctest"
+               BlueprintName = "DragoMercTests"
+               ReferencedContainer = "container:DragoMerc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "357164F719DB1E4800ED38A9"
-               BuildableName = "SpriteKitSimpleGameTests.xctest"
-               BlueprintName = "SpriteKitSimpleGameTests"
-               ReferencedContainer = "container:SpriteKitSimpleGame.xcodeproj">
+               BuildableName = "DragoMercTests.xctest"
+               BlueprintName = "DragoMercTests"
+               ReferencedContainer = "container:DragoMerc.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-            BuildableName = "SpriteKitSimpleGame.app"
-            BlueprintName = "SpriteKitSimpleGame"
-            ReferencedContainer = "container:SpriteKitSimpleGame.xcodeproj">
+            BuildableName = "DragoMerc.app"
+            BlueprintName = "DragoMerc"
+            ReferencedContainer = "container:DragoMerc.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-            BuildableName = "SpriteKitSimpleGame.app"
-            BlueprintName = "SpriteKitSimpleGame"
-            ReferencedContainer = "container:SpriteKitSimpleGame.xcodeproj">
+            BuildableName = "DragoMerc.app"
+            BlueprintName = "DragoMerc"
+            ReferencedContainer = "container:DragoMerc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-            BuildableName = "SpriteKitSimpleGame.app"
-            BlueprintName = "SpriteKitSimpleGame"
-            ReferencedContainer = "container:SpriteKitSimpleGame.xcodeproj">
+            BuildableName = "DragoMerc.app"
+            BlueprintName = "DragoMerc"
+            ReferencedContainer = "container:DragoMerc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -123,7 +123,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var mostRecentBallPosition = CGPoint() // Used for aiming attack when not moving
   var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
   
-  var purchaseFlame = SKLabelNode(fontNamed: "Avenir")
+  var purchaseFlame = SKSpriteNode(imageNamed: "FlameUpgradeButton")
   let flameUpgradeCost = 20
   var flamePurchased = false
   
@@ -318,11 +318,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     attackButton.alpha = 0.6
     self.addChild(attackButton)
     
-    purchaseFlame.fontColor = UIColor.redColor()
-    purchaseFlame.fontSize = 15
-    purchaseFlame.horizontalAlignmentMode = .Right
-    purchaseFlame.text = "Purchase Flame for $\(flameUpgradeCost)"
-    purchaseFlame.position = CGPoint(x: size.width - 50, y: size.height-50)
+//    purchaseFlame.fontColor = UIColor.redColor()
+//    purchaseFlame.fontSize = 15
+//    purchaseFlame.horizontalAlignmentMode = .Right
+//    purchaseFlame.text = "Purchase Flame for $\(flameUpgradeCost)"
+    purchaseFlame.size = CGSize(width: 100.0, height: 26.0)
+    purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-50)
     self.addChild(purchaseFlame)
   }
   
@@ -405,10 +406,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
   }
   
-  func upgradePurchased(upgrade: SKLabelNode) {
+  func upgradePurchased(upgrade: SKSpriteNode) {
     switch upgrade {
     case purchaseFlame:
-      purchaseFlame.hidden = true
+      let shrink = SKAction.scaleTo(0, duration: 0.6)
+      purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
       flamePurchased = true
     default: return
     }

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29385B791B793114000D0986 /* arrowImages.atlas */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
-		296354891B72C975003E73D0 /* arrowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354881B72C975003E73D0 /* arrowImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
 		2963548F1B75D426003E73D0 /* fullFlameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548E1B75D426003E73D0 /* fullFlameImages.atlas */; };
 		357164E519DB1E4800ED38A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E419DB1E4800ED38A9 /* AppDelegate.swift */; };
@@ -36,9 +36,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		29385B791B793114000D0986 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = arrowImages.atlas; path = ../../../../Designs/MMO/arrowImages.atlas; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
-		296354881B72C975003E73D0 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = arrowImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
 		2963548E1B75D426003E73D0 /* fullFlameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fullFlameImages.atlas; path = ../../../../Designs/MMO/fullFlameImages.atlas; sourceTree = "<group>"; };
 		357164DF19DB1E4800ED38A9 /* DragoMerc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragoMerc.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,8 +99,8 @@
 			children = (
 				3571650819DB1F5500ED38A9 /* Sounds */,
 				2963548E1B75D426003E73D0 /* fullFlameImages.atlas */,
+				29385B791B793114000D0986 /* arrowImages.atlas */,
 				2963548A1B75BBEF003E73D0 /* flameImages.atlas */,
-				296354881B72C975003E73D0 /* arrowImages.atlas */,
 				296354841B729EC4003E73D0 /* fireballImages.atlas */,
 				296354761B727DE1003E73D0 /* playerImages.atlas */,
 				3571650B19DB1F5500ED38A9 /* sprites.atlas */,
@@ -233,6 +233,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */,
+				29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */,
 				2963548F1B75D426003E73D0 /* fullFlameImages.atlas in Resources */,
 				296354771B727DE1003E73D0 /* playerImages.atlas in Resources */,
 				3571650C19DB1F5500ED38A9 /* background-music-aac.caf in Resources */,
@@ -240,7 +241,6 @@
 				357164F319DB1E4800ED38A9 /* LaunchScreen.xib in Resources */,
 				357164F019DB1E4800ED38A9 /* Images.xcassets in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
-				296354891B72C975003E73D0 /* arrowImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
 				3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */,
 			);

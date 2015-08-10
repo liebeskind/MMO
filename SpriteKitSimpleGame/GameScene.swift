@@ -124,12 +124,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
   
   var purchaseFlame = SKLabelNode(fontNamed: "Avenir")
-  let flameUpgradeCost = 40
+  let flameUpgradeCost = 20
   var flamePurchased = false
   
   var flame = SKSpriteNode()
   var flameScenes: [SKTexture]!
   var flameStartScenes: [SKTexture]!
+  
+  let background = SKSpriteNode(imageNamed: "lightClouds")
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -148,8 +150,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //    playBackgroundMusic("background-music-aac.caf")
   
-    backgroundColor = SKColor.whiteColor()
-   
+//    backgroundColor = SKColor.whiteColor()
+    background.size = frame.size
+    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
+    self.addChild(background)
     
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
@@ -369,7 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func addMonster() {
 
     // Create sprite
-    let monster = SKSpriteNode(imageNamed: "Arrow0")
+    let monster = SKSpriteNode(texture: arrowScenes[0])
     monster.size = CGSize(width: 50.0, height: 10.0)
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
 //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
@@ -594,15 +598,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     projectile.removeFromParent()
     
+    monster.size = CGSize(width: 50.0, height: 30.0)
+    monster.texture = arrowScenes[2]
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
     monster.physicsBody?.dynamic = true
     monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
     monster.physicsBody?.contactTestBitMask = PhysicsCategory.None.rawValue
     monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
-    monster.size = CGSize(width: 50.0, height: 30.0)
+    var burningArrowScenes = arrowScenes
+    burningArrowScenes.removeAtIndex(0)
     
-    let arrowHit = SKAction.animateWithTextures(arrowScenes, timePerFrame: 0.04)
+    let arrowHit = SKAction.animateWithTextures(burningArrowScenes, timePerFrame: 0.05)
     let removeArrow = SKAction.removeFromParent()
     monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
     

@@ -118,8 +118,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var shipSpeedX:CGFloat = 0.0
   var shipSpeedY:CGFloat = 0.0
   var strictCompassMovements:Bool = false
-  
-  var arrowSpeedModifier = 0
 
   let attackButton = SKSpriteNode(imageNamed: "AttackButton")
   var mostRecentBallPosition = CGPoint() // Used for aiming attack when not moving
@@ -132,6 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
   var slowmoPurchased = false
+  var slowmoSpeedModifier = CGFloat(6.0)
   
   var flame = SKSpriteNode()
   var flameScenes: [SKTexture]!
@@ -362,10 +361,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func addMonster() {
 
     // Create sprite
-    let monster = SKSpriteNode(texture: arrowScenes[0])
+//    let monster = SKSpriteNode(texture: arrowScenes[0])
+    let monster = Monster(texture: arrowScenes[0])
 //    monster.size = CGSize(width: 50.0, height: 10.0)
     monster.size = CGSize(width: 50.0, height: 10.0)
-
+    monster.name = "arrow"
+    monster.playerPosition = CGPoint(x: player.position.x, y: player.position.y)
+    
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
 //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
     monster.physicsBody?.dynamic = true
@@ -385,15 +387,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     addChild(monster)
     
     // Determine speed of the monster
-    let minimum = max(Double(3 - (coinsCollected - arrowSpeedModifier)/20), 0.5)
+    let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
     let maximum = minimum + 1.5
-    let actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
+    var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
+    if slowmoPurchased {
+      actualDuration += slowmoSpeedModifier
+    }
     
     // Create the actions
     let actionMove = SKAction.moveTo(CGPoint(x: -monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
     let actionMoveDone = SKAction.removeFromParent()
 
-    monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+    monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
   }
   
   func upgradePurchased(upgrade: SKSpriteNode) {
@@ -403,6 +408,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
       flamePurchased = true
     case purchaseSlowmo:
+      self.slowmoPurchased = true
       let shrink = SKAction.scaleTo(0, duration: 10.0)
       let grow = SKAction.scaleTo(1.0, duration: 0.1)
       
@@ -423,15 +429,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
       }
       
+      self.enumerateChildNodesWithName("arrow") {
+        node, stop in
+        node.removeAllActions()
+        
+        let monster = node as! Monster
+        
+        // Create the actions
+        let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier))
+        let actionMoveDone = SKAction.removeFromParent()
+        
+        monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+        
+      }
+      
       let returnToNormalSpeed = SKAction.runBlock {
-        self.arrowSpeedModifier = 0
+        self.slowmoPurchased = false
       }
     
       let countDownSequence = SKAction.repeatAction(SKAction.sequence([wait, keepCount]), count: 10)
       let shrinkAndCountGroup = SKAction.group([shrink, countDownSequence])
       
-      purchaseSlowmo.runAction(SKAction.sequence([shrinkAndCountGroup, grow]))
-      slowmoPurchased = true
+      purchaseSlowmo.runAction(SKAction.sequence([shrinkAndCountGroup, grow, returnToNormalSpeed]))
+      
     default: return
     }
   }

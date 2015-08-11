@@ -244,13 +244,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     addMonster()
     addCoins()
     
-    runAction(SKAction.repeatActionForever(
-      SKAction.sequence([
-        SKAction.runBlock(addMonster),
-        SKAction.waitForDuration(1.0)
-      ])
-      ), withKey: "addingMonsters"
-    )
+    self.addMonsterBlock(1.0)
     
 //    runAction(SKAction.repeatAction(
 //      SKAction.runBlock(addCoin), count: 10)
@@ -359,6 +353,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
   }
 
+  func addMonsterBlock(speed: Double) {
+    self.runAction(SKAction.repeatActionForever(
+      SKAction.sequence([
+        SKAction.runBlock(self.addMonster),
+        SKAction.waitForDuration(speed)
+        ])
+      ), withKey: "addingMonsters"
+    )
+  }
+  
   func addMonster() {
 
     // Create sprite
@@ -430,13 +434,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
       
       self.removeActionForKey("addingMonsters")
-      self.runAction(SKAction.repeatActionForever(
-        SKAction.sequence([
-          SKAction.runBlock(self.addMonster),
-          SKAction.waitForDuration(2.0)
-          ])
-        ), withKey: "addingSlowMonsters"
-      )
+      self.addMonsterBlock(2.0)
       
       self.enumerateChildNodesWithName("arrow") {
         node, stop in
@@ -455,14 +453,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let returnToNormalSpeed = SKAction.runBlock {
         self.slowmoPurchased = false
         
-        self.removeActionForKey("addingSlowMonsters")
-        self.runAction(SKAction.repeatActionForever(
-          SKAction.sequence([
-            SKAction.runBlock(self.addMonster),
-            SKAction.waitForDuration(1.0)
-            ])
-          ), withKey: "addingMonsters"
-        )
+        self.removeActionForKey("addingMonsters")
+        if self.coinsCollected < 50 {
+          self.addMonsterBlock(1.0)
+        } else {
+          self.addMonsterBlock(0.5)
+        }
         
         self.enumerateChildNodesWithName("arrow") {
           node, stop in
@@ -723,8 +719,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     
     // Adds additional monsters when collect coins to maintain number of arrows being fired at higher levels.
-    if coinsCollected % 3 == 0 {
-      runAction(SKAction.runBlock(addMonster))
+    
+    if self.coinsCollected >= 50 && slowmoPurchased == false {
+      self.removeActionForKey("addingMonsters")
+      self.addMonsterBlock(0.5)
     }
   }
   

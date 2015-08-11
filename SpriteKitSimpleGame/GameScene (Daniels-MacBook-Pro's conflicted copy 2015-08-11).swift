@@ -403,6 +403,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
       flamePurchased = true
     case purchaseSlowmo:
+      self.arrowSpeedModifier = coinsCollected
       let shrink = SKAction.scaleTo(0, duration: 10.0)
       let grow = SKAction.scaleTo(1.0, duration: 0.1)
       
@@ -430,7 +431,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let countDownSequence = SKAction.repeatAction(SKAction.sequence([wait, keepCount]), count: 10)
       let shrinkAndCountGroup = SKAction.group([shrink, countDownSequence])
       
-      purchaseSlowmo.runAction(SKAction.sequence([shrinkAndCountGroup, grow]))
+      purchaseSlowmo.runAction(SKAction.sequence([shrinkAndCountGroup, grow, returnToNormalSpeed]))
       slowmoPurchased = true
     default: return
     }

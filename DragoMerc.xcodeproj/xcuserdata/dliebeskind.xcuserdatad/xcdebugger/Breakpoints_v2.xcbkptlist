@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SpriteKitSimpleGame/Monster.swift"
-            timestampString = "461022581.07721"
+            timestampString = "461024268.52147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
             landmarkName = "init(color:size:playerPosition:)"
             landmarkType = "5">
          </BreakpointContent>

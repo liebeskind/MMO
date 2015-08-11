@@ -391,6 +391,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let maximum = minimum + 1.5
     var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
     if slowmoPurchased {
+      monster.moveDuration = actualDuration
       actualDuration += slowmoSpeedModifier
     }
     
@@ -445,6 +446,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       let returnToNormalSpeed = SKAction.runBlock {
         self.slowmoPurchased = false
+        
+        self.enumerateChildNodesWithName("arrow") {
+          node, stop in
+          node.removeAllActions()
+          
+          let monster = node as! Monster
+          
+          // Create the actions
+          let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(monster.moveDuration!))
+          let actionMoveDone = SKAction.removeFromParent()
+          
+          monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+        }
       }
     
       let countDownSequence = SKAction.repeatAction(SKAction.sequence([wait, keepCount]), count: 10)

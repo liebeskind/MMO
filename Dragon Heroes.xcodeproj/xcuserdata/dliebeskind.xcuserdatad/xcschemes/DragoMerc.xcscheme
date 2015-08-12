@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-               BuildableName = "DragoMerc.app"
-               BlueprintName = "DragoMerc"
-               ReferencedContainer = "container:DragoMerc.xcodeproj">
+               BuildableName = "Dragon Heroes.app"
+               BlueprintName = "Dragon Heroes"
+               ReferencedContainer = "container:Dragon Heroes.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-            BuildableName = "DragoMerc.app"
-            BlueprintName = "DragoMerc"
-            ReferencedContainer = "container:DragoMerc.xcodeproj">
+            BuildableName = "Dragon Heroes.app"
+            BlueprintName = "Dragon Heroes"
+            ReferencedContainer = "container:Dragon Heroes.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-            BuildableName = "DragoMerc.app"
-            BlueprintName = "DragoMerc"
-            ReferencedContainer = "container:DragoMerc.xcodeproj">
+            BuildableName = "Dragon Heroes.app"
+            BlueprintName = "Dragon Heroes"
+            ReferencedContainer = "container:Dragon Heroes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "357164DE19DB1E4800ED38A9"
-            BuildableName = "DragoMerc.app"
-            BlueprintName = "DragoMerc"
-            ReferencedContainer = "container:DragoMerc.xcodeproj">
+            BuildableName = "Dragon Heroes.app"
+            BlueprintName = "Dragon Heroes"
+            ReferencedContainer = "container:Dragon Heroes.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -47,7 +47,7 @@
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
 		2963548E1B75D426003E73D0 /* fullFlameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fullFlameImages.atlas; path = ../../../../Designs/MMO/fullFlameImages.atlas; sourceTree = "<group>"; };
-		357164DF19DB1E4800ED38A9 /* DragoMerc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragoMerc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		357164DF19DB1E4800ED38A9 /* Dragon Heroes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dragon Heroes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164E419DB1E4800ED38A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		357164E819DB1E4800ED38A9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		357164ED19DB1E4800ED38A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		357164EF19DB1E4800ED38A9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		357164F219DB1E4800ED38A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		357164F819DB1E4800ED38A9 /* DragoMercTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DragoMercTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		357164F819DB1E4800ED38A9 /* Dragon HeroesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dragon HeroesTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164FD19DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164FE19DB1E4800ED38A9 /* SpriteKitSimpleGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteKitSimpleGameTests.swift; sourceTree = "<group>"; };
 		3571650919DB1F5500ED38A9 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
@@ -103,8 +103,8 @@
 		357164E019DB1E4800ED38A9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				357164DF19DB1E4800ED38A9 /* DragoMerc.app */,
-				357164F819DB1E4800ED38A9 /* DragoMercTests.xctest */,
+				357164DF19DB1E4800ED38A9 /* Dragon Heroes.app */,
+				357164F819DB1E4800ED38A9 /* Dragon HeroesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,9 +171,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		357164DE19DB1E4800ED38A9 /* DragoMerc */ = {
+		357164DE19DB1E4800ED38A9 /* Dragon Heroes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMerc" */;
+			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon Heroes" */;
 			buildPhases = (
 				357164DB19DB1E4800ED38A9 /* Sources */,
 				357164DC19DB1E4800ED38A9 /* Frameworks */,
@@ -183,14 +183,14 @@
 			);
 			dependencies = (
 			);
-			name = DragoMerc;
+			name = "Dragon Heroes";
 			productName = SpriteKitSimpleGame;
-			productReference = 357164DF19DB1E4800ED38A9 /* DragoMerc.app */;
+			productReference = 357164DF19DB1E4800ED38A9 /* Dragon Heroes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		357164F719DB1E4800ED38A9 /* DragoMercTests */ = {
+		357164F719DB1E4800ED38A9 /* Dragon HeroesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMercTests" */;
+			buildConfigurationList = 3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon HeroesTests" */;
 			buildPhases = (
 				357164F419DB1E4800ED38A9 /* Sources */,
 				357164F519DB1E4800ED38A9 /* Frameworks */,
@@ -201,9 +201,9 @@
 			dependencies = (
 				357164FA19DB1E4800ED38A9 /* PBXTargetDependency */,
 			);
-			name = DragoMercTests;
+			name = "Dragon HeroesTests";
 			productName = SpriteKitSimpleGameTests;
-			productReference = 357164F819DB1E4800ED38A9 /* DragoMercTests.xctest */;
+			productReference = 357164F819DB1E4800ED38A9 /* Dragon HeroesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -225,7 +225,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "DragoMerc" */;
+			buildConfigurationList = 357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "Dragon Heroes" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -238,8 +238,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				357164DE19DB1E4800ED38A9 /* DragoMerc */,
-				357164F719DB1E4800ED38A9 /* DragoMercTests */,
+				357164DE19DB1E4800ED38A9 /* Dragon Heroes */,
+				357164F719DB1E4800ED38A9 /* Dragon HeroesTests */,
 			);
 		};
 /* End PBXProject section */
@@ -300,7 +300,7 @@
 /* Begin PBXTargetDependency section */
 		357164FA19DB1E4800ED38A9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 357164DE19DB1E4800ED38A9 /* DragoMerc */;
+			target = 357164DE19DB1E4800ED38A9 /* Dragon Heroes */;
 			targetProxy = 357164F919DB1E4800ED38A9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -409,7 +409,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Dragon Heroes";
 			};
 			name = Debug;
 		};
@@ -420,7 +420,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Dragon Heroes";
 			};
 			name = Release;
 		};
@@ -438,7 +438,7 @@
 				);
 				INFOPLIST_FILE = SpriteKitSimpleGameTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Dragon HeroesTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpriteKitSimpleGame.app/SpriteKitSimpleGame";
 			};
 			name = Debug;
@@ -453,7 +453,7 @@
 				);
 				INFOPLIST_FILE = SpriteKitSimpleGameTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Dragon HeroesTests";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpriteKitSimpleGame.app/SpriteKitSimpleGame";
 			};
 			name = Release;
@@ -461,7 +461,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "DragoMerc" */ = {
+		357164DA19DB1E4800ED38A9 /* Build configuration list for PBXProject "Dragon Heroes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3571650019DB1E4800ED38A9 /* Debug */,
@@ -470,7 +470,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMerc" */ = {
+		3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon Heroes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3571650319DB1E4800ED38A9 /* Debug */,
@@ -479,7 +479,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "DragoMercTests" */ = {
+		3571650519DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon HeroesTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3571650619DB1E4800ED38A9 /* Debug */,

@@ -408,10 +408,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func upgradePurchased(upgrade: SKSpriteNode) {
     switch upgrade {
     case purchaseFlame:
+      if totalCoins < flameUpgradeCost {return}
+      if flamePurchased == true {return}
+      totalCoins -= flameUpgradeCost
+      totalCoinsBoard.text = "Total Coins: \(totalCoins)"
       let shrink = SKAction.scaleTo(0, duration: 0.6)
       purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
       flamePurchased = true
     case purchaseSlowmo:
+      if totalCoins < slowmoUpgradeCost {return}
+      if slowmoPurchased == true {return}
+      totalCoins -= slowmoUpgradeCost
+      totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+      
       self.slowmoPurchased = true
       let shrink = SKAction.scaleTo(0, duration: 10.0)
       let grow = SKAction.scaleTo(1.0, duration: 0.1)

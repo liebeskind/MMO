@@ -15,6 +15,8 @@ class GameOverScene: SKScene {
     
     super.init(size: size)
     
+    NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
+    
     // 1
     backgroundColor = SKColor.whiteColor()
     

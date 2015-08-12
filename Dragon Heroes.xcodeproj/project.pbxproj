@@ -11,6 +11,18 @@
 		29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */; };
 		29385B7F1B7A8CA4000D0986 /* SlowmoUpgradeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */; };
 		29385B811B7AA3C4000D0986 /* Monster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29385B801B7AA3C4000D0986 /* Monster.swift */; };
+		29385B831B7BB7D7000D0986 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B821B7BB7D7000D0986 /* iAd.framework */; };
+		29385B8A1B7BBB41000D0986 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B881B7BBB41000D0986 /* AdSupport.framework */; };
+		29385B8B1B7BBB41000D0986 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B891B7BBB41000D0986 /* AudioToolbox.framework */; };
+		29385B8D1B7BBB45000D0986 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B8C1B7BBB45000D0986 /* AVFoundation.framework */; };
+		29385B961B7BBB6B000D0986 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B8E1B7BBB6B000D0986 /* CoreGraphics.framework */; };
+		29385B971B7BBB6B000D0986 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B8F1B7BBB6B000D0986 /* CoreMedia.framework */; };
+		29385B981B7BBB6B000D0986 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B901B7BBB6B000D0986 /* CoreTelephony.framework */; };
+		29385B991B7BBB6B000D0986 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B911B7BBB6B000D0986 /* EventKit.framework */; };
+		29385B9A1B7BBB6B000D0986 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B921B7BBB6B000D0986 /* EventKitUI.framework */; };
+		29385B9B1B7BBB6B000D0986 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B931B7BBB6B000D0986 /* MessageUI.framework */; };
+		29385B9C1B7BBB6B000D0986 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B941B7BBB6B000D0986 /* StoreKit.framework */; };
+		29385B9D1B7BBB6B000D0986 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385B951B7BBB6B000D0986 /* SystemConfiguration.framework */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -26,6 +38,7 @@
 		3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3571650A19DB1F5500ED38A9 /* pew-pew-lei.caf */; };
 		3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3571650B19DB1F5500ED38A9 /* sprites.atlas */; };
 		3571651019DB322700ED38A9 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3571650F19DB322700ED38A9 /* GameOverScene.swift */; };
+		F577E1DF2AEAC825BBA4E512 /* Pods_Dragon_Heroes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8353D2B84B5FC5941A641913 /* Pods_Dragon_Heroes.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +56,19 @@
 		29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FlameUpgradeButton.png; path = ../../../../Designs/MMO/FlameUpgradeButton.png; sourceTree = "<group>"; };
 		29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowmoUpgradeButton.png; path = ../../../../Designs/MMO/SlowmoUpgradeButton.png; sourceTree = "<group>"; };
 		29385B801B7AA3C4000D0986 /* Monster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
+		29385B821B7BB7D7000D0986 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		29385B851B7BBA95000D0986 /* Dragon Heroes-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dragon Heroes-Bridging-Header.h"; sourceTree = "<group>"; };
+		29385B881B7BBB41000D0986 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		29385B891B7BBB41000D0986 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		29385B8C1B7BBB45000D0986 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		29385B8E1B7BBB6B000D0986 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		29385B8F1B7BBB6B000D0986 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		29385B901B7BBB6B000D0986 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		29385B911B7BBB6B000D0986 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		29385B921B7BBB6B000D0986 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		29385B931B7BBB6B000D0986 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		29385B941B7BBB6B000D0986 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		29385B951B7BBB6B000D0986 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -62,6 +88,9 @@
 		3571650A19DB1F5500ED38A9 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		3571650B19DB1F5500ED38A9 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		3571650F19DB322700ED38A9 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		8353D2B84B5FC5941A641913 /* Pods_Dragon_Heroes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Heroes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCABAF0E6DEBDFB9E6D63533 /* Pods-Dragon Heroes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon Heroes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon Heroes/Pods-Dragon Heroes.release.xcconfig"; sourceTree = "<group>"; };
+		E4DD2BDAED0278624FFFF7FE /* Pods-Dragon Heroes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon Heroes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon Heroes/Pods-Dragon Heroes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +98,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29385B961B7BBB6B000D0986 /* CoreGraphics.framework in Frameworks */,
+				29385B971B7BBB6B000D0986 /* CoreMedia.framework in Frameworks */,
+				29385B981B7BBB6B000D0986 /* CoreTelephony.framework in Frameworks */,
+				29385B991B7BBB6B000D0986 /* EventKit.framework in Frameworks */,
+				29385B9A1B7BBB6B000D0986 /* EventKitUI.framework in Frameworks */,
+				29385B9B1B7BBB6B000D0986 /* MessageUI.framework in Frameworks */,
+				29385B9C1B7BBB6B000D0986 /* StoreKit.framework in Frameworks */,
+				29385B9D1B7BBB6B000D0986 /* SystemConfiguration.framework in Frameworks */,
+				29385B8D1B7BBB45000D0986 /* AVFoundation.framework in Frameworks */,
+				29385B8A1B7BBB41000D0986 /* AdSupport.framework in Frameworks */,
+				29385B8B1B7BBB41000D0986 /* AudioToolbox.framework in Frameworks */,
+				29385B831B7BB7D7000D0986 /* iAd.framework in Frameworks */,
+				F577E1DF2AEAC825BBA4E512 /* Pods_Dragon_Heroes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		212D4A30783CAA3E540BAD13 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E4DD2BDAED0278624FFFF7FE /* Pods-Dragon Heroes.debug.xcconfig */,
+				DCABAF0E6DEBDFB9E6D63533 /* Pods-Dragon Heroes.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		29385B7B1B7941CF000D0986 /* ImageAssets */ = {
 			isa = PBXGroup;
 			children = (
@@ -94,9 +145,12 @@
 		357164D619DB1E4800ED38A9 = {
 			isa = PBXGroup;
 			children = (
-				357164E119DB1E4800ED38A9 /* DragoMerc */,
+				357164E119DB1E4800ED38A9 /* Dragon Heroes */,
 				357164FB19DB1E4800ED38A9 /* SpriteKitSimpleGameTests */,
 				357164E019DB1E4800ED38A9 /* Products */,
+				212D4A30783CAA3E540BAD13 /* Pods */,
+				29385B851B7BBA95000D0986 /* Dragon Heroes-Bridging-Header.h */,
+				834ECDE401363BB716515F79 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,7 +163,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		357164E119DB1E4800ED38A9 /* DragoMerc */ = {
+		357164E119DB1E4800ED38A9 /* Dragon Heroes */ = {
 			isa = PBXGroup;
 			children = (
 				29385B7B1B7941CF000D0986 /* ImageAssets */,
@@ -130,7 +184,7 @@
 				357164F119DB1E4800ED38A9 /* LaunchScreen.xib */,
 				357164E219DB1E4800ED38A9 /* Supporting Files */,
 			);
-			name = DragoMerc;
+			name = "Dragon Heroes";
 			path = SpriteKitSimpleGame;
 			sourceTree = "<group>";
 		};
@@ -168,6 +222,26 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		834ECDE401363BB716515F79 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29385B821B7BB7D7000D0986 /* iAd.framework */,
+				29385B8E1B7BBB6B000D0986 /* CoreGraphics.framework */,
+				29385B8F1B7BBB6B000D0986 /* CoreMedia.framework */,
+				29385B901B7BBB6B000D0986 /* CoreTelephony.framework */,
+				29385B911B7BBB6B000D0986 /* EventKit.framework */,
+				29385B921B7BBB6B000D0986 /* EventKitUI.framework */,
+				29385B931B7BBB6B000D0986 /* MessageUI.framework */,
+				29385B941B7BBB6B000D0986 /* StoreKit.framework */,
+				29385B951B7BBB6B000D0986 /* SystemConfiguration.framework */,
+				29385B8C1B7BBB45000D0986 /* AVFoundation.framework */,
+				29385B881B7BBB41000D0986 /* AdSupport.framework */,
+				29385B891B7BBB41000D0986 /* AudioToolbox.framework */,
+				8353D2B84B5FC5941A641913 /* Pods_Dragon_Heroes.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -175,9 +249,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon Heroes" */;
 			buildPhases = (
+				4B70E8BCB1D59F6736C23463 /* Check Pods Manifest.lock */,
 				357164DB19DB1E4800ED38A9 /* Sources */,
 				357164DC19DB1E4800ED38A9 /* Frameworks */,
 				357164DD19DB1E4800ED38A9 /* Resources */,
+				0921D5BDA6B8D529C84F8316 /* Embed Pods Frameworks */,
+				06814508C2542094E0A8814F /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -273,6 +350,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		06814508C2542094E0A8814F /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dragon Heroes/Pods-Dragon Heroes-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0921D5BDA6B8D529C84F8316 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dragon Heroes/Pods-Dragon Heroes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B70E8BCB1D59F6736C23463 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		357164DB19DB1E4800ED38A9 /* Sources */ = {
@@ -404,23 +529,30 @@
 		};
 		3571650319DB1E4800ED38A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4DD2BDAED0278624FFFF7FE /* Pods-Dragon Heroes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Dragon Heroes";
+				SWIFT_OBJC_BRIDGING_HEADER = "Dragon Heroes-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		3571650419DB1E4800ED38A9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCABAF0E6DEBDFB9E6D63533 /* Pods-Dragon Heroes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SpriteKitSimpleGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Dragon Heroes";
+				SWIFT_OBJC_BRIDGING_HEADER = "Dragon Heroes-Bridging-Header.h";
 			};
 			name = Release;
 		};

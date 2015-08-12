@@ -11,9 +11,12 @@ import SpriteKit
 import iAd
 import GoogleMobileAds
 
-class GameViewController: UIViewController, GADInterstitialDelegate {
+class GameViewController: UIViewController, GADInterstitialDelegate, ADInterstitialAdDelegate {
   
   var interstitial:GADInterstitial?
+  var interstitialAd:ADInterstitialAd!
+  var interstitialAdView: UIView = UIView()
+  var closeButton:UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -25,6 +28,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentInterstitial:", name:"showInterstitialAdsID", object: nil)
     
     interstitial = createAndLoadInterstitial()
+    UIViewController.prepareInterstitialAds()
   }
   
   override func prefersStatusBarHidden() -> Bool {
@@ -32,13 +36,70 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
   }
   
   @objc private func presentInterstitial(notification: NSNotification){
+    loadInterstitialAd()
+  }
+  
+  //iAd Interstitial
+  func loadInterstitialAd() {
+    interstitialAd = ADInterstitialAd()
+    interstitialAd.delegate = self
+  }
+  
+  func interstitialAdWillLoad(interstitialAd: ADInterstitialAd!) {
+    println("Will Load iAD")
+  }
+  
+  func interstitialAdDidLoad(interstitialAd: ADInterstitialAd!) {
+    println("Did Load iAD")
+    interstitialAdView = UIView()
+    interstitialAdView.frame = self.view.bounds
+    view.addSubview(interstitialAdView)
+    
+    closeButton = UIButton(frame: CGRect(x: 5, y:  10, width: 100, height: 25))
+//    closeButton.setBackgroundImage(UIImage(named: "error"), forState: UIControlState.Normal)
+    closeButton.setTitle("CLOSE", forState: UIControlState.Normal)
+    closeButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+    closeButton.addTarget(self, action: Selector("close"), forControlEvents: UIControlEvents.TouchDown)
+    view.addSubview(closeButton)
+    
+    interstitialAd.presentInView(interstitialAdView)
+    UIViewController.prepareInterstitialAds()
+  }
+  
+  func interstitialAdActionDidFinish(interstitialAd: ADInterstitialAd!) {
+    println("Did Finish iAD")
+    interstitialAdView.removeFromSuperview()
+    closeButton.removeFromSuperview()
+  }
+  
+  func interstitialAdActionShouldBegin(interstitialAd: ADInterstitialAd!, willLeaveApplication willLeave: Bool) -> Bool {
+        println("iAd action should begin iAd")
+    return true
+  }
+  
+  func interstitialAd(interstitialAd: ADInterstitialAd!, didFailWithError error: NSError!) {
+        println("Failed to receive iAd")
     if let isReady = interstitial?.isReady {
       interstitial?.presentFromRootViewController(self)
     }
   }
   
+  func interstitialAdDidUnload(interstitialAd: ADInterstitialAd!) {
+        println("iAd Did unload")
+    interstitialAdView.removeFromSuperview()
+    closeButton.removeFromSuperview()
+  }
+  
+  func close() {
+    interstitialAdView.removeFromSuperview()
+    closeButton.removeFromSuperview()
+    interstitial = nil
+  }
+  
+  
+  //AdMob Interstitial
   func createAndLoadInterstitial()->GADInterstitial {
-    println("createAndLoadInterstitial")
+    println("adMobCreateAndLoadInterstitial")
     var interstitial = GADInterstitial(adUnitID: "ca-app-pub-1048344523427807/2816356772")
     interstitial.delegate = self
     var request = GADRequest()
@@ -48,30 +109,30 @@ class GameViewController: UIViewController, GADInterstitialDelegate {
     return interstitial
   }
   
-  //Interstitial delegate
   func interstitial(ad: GADInterstitial!, didFailToReceiveAdWithError error: GADRequestError!) {
-    println("interstitialDidFailToReceiveAdWithError:\(error.localizedDescription)")
-//    interstitial = createAndLoadInterstitial()
+    println("adMobInterstitialDidFailToReceiveAdWithError:\(error.localizedDescription)")
+    interstitial = createAndLoadInterstitial()
+    loadInterstitialAd()
   }
   
   func interstitialDidReceiveAd(ad: GADInterstitial!) {
-    println("interstitialDidReceiveAd")
+    println("adMobInterstitialDidReceiveAd")
   }
   
   func interstitialWillDismissScreen(ad: GADInterstitial!) {
-    println("interstitialWillDismissScreen")
+    println("adMobInterstitialWillDismissScreen")
   }
   
   func interstitialDidDismissScreen(ad: GADInterstitial!) {
-    println("interstitialDidDismissScreen")
+    println("adMobInterstitialDidDismissScreen")
     interstitial = createAndLoadInterstitial()
   }
   
   func interstitialWillLeaveApplication(ad: GADInterstitial!) {
-    println("interstitialWillLeaveApplication")
+    println("adMobInterstitialWillLeaveApplication")
   }
   
   func interstitialWillPresentScreen(ad: GADInterstitial!) {
-    println("interstitialWillPresentScreen")
+    println("adMobInterstitialWillPresentScreen")
   }
 }

@@ -28,7 +28,7 @@ func playBackgroundMusic(filename: String) {
     return
   }
 
-  backgroundMusicPlayer.volume = 0.9
+  backgroundMusicPlayer.volume = 0.8
   backgroundMusicPlayer.numberOfLoops = -1
   backgroundMusicPlayer.prepareToPlay()
   backgroundMusicPlayer.play()
@@ -88,7 +88,7 @@ func playSoundEffect(filename: String) {
     return
   }
   
-  soundEffectPlayer.volume = 0.9
+  soundEffectPlayer.volume = 0.5
   soundEffectPlayer.numberOfLoops = 0
   soundEffectPlayer.prepareToPlay()
   soundEffectPlayer.play()
@@ -745,6 +745,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     projectile.runAction(SKAction.repeatActionForever(shootFireball))
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     
+    playSoundEffect("FireballSound.wav")
+    
 //    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
 //    let angle = atan2(v.dy, v.dx)
 //    player.zRotation = angle - 1.57079633
@@ -780,6 +782,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
     let gameOverScene = GameOverScene(size: self.size, won: false, score: coinsCollected)
       stopBackgroundMusic()
+      playSoundEffect("funnyClang.wav")
       self.view?.presentScene(gameOverScene, transition: reveal)
   }
   

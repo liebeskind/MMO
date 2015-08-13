@@ -7,93 +7,6 @@
 //
 
 import AVFoundation
-
-var backgroundMusicPlayer: AVAudioPlayer!
-var soundEffectPlayer: AVAudioPlayer!
-var upgradeMusicPlayer: AVAudioPlayer!
-
-func playBackgroundMusic(filename: String) {
-  let url = NSBundle.mainBundle().URLForResource(
-    filename, withExtension: nil)
-  if (url == nil) {
-    println("Could not find file: \(filename)")
-    return
-  }
-
-  var error: NSError? = nil
-  backgroundMusicPlayer = 
-    AVAudioPlayer(contentsOfURL: url, error: &error)
-  if backgroundMusicPlayer == nil {
-    println("Could not create audio player: \(error!)")
-    return
-  }
-
-  backgroundMusicPlayer.volume = 0.8
-  backgroundMusicPlayer.numberOfLoops = -1
-  backgroundMusicPlayer.prepareToPlay()
-  backgroundMusicPlayer.play()
-}
-
-func pauseBackgroundMusic() {
-  backgroundMusicPlayer.pause()
-}
-
-func stopBackgroundMusic() {
-  backgroundMusicPlayer.pause()
-}
-
-func resumeBackgroundMusic() {
-  backgroundMusicPlayer.play()
-}
-
-func playUpgradeMusic(filename: String) {
-  let url = NSBundle.mainBundle().URLForResource(
-    filename, withExtension: nil)
-  if (url == nil) {
-    println("Could not find file: \(filename)")
-    return
-  }
-  
-  var error: NSError? = nil
-  upgradeMusicPlayer =
-    AVAudioPlayer(contentsOfURL: url, error: &error)
-  if upgradeMusicPlayer == nil {
-    println("Could not create audio player: \(error!)")
-    return
-  }
-  
-  upgradeMusicPlayer.volume = 0.9
-  upgradeMusicPlayer.numberOfLoops = 0
-  upgradeMusicPlayer.prepareToPlay()
-  upgradeMusicPlayer.play()
-}
-
-func stopUpgradeMusic() {
-  upgradeMusicPlayer.stop()
-}
-
-func playSoundEffect(filename: String) {
-  let url = NSBundle.mainBundle().URLForResource(
-    filename, withExtension: nil)
-  if (url == nil) {
-    println("Could not find file: \(filename)")
-    return
-  }
-  
-  var error: NSError? = nil
-  soundEffectPlayer =
-    AVAudioPlayer(contentsOfURL: url, error: &error)
-  if soundEffectPlayer == nil {
-    println("Could not create audio player: \(error!)")
-    return
-  }
-  
-  soundEffectPlayer.volume = 0.5
-  soundEffectPlayer.numberOfLoops = 0
-  soundEffectPlayer.prepareToPlay()
-  soundEffectPlayer.play()
-}
-
 import SpriteKit
 
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
@@ -153,6 +66,8 @@ enum MoveStates:Int {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate{
+  
+  let musicController = MusicController()
   
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
   var playerFlyingScenes: [SKTexture]!
@@ -217,7 +132,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     physicsWorld.gravity = CGVectorMake(0, 0)
     physicsWorld.contactDelegate = self
   
-    playBackgroundMusic("epicMusic.mp3")
+    musicController.playBackgroundMusic("epicMusic.mp3")
   
 //    backgroundColor = SKColor.whiteColor()
     background.size = frame.size
@@ -486,13 +401,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       totalCoinsBoard.text = "Total Coins: \(totalCoins)"
       
       let playUpgrade = SKAction.runBlock {
-        pauseBackgroundMusic()
-        playUpgradeMusic("dubstepMusic.mp3")
+        self.musicController.pauseBackgroundMusic()
+        self.musicController.playUpgradeMusic("dubstepMusic.mp3")
       }
       
       let returnToBackgroundMusic = SKAction.runBlock {
-        stopUpgradeMusic()
-        resumeBackgroundMusic()
+        self.musicController.stopUpgradeMusic()
+        self.musicController.resumeBackgroundMusic()
       }
       
       runAction(SKAction.sequence([playUpgrade, SKAction.waitForDuration(slowmoDuration), returnToBackgroundMusic]))
@@ -745,7 +660,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     projectile.runAction(SKAction.repeatActionForever(shootFireball))
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     
-    playSoundEffect("FireballSound.wav")
+    self.musicController.playSoundEffect("FireballSound.wav")
     
 //    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
 //    let angle = atan2(v.dy, v.dx)
@@ -781,8 +696,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
     let gameOverScene = GameOverScene(size: self.size, won: false, score: coinsCollected)
-      stopBackgroundMusic()
-      playSoundEffect("funnyClang.wav")
+      self.musicController.stopBackgroundMusic()
+      self.musicController.stopUpgradeMusic()
+      self.musicController.playSoundEffect("funnyClang.wav")
       self.view?.presentScene(gameOverScene, transition: reveal)
   }
   

@@ -4,15 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-Dragon-Destiny.xcscheme</key>
+		<key>Dragon-Destiny.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>EE797B91EA9BFAD5C84B8075</key>
+		<key>357164DE19DB1E4800ED38A9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>357164F719DB1E4800ED38A9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

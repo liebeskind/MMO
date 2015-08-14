@@ -136,6 +136,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //    backgroundColor = SKColor.whiteColor()
     background.size = frame.size
+    background.zPosition = -1
     background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
     self.addChild(background)
     

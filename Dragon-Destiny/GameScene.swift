@@ -414,6 +414,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       runAction(SKAction.sequence([playUpgrade, SKAction.waitForDuration(slowmoDuration), returnToBackgroundMusic]))
       
       self.slowmoPurchased = true
+      let quickPop = SKAction.scaleTo(1.1, duration: 0.1)
       let shrink = SKAction.scaleTo(0, duration: slowmoDuration)
       let grow = SKAction.scaleTo(1.0, duration: 0.1)
       
@@ -478,7 +479,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let countDownSequence = SKAction.repeatAction(SKAction.sequence([wait, keepCount]), count: 10)
       let shrinkAndCountGroup = SKAction.group([shrink, countDownSequence])
       
-      purchaseSlowmo.runAction(SKAction.sequence([shrinkAndCountGroup, grow, returnToNormalSpeed]))
+      purchaseSlowmo.runAction(SKAction.sequence([quickPop, shrinkAndCountGroup, grow, returnToNormalSpeed]))
       
     default: return
     }

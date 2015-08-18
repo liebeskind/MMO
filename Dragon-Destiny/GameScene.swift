@@ -88,7 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let base = SKSpriteNode(imageNamed:"aSBgImg")
   let ball = SKSpriteNode(imageNamed:"aSThumbImg")
-  let baseSize = CGFloat(100.0)
+  let baseSize = CGFloat(125.0)
   
   var stickActive:Bool = false
   var playerMoving: Bool = false
@@ -108,7 +108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
   var slowmoPurchased = false
-  var slowmoSpeedModifier = CGFloat(6.0)
+  var slowmoSpeedModifier = CGFloat(4.0)
   let slowmoDuration = 10.0
   
   var flame = SKSpriteNode()
@@ -116,6 +116,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var flameStartScenes: [SKTexture]!
   
   let background = SKSpriteNode(imageNamed: "lightClouds")
+  
+  let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -133,6 +135,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     physicsWorld.contactDelegate = self
   
     musicController.playBackgroundMusic("epicMusic.mp3")
+    
+    navigationBox.position = CGPoint(x: 0.0, y: 0.0)
+    navigationBox.anchorPoint = CGPoint(x: 0, y: 0)
+    navigationBox.alpha = 0.4
+    navigationBox.size = CGSize(width: frame.size.width, height: 125.0)
+    addChild(navigationBox)
   
 //    backgroundColor = SKColor.whiteColor()
     background.size = frame.size
@@ -279,8 +287,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     attackButton.alpha = 0.6
     self.addChild(attackButton)
     
-    purchaseSlowmo.size = CGSize(width: 100.0, height: 26.0)
-    purchaseSlowmo.position = CGPoint(x: size.width - 100, y: size.height-50)
+//    purchaseSlowmo.size = CGSize(width: 100.0, height: 26.0)
+    purchaseSlowmo.size = attackButton.size
+    purchaseSlowmo.alpha = attackButton.alpha
+    purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width, y: attackButton.position.y)
     self.addChild(purchaseSlowmo)
     
     purchaseFlame.size = CGSize(width: 100.0, height: 26.0)
@@ -420,10 +430,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       var countDown = 10
       let count = SKLabelNode(fontNamed: "Chalkduster")
-      count.position = CGPoint(x: 0, y: -purchaseSlowmo.size.height/3)
+      count.position = CGPoint(x: 0, y: 0)
       count.fontColor = UIColor.whiteColor()
       count.text = String(countDown)
-      count.fontSize = 21.0
+      count.fontSize = 30.0
+      count.zPosition = 2
       purchaseSlowmo.addChild(count)
 
       let wait = SKAction.waitForDuration(1.0)
@@ -444,8 +455,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         let monster = node as! Monster
         
+        var actionMove = SKAction()
+        
         // Create the actions
-        let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier))
+        if let monsterExistingMoveDuration = monster.moveDuration {
+          actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monsterExistingMoveDuration))
+        } else {
+          actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier))
+        }
+//        let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monster.moveDuration!))
         let actionMoveDone = SKAction.removeFromParent()
         
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
@@ -531,8 +549,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         ball.alpha = 0.4
         base.alpha = 0.4
         
-        base.position = CGPoint(x: min(max(touchLocation.x, baseSize/2), self.frame.width/2), y: baseSize/2)
-        ball.position = base.position
+//        base.position = CGPoint(x: min(max(touchLocation.x, baseSize/2), self.frame.width/2), y: baseSize/2)
+//        ball.position = base.position
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position
       }

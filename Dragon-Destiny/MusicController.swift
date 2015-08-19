@@ -104,4 +104,21 @@ class MusicController: UIViewController {
     soundEffectPlayer.prepareToPlay()
     soundEffectPlayer.play()
   }
+  
+  func loadSoundEffect(filename: String) {
+    let url = NSBundle.mainBundle().URLForResource(
+      filename, withExtension: nil)
+    if (url == nil) {
+      println("Could not find file: \(filename)")
+      return
+    }
+    
+    var error: NSError? = nil
+    soundEffectPlayer =
+      AVAudioPlayer(contentsOfURL: url, error: &error)
+    if soundEffectPlayer == nil {
+      println("Could not create audio player: \(error!)")
+      return
+    }
+  }
 }

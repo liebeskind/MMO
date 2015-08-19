@@ -118,6 +118,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let background = SKSpriteNode(imageNamed: "lightClouds")
   
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
+
+  var projectile = SKSpriteNode()
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -134,6 +136,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     physicsWorld.gravity = CGVectorMake(0, 0)
     physicsWorld.contactDelegate = self
   
+    musicController.loadSoundEffect("FireballSound.wav")
     musicController.playBackgroundMusic("epicMusic.mp3")
     
     navigationBox.position = CGPoint(x: 0.0, y: 0.0)
@@ -196,6 +199,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     fireballScenes = fireballFrames
+    
+    let firstFireballFrame = fireballScenes[0]
+    projectile = SKSpriteNode(texture: firstFireballFrame) // Not sure this does anything.  Meant to cache so no delay.
     
     let arrowAnimatedAtlas = SKTextureAtlas(named: "arrowImages")
     var arrowFrames = [SKTexture]()

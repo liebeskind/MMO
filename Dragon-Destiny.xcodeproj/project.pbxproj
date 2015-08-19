@@ -26,6 +26,7 @@
 		29385B9F1B7BD385000D0986 /* SocialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29385B9E1B7BD385000D0986 /* SocialViewController.swift */; };
 		29385BA11B7BD7F3000D0986 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29385BA01B7BD7F3000D0986 /* Social.framework */; };
 		29385BA31B7BE588000D0986 /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29385BA21B7BE588000D0986 /* InAppPurchaseViewController.swift */; };
+		294381A91B84544800E332DA /* skyBackgroundImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 294381A81B84544800E332DA /* skyBackgroundImages.atlas */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -82,6 +83,7 @@
 		29385B9E1B7BD385000D0986 /* SocialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialViewController.swift; path = ../SocialViewController.swift; sourceTree = "<group>"; };
 		29385BA01B7BD7F3000D0986 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		29385BA21B7BE588000D0986 /* InAppPurchaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InAppPurchaseViewController.swift; path = ../InAppPurchaseViewController.swift; sourceTree = "<group>"; };
+		294381A81B84544800E332DA /* skyBackgroundImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = skyBackgroundImages.atlas; path = ../../../../Designs/MMO/skyBackgroundImages.atlas; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			children = (
 				29385B7B1B7941CF000D0986 /* ImageAssets */,
 				3571650819DB1F5500ED38A9 /* Sounds */,
+				294381A81B84544800E332DA /* skyBackgroundImages.atlas */,
 				2963548E1B75D426003E73D0 /* fullFlameImages.atlas */,
 				29385B791B793114000D0986 /* arrowImages.atlas */,
 				2963548A1B75BBEF003E73D0 /* flameImages.atlas */,
@@ -365,6 +368,7 @@
 				296354771B727DE1003E73D0 /* playerImages.atlas in Resources */,
 				3571650C19DB1F5500ED38A9 /* background-music-aac.caf in Resources */,
 				29C2ADFA1B7C36E5005F74E2 /* dubstepMusic.mp3 in Resources */,
+				294381A91B84544800E332DA /* skyBackgroundImages.atlas in Resources */,
 				2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */,
 				29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */,
 				29C2AE021B7C4445005F74E2 /* Flame.mp3 in Resources */,

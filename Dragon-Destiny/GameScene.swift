@@ -88,7 +88,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let base = SKSpriteNode(imageNamed:"aSBgImg")
   let ball = SKSpriteNode(imageNamed:"aSThumbImg")
-  let baseSize = CGFloat(125.0)
+  let baseSize = CGFloat(100.0)
   
   var stickActive:Bool = false
   var playerMoving: Bool = false
@@ -138,8 +138,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     navigationBox.position = CGPoint(x: 0.0, y: 0.0)
     navigationBox.anchorPoint = CGPoint(x: 0, y: 0)
-    navigationBox.alpha = 0.4
-    navigationBox.size = CGSize(width: frame.size.width, height: 125.0)
+    navigationBox.alpha = 0.8
+    navigationBox.zPosition = 1
+    navigationBox.size = CGSize(width: frame.size.width, height: baseSize)
     addChild(navigationBox)
   
 //    backgroundColor = SKColor.whiteColor()
@@ -279,23 +280,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     addChild(ball)
     ball.position = CGPointMake(base.position.x + 1, base.position.y) //Makes player face right and fireballs shoot right if don't move first
     ball.size = CGSize(width: baseSize/2, height: baseSize/2)
-    
     base.alpha = 0.4
     ball.alpha = 0.4
+    base.zPosition = 2
+    ball.zPosition = 3
 
-    attackButton.position = CGPoint(x: self.frame.width - attackButton.size.width/2 - 5, y: attackButton.size.height/2 + 5)
+    attackButton.size = CGSize(width: 113, height: 77)
+    attackButton.position = CGPoint(x: self.frame.width - attackButton.size.width/2 - 5, y: attackButton.size.height/1.55)
     attackButton.alpha = 0.6
+    attackButton.zPosition = 2
     self.addChild(attackButton)
     
 //    purchaseSlowmo.size = CGSize(width: 100.0, height: 26.0)
     purchaseSlowmo.size = attackButton.size
     purchaseSlowmo.alpha = attackButton.alpha
-    purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width, y: attackButton.position.y)
+    purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width - 8, y: attackButton.position.y)
+    purchaseSlowmo.zPosition = 2
     self.addChild(purchaseSlowmo)
     
     purchaseFlame.size = CGSize(width: 100.0, height: 26.0)
     purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-80)
-    self.addChild(purchaseFlame)
+//    self.addChild(purchaseFlame)
     
   }
   
@@ -333,7 +338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       coin.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
       
       // Determine where to spawn the coin along the Y axis
-      let actualY = random(min: coin.size.height, max: self.frame.size.height - coin.size.height)
+      let actualY = random(min: coin.size.height + baseSize, max: self.frame.size.height - coin.size.height)
       let actualX = random(min: coin.size.width, max: self.frame.size.width - coin.size.width)
       
       coin.position = CGPoint(x: actualX, y: actualY)
@@ -370,7 +375,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
     // Determine where to spawn the monster along the Y axis
-    let actualY = random(min: monster.size.height/2, max: size.height - monster.size.height/2)
+    let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
     
     // Position the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
@@ -949,8 +954,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       } else if player.position.y >= self.frame.height {
         player.position.y = self.frame.height - 1
       
-      } else if player.position.y <= 0 {
-        player.position.y = 1
+      } else if player.position.y <= baseSize + player.size.height / 2 {
+        player.position.y = baseSize + player.size.height/2
       
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)

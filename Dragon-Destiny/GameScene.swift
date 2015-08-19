@@ -71,6 +71,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let backgroundMovePointsPerSec: CGFloat = 5.0
   let backgroundLayer = SKNode()
+  var backgroundWidth = CGFloat()
+  var leftPoint = CGFloat(0)
+  var rightPoint = CGFloat()
   
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
   var playerFlyingScenes: [SKTexture]!
@@ -91,7 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let base = SKSpriteNode(imageNamed:"aSBgImg")
   let ball = SKSpriteNode(imageNamed:"aSThumbImg")
-  let baseSize = CGFloat(100.0)
+  let baseSize = CGFloat(75.0)
   
   var stickActive:Bool = false
   var playerMoving: Bool = false
@@ -111,7 +114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
   var slowmoPurchased = false
-  var slowmoSpeedModifier = CGFloat(4.0)
+  var slowmoSpeedModifier = CGFloat(6.0)
   let slowmoDuration = 10.0
   
   var flame = SKSpriteNode()
@@ -149,8 +152,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     navigationBox.size = CGSize(width: frame.size.width, height: baseSize)
     addChild(navigationBox)
     
-//    backgroundLayer.zPosition = -1
-//    addChild(backgroundLayer)
+    backgroundLayer.zPosition = -1
+    addChild(backgroundLayer)
   
     for i in 0...1 {
       let background = backgroundNode()
@@ -158,8 +161,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       background.position =
       CGPoint(x: CGFloat(i)*background.size.width, y: 0)
       background.name = "background"
-      addChild(background)
+//      addChild(background)
+      backgroundLayer.addChild(background)
     }
+    
+    rightPoint = self.frame.width / 1.5
     
 ////    backgroundColor = SKColor.whiteColor()
 //    background.size = frame.size
@@ -187,7 +193,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let firstFrame = playerFlyingScenes[0]
     player = SKSpriteNode(texture: firstFrame)
     
-    addChild(player)
+    backgroundLayer.addChild(player)
     
     player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
     player.size = CGSize(width: 50, height: 33)
@@ -253,6 +259,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
     addMonster()
     addCoins()
+    
+    self.addCoinBlock(40)
     
     self.addMonsterBlock(1.0)
     
@@ -343,6 +351,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     background1.anchorPoint = CGPointZero
     background1.position = CGPoint(x: 0, y: 0)
     backgroundNode.addChild(background1)
+    
+    rightPoint = background1.frame.width
 
     let background2 = SKSpriteNode(imageNamed: "sky2")
     background2.size = frame.size
@@ -354,20 +364,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundNode.size = CGSize(
       width: background1.size.width + background2.size.width,
       height: frame.size.height)
+    backgroundWidth = backgroundNode.size.width * 2
     return backgroundNode
   }
   
   func moveBackgroundRight(speed: CGFloat) {
-    enumerateChildNodesWithName("background") { node, _ in
-    let background = node as! SKSpriteNode
-      background.position.x -= speed
-
+//    enumerateChildNodesWithName("background") { node, _ in
+//    let background = node as! SKSpriteNode
+    self.backgroundLayer.position.x -= speed
+    
+    backgroundLayer.enumerateChildNodesWithName("background") {
+      node, _ in
+      let background = node as! SKSpriteNode
       if background.position.x <= -background.size.width {
         background.position = CGPoint(
         x: background.position.x + background.size.width*2,
         y: background.position.y)
       }
     }
+    rightPoint += speed
+    leftPoint += speed
   }
   
   func moveBackgroundLeft() {
@@ -401,8 +417,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       withKey:"playerFlappingWings")
   }
   
+  func addCoinBlock(numCoins: Int) {
+        self.runAction(SKAction.repeatAction(
+//          SKAction.sequence([
+          SKAction.runBlock(self.addCoins),
+//          SKAction.waitForDuration(speed)
+           count: numCoins)
+//          ), withKey: "addingMonsters"
+        )
+  }
+  
   func addCoins() {
-    while coinCount < 11 {
+//    while coinCount < 11 {
       let coin = SKSpriteNode(imageNamed: "coin")
       coin.physicsBody = SKPhysicsBody(circleOfRadius: coin.size.width/2)
       coin.physicsBody?.dynamic = true
@@ -412,13 +438,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       // Determine where to spawn the coin along the Y axis
       let actualY = random(min: coin.size.height + baseSize, max: self.frame.size.height - coin.size.height)
-      let actualX = random(min: coin.size.width, max: self.frame.size.width - coin.size.width)
+      let actualX = random(min: coin.size.width, max: backgroundWidth - coin.size.width)
       
       coin.position = CGPoint(x: actualX, y: actualY)
 
-      self.addChild(coin)
+      backgroundLayer.addChild(coin)
       coinCount++
-    }
+//    }
   }
 
   func addMonsterBlock(speed: Double) {
@@ -452,7 +478,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     // Position the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
-    monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
+    monster.position = CGPoint(x: backgroundWidth + 5, y: actualY)
     
 //    let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
 //    let angle = atan2(v.dy, v.dx)
@@ -460,10 +486,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    monster.zRotation = angle
     
     // Add the monster to the scene
-    addChild(monster)
+    backgroundLayer.addChild(monster)
     
     // Determine speed of the monster
-    let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
+    let minimum = max(Double(10 - (coinsCollected)/20), 0.5)
     let maximum = minimum + 1.5
     var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
     if slowmoPurchased {
@@ -532,7 +558,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       self.removeActionForKey("addingMonsters")
       self.addMonsterBlock(2.0)
       
-      self.enumerateChildNodesWithName("arrow") {
+      backgroundLayer.enumerateChildNodesWithName("arrow") {
         node, stop in
         node.removeAllActions()
         
@@ -563,7 +589,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           self.addMonsterBlock(0.5)
         }
         
-        self.enumerateChildNodesWithName("arrow") {
+        self.backgroundLayer.enumerateChildNodesWithName("arrow") {
           node, stop in
           node.removeAllActions()
           
@@ -620,7 +646,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           flame.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
           flame.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
           
-          self.addChild(flame)
+          backgroundLayer.addChild(flame)
         } 
       } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) {
         upgradePurchased(purchaseFlame)
@@ -750,7 +776,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       offset = mostRecentBallPosition - mostRecentBasePosition
     }
     
-    addChild(projectile)
+    backgroundLayer.addChild(projectile)
     
     let direction = offset.normalized()
     let shootAmount = direction * 200
@@ -938,7 +964,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   override func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
     
-    addCoins()
+//    addCoins()
   
 //    let monsterModifier = round(Double(coinsCollected)/10.0)
 //    
@@ -1022,22 +1048,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       
     } else {
-      
-      if player.position.x >= self.frame.width {
-        player.position.x = self.frame.width - 1
+      if player.position.x >= backgroundWidth {
+        player.position.x = backgroundWidth - 1
         
-      } else if player.position.x <= 0 {
-        player.position.x = 1
+      } else if player.position.x <= leftPoint {
+        player.position.x = leftPoint + 1
       
       } else if player.position.y >= self.frame.height {
         player.position.y = self.frame.height - 1
       
       } else if player.position.y <= baseSize + player.size.height / 2 {
-        player.position.y = baseSize + player.size.height/2
+        player.position.y = baseSize + player.size.height/2 + 1
       
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
-        if player.position.x > self.frame.width/2 && shipSpeedX > 0{
+  
+        if player.position.x > rightPoint && shipSpeedX > 0{
           moveBackgroundRight(shipSpeedX)
         }
 //        if player.position.x < self.frame.width/3 {

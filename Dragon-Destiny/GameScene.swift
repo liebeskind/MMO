@@ -69,7 +69,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let musicController = MusicController()
   
-  let backgroundMovePointsPerSec: CGFloat = 10.0
+  let backgroundMovePointsPerSec: CGFloat = 5.0
   let backgroundLayer = SKNode()
   
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
@@ -148,6 +148,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     navigationBox.zPosition = 1
     navigationBox.size = CGSize(width: frame.size.width, height: baseSize)
     addChild(navigationBox)
+    
+//    backgroundLayer.zPosition = -1
+//    addChild(backgroundLayer)
   
     for i in 0...1 {
       let background = backgroundNode()
@@ -334,44 +337,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let backgroundNode = SKSpriteNode()
     backgroundNode.anchorPoint = CGPointZero
     backgroundNode.name = "background"
-    // 2
+
     let background1 = SKSpriteNode(imageNamed: "sky")
+    background1.size = frame.size
     background1.anchorPoint = CGPointZero
     background1.position = CGPoint(x: 0, y: 0)
     backgroundNode.addChild(background1)
-    // 3
+
     let background2 = SKSpriteNode(imageNamed: "sky2")
+    background2.size = frame.size
     background2.anchorPoint = CGPointZero
     background2.position =
       CGPoint(x: background1.size.width, y: 0)
     backgroundNode.addChild(background2)
-    
-    let background3 = SKSpriteNode(imageNamed: "sky3")
-    background3.anchorPoint = CGPointZero
-    background3.position =
-      CGPoint(x: background1.size.width, y: 0)
-    backgroundNode.addChild(background3)
-    // 4
+  
     backgroundNode.size = CGSize(
-      width: background1.size.width + background2.size.width + background3.size.width,
-      height: background1.size.height)
+      width: background1.size.width + background2.size.width,
+      height: frame.size.height)
     return backgroundNode
   }
   
-  func moveBackground() {
+  func moveBackgroundRight(speed: CGFloat) {
     enumerateChildNodesWithName("background") { node, _ in
     let background = node as! SKSpriteNode
-//    let backgroundVelocity = CGPoint(x: -self.backgroundMovePointsPerSec, y: 0)
-      let backgroundVelocity = CGPoint(x: -self.backgroundMovePointsPerSec, y: 0)
+      background.position.x -= speed
 
-      let amountToMove = backgroundVelocity
-      background.position = background.position + amountToMove
       if background.position.x <= -background.size.width {
         background.position = CGPoint(
         x: background.position.x + background.size.width*2,
         y: background.position.y)
       }
     }
+  }
+  
+  func moveBackgroundLeft() {
+      enumerateChildNodesWithName("background") { node, _ in
+      let background = node as! SKSpriteNode
+      let backgroundVelocity = CGPoint(x: self.backgroundMovePointsPerSec, y: 0)
+      
+      let amountToMove = backgroundVelocity
+      background.position = background.position + amountToMove
+      if background.position.x <= -background.size.width {
+      background.position = CGPoint(
+      x: background.position.x + background.size.width*2,
+      y: background.position.y)
+      }
+      }
   }
   
   func flyingPlayer() {
@@ -928,7 +939,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     /* Called before each frame is rendered */
     
     addCoins()
-    moveBackground()
   
 //    let monsterModifier = round(Double(coinsCollected)/10.0)
 //    
@@ -1027,6 +1037,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
+        if player.position.x > self.frame.width/2 && shipSpeedX > 0{
+          moveBackgroundRight(shipSpeedX)
+        }
+//        if player.position.x < self.frame.width/3 {
+//        moveBackgroundLeft()
+//        }
       }
       
       let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)

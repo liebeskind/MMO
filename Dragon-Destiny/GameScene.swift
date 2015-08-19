@@ -276,18 +276,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     addChild(base)
     base.position = CGPointMake(10.0 + baseSize/2, baseSize/2)
     base.size = CGSize(width: baseSize, height: baseSize)
+    base.zPosition = 2
+    base.alpha = 0.8
     
     addChild(ball)
     ball.position = CGPointMake(base.position.x + 1, base.position.y) //Makes player face right and fireballs shoot right if don't move first
     ball.size = CGSize(width: baseSize/2, height: baseSize/2)
-    base.alpha = 0.4
-    ball.alpha = 0.4
-    base.zPosition = 2
     ball.zPosition = 3
+    ball.alpha = 0.8
 
-    attackButton.size = CGSize(width: 113, height: 77)
-    attackButton.position = CGPoint(x: self.frame.width - attackButton.size.width/2 - 5, y: attackButton.size.height/1.55)
-    attackButton.alpha = 0.6
+    attackButton.size = CGSize(width: baseSize * 1.3, height: baseSize * 0.9)
+    attackButton.position = CGPoint(x: self.frame.width - attackButton.size.width/2 - 5, y: attackButton.size.height/1.8)
+    attackButton.alpha = 0.8
     attackButton.zPosition = 2
     self.addChild(attackButton)
     
@@ -380,6 +380,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     // Position the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
     monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
+    
+    let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
+    let angle = atan2(v.dy, v.dx)
+    
+    monster.zRotation = angle
     
     // Add the monster to the scene
     addChild(monster)
@@ -551,8 +556,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }  else if stickActive != true {
 //        stickActive = true
       
-        ball.alpha = 0.4
-        base.alpha = 0.4
+//        ball.alpha = 0.4
+//        base.alpha = 0.4
         
 //        base.position = CGPoint(x: min(max(touchLocation.x, baseSize/2), self.frame.width/2), y: baseSize/2)
 //        ball.position = base.position

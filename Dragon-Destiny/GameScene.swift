@@ -69,6 +69,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let musicController = MusicController()
   
+  let backgroundMovePointsPerSec: CGFloat = 10.0
+  let backgroundLayer = SKNode()
+  
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
   var playerFlyingScenes: [SKTexture]!
   var flyingSpeed = 0.05
@@ -115,11 +118,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var flameScenes: [SKTexture]!
   var flameStartScenes: [SKTexture]!
   
-  let background = SKSpriteNode(imageNamed: "lightClouds")
-  
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
 
   var projectile = SKSpriteNode()
+  
+  var dt: NSTimeInterval = 0
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -146,11 +149,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     navigationBox.size = CGSize(width: frame.size.width, height: baseSize)
     addChild(navigationBox)
   
-//    backgroundColor = SKColor.whiteColor()
-    background.size = frame.size
-    background.zPosition = -1
-    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
-    self.addChild(background)
+    for i in 0...1 {
+      let background = backgroundNode()
+      background.anchorPoint = CGPointZero
+      background.position =
+      CGPoint(x: CGFloat(i)*background.size.width, y: 0)
+      background.name = "background"
+      addChild(background)
+    }
+    
+////    backgroundColor = SKColor.whiteColor()
+//    background.size = frame.size
+//    background.zPosition = -1
+//    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
+//    self.addChild(background)
     
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
@@ -318,6 +330,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     return random() * (max - min) + min
   }
   
+  func backgroundNode() -> SKSpriteNode{
+    let backgroundNode = SKSpriteNode()
+    backgroundNode.anchorPoint = CGPointZero
+    backgroundNode.name = "background"
+    // 2
+    let background1 = SKSpriteNode(imageNamed: "sky")
+    background1.anchorPoint = CGPointZero
+    background1.position = CGPoint(x: 0, y: 0)
+    backgroundNode.addChild(background1)
+    // 3
+    let background2 = SKSpriteNode(imageNamed: "sky2")
+    background2.anchorPoint = CGPointZero
+    background2.position =
+      CGPoint(x: background1.size.width, y: 0)
+    backgroundNode.addChild(background2)
+    
+    let background3 = SKSpriteNode(imageNamed: "sky3")
+    background3.anchorPoint = CGPointZero
+    background3.position =
+      CGPoint(x: background1.size.width, y: 0)
+    backgroundNode.addChild(background3)
+    // 4
+    backgroundNode.size = CGSize(
+      width: background1.size.width + background2.size.width + background3.size.width,
+      height: background1.size.height)
+    return backgroundNode
+  }
+  
+  func moveBackground() {
+    enumerateChildNodesWithName("background") { node, _ in
+    let background = node as! SKSpriteNode
+//    let backgroundVelocity = CGPoint(x: -self.backgroundMovePointsPerSec, y: 0)
+      let backgroundVelocity = CGPoint(x: -self.backgroundMovePointsPerSec, y: 0)
+
+      let amountToMove = backgroundVelocity
+      background.position = background.position + amountToMove
+      if background.position.x <= -background.size.width {
+        background.position = CGPoint(
+        x: background.position.x + background.size.width*2,
+        y: background.position.y)
+      }
+    }
+  }
+  
   func flyingPlayer() {
     
 //    while playerMoving == true {
@@ -387,10 +443,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     // and along a random position along the Y axis as calculated above
     monster.position = CGPoint(x: size.width + monster.size.width/2, y: actualY)
     
-    let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
-    let angle = atan2(v.dy, v.dx)
-    
-    monster.zRotation = angle
+//    let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
+//    let angle = atan2(v.dy, v.dx)
+//    
+//    monster.zRotation = angle
     
     // Add the monster to the scene
     addChild(monster)
@@ -872,6 +928,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     /* Called before each frame is rendered */
     
     addCoins()
+    moveBackground()
   
 //    let monsterModifier = round(Double(coinsCollected)/10.0)
 //    

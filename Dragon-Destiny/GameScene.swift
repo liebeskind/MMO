@@ -74,6 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var backgroundWidth = CGFloat()
   var leftPoint = CGFloat(0)
   var rightPoint = CGFloat()
+  var movePoint = CGFloat()
   
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
   var playerFlyingScenes: [SKTexture]!
@@ -114,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
   var slowmoPurchased = false
-  var slowmoSpeedModifier = CGFloat(6.0)
+  var slowmoSpeedModifier = CGFloat(4.0)
   let slowmoDuration = 10.0
   
   var flame = SKSpriteNode()
@@ -165,7 +166,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       backgroundLayer.addChild(background)
     }
     
-    rightPoint = self.frame.width / 1.5
+    rightPoint = self.frame.width
+    movePoint = rightPoint / 1.5
     
 ////    backgroundColor = SKColor.whiteColor()
 //    background.size = frame.size
@@ -384,6 +386,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     rightPoint += speed
     leftPoint += speed
+    movePoint += speed
   }
   
   func moveBackgroundLeft() {
@@ -464,6 +467,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.size = CGSize(width: 50.0, height: 10.0)
     monster.name = "arrow"
     monster.playerPosition = CGPoint(x: player.position.x, y: player.position.y)
+    monster.leftPoint = leftPoint
     
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
 //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
@@ -478,7 +482,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     // Position the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
-    monster.position = CGPoint(x: backgroundWidth + 5, y: actualY)
+    monster.position = CGPoint(x: rightPoint + monster.size.height, y: actualY)
     
 //    let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
 //    let angle = atan2(v.dy, v.dx)
@@ -489,7 +493,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundLayer.addChild(monster)
     
     // Determine speed of the monster
-    let minimum = max(Double(10 - (coinsCollected)/20), 0.5)
+    let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
     let maximum = minimum + 1.5
     var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
     if slowmoPurchased {
@@ -498,7 +502,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     // Create the actions
-    let actionMove = SKAction.moveTo(CGPoint(x: -monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
+    let actionMove = SKAction.moveTo(CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
     let actionMoveDone = SKAction.removeFromParent()
 
     monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
@@ -568,9 +572,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // Create the actions
         if let monsterExistingMoveDuration = monster.moveDuration {
-          actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monsterExistingMoveDuration))
+          actionMove = SKAction.moveTo(CGPoint(x: monster.leftPoint! - monster.size.width/2, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monsterExistingMoveDuration))
         } else {
-          actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier))
+          actionMove = SKAction.moveTo(CGPoint(x: monster.leftPoint! - monster.size.width/2, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier))
         }
 //        let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monster.moveDuration!))
         let actionMoveDone = SKAction.removeFromParent()
@@ -596,7 +600,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           let monster = node as! Monster
           
           // Create the actions
-          let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(monster.moveDuration!))
+          let actionMove = SKAction.moveTo(CGPoint(x: monster.leftPoint! - monster.size.width/2, y: monster.playerPosition!.y), duration: NSTimeInterval(monster.moveDuration!))
           let actionMoveDone = SKAction.removeFromParent()
           
           monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
@@ -1063,7 +1067,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
   
-        if player.position.x > rightPoint && shipSpeedX > 0{
+        if player.position.x > movePoint && shipSpeedX > 0{
           moveBackgroundRight(shipSpeedX)
         }
 //        if player.position.x < self.frame.width/3 {

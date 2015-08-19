@@ -13,6 +13,7 @@ import SpriteKit
 class Monster: SKSpriteNode {
   var playerPosition: CGPoint?
   var moveDuration: CGFloat?
+  var leftPoint: CGFloat?
   
   override init(texture: SKTexture!, color: SKColor!, size: CGSize) {
     self.playerPosition = CGPoint()

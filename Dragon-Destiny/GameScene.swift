@@ -157,7 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundLayer.zPosition = -1
     addChild(backgroundLayer)
   
-    for i in 0...5 {
+    for i in 0...20 {
       totalBackgrounds = i
       let background = backgroundNode()
       background.anchorPoint = CGPointZero
@@ -264,7 +264,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     addMonster()
     addCoins()
     
-    self.addCoinBlock(40)
+    self.addCoinBlock(500)
     
     self.addMonsterBlock(1.0)
     
@@ -1068,6 +1068,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
+        moveBackgroundRight(1)
   
         if player.position.x > movePoint && shipSpeedX > 0{
           moveBackgroundRight(shipSpeedX)

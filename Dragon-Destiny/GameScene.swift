@@ -72,6 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let backgroundMovePointsPerSec: CGFloat = 5.0
   let backgroundLayer = SKNode()
   var backgroundWidth = CGFloat()
+  var totalBackgrounds = Int()
   var leftPoint = CGFloat(0)
   var rightPoint = CGFloat()
   var movePoint = CGFloat()
@@ -156,7 +157,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundLayer.zPosition = -1
     addChild(backgroundLayer)
   
-    for i in 0...1 {
+    for i in 0...5 {
+      totalBackgrounds = i
       let background = backgroundNode()
       background.anchorPoint = CGPointZero
       background.position =
@@ -366,7 +368,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundNode.size = CGSize(
       width: background1.size.width + background2.size.width,
       height: frame.size.height)
-    backgroundWidth = backgroundNode.size.width * 2
+    backgroundWidth = backgroundNode.size.width * CGFloat(totalBackgrounds)
     return backgroundNode
   }
   

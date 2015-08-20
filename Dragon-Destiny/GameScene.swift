@@ -327,7 +327,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    purchaseSlowmo.size = CGSize(width: 100.0, height: 26.0)
     purchaseSlowmo.size = attackButton.size
     purchaseSlowmo.alpha = attackButton.alpha
-    purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width - 8, y: attackButton.position.y)
+    purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width - 12, y: attackButton.position.y)
     purchaseSlowmo.zPosition = 2
     self.addChild(purchaseSlowmo)
     

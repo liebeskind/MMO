@@ -711,10 +711,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //        flame.zRotation = player.zRotation + 1.57079633
     
       // set up the speed
-      let multiplier:CGFloat = 0.06
+      let multiplier:CGFloat = 0.08
       
-      shipSpeedX = max(min(v.dx * multiplier, 2.0), -2.0)
-      shipSpeedY = max(min(v.dy * multiplier, 2.0), -2.0)
+      shipSpeedX = max(min(v.dx * multiplier, 2.2), -2.2)
+      shipSpeedY = max(min(v.dy * multiplier, 2.2), -2.2)
       
 //        stickActive = false
     

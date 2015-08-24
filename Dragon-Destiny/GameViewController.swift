@@ -11,7 +11,7 @@ import SpriteKit
 import iAd
 import GoogleMobileAds
 
-class GameViewController: UIViewController, GADInterstitialDelegate {
+class GameViewController: UIViewController, GADInterstitialDelegate, UINavigationControllerDelegate {
   
   var interstitial:GADInterstitial?
 //  var interstitialAd:ADInterstitialAd! = nil

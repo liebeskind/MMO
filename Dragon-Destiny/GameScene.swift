@@ -635,7 +635,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
-      if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+      if (CGRectContainsPoint(attackButton.frame, touchLocation)) && playerDead == false {
         attackButtonPushed()
         if flamePurchased == true {
           flame = SKSpriteNode(texture: flameScenes[0])
@@ -655,9 +655,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           
           backgroundLayer.addChild(flame)
         } 
-      } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) {
+      } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseFlame)
-      } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) {
+      } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseSlowmo)
       }  else if stickActive != true {
 //        stickActive = true

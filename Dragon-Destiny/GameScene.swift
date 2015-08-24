@@ -80,6 +80,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var player = SKSpriteNode(imageNamed: "BlueDragonFlap0")
   var playerFlyingScenes: [SKTexture]!
   var flyingSpeed = 0.05
+  var playerDead = false
   
   var fireballScenes: [SKTexture]!
   var arrowScenes: [SKTexture]!
@@ -673,53 +674,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
-    let touchLocation = touch.locationInNode(self)
-      playerMoving = true
-      stickActive = true
-      
-      let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
-      let angle = atan2(v.dy, v.dx)
-      
-      let deg = angle * CGFloat( 180 / M_PI)
-      
-      self.figureOutDirection( deg + 180)
-      
-      let length:CGFloat = base.frame.size.height / 2
-      let xDist:CGFloat = sin(angle - 1.57079633) * length
-      let yDist:CGFloat = cos(angle - 1.57079633) * length
-      
-      if (CGRectContainsPoint(base.frame, touchLocation)) {
+    if playerDead == false {
+      for touch in (touches as! Set<UITouch>) {
+      let touchLocation = touch.locationInNode(self)
+        playerMoving = true
+        stickActive = true
         
-        ball.position = touchLocation
-        mostRecentBasePosition = base.position
-        mostRecentBallPosition = ball.position
+        let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
+        let angle = atan2(v.dy, v.dx)
         
-      } else if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
-        return
+        let deg = angle * CGFloat( 180 / M_PI)
+        
+        self.figureOutDirection( deg + 180)
+        
+        let length:CGFloat = base.frame.size.height / 2
+        let xDist:CGFloat = sin(angle - 1.57079633) * length
+        let yDist:CGFloat = cos(angle - 1.57079633) * length
+        
+        if (CGRectContainsPoint(base.frame, touchLocation)) {
+          
+          ball.position = touchLocation
+          mostRecentBasePosition = base.position
+          mostRecentBallPosition = ball.position
+          
+        } else if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+          return
 
-      } else {
-        ball.position = CGPointMake( base.position.x - xDist, base.position.y + yDist)
-        mostRecentBasePosition = base.position
-        mostRecentBallPosition = ball.position
-      }
+        } else {
+          ball.position = CGPointMake( base.position.x - xDist, base.position.y + yDist)
+          mostRecentBasePosition = base.position
+          mostRecentBallPosition = ball.position
+        }
+        
+        player.zRotation = angle - 1.57079633
+  //        let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+  //        flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+  ////        flame.position = CGPoint(x: player.position.x, y: player.position.y + player.size.height/2)
+  //        flame.zRotation = player.zRotation + 1.57079633
       
-      player.zRotation = angle - 1.57079633
-//        let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-//        flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
-////        flame.position = CGPoint(x: player.position.x, y: player.position.y + player.size.height/2)
-//        flame.zRotation = player.zRotation + 1.57079633
-    
-      // set up the speed
-      let multiplier:CGFloat = 0.08
+        // set up the speed
+        let multiplier:CGFloat = 0.08
+        
+        shipSpeedX = max(min(v.dx * multiplier, 2.2), -2.2)
+        shipSpeedY = max(min(v.dy * multiplier, 2.2), -2.2)
+        
+  //        stickActive = false
       
-      shipSpeedX = max(min(v.dx * multiplier, 2.2), -2.2)
-      shipSpeedY = max(min(v.dy * multiplier, 2.2), -2.2)
-      
-//        stickActive = false
-    
-    } // ends stickActive test
-//    }
+      } // ends stickActive test
+  //    }
+    }
   }
   
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -830,13 +833,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func monsterDidCollideWithPlayer() {
     println("Monster got the player!")
-    
-      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-    let gameOverScene = GameOverScene(size: self.size, won: false, score: coinsCollected)
+    if playerDead == false {
+      playerDead = true
+      
       self.musicController.stopBackgroundMusic()
       self.musicController.stopUpgradeMusic()
-      self.musicController.playSoundEffect("funnyClang.wav")
-      self.view?.presentScene(gameOverScene, transition: reveal)
+      self.musicController.playSoundEffect("PlayerDeath.wav")
+      let gameOverTransition = SKAction.runBlock {
+        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected)
+        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+        self.view?.presentScene(gameOverScene, transition: reveal)
+        self.playerDead = false
+      }
+      
+      player.removeActionForKey("playerFlappingWings")
+      let freezeTexture = SKAction.setTexture(playerFlyingScenes[0])
+      let spinShrinkDuration = 1.5
+      let spinPlayer = SKAction.rotateByAngle(10.0, duration: spinShrinkDuration)
+      let shrinkPlayer = SKAction.scaleTo(0.0, duration: spinShrinkDuration)
+      
+      let spinAndShrinkGroup = SKAction.group([spinPlayer, shrinkPlayer])
+      
+      player.runAction(SKAction.sequence([freezeTexture, spinAndShrinkGroup, gameOverTransition]))
+    }
   }
   
   func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {
@@ -859,9 +878,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
     }
     
-    
     // Adds additional monsters when collect coins to maintain number of arrows being fired at higher levels.
-    
     if self.coinsCollected >= 50 && slowmoPurchased == false {
       self.removeActionForKey("addingMonsters")
       self.addMonsterBlock(0.5)
@@ -906,7 +923,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
       }
 
-      
     case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue:
       println("projectile + player")
     
@@ -922,170 +938,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func figureOutDirection(degree:CGFloat) {
-    
     if (degree <= 360 && degree >= 335) {
-      
       currentState = MoveStates.W
-      
-    }
-    else if (degree <= 334 && degree >= 290) {
-      
+    } else if (degree <= 334 && degree >= 290) {
       currentState = MoveStates.NW
-      
-    }
-    else if (degree <= 289 && degree >= 245) {
-      
+    } else if (degree <= 289 && degree >= 245) {
       currentState = MoveStates.N
-      
-    }
-    else if (degree <= 244 && degree >= 200) {
-      
+    } else if (degree <= 244 && degree >= 200) {
       currentState = MoveStates.NE
-      
-    }
-    else if (degree <= 199 && degree >= 155) {
-      
+    } else if (degree <= 199 && degree >= 155) {
       currentState = MoveStates.E
-      
-    }
-    else if (degree <= 154 && degree >= 110) {
-      
+    } else if (degree <= 154 && degree >= 110) {
       currentState = MoveStates.SE
-      
-    }
-    else if (degree <= 109 && degree >= 65) {
-      
+    } else if (degree <= 109 && degree >= 65) {
       currentState = MoveStates.S
-      
-    }
-    else if (degree <= 64 && degree >= 20) {
-      
+    } else if (degree <= 64 && degree >= 20) {
       currentState = MoveStates.SW
-      
-    }
-    else if (degree <= 19 && degree <= 0) {
-      
+    } else if (degree <= 19 && degree <= 0) {
       currentState = MoveStates.W
-      
     }
   }
   
   override func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
     
-//    addCoins()
-  
-//    let monsterModifier = round(Double(coinsCollected)/10.0)
-//    
-//    if max(Int(currentTime), 1) % max((10 - Int(monsterModifier)), 1) == 0 {
-//      addMonster()
-//    }
-//    
-//    println(currentTime)
+    if player.position.x >= backgroundWidth {
+      player.position.x = backgroundWidth - 1
+      
+    } else if player.position.x <= leftPoint {
+      player.position.x = leftPoint + 1
     
-//    if coinsCollected > 10 {
-//      
-//    }
-//    if coinsCollected > 10 {
-//      if coinsCollected % 10 == 0 {
-//        addMonster()
-//      }
-//    } else if coinsCollected > 20 {
-//      if coinsCollected % 9 == 0 {
-//        addMonster()
-//      }
-//    } else if coinsCollected > 30 {
-//      if coinsCollected % 8 == 0 {
-//        addMonster()
-//      }
-//    }
+    } else if player.position.y >= self.frame.height {
+      player.position.y = self.frame.height - 1
     
-    if ( strictCompassMovements == true) {
-
-      var xMove:CGFloat = 0
-      var yMove:CGFloat = 0
-      
-      switch (currentState) {
-        
-      case .N:
-        yMove = 0.1
-      case .S:
-        yMove = -0.1
-      case .E:
-        xMove = 0.1
-      case .W:
-        xMove = -0.1
-      case .NE:
-        yMove = 0.1
-        xMove = 0.1
-      case .SE:
-        yMove = -0.1
-        xMove = 0.1
-      case .NW:
-        xMove = -0.1
-        yMove = 0.1
-      case .SW:
-        xMove = -0.1
-        yMove = -0.1
-        
-      default:
-        break
-        
-      }
-      
-      if player.position.x > self.frame.width {
-        player.position.x = self.frame.width
-      
-      } else if player.position.x < 0 {
-        player.position.x = 0
-      
-      } else if player.position.y > self.frame.height {
-        player.position.y = self.frame.height
-      
-      } else if player.position.y < 0 {
-        player.position.y = 0
-      
-      } else {
-        player.position = CGPointMake(player.position.x + xMove, player.position.y + yMove)
-      }
-      
-      let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-//      flame.position = player.position + flamePosVector
-      flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
-      //        CGPoint(x: player.position.x - player.zRotation*player.size.width/2, y: player.position.y)
-      flame.zRotation = player.zRotation + 1.57079633
-      
-      
+    } else if player.position.y <= baseSize + player.size.height / 2 {
+      player.position.y = baseSize + player.size.height/2 + 1
+    
     } else {
-      if player.position.x >= backgroundWidth {
-        player.position.x = backgroundWidth - 1
-        
-      } else if player.position.x <= leftPoint {
-        player.position.x = leftPoint + 1
-      
-      } else if player.position.y >= self.frame.height {
-        player.position.y = self.frame.height - 1
-      
-      } else if player.position.y <= baseSize + player.size.height / 2 {
-        player.position.y = baseSize + player.size.height/2 + 1
-      
-      } else {
-        player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
-        moveBackgroundRight(1)
-  
-        if player.position.x > movePoint && shipSpeedX > 0{
-          moveBackgroundRight(shipSpeedX)
-        }
+      player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
+      moveBackgroundRight(1)
+
+      if player.position.x > movePoint && shipSpeedX > 0{
+        moveBackgroundRight(shipSpeedX)
+      }
 //        if player.position.x < self.frame.width/3 {
 //        moveBackgroundLeft()
 //        }
-      }
-      
-      let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-      flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
-      //        CGPoint(x: player.position.x - player.zRotation*player.size.width/2, y: player.position.y)
-      flame.zRotation = player.zRotation + 1.57079633
-
     }
+    
+    let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+    flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+    flame.zRotation = player.zRotation + 1.57079633
+
   }
 }

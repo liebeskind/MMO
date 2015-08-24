@@ -45,8 +45,16 @@ class GameOverScene: SKScene {
     label.text = message
     label.fontSize = 30
     label.fontColor = SKColor.blackColor()
-    label.position = CGPoint(x: size.width/2, y: restartButton.position.y + restartButton.size.height + 15)
+    label.position = CGPoint(x: size.width/2, y: restartButton.position.y + restartButton.size.height/2 + label.fontSize)
     addChild(label)
+    
+    message = "Dragon Destiny"
+    let dragonDestinyLabel = SKLabelNode(fontNamed: "Chalkduster")
+    dragonDestinyLabel.text = message
+    dragonDestinyLabel.fontSize = 30
+    dragonDestinyLabel.fontColor = SKColor.blackColor()
+    dragonDestinyLabel.position = CGPoint(x: size.width/2, y: label.position.y + dragonDestinyLabel.fontSize + label.fontSize/2)
+    addChild(dragonDestinyLabel)
     
   }
   

@@ -4,14 +4,29 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Dragon-Destiny-Mac.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>Dragon-Destiny.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>294381AD1B87A40400E332DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>294381C01B87A40400E332DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>357164DE19DB1E4800ED38A9</key>
 		<dict>
 			<key>primary</key>

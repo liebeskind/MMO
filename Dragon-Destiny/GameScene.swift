@@ -791,7 +791,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let actionMove = SKAction.moveTo(realDest, duration: 0.4)
     let actionMoveDone = SKAction.removeFromParent()
     let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
-    projectile.runAction(SKAction.repeatActionForever(shootFireball))
+    let shrink = SKAction.scaleTo(0.0, duration: 0.6)
+    let shootFireballGroup = SKAction.group([shootFireball, shrink])
+  
+    projectile.runAction(SKAction.repeatActionForever(shootFireballGroup))
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     
     self.musicController.playSoundEffect("FireballSound.wav")

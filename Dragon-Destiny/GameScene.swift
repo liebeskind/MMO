@@ -284,7 +284,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     pausedLabel.position = CGPoint(x: size.width/2, y: size.height/2)
     pausedLabel.fontColor = UIColor.orangeColor()
     pausedLabel.fontName = "Chalkduster"
-    pausedLabel.fontSize = 60
+    pausedLabel.fontSize = 90
     
     totalCoinsBoard.position = CGPoint(x: size.width - 15, y: pausedButton.position.y - pausedButton.size.height/1.5)
     totalCoinsBoard.fontColor = UIColor.blackColor()

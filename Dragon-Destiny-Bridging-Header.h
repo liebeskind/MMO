@@ -3,3 +3,4 @@
 //
 
 #import <GoogleMobileAds/GADInterstitial.h>
+#import <Google/Analytics.h>

@@ -48,6 +48,7 @@
 		29EC4ACE1B8BDBD200E8804D /* StartMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC4ACD1B8BDBD200E8804D /* StartMenuViewController.swift */; };
 		29F6B3851B8C07920094919F /* pause-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B3831B8C07920094919F /* pause-button.png */; };
 		29F6B3861B8C07920094919F /* paused-pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B3841B8C07920094919F /* paused-pushed.png */; };
+		29F6B3881B8CE5A30094919F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B3871B8CE5A30094919F /* GoogleService-Info.plist */; };
 		357164E519DB1E4800ED38A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E419DB1E4800ED38A9 /* AppDelegate.swift */; };
 		357164E919DB1E4800ED38A9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E819DB1E4800ED38A9 /* GameScene.swift */; };
 		357164EB19DB1E4800ED38A9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164EA19DB1E4800ED38A9 /* GameViewController.swift */; };
@@ -59,7 +60,7 @@
 		3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3571650A19DB1F5500ED38A9 /* pew-pew-lei.caf */; };
 		3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3571650B19DB1F5500ED38A9 /* sprites.atlas */; };
 		3571651019DB322700ED38A9 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3571650F19DB322700ED38A9 /* GameOverScene.swift */; };
-		D734869B2234C72B7C6FF95B /* Pods_Dragon_Destiny.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A337BE4D1D21483FDEC18065 /* Pods_Dragon_Destiny.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A9FDD19B479E0BCE18046E05 /* Pods_Dragon_Destiny.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2CE6F3A84F19A2A932D7477 /* Pods_Dragon_Destiny.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +86,7 @@
 		29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowmoUpgradeButton.png; path = ../../../../Designs/MMO/SlowmoUpgradeButton.png; sourceTree = "<group>"; };
 		29385B801B7AA3C4000D0986 /* Monster.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monster.swift; sourceTree = "<group>"; };
 		29385B821B7BB7D7000D0986 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		29385B851B7BBA95000D0986 /* Dragon-Destiny-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dragon-Destiny-Bridging-Header.h"; sourceTree = "<group>"; };
+		29385B851B7BBA95000D0986 /* Dragon-Destiny-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dragon-Destiny-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		29385B881B7BBB41000D0986 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		29385B891B7BBB41000D0986 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		29385B8C1B7BBB45000D0986 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -126,6 +127,7 @@
 		29EC4ACD1B8BDBD200E8804D /* StartMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartMenuViewController.swift; sourceTree = "<group>"; };
 		29F6B3831B8C07920094919F /* pause-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause-button.png"; path = "../../../../Designs/MMO/pause-button.png"; sourceTree = "<group>"; };
 		29F6B3841B8C07920094919F /* paused-pushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "paused-pushed.png"; path = "../../../../Designs/MMO/paused-pushed.png"; sourceTree = "<group>"; };
+		29F6B3871B8CE5A30094919F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		357164DF19DB1E4800ED38A9 /* Dragon-Destiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dragon-Destiny.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164E419DB1E4800ED38A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,9 +143,9 @@
 		3571650A19DB1F5500ED38A9 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		3571650B19DB1F5500ED38A9 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		3571650F19DB322700ED38A9 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
-		841A1CB6B3ACFF3236C73515 /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
-		A337BE4D1D21483FDEC18065 /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EEEBAE85D97D0718F4E2C8E7 /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
+		4CB6BC49AA57E0D1B03AB0AD /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
+		B2CE6F3A84F19A2A932D7477 /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEA0A53FB8FE79D2A9069AF3 /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +180,7 @@
 				29385B8A1B7BBB41000D0986 /* AdSupport.framework in Frameworks */,
 				29385B8B1B7BBB41000D0986 /* AudioToolbox.framework in Frameworks */,
 				29385B831B7BB7D7000D0986 /* iAd.framework in Frameworks */,
-				D734869B2234C72B7C6FF95B /* Pods_Dragon_Destiny.framework in Frameworks */,
+				A9FDD19B479E0BCE18046E05 /* Pods_Dragon_Destiny.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,9 +251,8 @@
 				294381AF1B87A40400E332DA /* Dragon-Destiny-Mac */,
 				294381C41B87A40400E332DA /* Dragon-Destiny-MacTests */,
 				357164E019DB1E4800ED38A9 /* Products */,
-				29385B851B7BBA95000D0986 /* Dragon-Destiny-Bridging-Header.h */,
 				834ECDE401363BB716515F79 /* Frameworks */,
-				89C067A21FF29F49FC548811 /* Pods */,
+				848B9E5AE1205B4602BC6A6C /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -269,6 +270,7 @@
 		357164E119DB1E4800ED38A9 /* Dragon-Destiny */ = {
 			isa = PBXGroup;
 			children = (
+				29385B851B7BBA95000D0986 /* Dragon-Destiny-Bridging-Header.h */,
 				29385B7B1B7941CF000D0986 /* ImageAssets */,
 				3571650819DB1F5500ED38A9 /* Sounds */,
 				294381A81B84544800E332DA /* skyBackgroundImages.atlas */,
@@ -298,6 +300,7 @@
 		357164E219DB1E4800ED38A9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				29F6B3871B8CE5A30094919F /* GoogleService-Info.plist */,
 				357164E319DB1E4800ED38A9 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -352,16 +355,16 @@
 				29385B8C1B7BBB45000D0986 /* AVFoundation.framework */,
 				29385B881B7BBB41000D0986 /* AdSupport.framework */,
 				29385B891B7BBB41000D0986 /* AudioToolbox.framework */,
-				A337BE4D1D21483FDEC18065 /* Pods_Dragon_Destiny.framework */,
+				B2CE6F3A84F19A2A932D7477 /* Pods_Dragon_Destiny.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		89C067A21FF29F49FC548811 /* Pods */ = {
+		848B9E5AE1205B4602BC6A6C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EEEBAE85D97D0718F4E2C8E7 /* Pods-Dragon-Destiny.debug.xcconfig */,
-				841A1CB6B3ACFF3236C73515 /* Pods-Dragon-Destiny.release.xcconfig */,
+				4CB6BC49AA57E0D1B03AB0AD /* Pods-Dragon-Destiny.debug.xcconfig */,
+				FEA0A53FB8FE79D2A9069AF3 /* Pods-Dragon-Destiny.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -408,12 +411,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon-Destiny" */;
 			buildPhases = (
-				EFCF8F100865E3B3C5F62E32 /* Check Pods Manifest.lock */,
+				8C9075C27D71A0DA594A2F02 /* Check Pods Manifest.lock */,
 				357164DB19DB1E4800ED38A9 /* Sources */,
 				357164DC19DB1E4800ED38A9 /* Frameworks */,
 				357164DD19DB1E4800ED38A9 /* Resources */,
-				15F8852B5C5615FA904DB0ED /* Embed Pods Frameworks */,
-				8C612AEE666350F3B5E513DF /* Copy Pods Resources */,
+				EAE5E6A50B421E90E38D0A05 /* Embed Pods Frameworks */,
+				F70A23B92E4B46E051946CDB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -528,6 +531,7 @@
 				357164F319DB1E4800ED38A9 /* LaunchScreen.xib in Resources */,
 				357164F019DB1E4800ED38A9 /* Images.xcassets in Resources */,
 				29385B7F1B7A8CA4000D0986 /* SlowmoUpgradeButton.png in Resources */,
+				29F6B3881B8CE5A30094919F /* GoogleService-Info.plist in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
 				29F6B3851B8C07920094919F /* pause-button.png in Resources */,
@@ -547,7 +551,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		15F8852B5C5615FA904DB0ED /* Embed Pods Frameworks */ = {
+		8C9075C27D71A0DA594A2F02 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EAE5E6A50B421E90E38D0A05 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -562,7 +581,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C612AEE666350F3B5E513DF /* Copy Pods Resources */ = {
+		F70A23B92E4B46E051946CDB /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -575,21 +594,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EFCF8F100865E3B3C5F62E32 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -840,7 +844,7 @@
 		};
 		3571650319DB1E4800ED38A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EEEBAE85D97D0718F4E2C8E7 /* Pods-Dragon-Destiny.debug.xcconfig */;
+			baseConfigurationReference = 4CB6BC49AA57E0D1B03AB0AD /* Pods-Dragon-Destiny.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -855,7 +859,7 @@
 		};
 		3571650419DB1E4800ED38A9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 841A1CB6B3ACFF3236C73515 /* Pods-Dragon-Destiny.release.xcconfig */;
+			baseConfigurationReference = FEA0A53FB8FE79D2A9069AF3 /* Pods-Dragon-Destiny.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

@@ -11,6 +11,14 @@ import SpriteKit
 
 class StartMenuViewController: UIViewController {
 
+  override func viewWillAppear(animated: Bool) {
+    var tracker = GAI.sharedInstance().defaultTracker
+    tracker.set(kGAIScreenName, value: "StartMenuViewController")
+    
+    var builder = GAIDictionaryBuilder.createScreenView()
+    tracker.send(builder.build() as [NSObject : AnyObject])
+  }
+  
   @IBAction func playArcadeButtonPushed(sender: UIButton) {
 //    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
 //    let scene = GameScene(size: self.view.frame.size)

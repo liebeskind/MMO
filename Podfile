@@ -3,6 +3,7 @@ use_frameworks!
 
 target 'Dragon-Destiny' do
   pod 'Google-Mobile-Ads-SDK', '~> 7.0'
+  pod 'Google/Analytics', '~> 1.0.0'
 end
 
 target 'Dragon-DestinyTests' do

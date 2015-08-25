@@ -18,6 +18,14 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
 //  var interstitialAdView: UIView = UIView()
 //  var closeButton:UIButton!
   
+  override func viewWillAppear(animated: Bool) {
+    var tracker = GAI.sharedInstance().defaultTracker
+    tracker.set(kGAIScreenName, value: "GameViewController")
+    
+    var builder = GAIDictionaryBuilder.createScreenView()
+    tracker.send(builder.build() as [NSObject : AnyObject])
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     let scene = GameScene(size: view.bounds.size)

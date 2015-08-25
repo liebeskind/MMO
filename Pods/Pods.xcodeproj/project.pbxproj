@@ -7,148 +7,326 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		383B0A489FB3C3ECE240D005 /* Pods-Dragon-Destiny-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 26272394E91D03C982EE6164 /* Pods-Dragon-Destiny-dummy.m */; };
-		74EE1FA82D2978DEB57DAF02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5024B556C64EC3530C448645 /* Foundation.framework */; };
-		FC00976312A354FBF0F5ECB1 /* Pods-Dragon-Destiny-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 413EB64C334EBEAC66339787 /* Pods-Dragon-Destiny-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		22A329CBA5DEEE0A7F789896CA8A945B /* Pods-Dragon-Destiny-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BEFE84A0898F9286BDF1809DF70B84FE /* Pods-Dragon-Destiny-dummy.m */; };
+		B340FBF9C44E322D9DF981C13653919F /* Pods-Dragon-Destiny-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0D76AA294039B3AF6992FBEAFB226E2B /* Pods-Dragon-Destiny-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BEC4E86D477557203C116DA5FF903DE2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CB3448F9A450E05145F9CAC1B1FC91 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		006142FBBA043D75814416F0 /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0B355978C6440918E73B3B18 /* Pods-Dragon-Destiny-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Dragon-Destiny-frameworks.sh"; sourceTree = "<group>"; };
-		26272394E91D03C982EE6164 /* Pods-Dragon-Destiny-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Dragon-Destiny-dummy.m"; sourceTree = "<group>"; };
-		332A9CBE7D8F0AFB038D99EA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4017F9B230820F8F9D1C3FEE /* Pods-Dragon-Destiny-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Dragon-Destiny-environment.h"; sourceTree = "<group>"; };
-		413EB64C334EBEAC66339787 /* Pods-Dragon-Destiny-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Dragon-Destiny-umbrella.h"; sourceTree = "<group>"; };
-		48C06535B2F9CBD5C4584FFE /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
-		5024B556C64EC3530C448645 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6C63DA97ADCEE6A691D379BA /* Pods-Dragon-Destiny.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Dragon-Destiny.modulemap"; sourceTree = "<group>"; };
-		70DDEA69CB6E3A8914AB6514 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9CBB0DE3A8A701783F48C741 /* Pods-Dragon-Destiny-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Dragon-Destiny-acknowledgements.plist"; sourceTree = "<group>"; };
-		C90022B0CB8CD15C5186DE20 /* Pods-Dragon-Destiny-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Dragon-Destiny-resources.sh"; sourceTree = "<group>"; };
-		ECFFAB532AE226B7E9D18A3C /* Pods-Dragon-Destiny-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Dragon-Destiny-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F689AC98211FB4CB8A722663 /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
-		FE699C4206023557324420D6 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "GoogleMobileAdsSdkiOS-7.4.0/GoogleMobileAds.framework"; sourceTree = "<group>"; };
+		03608806C5166402A6AE2B7A68568403 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = Libraries/libGoogleAnalytics.a; sourceTree = "<group>"; };
+		04EC96AB2BB7D16298F69A8AF939F681 /* Pods-Dragon-Destiny-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Dragon-Destiny-acknowledgements.markdown"; sourceTree = "<group>"; };
+		0D76AA294039B3AF6992FBEAFB226E2B /* Pods-Dragon-Destiny-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Dragon-Destiny-umbrella.h"; sourceTree = "<group>"; };
+		0D99295B0EF03EA8ECE2296F7EFA5BA1 /* GAIFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Headers/Public/GAIFields.h; sourceTree = "<group>"; };
+		0FB9D6C2CA8EEA42DD1D0B17EACEA990 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceFields.h; path = Headers/Public/GAIEcommerceFields.h; sourceTree = "<group>"; };
+		164177656D92F41AADF8815B705A861B /* libGTM_Regex.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_Regex.a; path = Libraries/libGTM_Regex.a; sourceTree = "<group>"; };
+		16689F06BD2994CE00543C13FEC80C7A /* libGGLCore.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGGLCore.a; path = Libraries/libGGLCore.a; sourceTree = "<group>"; };
+		18A51D5DF4B6306EE135A02F86474652 /* libGTMSessionFetcher_full.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMSessionFetcher_full.a; path = Libraries/libGTMSessionFetcher_full.a; sourceTree = "<group>"; };
+		2706B001E3D1159C96CD152CEFFED01D /* libGTM_UIFont+LineHeight.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libGTM_UIFont+LineHeight.a"; path = "Libraries/libGTM_UIFont+LineHeight.a"; sourceTree = "<group>"; };
+		2727FCF1941BB76202E4741177E8F50E /* GGLContext+Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GGLContext+Analytics.h"; path = "Headers/GGLAnalytics/Public/GGLContext+Analytics.h"; sourceTree = "<group>"; };
+		2E896B692CA90239F40A579BCAEA24EB /* Pods-Dragon-Destiny-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Dragon-Destiny-acknowledgements.plist"; sourceTree = "<group>"; };
+		30931666F617AB17E6579A521522FDEF /* libGTM_KVO.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_KVO.a; path = Libraries/libGTM_KVO.a; sourceTree = "<group>"; };
+		333B6335AAFA08E7476C0E0DAD4A27DE /* Pods-Dragon-Destiny-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Dragon-Destiny-frameworks.sh"; sourceTree = "<group>"; };
+		33A559D9E68B22815FD66EB4A5BECE6C /* libGTM_NSStringHTML.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSStringHTML.a; path = Libraries/libGTM_NSStringHTML.a; sourceTree = "<group>"; };
+		3FD2E9BEA7643689C07377E1CB7005E1 /* Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Analytics.h; path = Headers/GGLAnalytics/Public/Analytics.h; sourceTree = "<group>"; };
+		4F036E43B1659AF67A684169C838095D /* GGLContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLContext.h; path = Headers/GGLCore/Public/GGLContext.h; sourceTree = "<group>"; };
+		553BAC9AB75E62B656CD425A450D1283 /* libGTMSessionFetcher_core.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMSessionFetcher_core.a; path = Libraries/libGTMSessionFetcher_core.a; sourceTree = "<group>"; };
+		5CD10E59514B966C7F321FEFDEB2F12D /* libGTM_iPhone.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_iPhone.a; path = Libraries/libGTM_iPhone.a; sourceTree = "<group>"; };
+		61FF5509413F244B5D09DB8AB71CB240 /* libGTM_AddressBook.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_AddressBook.a; path = Libraries/libGTM_AddressBook.a; sourceTree = "<group>"; };
+		633CDB97DF655B9D6FD9A071BE439C0A /* GAITrackedViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = Headers/Public/GAITrackedViewController.h; sourceTree = "<group>"; };
+		6DA955E30D528F5386DBDD5DB25EA788 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = Headers/Public/GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		6F4F7CCD21F5C9308F681D8B39404452 /* libGTM_SystemVersion.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_SystemVersion.a; path = Libraries/libGTM_SystemVersion.a; sourceTree = "<group>"; };
+		77C70D396ED5C95E4DCB8A577E3FE041 /* GAITracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = Headers/Public/GAITracker.h; sourceTree = "<group>"; };
+		785E913F0B1B20E6764702721F6A49C0 /* libGSDK_Overload.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGSDK_Overload.a; path = Libraries/libGSDK_Overload.a; sourceTree = "<group>"; };
+		7E005C70AA9F32FDFBFEA198FA44D340 /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
+		88E25AFE8538F43636E11443D19D830A /* libGTM_GTMURLBuilder.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_GTMURLBuilder.a; path = Libraries/libGTM_GTMURLBuilder.a; sourceTree = "<group>"; };
+		8C70083683BD4C28A0D5C39E4C574FED /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "GoogleMobileAdsSdkiOS-7.4.0/GoogleMobileAds.framework"; sourceTree = "<group>"; };
+		9468F1F311293452511587D5D63D02E9 /* GAILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = Headers/Public/GAILogger.h; sourceTree = "<group>"; };
+		9D464DB3D0EEBC798458CDEDC747CF40 /* libGTM_NSDictionary+URLArguments.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libGTM_NSDictionary+URLArguments.a"; path = "Libraries/libGTM_NSDictionary+URLArguments.a"; sourceTree = "<group>"; };
+		9EEA71D4143D35712053D5C59DF6E1CF /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Headers/Public/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		AA5DE4D84789C81AE408CF071A6FCC70 /* GAI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Headers/Public/GAI.h; sourceTree = "<group>"; };
+		AA8599BC389609158CF88FD8D50FA6DF /* libGTMStackTrace.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMStackTrace.a; path = Libraries/libGTMStackTrace.a; sourceTree = "<group>"; };
+		B8964FDDC87EF9AE60320429D2F5E05B /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9CB3448F9A450E05145F9CAC1B1FC91 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		BEFE84A0898F9286BDF1809DF70B84FE /* Pods-Dragon-Destiny-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Dragon-Destiny-dummy.m"; sourceTree = "<group>"; };
+		C5495258754DF43BFD19CA26B62A22A1 /* libGTM_DebugUtils.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_DebugUtils.a; path = Libraries/libGTM_DebugUtils.a; sourceTree = "<group>"; };
+		C618F2D7A49371543B9CD04C97DC1C22 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = Headers/Public/GAIEcommercePromotion.h; sourceTree = "<group>"; };
+		C7A8E4A54D3A9FC212E22A0BCED89431 /* libGTM_RoundedRectPath.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_RoundedRectPath.a; path = Libraries/libGTM_RoundedRectPath.a; sourceTree = "<group>"; };
+		C7D70328E35E0EAC169D4C939FCDFB2C /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = Headers/Public/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		CA9B4806310D37A86FF5736C2E0DF043 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CC66F2BF8FA075E29E18BB835EBAC5F2 /* libGGLAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGGLAnalytics.a; path = Libraries/libGGLAnalytics.a; sourceTree = "<group>"; };
+		CD6B9E038BAC4047999856BE97859A18 /* Pods-Dragon-Destiny-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Dragon-Destiny-resources.sh"; sourceTree = "<group>"; };
+		E2389622B1A60BC6AD3754BB27293760 /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
+		E4B59DA28A205468CE213898B617FABC /* libGTM_NSStringXML.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSStringXML.a; path = Libraries/libGTM_NSStringXML.a; sourceTree = "<group>"; };
+		E5D59924170C483FABFC2BFE5C77E3B9 /* libGTM_NSScannerJSON.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSScannerJSON.a; path = Libraries/libGTM_NSScannerJSON.a; sourceTree = "<group>"; };
+		E6D4B1484CC783D3EF9B9FDDA083776D /* Core.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Headers/GGLCore/Public/Core.h; sourceTree = "<group>"; };
+		EE0A852210C51F54FBA10F25A366D7EA /* GGLErrorCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLErrorCode.h; path = Headers/GGLCore/Public/GGLErrorCode.h; sourceTree = "<group>"; };
+		F14749B874C3209AC40A9522721B8CF6 /* libGTM_core.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_core.a; path = Libraries/libGTM_core.a; sourceTree = "<group>"; };
+		F99D5AE553B30CC31240A7733A0FE3E8 /* Pods-Dragon-Destiny.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Dragon-Destiny.modulemap"; sourceTree = "<group>"; };
+		FC5707189AB35A61AC3D6C3EAED6D05C /* GGLConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLConfiguration.h; path = Headers/GGLCore/Public/GGLConfiguration.h; sourceTree = "<group>"; };
+		FEB4B2CCE386AFBEDCDEE14A20CDEB18 /* libGTM_StringEncoding.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_StringEncoding.a; path = Libraries/libGTM_StringEncoding.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		234C632B81ACA59388A41DD2 /* Frameworks */ = {
+		62B4F2C9C89461F1AD6932DDC60E706C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74EE1FA82D2978DEB57DAF02 /* Foundation.framework in Frameworks */,
+				BEC4E86D477557203C116DA5FF903DE2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3AE02E7C7A960ABF1E8CBB5C /* Frameworks */ = {
+		1AA39A999632EE824549FFD537CE4655 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7E0E3EF75CE888BD6DF6DF82 /* iOS */,
+				8C70083683BD4C28A0D5C39E4C574FED /* GoogleMobileAds.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		56859EAD6A5A6F93D5036463 /* Pods-Dragon-Destiny */ = {
+		1CE3AEB5DE2131A4BD8C8ADA9F75663D /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				332A9CBE7D8F0AFB038D99EA /* Info.plist */,
-				6C63DA97ADCEE6A691D379BA /* Pods-Dragon-Destiny.modulemap */,
-				ECFFAB532AE226B7E9D18A3C /* Pods-Dragon-Destiny-acknowledgements.markdown */,
-				9CBB0DE3A8A701783F48C741 /* Pods-Dragon-Destiny-acknowledgements.plist */,
-				26272394E91D03C982EE6164 /* Pods-Dragon-Destiny-dummy.m */,
-				4017F9B230820F8F9D1C3FEE /* Pods-Dragon-Destiny-environment.h */,
-				0B355978C6440918E73B3B18 /* Pods-Dragon-Destiny-frameworks.sh */,
-				C90022B0CB8CD15C5186DE20 /* Pods-Dragon-Destiny-resources.sh */,
-				413EB64C334EBEAC66339787 /* Pods-Dragon-Destiny-umbrella.h */,
-				F689AC98211FB4CB8A722663 /* Pods-Dragon-Destiny.debug.xcconfig */,
-				48C06535B2F9CBD5C4584FFE /* Pods-Dragon-Destiny.release.xcconfig */,
+				CA37E9D040FE007EEC6067347F30EF3B /* Pods-Dragon-Destiny */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		3AF9D581B09F8C1200E14DD411525A87 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC66F2BF8FA075E29E18BB835EBAC5F2 /* libGGLAnalytics.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		480E7E15EA9882B12DAE0C08882B99A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03608806C5166402A6AE2B7A68568403 /* libGoogleAnalytics.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		53F661C0CA7190D2CF05023FB33D61E4 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B9CB3448F9A450E05145F9CAC1B1FC91 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		62568D14F4503D6A6665BBB4ED12DECE /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				AA5DE4D84789C81AE408CF071A6FCC70 /* GAI.h */,
+				9EEA71D4143D35712053D5C59DF6E1CF /* GAIDictionaryBuilder.h */,
+				0FB9D6C2CA8EEA42DD1D0B17EACEA990 /* GAIEcommerceFields.h */,
+				6DA955E30D528F5386DBDD5DB25EA788 /* GAIEcommerceProduct.h */,
+				C7D70328E35E0EAC169D4C939FCDFB2C /* GAIEcommerceProductAction.h */,
+				C618F2D7A49371543B9CD04C97DC1C22 /* GAIEcommercePromotion.h */,
+				0D99295B0EF03EA8ECE2296F7EFA5BA1 /* GAIFields.h */,
+				9468F1F311293452511587D5D63D02E9 /* GAILogger.h */,
+				633CDB97DF655B9D6FD9A071BE439C0A /* GAITrackedViewController.h */,
+				77C70D396ED5C95E4DCB8A577E3FE041 /* GAITracker.h */,
+				480E7E15EA9882B12DAE0C08882B99A3 /* Frameworks */,
+			);
+			path = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
+		65556F2E5291BACDEAE2492D4ED89196 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E6D4B1484CC783D3EF9B9FDDA083776D /* Core.h */,
+				FC5707189AB35A61AC3D6C3EAED6D05C /* GGLConfiguration.h */,
+				4F036E43B1659AF67A684169C838095D /* GGLContext.h */,
+				EE0A852210C51F54FBA10F25A366D7EA /* GGLErrorCode.h */,
+				D5084CA63837258BA28612E09C730E47 /* Frameworks */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		7AB5BF9AFDEDF6319EED9A9F42987982 /* GoogleUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				AB64B157DD2390491A429218587271B8 /* Frameworks */,
+			);
+			path = GoogleUtilities;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				8F2899FD96D6F3EADD5735F1A5797EC3 /* Pods */,
+				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
+				1CE3AEB5DE2131A4BD8C8ADA9F75663D /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		8D2805B17693689DD2ABC41D38B0086E /* GoogleNetworkingUtilities */ = {
+			isa = PBXGroup;
+			children = (
+				F800F1B9ECF59EF87FFBF47B4C8ED373 /* Frameworks */,
+			);
+			path = GoogleNetworkingUtilities;
+			sourceTree = "<group>";
+		};
+		8F2899FD96D6F3EADD5735F1A5797EC3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B8AFEFF4966F3DED4855F75C381BD8F3 /* Google */,
+				F91E86182A3A8D83E6ABB236176D0E24 /* Google-Mobile-Ads-SDK */,
+				62568D14F4503D6A6665BBB4ED12DECE /* GoogleAnalytics */,
+				8D2805B17693689DD2ABC41D38B0086E /* GoogleNetworkingUtilities */,
+				F029D5D0F72098E73BB79F8E19E2F293 /* GoogleSymbolUtilities */,
+				7AB5BF9AFDEDF6319EED9A9F42987982 /* GoogleUtilities */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		AB64B157DD2390491A429218587271B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA8599BC389609158CF88FD8D50FA6DF /* libGTMStackTrace.a */,
+				61FF5509413F244B5D09DB8AB71CB240 /* libGTM_AddressBook.a */,
+				C5495258754DF43BFD19CA26B62A22A1 /* libGTM_DebugUtils.a */,
+				88E25AFE8538F43636E11443D19D830A /* libGTM_GTMURLBuilder.a */,
+				30931666F617AB17E6579A521522FDEF /* libGTM_KVO.a */,
+				9D464DB3D0EEBC798458CDEDC747CF40 /* libGTM_NSDictionary+URLArguments.a */,
+				E5D59924170C483FABFC2BFE5C77E3B9 /* libGTM_NSScannerJSON.a */,
+				33A559D9E68B22815FD66EB4A5BECE6C /* libGTM_NSStringHTML.a */,
+				E4B59DA28A205468CE213898B617FABC /* libGTM_NSStringXML.a */,
+				164177656D92F41AADF8815B705A861B /* libGTM_Regex.a */,
+				C7A8E4A54D3A9FC212E22A0BCED89431 /* libGTM_RoundedRectPath.a */,
+				FEB4B2CCE386AFBEDCDEE14A20CDEB18 /* libGTM_StringEncoding.a */,
+				6F4F7CCD21F5C9308F681D8B39404452 /* libGTM_SystemVersion.a */,
+				2706B001E3D1159C96CD152CEFFED01D /* libGTM_UIFont+LineHeight.a */,
+				F14749B874C3209AC40A9522721B8CF6 /* libGTM_core.a */,
+				5CD10E59514B966C7F321FEFDEB2F12D /* libGTM_iPhone.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B8AFEFF4966F3DED4855F75C381BD8F3 /* Google */ = {
+			isa = PBXGroup;
+			children = (
+				BA9590F2B854D86F18428B7425005237 /* Analytics */,
+				65556F2E5291BACDEAE2492D4ED89196 /* Core */,
+			);
+			path = Google;
+			sourceTree = "<group>";
+		};
+		BA9590F2B854D86F18428B7425005237 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				3FD2E9BEA7643689C07377E1CB7005E1 /* Analytics.h */,
+				2727FCF1941BB76202E4741177E8F50E /* GGLContext+Analytics.h */,
+				3AF9D581B09F8C1200E14DD411525A87 /* Frameworks */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				53F661C0CA7190D2CF05023FB33D61E4 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CA37E9D040FE007EEC6067347F30EF3B /* Pods-Dragon-Destiny */ = {
+			isa = PBXGroup;
+			children = (
+				CA9B4806310D37A86FF5736C2E0DF043 /* Info.plist */,
+				F99D5AE553B30CC31240A7733A0FE3E8 /* Pods-Dragon-Destiny.modulemap */,
+				04EC96AB2BB7D16298F69A8AF939F681 /* Pods-Dragon-Destiny-acknowledgements.markdown */,
+				2E896B692CA90239F40A579BCAEA24EB /* Pods-Dragon-Destiny-acknowledgements.plist */,
+				BEFE84A0898F9286BDF1809DF70B84FE /* Pods-Dragon-Destiny-dummy.m */,
+				333B6335AAFA08E7476C0E0DAD4A27DE /* Pods-Dragon-Destiny-frameworks.sh */,
+				CD6B9E038BAC4047999856BE97859A18 /* Pods-Dragon-Destiny-resources.sh */,
+				0D76AA294039B3AF6992FBEAFB226E2B /* Pods-Dragon-Destiny-umbrella.h */,
+				7E005C70AA9F32FDFBFEA198FA44D340 /* Pods-Dragon-Destiny.debug.xcconfig */,
+				E2389622B1A60BC6AD3754BB27293760 /* Pods-Dragon-Destiny.release.xcconfig */,
 			);
 			name = "Pods-Dragon-Destiny";
 			path = "Target Support Files/Pods-Dragon-Destiny";
 			sourceTree = "<group>";
 		};
-		6F88C34837A2EC219ED228AA = {
+		CCA510CFBEA2D207524CDA0D73C3B561 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				70DDEA69CB6E3A8914AB6514 /* Podfile */,
-				3AE02E7C7A960ABF1E8CBB5C /* Frameworks */,
-				CCDF32A56CBFF599F25E225B /* Pods */,
-				EF75BB310F7A6ECDB8B61D5E /* Products */,
-				E141BF69222D1DFB51D91BB1 /* Targets Support Files */,
+				B8964FDDC87EF9AE60320429D2F5E05B /* Pods_Dragon_Destiny.framework */,
 			);
+			name = Products;
 			sourceTree = "<group>";
 		};
-		723A4E313E1A4A2D09CEC125 /* Google-Mobile-Ads-SDK */ = {
+		D5084CA63837258BA28612E09C730E47 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DC8BBB227B6CDED55D91CA52 /* Frameworks */,
-			);
-			path = "Google-Mobile-Ads-SDK";
-			sourceTree = "<group>";
-		};
-		7E0E3EF75CE888BD6DF6DF82 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				5024B556C64EC3530C448645 /* Foundation.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		CCDF32A56CBFF599F25E225B /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				723A4E313E1A4A2D09CEC125 /* Google-Mobile-Ads-SDK */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		DC8BBB227B6CDED55D91CA52 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				FE699C4206023557324420D6 /* GoogleMobileAds.framework */,
+				16689F06BD2994CE00543C13FEC80C7A /* libGGLCore.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E141BF69222D1DFB51D91BB1 /* Targets Support Files */ = {
+		F029D5D0F72098E73BB79F8E19E2F293 /* GoogleSymbolUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				56859EAD6A5A6F93D5036463 /* Pods-Dragon-Destiny */,
+				F045DE52EB33874BC278361C2CBBB7B8 /* Frameworks */,
 			);
-			name = "Targets Support Files";
+			path = GoogleSymbolUtilities;
 			sourceTree = "<group>";
 		};
-		EF75BB310F7A6ECDB8B61D5E /* Products */ = {
+		F045DE52EB33874BC278361C2CBBB7B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				006142FBBA043D75814416F0 /* Pods_Dragon_Destiny.framework */,
+				785E913F0B1B20E6764702721F6A49C0 /* libGSDK_Overload.a */,
 			);
-			name = Products;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F800F1B9ECF59EF87FFBF47B4C8ED373 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				553BAC9AB75E62B656CD425A450D1283 /* libGTMSessionFetcher_core.a */,
+				18A51D5DF4B6306EE135A02F86474652 /* libGTMSessionFetcher_full.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F91E86182A3A8D83E6ABB236176D0E24 /* Google-Mobile-Ads-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				1AA39A999632EE824549FFD537CE4655 /* Frameworks */,
+			);
+			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		FAA390BE8E2694463728116E /* Headers */ = {
+		4B28C9B9F477D46DF493F910A7307B7F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC00976312A354FBF0F5ECB1 /* Pods-Dragon-Destiny-umbrella.h in Headers */,
+				B340FBF9C44E322D9DF981C13653919F /* Pods-Dragon-Destiny-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		EE797B91EA9BFAD5C84B8075 /* Pods-Dragon-Destiny */ = {
+		6E3AEFB7448BD364249CA5500C2D04E2 /* Pods-Dragon-Destiny */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5C6301628453BDB5F6C653FC /* Build configuration list for PBXNativeTarget "Pods-Dragon-Destiny" */;
+			buildConfigurationList = A5F7D5A1B2A17A7496E2892FDC1158BD /* Build configuration list for PBXNativeTarget "Pods-Dragon-Destiny" */;
 			buildPhases = (
-				B631518F8293C3D700EBE826 /* Sources */,
-				234C632B81ACA59388A41DD2 /* Frameworks */,
-				FAA390BE8E2694463728116E /* Headers */,
+				AD5114D66D6849C9288A8ED74F0E25B9 /* Sources */,
+				62B4F2C9C89461F1AD6932DDC60E706C /* Frameworks */,
+				4B28C9B9F477D46DF493F910A7307B7F /* Headers */,
 			);
 			buildRules = (
 			);
@@ -156,47 +334,106 @@
 			);
 			name = "Pods-Dragon-Destiny";
 			productName = "Pods-Dragon-Destiny";
-			productReference = 006142FBBA043D75814416F0 /* Pods_Dragon_Destiny.framework */;
+			productReference = B8964FDDC87EF9AE60320429D2F5E05B /* Pods_Dragon_Destiny.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		0468EE6127EE5960928B698F /* Project object */ = {
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 			};
-			buildConfigurationList = 82DA68FE3F1803D05BEA7B4E /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 6F88C34837A2EC219ED228AA;
-			productRefGroup = EF75BB310F7A6ECDB8B61D5E /* Products */;
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = CCA510CFBEA2D207524CDA0D73C3B561 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				EE797B91EA9BFAD5C84B8075 /* Pods-Dragon-Destiny */,
+				6E3AEFB7448BD364249CA5500C2D04E2 /* Pods-Dragon-Destiny */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B631518F8293C3D700EBE826 /* Sources */ = {
+		AD5114D66D6849C9288A8ED74F0E25B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				383B0A489FB3C3ECE240D005 /* Pods-Dragon-Destiny-dummy.m in Sources */,
+				22A329CBA5DEEE0A7F789896CA8A945B /* Pods-Dragon-Destiny-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		31617770D97BD00024A7ED95 /* Debug */ = {
+		20C7AD3CBD41A8A18D16436B20CE8E5C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2389622B1A60BC6AD3754BB27293760 /* Pods-Dragon-Destiny.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Dragon-Destiny/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_Dragon_Destiny;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		84A70905B3D501AFF734E5890A6D4037 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7E005C70AA9F32FDFBFEA198FA44D340 /* Pods-Dragon-Destiny.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Dragon-Destiny/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = Pods_Dragon_Destiny;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -235,36 +472,7 @@
 			};
 			name = Debug;
 		};
-		59A54E7852DDA69DB06B22BB /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48C06535B2F9CBD5C4584FFE /* Pods-Dragon-Destiny.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Dragon-Destiny/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_Dragon_Destiny;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		816A903B0D69252361113406 /* Release */ = {
+		FB45FFD90572718D82AB9092B750F0CA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -298,57 +506,28 @@
 			};
 			name = Release;
 		};
-		B61CE38ACD82B45215BE3507 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F689AC98211FB4CB8A722663 /* Pods-Dragon-Destiny.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Dragon-Destiny/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_NAME = Pods_Dragon_Destiny;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5C6301628453BDB5F6C653FC /* Build configuration list for PBXNativeTarget "Pods-Dragon-Destiny" */ = {
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B61CE38ACD82B45215BE3507 /* Debug */,
-				59A54E7852DDA69DB06B22BB /* Release */,
+				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
+				FB45FFD90572718D82AB9092B750F0CA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82DA68FE3F1803D05BEA7B4E /* Build configuration list for PBXProject "Pods" */ = {
+		A5F7D5A1B2A17A7496E2892FDC1158BD /* Build configuration list for PBXNativeTarget "Pods-Dragon-Destiny" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				31617770D97BD00024A7ED95 /* Debug */,
-				816A903B0D69252361113406 /* Release */,
+				84A70905B3D501AFF734E5890A6D4037 /* Debug */,
+				20C7AD3CBD41A8A18D16436B20CE8E5C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0468EE6127EE5960928B698F /* Project object */;
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 }

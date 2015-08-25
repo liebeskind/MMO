@@ -40,6 +40,15 @@ class GameOverScene: SKScene {
 //    facebookButton.text = "FACEBOOK"
 //    addChild(facebookButton)
     
+    var tracker = GAI.sharedInstance().defaultTracker
+    tracker.set(kGAIScreenName, value: "GameOverScene")
+    
+    var builder = GAIDictionaryBuilder.createScreenView()
+    tracker.send(builder.build() as [NSObject : AnyObject])
+    
+    var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("coinsCollectedAtDeath", action: "Collected", label: "Coins", value: score)
+    tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+    
     var message = won ? "You Won!" : "Game Over!  You collected \(score) coins."
     let label = SKLabelNode(fontNamed: "Avenir")
     label.text = message

@@ -131,6 +131,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var dt: NSTimeInterval = 0
   
   var pausedButton = SKSpriteNode(imageNamed: "pause-button")
+  let pausedLabel = SKLabelNode(text: "Paused")
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -274,7 +275,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //      SKAction.runBlock(addCoin), count: 10)
 //    )
     
-    totalCoinsBoard.position = CGPoint(x: size.width - 50, y: size.height-30)
+    pausedButton.size = CGSize(width: 51.0, height: 51.0)
+    pausedButton.position = CGPoint(x: size.width - pausedButton.size.width/2, y: size.height - pausedButton.size.height/2)
+    pausedButton.zPosition = 2
+    pausedButton.alpha = 0.9
+    self.addChild(pausedButton)
+    
+    pausedLabel.position = CGPoint(x: size.width/2, y: size.height/2)
+    pausedLabel.fontColor = UIColor.orangeColor()
+    pausedLabel.fontName = "Chalkduster"
+    pausedLabel.fontSize = 60
+    
+    totalCoinsBoard.position = CGPoint(x: size.width - 15, y: pausedButton.position.y - pausedButton.size.height/1.5)
     totalCoinsBoard.fontColor = UIColor.blackColor()
     totalCoinsBoard.fontSize = 15
     totalCoinsBoard.horizontalAlignmentMode = .Right
@@ -282,7 +294,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     //    scoreBoard.font = UIFont.systemFontOfSize(20)
     totalCoinsBoard.text = "Total Coins: \(totalCoins)"
     
-    addChild(totalCoinsBoard)
+    self.addChild(totalCoinsBoard)
     
     scoreBoard.position = CGPoint(x: 10, y: size.height-30)
     scoreBoard.fontColor = UIColor.blackColor()
@@ -291,8 +303,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
 //    scoreBoard.font = UIFont.systemFontOfSize(20)
     scoreBoard.text = "Score: \(coinsCollected)"
-    
-    addChild(scoreBoard)
+    self.addChild(scoreBoard)
     
     highScoreBoard.position = CGPoint(x: 10, y: size.height-50)
     highScoreBoard.fontColor = UIColor.blackColor()
@@ -307,6 +318,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     addChild(highScoreBoard)
+
     
     addChild(base)
     base.position = CGPointMake(10.0 + baseSize/2, baseSize/2)
@@ -338,12 +350,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    self.addChild(purchaseFlame)
     
     musicController.loadSoundEffect("FireballSound.wav")
-    
-    pausedButton.size = CGSize(width: 51.0, height: 51.0)
-    pausedButton.position = CGPoint(x: pausedButton.size.width, y: size.height - pausedButton.size.height)
-    pausedButton.zPosition = 2
-    pausedButton.alpha = 0.9
-    self.addChild(pausedButton)
   }
   
   func random() -> CGFloat {
@@ -667,9 +673,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         upgradePurchased(purchaseFlame)
       } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseSlowmo)
-      }  else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
+      } else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
         pausedButtonPushed()
-      }  else if stickActive != true {
+      } else if stickActive != true {
 //        stickActive = true
       
 //        ball.alpha = 0.4
@@ -684,7 +690,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
-    if playerDead == false {
+    if playerDead == false && !paused {
       for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
         playerMoving = true
@@ -770,12 +776,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func pausedButtonPushed() {
-    if paused == false {
-      pausedButton = SKSpriteNode(imageNamed: "paused-pushed")
+    if !paused {
+      pausedButton.texture = SKTexture(imageNamed: "paused-pushed")
       paused = true
-    } else {
-      pausedButton = SKSpriteNode(imageNamed: "paused-button")
+      self.addChild(pausedLabel)
+    } else if paused {
+      pausedButton.texture = SKTexture(imageNamed: "pause-button")
       paused = false
+      pausedLabel.removeFromParent()
     }
   }
   
@@ -981,34 +989,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   override func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
-    
-    if player.position.x >= backgroundWidth {
-      player.position.x = backgroundWidth - 1
+    if !paused {
+      if player.position.x >= backgroundWidth {
+        player.position.x = backgroundWidth - 1
+        
+      } else if player.position.x <= leftPoint {
+        player.position.x = leftPoint + 1
       
-    } else if player.position.x <= leftPoint {
-      player.position.x = leftPoint + 1
-    
-    } else if player.position.y >= self.frame.height {
-      player.position.y = self.frame.height - 1
-    
-    } else if player.position.y <= baseSize + player.size.height / 2 {
-      player.position.y = baseSize + player.size.height/2 + 1
-    
-    } else {
-      player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
-      moveBackgroundRight(1)
+      } else if player.position.y >= self.frame.height {
+        player.position.y = self.frame.height - 1
+      
+      } else if player.position.y <= baseSize + player.size.height / 2 {
+        player.position.y = baseSize + player.size.height/2 + 1
+      
+      } else {
+        player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
+        moveBackgroundRight(1)
 
-      if player.position.x > movePoint && shipSpeedX > 0{
-        moveBackgroundRight(shipSpeedX)
+        if player.position.x > movePoint && shipSpeedX > 0{
+          moveBackgroundRight(shipSpeedX)
+        }
+  //        if player.position.x < self.frame.width/3 {
+  //        moveBackgroundLeft()
+  //        }
       }
-//        if player.position.x < self.frame.width/3 {
-//        moveBackgroundLeft()
-//        }
+      
+      let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+      flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+      flame.zRotation = player.zRotation + 1.57079633
     }
-    
-    let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-    flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
-    flame.zRotation = player.zRotation + 1.57079633
-
   }
 }

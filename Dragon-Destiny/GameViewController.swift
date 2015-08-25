@@ -121,7 +121,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
   
   //AdMob Interstitial
   func createAndLoadInterstitial()->GADInterstitial {
-    println("adMobCreateAndLoadInterstitial")
+//    println("adMobCreateAndLoadInterstitial")
     var interstitial = GADInterstitial(adUnitID: "ca-app-pub-1048344523427807/2816356772")
     interstitial.delegate = self
     var request = GADRequest()
@@ -132,29 +132,29 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
   }
   
   func interstitial(ad: GADInterstitial!, didFailToReceiveAdWithError error: GADRequestError!) {
-    println("adMobInterstitialDidFailToReceiveAdWithError:\(error.localizedDescription)")
+//    println("adMobInterstitialDidFailToReceiveAdWithError:\(error.localizedDescription)")
     interstitial = createAndLoadInterstitial()
 //    loadInterstitialAd()
   }
   
   func interstitialDidReceiveAd(ad: GADInterstitial!) {
-    println("adMobInterstitialDidReceiveAd")
+//    println("adMobInterstitialDidReceiveAd")
   }
   
   func interstitialWillDismissScreen(ad: GADInterstitial!) {
-    println("adMobInterstitialWillDismissScreen")
+//    println("adMobInterstitialWillDismissScreen")
   }
   
   func interstitialDidDismissScreen(ad: GADInterstitial!) {
-    println("adMobInterstitialDidDismissScreen")
+//    println("adMobInterstitialDidDismissScreen")
     interstitial = createAndLoadInterstitial()
   }
   
   func interstitialWillLeaveApplication(ad: GADInterstitial!) {
-    println("adMobInterstitialWillLeaveApplication")
+//    println("adMobInterstitialWillLeaveApplication")
   }
   
   func interstitialWillPresentScreen(ad: GADInterstitial!) {
-    println("adMobInterstitialWillPresentScreen")
+//    println("adMobInterstitialWillPresentScreen")
   }
 }

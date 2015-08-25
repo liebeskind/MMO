@@ -133,6 +133,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var pausedButton = SKSpriteNode(imageNamed: "pause-button")
   let pausedLabel = SKLabelNode(text: "Paused")
   
+  var tracker = GAI.sharedInstance().defaultTracker
+  
+  var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
+  var levelReached = 1
+  
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
     } else {
@@ -144,6 +149,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     } else {
       NSUserDefaults.standardUserDefaults().setObject(0,forKey:"TotalCoins")
     }
+    
+    tracker.set(kGAIScreenName, value: "GameScene")
     
     physicsWorld.gravity = CGVectorMake(0, 0)
     physicsWorld.contactDelegate = self
@@ -267,7 +274,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    addMonster()
 //    addCoins()
     
-    self.addCoinBlock(500)
+    self.addCoinBlock(250)
     
     self.addMonsterBlock(1.0)
     
@@ -286,39 +293,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     pausedLabel.fontName = "Chalkduster"
     pausedLabel.fontSize = 90
     
-    totalCoinsBoard.position = CGPoint(x: size.width - 15, y: pausedButton.position.y - pausedButton.size.height/1.5)
-    totalCoinsBoard.fontColor = UIColor.blackColor()
-    totalCoinsBoard.fontSize = 15
-    totalCoinsBoard.horizontalAlignmentMode = .Right
-    //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
-    //    scoreBoard.font = UIFont.systemFontOfSize(20)
-    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
-    
-    self.addChild(totalCoinsBoard)
-    
-    scoreBoard.position = CGPoint(x: 10, y: size.height-30)
     scoreBoard.fontColor = UIColor.blackColor()
     scoreBoard.fontSize = 15
+    scoreBoard.position = CGPoint(x: 5, y: size.height - scoreBoard.fontSize - 5)
     scoreBoard.horizontalAlignmentMode = .Left
-//    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
-//    scoreBoard.font = UIFont.systemFontOfSize(20)
     scoreBoard.text = "Score: \(coinsCollected)"
     self.addChild(scoreBoard)
     
-    highScoreBoard.position = CGPoint(x: 10, y: size.height-50)
+    highScoreBoard.position = CGPoint(x: 5, y: scoreBoard.position.y - scoreBoard.fontSize - 5)
     highScoreBoard.fontColor = UIColor.blackColor()
-    highScoreBoard.fontSize = 15
+    highScoreBoard.fontSize = scoreBoard.fontSize
     highScoreBoard.horizontalAlignmentMode = .Left
-    //    scoreBoard.frame = CGRect(x: 200, y: 10, width: 100, height: 40)
-    //    scoreBoard.font = UIFont.systemFontOfSize(20)
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
       highScoreBoard.text = "High Score: \(savedScore)"
     } else {
       highScoreBoard.text = "High Score: \(0)"
     }
+    self.addChild(highScoreBoard)
     
-    addChild(highScoreBoard)
-
+    totalCoinsBoard.position = CGPoint(x: 5, y: highScoreBoard.position.y - highScoreBoard.fontSize - 5)
+    totalCoinsBoard.fontColor = UIColor.blackColor()
+    totalCoinsBoard.fontSize = scoreBoard.fontSize
+    totalCoinsBoard.horizontalAlignmentMode = .Left
+    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+    self.addChild(totalCoinsBoard)
+    
+    levelLabel.text = "Level \(levelReached)"
+    levelLabel.fontSize = 30
+    levelLabel.position = CGPoint(x: size.width/2, y: size.height-levelLabel.fontSize)
+    levelLabel.fontColor = UIColor.blackColor()
+    self.addChild(levelLabel)
     
     addChild(base)
     base.position = CGPointMake(10.0 + baseSize/2, baseSize/2)
@@ -629,6 +633,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       purchaseSlowmo.runAction(SKAction.sequence([quickPop, shrinkAndCountGroup, grow, returnToNormalSpeed]))
       
+      var slowmoPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "slowmo", label: "slowmoPurchased", value: slowmoUpgradeCost)
+      tracker.send(slowmoPurchasedEvent.build() as [NSObject: AnyObject])
+      
     default: return
     }
   }
@@ -773,7 +780,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func attackButtonPushed() {
-    println("attack")
+//    println("attack")
     
     var offset = CGPoint()
     
@@ -814,10 +821,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     
     self.musicController.playSoundEffect("FireballSound.wav")
-    
-//    let v = CGVector(dx: base.position.x - player.position.x, dy:  base.position.y - player.position.y)
-//    let angle = atan2(v.dy, v.dx)
-//    player.zRotation = angle - 1.57079633
   }
 
   
@@ -825,6 +828,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     println("Hit")
     
     projectile.removeFromParent()
+    
+    coinsCollected++
+    totalCoins++
+    NSUserDefaults.standardUserDefaults().setObject(totalCoins,forKey:"TotalCoins")
+    
+    scoreBoard.text = "Score: \(coinsCollected)"
+    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+    
+    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+      if coinsCollected > savedScore {
+        NSUserDefaults.standardUserDefaults().setObject(coinsCollected,forKey:"HighestScore")
+        highScoreBoard.text = "High Score: \(coinsCollected)"
+      }
+    }
     
     monster.size = CGSize(width: 50.0, height: 30.0)
     monster.texture = arrowScenes[2]
@@ -872,8 +889,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {
-    println("Collected coin")
-    
     coin.removeFromParent()
     coinCount--
     

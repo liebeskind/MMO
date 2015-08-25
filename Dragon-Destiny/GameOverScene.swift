@@ -48,6 +48,11 @@ class GameOverScene: SKScene {
     
     var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("coinsCollectedAtDeath", action: "Collected", label: "Coins", value: score)
     tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+
+    if score > 50 {
+      var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("coinsCollectedAtDeath", action: "Collected", label: "Over50Coins", value: score)
+      tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+    }
     
     var message = won ? "You Won!" : "Game Over!  You collected \(score) coins."
     let label = SKLabelNode(fontNamed: "Avenir")

@@ -649,7 +649,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
-      if (CGRectContainsPoint(attackButton.frame, touchLocation)) && playerDead == false {
+      let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
+      if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead == false {
         attackButtonPushed()
         if flamePurchased == true {
           flame = SKSpriteNode(texture: flameScenes[0])

@@ -676,14 +676,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         upgradePurchased(purchaseSlowmo)
       } else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
         pausedButtonPushed()
-      } else if stickActive != true {
-//        stickActive = true
-      
-//        ball.alpha = 0.4
-//        base.alpha = 0.4
-        
-//        base.position = CGPoint(x: min(max(touchLocation.x, baseSize/2), self.frame.width/2), y: baseSize/2)
-//        ball.position = base.position
+      } else if (CGRectContainsPoint(base.frame, touchLocation)) && playerDead == false {
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position
       }
@@ -693,52 +686,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
     if playerDead == false && !paused {
       for touch in (touches as! Set<UITouch>) {
-      let touchLocation = touch.locationInNode(self)
-        playerMoving = true
-        stickActive = true
-        
-        let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
-        let angle = atan2(v.dy, v.dx)
-        
-        let deg = angle * CGFloat( 180 / M_PI)
-        
-        self.figureOutDirection( deg + 180)
-        
-        let length:CGFloat = base.frame.size.height / 2
-        let xDist:CGFloat = sin(angle - 1.57079633) * length
-        let yDist:CGFloat = cos(angle - 1.57079633) * length
-        
-        if (CGRectContainsPoint(base.frame, touchLocation)) {
+        let touchLocation = touch.locationInNode(self)
           
-          ball.position = touchLocation
-          mostRecentBasePosition = base.position
-          mostRecentBallPosition = ball.position
-          
-        } else if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
+        if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
           return
+        }
 
-        } else {
-          ball.position = CGPointMake( base.position.x - xDist, base.position.y + yDist)
+        if touchLocation.x < size.width / 2 {
+          
+    //      playerMoving = true
+    //      stickActive = true
+          
+          let v = CGVector(dx: touchLocation.x - base.position.x, dy:  touchLocation.y - base.position.y)
+          let angle = atan2(v.dy, v.dx)
+          
+          let deg = angle * CGFloat( 180 / M_PI)
+          
+          self.figureOutDirection( deg + 180)
+          
+          let length:CGFloat = base.frame.size.height / 2
+          let xDist:CGFloat = sin(angle - 1.57079633) * length
+          let yDist:CGFloat = cos(angle - 1.57079633) * length
+            
+          player.zRotation = angle - 1.57079633
+            
+          // set up the speed
+          let multiplier:CGFloat = 0.08
+          
+          shipSpeedX = max(min(v.dx * multiplier, 2.2), -2.2)
+          shipSpeedY = max(min(v.dy * multiplier, 2.2), -2.2)
+            
           mostRecentBasePosition = base.position
           mostRecentBallPosition = ball.position
+          
+          if (CGRectContainsPoint(base.frame, touchLocation)) { ball.position = touchLocation }
+          else { ball.position = CGPointMake(base.position.x - xDist, base.position.y + yDist) }
         }
-        
-        player.zRotation = angle - 1.57079633
-  //        let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-  //        flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
-  ////        flame.position = CGPoint(x: player.position.x, y: player.position.y + player.size.height/2)
-  //        flame.zRotation = player.zRotation + 1.57079633
-      
-        // set up the speed
-        let multiplier:CGFloat = 0.08
-        
-        shipSpeedX = max(min(v.dx * multiplier, 2.2), -2.2)
-        shipSpeedY = max(min(v.dy * multiplier, 2.2), -2.2)
-        
-  //        stickActive = false
-      
-      } // ends stickActive test
-  //    }
+      }
     }
   }
   
@@ -750,10 +734,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
     }
     
-    stickActive = false
+//    stickActive = false
 //    flame.hidden = true
     
-    if (stickActive == true) {
+//    if (stickActive == true) {
 //      stickActive = false
 //      playerMoving = false
 //      stickActive = false
@@ -773,7 +757,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
 //      shipSpeedX = 0
 //      shipSpeedY = 0
-    }
+//    }
   }
   
   func pausedButtonPushed() {

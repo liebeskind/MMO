@@ -138,6 +138,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
   var levelReached = 1
   
+  let crossbowEnemy = SKSpriteNode(imageNamed: "crossbowFired")
+  
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
     } else {
@@ -167,19 +169,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     musicController.playBackgroundMusic("epicMusic.mp3")
   
-    for i in 0...20 {
+    for i in 0...1 {
       totalBackgrounds = i
       let background = backgroundNode()
       background.anchorPoint = CGPointZero
-      background.position =
-      CGPoint(x: CGFloat(i)*background.size.width, y: 0)
+      background.position = CGPoint(x: CGFloat(i)*background.size.width, y: 0)
       background.name = "background"
-//      addChild(background)
       backgroundLayer.addChild(background)
     }
     
     rightPoint = self.frame.width
     movePoint = rightPoint / 1.5
+    
+    crossbowEnemy.position = CGPoint(x: backgroundWidth, y: size.height/2)
+    crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
+    crossbowEnemy.zPosition = 3
+    backgroundLayer.addChild(crossbowEnemy)
     
 ////    backgroundColor = SKColor.whiteColor()
 //    background.size = frame.size
@@ -274,8 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    addMonster()
 //    addCoins()
     
-    self.addCoinBlock(250)
-    
+    self.addCoinBlock(50)
     self.addMonsterBlock(1.0)
     
 //    runAction(SKAction.repeatAction(
@@ -365,6 +369,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func backgroundNode() -> SKSpriteNode{
+    
     let backgroundNode = SKSpriteNode()
     backgroundNode.anchorPoint = CGPointZero
     backgroundNode.name = "background"
@@ -383,6 +388,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     background2.position =
       CGPoint(x: background1.size.width, y: 0)
     backgroundNode.addChild(background2)
+    
+    
+    switch levelReached {
+    case 1:
+      background1.texture = SKTexture(imageNamed: "sky")
+      background2.texture = SKTexture(imageNamed: "sky2")
+    case 2:
+      background1.texture = SKTexture(imageNamed: "skyNight")
+      background2.texture = SKTexture(imageNamed: "skyNight2")
+    case 3:
+      background1.texture = SKTexture(imageNamed: "skyGrass")
+      background2.texture = SKTexture(imageNamed: "skyGrass2")
+    default: break
+    }
   
     backgroundNode.size = CGSize(
       width: background1.size.width + background2.size.width,
@@ -498,18 +517,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
     monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
-    // Determine where to spawn the monster along the Y axis
-    let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
-    
-    // Position the monster slightly off-screen along the right edge,
-    // and along a random position along the Y axis as calculated above
-    monster.position = CGPoint(x: rightPoint + monster.size.height, y: actualY)
-    
-//    let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
-//    let angle = atan2(v.dy, v.dx)
-//    
-//    monster.zRotation = angle
-    
     // Add the monster to the scene
     backgroundLayer.addChild(monster)
     
@@ -522,8 +529,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       actualDuration += slowmoSpeedModifier
     }
     
-    // Create the actions
-    let actionMove = SKAction.moveTo(CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
+    // Determine where to spawn the monster along the Y axis
+    let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
+    var actionMove = SKAction()
+    
+    // Position the monster slightly off-screen along the right edge,
+    // and along a random position along the Y axis as calculated above
+    if rightPoint < backgroundWidth {
+      monster.position = CGPoint(x: rightPoint + monster.size.height, y: actualY)
+      // Create the actions
+      actionMove = SKAction.moveTo(CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
+    } else {
+      monster.position = CGPoint(x: rightPoint + monster.size.height, y: crossbowEnemy.position.y)
+      let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
+      let angle = atan2(v.dy, v.dx)
+      
+      crossbowEnemy.zRotation = angle
+      
+      var vector = CGVector()
+      var offset = player.position - crossbowEnemy.position
+      
+//      if ball.position != base.position {
+//        offset = ball.position - base.position
+//      } else {
+//        offset = mostRecentBallPosition - mostRecentBasePosition
+//      }
+      
+      let direction = offset.normalized()
+      let shootAmount = direction * size.width
+      let realDest = shootAmount + crossbowEnemy.position
+      
+      monster.zRotation = angle
+      actionMove = SKAction.moveTo(realDest, duration: NSTimeInterval(actualDuration))
+    }
+//
+//    monster.zRotation = angle
+    
     let actionMoveDone = SKAction.removeFromParent()
 
     monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
@@ -825,8 +866,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 
   
   func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
-    println("Hit")
-    
     projectile.removeFromParent()
     
     coinsCollected++
@@ -1004,9 +1043,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       } else {
         player.position = CGPointMake(player.position.x + shipSpeedX, player.position.y + shipSpeedY)
-        moveBackgroundRight(1)
+        if rightPoint < backgroundWidth {
+          moveBackgroundRight(1)
+        }
 
-        if player.position.x > movePoint && shipSpeedX > 0{
+        if player.position.x > movePoint && shipSpeedX > 0 && rightPoint < backgroundWidth {
           moveBackgroundRight(shipSpeedX)
         }
   //        if player.position.x < self.frame.width/3 {

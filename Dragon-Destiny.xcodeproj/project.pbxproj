@@ -46,6 +46,8 @@
 		29C2AE061B7C4CEB005F74E2 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C2AE051B7C4CEB005F74E2 /* MusicController.swift */; };
 		29EC4ACC1B8BAFBD00E8804D /* PlayerDeath.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29EC4ACB1B8BAFBD00E8804D /* PlayerDeath.wav */; };
 		29EC4ACE1B8BDBD200E8804D /* StartMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EC4ACD1B8BDBD200E8804D /* StartMenuViewController.swift */; };
+		29F6B3851B8C07920094919F /* pause-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B3831B8C07920094919F /* pause-button.png */; };
+		29F6B3861B8C07920094919F /* paused-pushed.png in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B3841B8C07920094919F /* paused-pushed.png */; };
 		357164E519DB1E4800ED38A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E419DB1E4800ED38A9 /* AppDelegate.swift */; };
 		357164E919DB1E4800ED38A9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E819DB1E4800ED38A9 /* GameScene.swift */; };
 		357164EB19DB1E4800ED38A9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164EA19DB1E4800ED38A9 /* GameViewController.swift */; };
@@ -122,6 +124,8 @@
 		29C2AE051B7C4CEB005F74E2 /* MusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
 		29EC4ACB1B8BAFBD00E8804D /* PlayerDeath.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = PlayerDeath.wav; sourceTree = "<group>"; };
 		29EC4ACD1B8BDBD200E8804D /* StartMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartMenuViewController.swift; sourceTree = "<group>"; };
+		29F6B3831B8C07920094919F /* pause-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pause-button.png"; path = "../../../../Designs/MMO/pause-button.png"; sourceTree = "<group>"; };
+		29F6B3841B8C07920094919F /* paused-pushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "paused-pushed.png"; path = "../../../../Designs/MMO/paused-pushed.png"; sourceTree = "<group>"; };
 		357164DF19DB1E4800ED38A9 /* Dragon-Destiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dragon-Destiny.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164E419DB1E4800ED38A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 		29385B7B1B7941CF000D0986 /* ImageAssets */ = {
 			isa = PBXGroup;
 			children = (
+				29F6B3831B8C07920094919F /* pause-button.png */,
+				29F6B3841B8C07920094919F /* paused-pushed.png */,
 				29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */,
 				29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */,
 			);
@@ -513,6 +519,7 @@
 				2963548F1B75D426003E73D0 /* fullFlameImages.atlas in Resources */,
 				296354771B727DE1003E73D0 /* playerImages.atlas in Resources */,
 				3571650C19DB1F5500ED38A9 /* background-music-aac.caf in Resources */,
+				29F6B3861B8C07920094919F /* paused-pushed.png in Resources */,
 				29C2ADFA1B7C36E5005F74E2 /* dubstepMusic.mp3 in Resources */,
 				294381A91B84544800E332DA /* skyBackgroundImages.atlas in Resources */,
 				2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */,
@@ -523,6 +530,7 @@
 				29385B7F1B7A8CA4000D0986 /* SlowmoUpgradeButton.png in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
+				29F6B3851B8C07920094919F /* pause-button.png in Resources */,
 				29C2ADF81B7C35CE005F74E2 /* epicMusic.mp3 in Resources */,
 				29EC4ACC1B8BAFBD00E8804D /* PlayerDeath.wav in Resources */,
 				3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */,

@@ -130,6 +130,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var dt: NSTimeInterval = 0
   
+  var pausedButton = SKSpriteNode(imageNamed: "pause-button")
+  
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
     } else {
@@ -144,9 +146,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     physicsWorld.gravity = CGVectorMake(0, 0)
     physicsWorld.contactDelegate = self
-  
-    musicController.loadSoundEffect("FireballSound.wav")
-    musicController.playBackgroundMusic("epicMusic.mp3")
     
     navigationBox.position = CGPoint(x: 0.0, y: 0.0)
     navigationBox.anchorPoint = CGPoint(x: 0, y: 0)
@@ -157,6 +156,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     backgroundLayer.zPosition = -1
     addChild(backgroundLayer)
+    
+    musicController.playBackgroundMusic("epicMusic.mp3")
   
     for i in 0...20 {
       totalBackgrounds = i
@@ -261,9 +262,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     flameStartScenes = flameStartFrames
-
-    addMonster()
-    addCoins()
+//
+//    addMonster()
+//    addCoins()
     
     self.addCoinBlock(500)
     
@@ -336,6 +337,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-80)
 //    self.addChild(purchaseFlame)
     
+    musicController.loadSoundEffect("FireballSound.wav")
+    
+    pausedButton.size = CGSize(width: 51.0, height: 51.0)
+    pausedButton.position = CGPoint(x: pausedButton.size.width, y: size.height - pausedButton.size.height)
+    pausedButton.zPosition = 2
+    pausedButton.alpha = 0.9
+    self.addChild(pausedButton)
   }
   
   func random() -> CGFloat {
@@ -659,6 +667,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         upgradePurchased(purchaseFlame)
       } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseSlowmo)
+      }  else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
+        pausedButtonPushed()
       }  else if stickActive != true {
 //        stickActive = true
       
@@ -756,6 +766,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
 //      shipSpeedX = 0
 //      shipSpeedY = 0
+    }
+  }
+  
+  func pausedButtonPushed() {
+    if paused == false {
+      pausedButton = SKSpriteNode(imageNamed: "paused-pushed")
+      paused = true
+    } else {
+      pausedButton = SKSpriteNode(imageNamed: "paused-button")
+      paused = false
     }
   }
   

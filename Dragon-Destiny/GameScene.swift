@@ -133,14 +133,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var pausedButton = SKSpriteNode(imageNamed: "pause-button")
   let pausedLabel = SKLabelNode(text: "Paused")
-  let wonLevelLabel = SKLabelNode(fontNamed: "Chalkduster")
   
   var tracker = GAI.sharedInstance().defaultTracker
   
   var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
   var levelReached = 1
   
-  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
+//  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
   init(size: CGSize, level: Int, coinsCollected: Int) {
     super.init(size: size)
@@ -510,86 +509,149 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func addCrossbows() {
-    crossbowEnemy.position = CGPoint(x: backgroundWidth, y: size.height/2)
-    crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
-    crossbowEnemy.zPosition = 3
-    backgroundLayer.addChild(crossbowEnemy)
+    for i in 1...self.levelReached {
+      let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
+      crossbowEnemy.name = "boss"
+      let yPos = i * Int(self.size.height) / (self.levelReached + 1)
+      crossbowEnemy.position = CGPoint(x: backgroundWidth, y: CGFloat(yPos))
+      crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
+      crossbowEnemy.zPosition = 3
+      backgroundLayer.addChild(crossbowEnemy)
+      
+      crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
+      crossbowEnemy.physicsBody?.dynamic = true
+      crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
+      crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+      crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+    }
     
-    crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
-    crossbowEnemy.physicsBody?.dynamic = true
-    crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
-    crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-    crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+//    crossbowEnemy.name = "boss"
+//    crossbowEnemy.position = CGPoint(x: backgroundWidth, y: size.height/2)
+//    crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
+//    crossbowEnemy.zPosition = 3
+//    backgroundLayer.addChild(crossbowEnemy)
+//    
+//    crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
+//    crossbowEnemy.physicsBody?.dynamic = true
+//    crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
+//    crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+//    crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+//    
+//    let crossbowEnemy2 = SKSpriteNode(imageNamed: "CrossbowFired")
+//    crossbowEnemy2.name = "boss"
+//    crossbowEnemy2.position = CGPoint(x: backgroundWidth, y: size.height/3)
+//    crossbowEnemy2.size = CGSize(width: 88.0, height: 90.0)
+//    crossbowEnemy2.zPosition = 3
+//    backgroundLayer.addChild(crossbowEnemy2)
+//    
+//    crossbowEnemy2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
+//    crossbowEnemy2.physicsBody?.dynamic = true
+//    crossbowEnemy2.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
+//    crossbowEnemy2.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+//    crossbowEnemy2.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
   }
   
   func addMonster() {
-
-    // Create sprite
-    let monster = Monster(texture: arrowScenes[0])
-    monster.size = CGSize(width: 50.0, height: 10.0)
-    monster.name = "arrow"
-    monster.playerPosition = CGPoint(x: player.position.x, y: player.position.y)
-    monster.leftPoint = leftPoint
-    
-    monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
-//    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
-    monster.physicsBody?.dynamic = true
-    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
-    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-    monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
-    monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-    
-    // Add the monster to the scene
-    backgroundLayer.addChild(monster)
-    
-    // Determine speed of the monster
-    let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-    let maximum = minimum + 1.5
-    var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
-    if slowmoPurchased {
-      monster.moveDuration = actualDuration
-      actualDuration += slowmoSpeedModifier
-    }
-    
-    // Determine where to spawn the monster along the Y axis
-    let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
-    var actionMove = SKAction()
-    
     // Position the monster slightly off-screen along the right edge,
     // and along a random position along the Y axis as calculated above
     if rightPoint < backgroundWidth {
+      // Create sprite
+      let monster = Monster(texture: arrowScenes[0])
+      monster.size = CGSize(width: 50.0, height: 10.0)
+      monster.name = "arrow"
+      monster.playerPosition = CGPoint(x: player.position.x, y: player.position.y)
+      monster.leftPoint = leftPoint
+      
+      monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
+      //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
+      monster.physicsBody?.dynamic = true
+      monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+      monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+      monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+      monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      
+      // Add the monster to the scene
+      backgroundLayer.addChild(monster)
+      
+      // Determine speed of the monster
+      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
+      let maximum = minimum + 1.5
+      var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
+      if slowmoPurchased {
+        monster.moveDuration = actualDuration
+        actualDuration += slowmoSpeedModifier
+      }
+      
+      // Determine where to spawn the monster along the Y axis
+      let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
       monster.position = CGPoint(x: rightPoint + monster.size.height, y: actualY)
       // Create the actions
-      actionMove = SKAction.moveTo(CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
+      let actionMove = SKAction.moveTo(CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
+      let actionMoveDone = SKAction.removeFromParent()
+      monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
+
     } else {
-      monster.position = CGPoint(x: rightPoint + monster.size.height, y: crossbowEnemy.position.y)
-      let v = CGVector(dx: monster.position.x - player.position.x, dy:  monster.position.y - player.position.y)
-      let angle = atan2(v.dy, v.dx)
-      
-      crossbowEnemy.zRotation = angle
-      
-      var vector = CGVector()
-      var offset = player.position - crossbowEnemy.position
-      
-//      if ball.position != base.position {
-//        offset = ball.position - base.position
-//      } else {
-//        offset = mostRecentBallPosition - mostRecentBasePosition
-//      }
-      
-      let direction = offset.normalized()
-      let shootAmount = direction * size.width
-      let realDest = shootAmount + crossbowEnemy.position
-      
-      monster.zRotation = angle
-      actionMove = SKAction.moveTo(realDest, duration: NSTimeInterval(actualDuration))
+      backgroundLayer.enumerateChildNodesWithName("boss") {
+        node, stop in
+
+        let monster = Monster(texture: self.arrowScenes[0])
+        monster.size = CGSize(width: 50.0, height: 10.0)
+        monster.name = "arrow"
+        monster.playerPosition = CGPoint(x: self.player.position.x, y: self.player.position.y)
+        monster.leftPoint = self.leftPoint
+        
+        monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
+        //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
+        monster.physicsBody?.dynamic = true
+        monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+        monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+        
+        // Add the monster to the scene
+        self.backgroundLayer.addChild(monster)
+        
+        // Determine speed of the monster
+        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
+        let maximum = minimum + 1.5
+        var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
+        if self.slowmoPurchased {
+          monster.moveDuration = actualDuration
+          actualDuration += self.slowmoSpeedModifier
+        }
+        
+        monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)
+        let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
+        let angle = atan2(v.dy, v.dx)
+        
+        node.zRotation = angle
+        
+        var vector = CGVector()
+        var offset = self.player.position - node.position
+        
+  //      if ball.position != base.position {
+  //        offset = ball.position - base.position
+  //      } else {
+  //        offset = mostRecentBallPosition - mostRecentBasePosition
+  //      }
+        
+        let direction = offset.normalized()
+        let shootAmount = direction * self.size.width
+        let realDest = shootAmount + node.position
+        
+        monster.zRotation = angle
+        let actionMove = SKAction.moveTo(realDest, duration: NSTimeInterval(actualDuration))
+        
+        let actionMoveDone = SKAction.removeFromParent()
+        monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
+      }
     }
 //
 //    monster.zRotation = angle
     
-    let actionMoveDone = SKAction.removeFromParent()
-
-    monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
+//    let actionMoveDone = SKAction.removeFromParent()
+//
+//    monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
   }
   
   func upgradePurchased(upgrade: SKSpriteNode) {
@@ -922,11 +984,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monstersDestroyed++
   }
   
-  func playerShotCrossbow() {
-    crossbowEnemy.health -= 50
-    if crossbowEnemy.health == 0 {
-//      paused = true
+  func playerShotCrossbow(crossbowHit: SKSpriteNode) {
+    if let boss = crossbowHit as? Boss {
+      boss.health -= 50
       
+      if boss.health > 0 {
+        crossbowHit.texture = SKTexture(imageNamed: "CrossbowBroken")
+        println("player shot the crossbow!")
+      }
+      
+      if boss.health <= 0 {
+        boss.removeFromParent()
+      }
+    }
+    
+    var crossbowsWithHealthLeft = false
+    backgroundLayer.enumerateChildNodesWithName("boss") {
+      node, stop in
+      if let crossbow = node as? Boss {
+        if crossbow.health > 0 {
+          crossbowsWithHealthLeft = true
+        }
+      }
+    }
+    
+    if crossbowsWithHealthLeft == false {
+      let wonLevelLabel = SKLabelNode(fontNamed: "Chalkduster")
       wonLevelLabel.position = CGPoint(x: size.width/2, y: size.height/2)
       wonLevelLabel.fontColor = UIColor.orangeColor()
       wonLevelLabel.text = "You beat level \(levelReached)"
@@ -950,10 +1033,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
       
       wonLevelLabel.runAction(SKAction.sequence([pause, fadeAway, startNextLevel]))
-      
-    } else {
-      crossbowEnemy.texture = SKTexture(imageNamed: "CrossbowBroken")
-      println("player shot the crossbow!")
     }
   }
   
@@ -1046,7 +1125,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
 
     case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Projectile.rawValue:
-      playerShotCrossbow()
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Crossbow.rawValue {
+            self.playerShotCrossbow(bodyA)
+          } else {
+            self.playerShotCrossbow(bodyB)
+          }
+        }
+      }
       
     case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Coin.rawValue:
       break

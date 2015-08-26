@@ -378,11 +378,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let backgroundNode = SKSpriteNode()
     backgroundNode.anchorPoint = CGPointZero
     backgroundNode.name = "background"
+    backgroundNode.zPosition = -1
 
     let background1 = SKSpriteNode(imageNamed: "sky")
     background1.size = frame.size
     background1.anchorPoint = CGPointZero
     background1.position = CGPoint(x: 0, y: 0)
+    background1.zPosition = -1
     backgroundNode.addChild(background1)
     
     rightPoint = background1.frame.width
@@ -390,19 +392,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let background2 = SKSpriteNode(imageNamed: "sky2")
     background2.size = frame.size
     background2.anchorPoint = CGPointZero
-    background2.position =
-      CGPoint(x: background1.size.width, y: 0)
+    background2.position = CGPoint(x: background1.size.width, y: 0)
+    background2.zPosition = -1
     backgroundNode.addChild(background2)
     
-    
-    switch levelReached {
-    case 1:
+    switch (levelReached + 2) % 3  {
+    case 0:
       background1.texture = SKTexture(imageNamed: "sky")
       background2.texture = SKTexture(imageNamed: "sky2")
-    case 2:
+    case 1:
       background1.texture = SKTexture(imageNamed: "skyNight")
       background2.texture = SKTexture(imageNamed: "skyNight2")
-    case 3:
+    case 2:
       background1.texture = SKTexture(imageNamed: "skyGrass")
       background2.texture = SKTexture(imageNamed: "skyGrass2")
     default:
@@ -943,6 +944,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let startNextLevel = SKAction.runBlock() {
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected)
+        self.backgroundLayer.removeFromParent()
+        self.musicController.stopUpgradeMusic()
         self.view?.presentScene(scene, transition:reveal)
       }
       

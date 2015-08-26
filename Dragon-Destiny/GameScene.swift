@@ -48,6 +48,7 @@ enum PhysicsCategory : UInt32 {
   case Projectile = 0b010
   case Player = 0b100
   case Coin = 01000
+  case Crossbow = 00100
 }
 
 //enum BodyType:UInt32 {
@@ -132,13 +133,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var pausedButton = SKSpriteNode(imageNamed: "pause-button")
   let pausedLabel = SKLabelNode(text: "Paused")
+  let wonLevelLabel = SKLabelNode(fontNamed: "Chalkduster")
   
   var tracker = GAI.sharedInstance().defaultTracker
   
   var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
   var levelReached = 1
   
-  let crossbowEnemy = SKSpriteNode(imageNamed: "crossbowFired")
+  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
+  
+  init(size: CGSize, level: Int, coinsCollected: Int) {
+    super.init(size: size)
+    self.levelReached = level
+    self.coinsCollected = coinsCollected
+  }
   
   override func didMoveToView(view: SKView) {
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
@@ -181,10 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     rightPoint = self.frame.width
     movePoint = rightPoint / 1.5
     
-    crossbowEnemy.position = CGPoint(x: backgroundWidth, y: size.height/2)
-    crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
-    crossbowEnemy.zPosition = 3
-    backgroundLayer.addChild(crossbowEnemy)
+    addCrossbows()
     
 ////    backgroundColor = SKColor.whiteColor()
 //    background.size = frame.size
@@ -400,7 +405,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     case 3:
       background1.texture = SKTexture(imageNamed: "skyGrass")
       background2.texture = SKTexture(imageNamed: "skyGrass2")
-    default: break
+    default:
+      background1.texture = SKTexture(imageNamed: "sky")
+      background2.texture = SKTexture(imageNamed: "sky2")
     }
   
     backgroundNode.size = CGSize(
@@ -478,6 +485,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       coin.physicsBody?.categoryBitMask = PhysicsCategory.Coin.rawValue
   //    coin.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
       coin.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      coin.name = "coin"
       
       // Determine where to spawn the coin along the Y axis
       let actualY = random(min: coin.size.height + baseSize, max: self.frame.size.height - coin.size.height)
@@ -498,6 +506,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         ])
       ), withKey: "addingMonsters"
     )
+  }
+  
+  func addCrossbows() {
+    crossbowEnemy.position = CGPoint(x: backgroundWidth, y: size.height/2)
+    crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
+    crossbowEnemy.zPosition = 3
+    backgroundLayer.addChild(crossbowEnemy)
+    
+    crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
+    crossbowEnemy.physicsBody?.dynamic = true
+    crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
+    crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+    crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
   }
   
   func addMonster() {
@@ -900,6 +921,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monstersDestroyed++
   }
   
+  func playerShotCrossbow() {
+    crossbowEnemy.health -= 50
+    if crossbowEnemy.health == 0 {
+//      paused = true
+      
+      wonLevelLabel.position = CGPoint(x: size.width/2, y: size.height/2)
+      wonLevelLabel.fontColor = UIColor.orangeColor()
+      wonLevelLabel.text = "You beat level \(levelReached)"
+      wonLevelLabel.fontSize = 50
+      self.addChild(wonLevelLabel)
+      
+      self.removeActionForKey("addingMonsters")
+      backgroundLayer.enumerateChildNodesWithName("coin") {
+        node, _ in
+        node.removeFromParent()
+      }
+      
+      let pause = SKAction.waitForDuration(1.0)
+      let fadeAway = SKAction.fadeOutWithDuration(1.0)
+      let startNextLevel = SKAction.runBlock() {
+        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected)
+        self.view?.presentScene(scene, transition:reveal)
+      }
+      
+      wonLevelLabel.runAction(SKAction.sequence([pause, fadeAway, startNextLevel]))
+      
+    } else {
+      crossbowEnemy.texture = SKTexture(imageNamed: "CrossbowBroken")
+      println("player shot the crossbow!")
+    }
+  }
+  
   func monsterDidCollideWithPlayer() {
     println("Monster got the player!")
     if playerDead == false {
@@ -978,8 +1032,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       monsterDidCollideWithPlayer()
       
     case PhysicsCategory.Player.rawValue | PhysicsCategory.Coin.rawValue:
-      
-      // Here we don't care which body is which, the scene is ending
       if let bodyB = contact.bodyB.node as? SKSpriteNode {
         if let bodyA = contact.bodyA.node as? SKSpriteNode {
           if contact.bodyA.categoryBitMask == PhysicsCategory.Coin.rawValue {
@@ -990,6 +1042,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
       }
 
+    case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Projectile.rawValue:
+      playerShotCrossbow()
+      
+    case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Coin.rawValue:
+      break
+
+    case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Player.rawValue:
+      break
+      
+    case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Monster.rawValue:
+      break
+      
     case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue:
       println("projectile + player")
     
@@ -1059,5 +1123,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
       flame.zRotation = player.zRotation + 1.57079633
     }
+  }
+  
+  required init(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }

@@ -28,7 +28,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let scene = GameScene(size: view.bounds.size)
+    let scene = GameScene(size: view.bounds.size, level: 1, coinsCollected: 0)
     let skView = view as! SKView
     skView.ignoresSiblingOrder = true
     scene.scaleMode = .ResizeFill

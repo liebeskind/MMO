@@ -176,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     musicController.playBackgroundMusic("epicMusic.mp3")
   
-    for i in 0...1 {
+    for i in 0...2 {
       totalBackgrounds = i
       let background = backgroundNode()
       background.anchorPoint = CGPointZero
@@ -283,7 +283,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    addMonster()
 //    addCoins()
     
-    self.addCoinBlock(50)
+    self.addCoinBlock(50 + self.levelReached * 2)
     self.addMonsterBlock(1.0)
     
 //    runAction(SKAction.repeatAction(
@@ -574,7 +574,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       backgroundLayer.addChild(monster)
       
       // Determine speed of the monster
-      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
+//      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
+      let minimum = max(Double(3 - self.levelReached/3), 0.5)
       let maximum = minimum + 1.5
       var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
       if slowmoPurchased {
@@ -612,7 +613,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.backgroundLayer.addChild(monster)
         
         // Determine speed of the monster
-        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
+//        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
+        let minimum = max(Double(3 - self.levelReached/3), 0.5)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
         if self.slowmoPurchased {
@@ -733,11 +735,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.slowmoPurchased = false
         
         self.removeActionForKey("addingMonsters")
-        if self.coinsCollected < 50 {
-          self.addMonsterBlock(1.0)
-        } else {
-          self.addMonsterBlock(0.5)
-        }
+//        if self.coinsCollected < 50 {
+        self.addMonsterBlock(1.0)
+//        }
+//        else {
+//          self.addMonsterBlock(0.5)
+//        }
         
         self.backgroundLayer.enumerateChildNodesWithName("arrow") {
           node, stop in
@@ -952,19 +955,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
     projectile.removeFromParent()
     
-    coinsCollected++
-    totalCoins++
-    NSUserDefaults.standardUserDefaults().setObject(totalCoins,forKey:"TotalCoins")
-    
-    scoreBoard.text = "Score: \(coinsCollected)"
-    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
-    
-    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
-      if coinsCollected > savedScore {
-        NSUserDefaults.standardUserDefaults().setObject(coinsCollected,forKey:"HighestScore")
-        highScoreBoard.text = "High Score: \(coinsCollected)"
-      }
-    }
+//    coinsCollected++
+//    totalCoins++
+//    NSUserDefaults.standardUserDefaults().setObject(totalCoins,forKey:"TotalCoins")
+//    
+//    scoreBoard.text = "Score: \(coinsCollected)"
+//    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+//    
+//    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+//      if coinsCollected > savedScore {
+//        NSUserDefaults.standardUserDefaults().setObject(coinsCollected,forKey:"HighestScore")
+//        highScoreBoard.text = "High Score: \(coinsCollected)"
+//      }
+//    }
     
     monster.size = CGSize(width: 50.0, height: 30.0)
     monster.texture = arrowScenes[2]
@@ -1081,11 +1084,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
     }
     
-    // Adds additional monsters when collect coins to maintain number of arrows being fired at higher levels.
-    if self.coinsCollected >= 50 && slowmoPurchased == false {
-      self.removeActionForKey("addingMonsters")
-      self.addMonsterBlock(0.5)
-    }
+//    // Adds additional monsters when collect coins to maintain number of arrows being fired at higher levels.
+//    if self.coinsCollected >= 50 && slowmoPurchased == false {
+//      self.removeActionForKey("addingMonsters")
+//      self.addMonsterBlock(0.5)
+//    }
   }
   
   func didBeginContact(contact: SKPhysicsContact) {

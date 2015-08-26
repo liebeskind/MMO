@@ -176,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     musicController.playBackgroundMusic("epicMusic.mp3")
   
-    for i in 0...2 {
+    for i in 0...3 {
       totalBackgrounds = i
       let background = backgroundNode()
       background.anchorPoint = CGPointZero
@@ -283,7 +283,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    addMonster()
 //    addCoins()
     
-    self.addCoinBlock(50 + self.levelReached * 2)
+    self.addCoinBlock(50 + self.levelReached * 5)
     self.addMonsterBlock(1.0)
     
 //    runAction(SKAction.repeatAction(

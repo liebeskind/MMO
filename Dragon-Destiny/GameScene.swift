@@ -1044,6 +1044,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected)
         self.backgroundLayer.removeFromParent()
+        self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()
         self.view?.presentScene(scene, transition:reveal)
       }

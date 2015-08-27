@@ -176,7 +176,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     musicController.playBackgroundMusic("epicMusic.mp3")
   
-    for i in 0...3 {
+    for i in 0...self.levelReached {
       totalBackgrounds = i
       let background = backgroundNode()
       background.anchorPoint = CGPointZero
@@ -187,8 +187,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     rightPoint = self.frame.width
     movePoint = rightPoint / 1.5
-    
-    addCrossbows()
+
+    self.addCoinBlock(self.levelReached * 30)
+    self.addCrossbows()
     
 ////    backgroundColor = SKColor.whiteColor()
 //    background.size = frame.size
@@ -283,7 +284,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    addMonster()
 //    addCoins()
     
-    self.addCoinBlock(50 + self.levelReached * 5)
     self.addMonsterBlock(1.0)
     
 //    runAction(SKAction.repeatAction(
@@ -854,10 +854,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           player.zRotation = angle - 1.57079633
             
           // set up the speed
-          let multiplier:CGFloat = 0.08
+          let multiplier:CGFloat = 0.1
           
-          shipSpeedX = max(min(v.dx * multiplier, 2.2), -2.2)
-          shipSpeedY = max(min(v.dy * multiplier, 2.2), -2.2)
+          shipSpeedX = max(min(v.dx * multiplier, 2.5), -2.5)
+          shipSpeedY = max(min(v.dy * multiplier, 2.5), -2.5)
             
           mostRecentBasePosition = base.position
           mostRecentBallPosition = ball.position

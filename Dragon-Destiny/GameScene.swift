@@ -85,6 +85,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var fireballScenes: [SKTexture]!
   var arrowScenes: [SKTexture]!
+  var firstFireballFrame: SKTexture?
+  let fireballSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", waitForCompletion: false)
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -114,6 +116,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseFlame = SKSpriteNode(imageNamed: "FlameUpgradeButton")
   let flameUpgradeCost = 20
   var flamePurchased = false
+  var flame = SKSpriteNode()
+  var flameScenes: [SKTexture]!
+  var flameStartScenes: [SKTexture]!
   
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
@@ -121,13 +126,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var slowmoSpeedModifier = CGFloat(4.0)
   let slowmoDuration = 10.0
   
-  var flame = SKSpriteNode()
-  var flameScenes: [SKTexture]!
-  var flameStartScenes: [SKTexture]!
-  
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
 
-  var projectile = SKSpriteNode()
+//  var projectile = SKSpriteNode()
   
   var dt: NSTimeInterval = 0
   
@@ -245,8 +246,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     fireballScenes = fireballFrames
     
-    let firstFireballFrame = fireballScenes[0]
-    projectile = SKSpriteNode(texture: firstFireballFrame) // Not sure this does anything.  Meant to cache so no delay.
+    firstFireballFrame = fireballScenes[0]
+//    projectile = SKSpriteNode(texture: firstFireballFrame) // Not sure this does anything.  Meant to cache so no delay.
     
     let arrowAnimatedAtlas = SKTextureAtlas(named: "arrowImages")
     var arrowFrames = [SKTexture]()
@@ -361,7 +362,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-80)
 //    self.addChild(purchaseFlame)
     
-    musicController.loadSoundEffect("FireballSound.wav")
   }
   
   func random() -> CGFloat {
@@ -925,10 +925,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func attackButtonPushed() {
 //    println("attack")
     
-    var offset = CGPoint()
-    
     // 2 - Set up initial location of projectile
-    var projectile = SKSpriteNode(texture: fireballScenes[0])
+    var projectile = SKSpriteNode(texture: firstFireballFrame)
     
     projectile.position = player.position
     projectile.size = CGSize(width: 25.0, height: 25.0)
@@ -940,8 +938,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     projectile.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     projectile.physicsBody?.usesPreciseCollisionDetection = true
     
-    var vector = CGVector()
-    
+    var offset = CGPoint()
     if ball.position != base.position {
       offset = ball.position - base.position
     } else {
@@ -956,14 +953,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     let actionMove = SKAction.moveTo(realDest, duration: 0.4)
     let actionMoveDone = SKAction.removeFromParent()
+   
     let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
     let shrink = SKAction.scaleTo(0.0, duration: 0.6)
-    let shootFireballGroup = SKAction.group([shootFireball, shrink])
+    let shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
   
-    projectile.runAction(SKAction.repeatActionForever(shootFireballGroup))
+    projectile.runAction(shootFireballGroup)
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
-    
-    self.musicController.playSoundEffect("FireballSound.wav")
   }
 
   

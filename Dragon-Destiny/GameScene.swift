@@ -515,7 +515,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let yPos = i * Int(self.size.height) / (self.levelReached + 1)
       crossbowEnemy.position = CGPoint(x: backgroundWidth, y: CGFloat(yPos))
       crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
-      crossbowEnemy.zPosition = 3
+      crossbowEnemy.zPosition = 2
       backgroundLayer.addChild(crossbowEnemy)
       
       crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
@@ -598,6 +598,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let monster = Monster(texture: self.arrowScenes[0])
         monster.size = CGSize(width: 50.0, height: 10.0)
         monster.name = "arrow"
+        monster.zPosition = 3
         monster.playerPosition = CGPoint(x: self.player.position.x, y: self.player.position.y)
         monster.leftPoint = self.leftPoint
         
@@ -648,9 +649,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
         
         let fireArrow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
-        let pause = SKAction.waitForDuration(0.4)
-        let resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
-        node.runAction(SKAction.sequence([fireArrow, pause, resetBow]))
+        let pause = SKAction.waitForDuration(0.12)
+        let resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
+        let stringBack = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+        let stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+        node.runAction(SKAction.sequence([fireArrow, pause, resetBow, pause, stringBack, pause, stringBack2]))
       }
     }
 //

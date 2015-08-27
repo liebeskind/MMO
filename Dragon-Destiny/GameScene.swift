@@ -8,6 +8,7 @@
 
 import AVFoundation
 import SpriteKit
+import AudioToolbox
 
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
   return CGPoint(x: left.x + right.x, y: left.y + right.y)
@@ -1060,6 +1061,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     println("Monster got the player!")
     if playerDead == false {
       playerDead = true
+      AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
       
       self.musicController.stopBackgroundMusic()
       self.musicController.stopUpgradeMusic()

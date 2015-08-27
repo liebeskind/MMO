@@ -646,6 +646,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         let actionMoveDone = SKAction.removeFromParent()
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
+        
+        let fireArrow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
+        let pause = SKAction.waitForDuration(0.4)
+        let resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+        node.runAction(SKAction.sequence([fireArrow, pause, resetBow]))
       }
     }
 //
@@ -992,12 +997,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       boss.health -= 50
       
       if boss.health > 0 {
-        crossbowHit.texture = SKTexture(imageNamed: "CrossbowBroken")
+        crossbowHit.texture = SKTexture(imageNamed: "CrossbowBroken1")
         println("player shot the crossbow!")
       }
       
       if boss.health <= 0 {
-        boss.removeFromParent()
+        let crossbowFire1 = SKTexture(imageNamed: "CrossbowBroken2")
+        let crossbowFire2 = SKTexture(imageNamed: "CrossbowBroken3")
+        
+        let crossbowOnFireAnimation = SKAction.animateWithTextures([crossbowFire1, crossbowFire2, crossbowFire1, crossbowFire2, crossbowFire1, crossbowFire2, crossbowFire1, crossbowFire2, crossbowFire1, crossbowFire2], timePerFrame: 0.1)
+//        let crossbowOnFireRepeater = SKAction.repeatAction(crossbowOnFireAnimation, count: 5)
+        boss.runAction(SKAction.sequence([crossbowOnFireAnimation, SKAction.removeFromParent()]))
       }
     }
     

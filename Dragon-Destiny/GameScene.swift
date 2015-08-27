@@ -647,13 +647,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         let actionMoveDone = SKAction.removeFromParent()
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
-        
-        let fireArrow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
-        let pause = SKAction.waitForDuration(0.12)
+
+        let shortPause = SKAction.waitForDuration(0.03)
+        let fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+        let fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+        let fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
+        let fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
+        let pause = SKAction.waitForDuration(0.09)
         let resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
         let stringBack = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
         let stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
-        node.runAction(SKAction.sequence([fireArrow, pause, resetBow, pause, stringBack, pause, stringBack2]))
+        node.runAction(SKAction.sequence([
+          fireArrow1, shortPause, fireArrow2, shortPause, fireArrow3, shortPause, fireArrow4, pause,
+          resetBow, pause, stringBack, pause, stringBack2]))
       }
     }
 //

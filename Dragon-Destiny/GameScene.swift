@@ -42,6 +42,34 @@ extension CGPoint {
   }
 }
 
+public extension SKAction {
+  public class func playSoundFileNamed(fileName: String, atVolume: Float, waitForCompletion: Bool) -> SKAction {
+    
+    let nameOnly = fileName.stringByDeletingPathExtension
+    let fileExt  = fileName.pathExtension
+    
+    let soundPath = NSBundle.mainBundle().URLForResource(nameOnly, withExtension: fileExt)
+    
+    var error:NSError?
+    
+    let player: AVAudioPlayer = AVAudioPlayer(contentsOfURL: soundPath, error: &error)
+    
+    player.volume = atVolume
+    
+    let playAction: SKAction = SKAction.runBlock { () -> Void in
+      player.play()
+    }
+    
+    if(waitForCompletion){
+      let waitAction = SKAction.waitForDuration(player.duration)
+      let groupAction: SKAction = SKAction.group([playAction, waitAction])
+      return groupAction
+    }
+    
+    return playAction
+  }
+}
+
 enum PhysicsCategory : UInt32 {
   case None   = 0
   case All    = 0xFFFFFFFF
@@ -87,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var fireballScenes: [SKTexture]!
   var arrowScenes: [SKTexture]!
   var firstFireballFrame: SKTexture?
-  let fireballSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", waitForCompletion: false)
+  let fireballSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -927,7 +955,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    println("attack")
     
     // 2 - Set up initial location of projectile
-    var projectile = SKSpriteNode(texture: firstFireballFrame)
+    var projectile = SKSpriteNode(texture: SKTexture(imageNamed: "Fireball0"))
     
     projectile.position = player.position
     projectile.size = CGSize(width: 25.0, height: 25.0)

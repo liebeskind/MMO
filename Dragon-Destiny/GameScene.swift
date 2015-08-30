@@ -55,16 +55,15 @@ public extension SKAction {
     let player: AVAudioPlayer = AVAudioPlayer(contentsOfURL: soundPath, error: &error)
     
     player.volume = atVolume
+    player.prepareToPlay()
     
-    let playAction: SKAction = SKAction.runBlock { () -> Void in
-      player.play()
-    }
+    let playAction: SKAction = SKAction.runBlock { player.play() }
     
-    if(waitForCompletion){
-      let waitAction = SKAction.waitForDuration(player.duration)
-      let groupAction: SKAction = SKAction.group([playAction, waitAction])
-      return groupAction
-    }
+//    if(waitForCompletion){
+//      let waitAction = SKAction.waitForDuration(player.duration)
+//      let groupAction: SKAction = SKAction.group([playAction, waitAction])
+//      return groupAction
+//    }
     
     return playAction
   }
@@ -652,11 +651,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           actualDuration += self.slowmoSpeedModifier
         }
         
-        monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)
-        let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
-        let angle = atan2(v.dy, v.dx)
-        
-        node.zRotation = angle
+//        node.zRotation = angle
         
         var vector = CGVector()
         var offset = self.player.position - node.position
@@ -670,6 +665,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let direction = offset.normalized()
         let shootAmount = direction * self.size.width
         let realDest = shootAmount + node.position
+        
+        monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)
+        let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
+        let angle = atan2(v.dy, v.dx)
         
         monster.zRotation = angle
         let actionMove = SKAction.moveTo(realDest, duration: NSTimeInterval(actualDuration))
@@ -1232,6 +1231,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   override func update(currentTime: CFTimeInterval) {
     /* Called before each frame is rendered */
+    if rightPoint >= backgroundWidth {
+      backgroundLayer.enumerateChildNodesWithName("boss") {
+        node, stop in
+          let v = CGVector(dx: node.position.x - self.player.position.x, dy:  node.position.y - self.player.position.y)
+          let angle = atan2(v.dy, v.dx)
+          node.zRotation = angle
+      }
+    }
+    
     if !paused {
       if player.position.x >= backgroundWidth {
         player.position.x = backgroundWidth - 1

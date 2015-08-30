@@ -663,7 +663,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   //      }
         
         let direction = offset.normalized()
-        let shootAmount = direction * self.size.width
+        let shootAmount = direction * (self.size.width + monster.size.width)
         let realDest = shootAmount + node.position
         
         monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)

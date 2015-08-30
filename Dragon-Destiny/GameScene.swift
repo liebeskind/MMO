@@ -151,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
   var slowmoPurchased = false
-  var slowmoSpeedModifier = CGFloat(4.0)
+  var slowmoSpeedModifier = CGFloat(6.0)
   let slowmoDuration = 10.0
   
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))

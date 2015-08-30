@@ -51,6 +51,7 @@
 		29F6B3881B8CE5A30094919F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B3871B8CE5A30094919F /* GoogleService-Info.plist */; };
 		29F6B38C1B8D3DDA0094919F /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6B38B1B8D3DDA0094919F /* Boss.swift */; };
 		29F6B38E1B8EC2C80094919F /* crossbowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B38D1B8EC2C80094919F /* crossbowImages.atlas */; };
+		29FA567E1B93A65500977BEF /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FA567D1B93A65500977BEF /* Shield.swift */; };
 		357164E519DB1E4800ED38A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E419DB1E4800ED38A9 /* AppDelegate.swift */; };
 		357164E919DB1E4800ED38A9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E819DB1E4800ED38A9 /* GameScene.swift */; };
 		357164EB19DB1E4800ED38A9 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164EA19DB1E4800ED38A9 /* GameViewController.swift */; };
@@ -132,6 +133,7 @@
 		29F6B3871B8CE5A30094919F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		29F6B38B1B8D3DDA0094919F /* Boss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Boss.swift; path = ../Boss.swift; sourceTree = "<group>"; };
 		29F6B38D1B8EC2C80094919F /* crossbowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = crossbowImages.atlas; path = ../../../../Designs/MMO/crossbowImages.atlas; sourceTree = "<group>"; };
+		29FA567D1B93A65500977BEF /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shield.swift; path = ../Shield.swift; sourceTree = "<group>"; };
 		357164DF19DB1E4800ED38A9 /* Dragon-Destiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dragon-Destiny.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		357164E419DB1E4800ED38A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				29385B9E1B7BD385000D0986 /* SocialViewController.swift */,
 				29C2AE051B7C4CEB005F74E2 /* MusicController.swift */,
 				29F6B38B1B8D3DDA0094919F /* Boss.swift */,
+				29FA567D1B93A65500977BEF /* Shield.swift */,
 				29385B801B7AA3C4000D0986 /* Monster.swift */,
 				357164E819DB1E4800ED38A9 /* GameScene.swift */,
 				3571650F19DB322700ED38A9 /* GameOverScene.swift */,
@@ -631,6 +634,7 @@
 				357164E919DB1E4800ED38A9 /* GameScene.swift in Sources */,
 				357164EB19DB1E4800ED38A9 /* GameViewController.swift in Sources */,
 				29385BA31B7BE588000D0986 /* InAppPurchaseViewController.swift in Sources */,
+				29FA567E1B93A65500977BEF /* Shield.swift in Sources */,
 				29EC4ACE1B8BDBD200E8804D /* StartMenuViewController.swift in Sources */,
 				29385B9F1B7BD385000D0986 /* SocialViewController.swift in Sources */,
 				29C2AE061B7C4CEB005F74E2 /* MusicController.swift in Sources */,

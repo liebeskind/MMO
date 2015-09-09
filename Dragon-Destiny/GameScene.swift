@@ -157,7 +157,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var purchaseShield = SKSpriteNode(imageNamed: "ShieldUpgradeButton")
   let shieldUpgradeCost = 50
-  var shieldPurchased = false
   var shield = Shield(imageNamed: "ShieldActive")
   
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
@@ -723,7 +722,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       flamePurchased = true
     case purchaseShield:
       if totalCoins < shieldUpgradeCost {return}
-      if shieldPurchased == true {return}
+      if shield.purchased == true {return}
+      shield.purchased = true
+      shield.health = 100
       totalCoins -= shieldUpgradeCost
       totalCoinsBoard.text = "Total Coins: \(totalCoins)"
       
@@ -1167,8 +1168,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
   func shieldHitByMonster(monster: SKSpriteNode) {
     monster.removeFromParent()
-//    let removeArrow = SKAction.removeFromParent()
-//    monster.runAction(SKAction.sequence([removeArrow]))
+    monstersDestroyed++
     println("Shield hit!")
     shield.health -= 50
     
@@ -1178,37 +1178,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let removeShield = SKAction.removeFromParent()
       let resetShieldTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldActive"))
       shield.runAction(SKAction.sequence([popShield, removeShield, resetShieldTexture]))
+      purchaseShield.removeAllActions()
       purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
-      shield.health = 100
+      let setShieldPurchasedToFalse = SKAction.runBlock  {
+        self.shield.purchased = false
+      }
+      self.runAction(SKAction.sequence([SKAction.waitForDuration(0.3), setShieldPurchasedToFalse]))
     } else {
       let changeTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldBroken"))
       shield.runAction(SKAction.sequence([popShield, changeTexture]))
     }
-
     
-//    monster.size = CGSize(width: 50.0, height: 30.0)
-//    monster.texture = arrowScenes[2]
-//    monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
-//    monster.physicsBody?.dynamic = true
-//    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
-//    monster.physicsBody?.contactTestBitMask = PhysicsCategory.None.rawValue
-//    monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-    
-//    var burningArrowScenes = arrowScenes
-//    burningArrowScenes.removeAtIndex(0)
-//
-//    let arrowHit = SKAction.animateWithTextures(burningArrowScenes, timePerFrame: 0.05)
-//    let removeArrow = SKAction.removeFromParent()
-//    monster.runAction(SKAction.sequence([removeArrow]))
-    
-    monstersDestroyed++
   }
-    
-//    // Adds additional monsters when collect coins to maintain number of arrows being fired at higher levels.
-//    if self.coinsCollected >= 50 && slowmoPurchased == false {
-//      self.removeActionForKey("addingMonsters")
-//      self.addMonsterBlock(0.5)
-//    }
   
   func didBeginContact(contact: SKPhysicsContact) {
     
@@ -1367,9 +1348,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
       flame.zRotation = player.zRotation + 1.57079633
       
-      let shieldPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-      shield.position = CGPoint(x: player.position.x, y: player.position.y)
-      shield.zRotation = player.zRotation + 1.57079633
+      if shield.purchased == true {
+        let shieldPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+        shield.position = CGPoint(x: player.position.x, y: player.position.y)
+        shield.zRotation = player.zRotation + 1.57079633
+      }
     }
   }
   

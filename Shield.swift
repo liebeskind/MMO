@@ -13,6 +13,7 @@ import SpriteKit
 class Shield: SKSpriteNode {
   var playerPosition: CGPoint?
   var health = 100
+  var purchased = false
   
   override init(texture: SKTexture!, color: SKColor!, size: CGSize) {
     self.playerPosition = CGPoint()

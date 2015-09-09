@@ -83,7 +83,7 @@ class MusicController: UIViewController {
     }
   }
 
-  func playSoundEffect(filename: String) {
+  func playSoundEffect(filename: String, atVolume: Float) {
     let url = NSBundle.mainBundle().URLForResource(
       filename, withExtension: nil)
     if (url == nil) {
@@ -99,7 +99,7 @@ class MusicController: UIViewController {
       return
     }
     
-    soundEffectPlayer.volume = 0.5
+    soundEffectPlayer.volume = atVolume
     soundEffectPlayer.numberOfLoops = 0
     soundEffectPlayer.prepareToPlay()
     soundEffectPlayer.play()

@@ -45,16 +45,21 @@ extension CGPoint {
 public extension SKAction {
   public class func playSoundFileNamed(fileName: String, atVolume: Float, waitForCompletion: Bool) -> SKAction {
     
-    let nameOnly = fileName.stringByDeletingPathExtension
-    let fileExt  = fileName.pathExtension
+    let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: nil)
+    if (url == nil) {
+      println("Could not find file: \(fileName)")
+      return SKAction()
+    }
     
-    let soundPath = NSBundle.mainBundle().URLForResource(nameOnly, withExtension: fileExt)
-    
-    var error:NSError?
-    
-    let player: AVAudioPlayer = AVAudioPlayer(contentsOfURL: soundPath, error: &error)
+    var error: NSError? = nil
+    let player = AVAudioPlayer(contentsOfURL: url, error: &error)
+    if player == nil {
+      println("Could not create audio player: \(error!)")
+      return SKAction()
+    }
     
     player.volume = atVolume
+    player.numberOfLoops = 0
     player.prepareToPlay()
     
     let playAction: SKAction = SKAction.runBlock { player.play() }
@@ -115,7 +120,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var fireballScenes: [SKTexture]!
   var arrowScenes: [SKTexture]!
   var firstFireballFrame: SKTexture?
-  let fireballSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -270,6 +274,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     flyingPlayer()
     
+//    fireballSoundEffect = playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
+    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.0) //Loads the sound, so don't have lag first time fire
+    
     let fireballAnimatedAtlas = SKTextureAtlas(named: "fireballImages")
     var fireballFrames = [SKTexture]()
     
@@ -404,6 +411,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //    self.addChild(purchaseFlame)
     
   }
+  
+//  func playSoundFileNamed(fileName: String, atVolume: Float, waitForCompletion: Bool) -> AVAudioPlayer {
+//    
+//    let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: nil)
+//    if (url == nil) {
+//      println("Could not find file: \(fileName)")
+//      return AVAudioPlayer()
+//    }
+//    
+//    var error: NSError? = nil
+//    let player = AVAudioPlayer(contentsOfURL: url, error: &error)
+//    if player == nil {
+//      println("Could not create audio player: \(error!)")
+//      return AVAudioPlayer()
+//    }
+//    
+//    player.volume = atVolume
+//    player.numberOfLoops = 0
+//    player.prepareToPlay()
+//    
+//    let playAction: SKAction = SKAction.runBlock { player.play() }
+//    
+//    //    if(waitForCompletion){
+//    //      let waitAction = SKAction.waitForDuration(player.duration)
+//    //      let groupAction: SKAction = SKAction.group([playAction, waitAction])
+//    //      return groupAction
+//    //    }
+//    
+//    return player
+//  }
+
   
   func random() -> CGFloat {
     return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -989,6 +1027,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func attackButtonPushed() {
 //    println("attack")
+    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.5)
+//    fireballSoundEffect.play()
     
     // 2 - Set up initial location of projectile
     var projectile = SKSpriteNode(texture: SKTexture(imageNamed: "Fireball0"))
@@ -1021,7 +1061,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
    
     let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
     let shrink = SKAction.scaleTo(0.0, duration: 0.6)
-    let shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
+    let shootFireballGroup = SKAction.group([shootFireball, shrink])
   
     projectile.runAction(shootFireballGroup)
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
@@ -1129,7 +1169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       self.musicController.stopBackgroundMusic()
       self.musicController.stopUpgradeMusic()
-      self.musicController.playSoundEffect("PlayerDeath.wav")
+      self.musicController.playSoundEffect("PlayerDeath.wav", atVolume: 0.5)
       let gameOverTransition = SKAction.runBlock {
         let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)

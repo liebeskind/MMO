@@ -161,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var purchaseShield = SKSpriteNode(imageNamed: "ShieldUpgradeButton")
   let shieldUpgradeCost = 50
-  var shield = Shield(imageNamed: "ShieldActive")
+  var shield = Shield()
   let shieldHitSoundEffect = SKAction.playSoundFileNamed("ShieldHit.wav", atVolume: 0.5, waitForCompletion: false)
   let shieldDestroyedSoundEffect = SKAction.playSoundFileNamed("ShieldDestroyed.wav", atVolume: 0.5, waitForCompletion: false)
   
@@ -181,10 +181,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
-  init(size: CGSize, level: Int, coinsCollected: Int) {
+  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield) {
     super.init(size: size)
     self.levelReached = level
     self.coinsCollected = coinsCollected
+    self.shield = shield
   }
   
   override func didMoveToView(view: SKView) {
@@ -404,7 +405,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     purchaseShield.alpha = attackButton.alpha
     purchaseShield.position = CGPoint(x: purchaseSlowmo.position.x - purchaseSlowmo.size.width - 12, y: attackButton.position.y)
     purchaseShield.zPosition = 2
-    self.addChild(purchaseShield)
+    if shield.purchased == false {
+      self.addChild(purchaseShield)
+    } else {
+      backgroundLayer.addChild(shield)
+    }
     
     purchaseFlame.size = CGSize(width: 100.0, height: 26.0)
     purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-80)
@@ -589,45 +594,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func addCrossbows() {
     for i in 1...self.levelReached {
-      let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
-      crossbowEnemy.name = "boss"
-      let yPos = i * Int(self.size.height) / (self.levelReached + 1)
-      crossbowEnemy.position = CGPoint(x: backgroundWidth, y: CGFloat(yPos))
-      crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
-      crossbowEnemy.zPosition = 2
-      backgroundLayer.addChild(crossbowEnemy)
-      
-      crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
-      crossbowEnemy.physicsBody?.dynamic = true
-      crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
-      crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-      crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      if i%2 != 0 { //Only adds a new crossbow every other level, starting with level 1
+        let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
+        crossbowEnemy.name = "boss"
+        let yPos = i * Int(self.size.height - navigationBox.size.height) / (self.levelReached + 1) + Int(navigationBox.size.height)
+        crossbowEnemy.position = CGPoint(x: backgroundWidth, y: CGFloat(yPos))
+        crossbowEnemy.size = CGSize(width: 75.0, height: 75.0)
+        crossbowEnemy.zPosition = 2
+        backgroundLayer.addChild(crossbowEnemy)
+        
+        crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
+        crossbowEnemy.physicsBody?.dynamic = true
+        crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
+        crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+        crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      }
     }
-    
-//    crossbowEnemy.name = "boss"
-//    crossbowEnemy.position = CGPoint(x: backgroundWidth, y: size.height/2)
-//    crossbowEnemy.size = CGSize(width: 88.0, height: 90.0)
-//    crossbowEnemy.zPosition = 3
-//    backgroundLayer.addChild(crossbowEnemy)
-//    
-//    crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
-//    crossbowEnemy.physicsBody?.dynamic = true
-//    crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
-//    crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-//    crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-//    
-//    let crossbowEnemy2 = SKSpriteNode(imageNamed: "CrossbowFired")
-//    crossbowEnemy2.name = "boss"
-//    crossbowEnemy2.position = CGPoint(x: backgroundWidth, y: size.height/3)
-//    crossbowEnemy2.size = CGSize(width: 88.0, height: 90.0)
-//    crossbowEnemy2.zPosition = 3
-//    backgroundLayer.addChild(crossbowEnemy2)
-//    
-//    crossbowEnemy2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
-//    crossbowEnemy2.physicsBody?.dynamic = true
-//    crossbowEnemy2.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
-//    crossbowEnemy2.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-//    crossbowEnemy2.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
   }
   
   func addMonster() {
@@ -764,15 +746,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       if totalCoins < shieldUpgradeCost {return}
       if shield.purchased == true {return}
       shield.purchased = true
+      shield.texture = SKTexture(imageNamed: "ShieldActive")
       shield.health = 100
       totalCoins -= shieldUpgradeCost
       totalCoinsBoard.text = "Total Coins: \(totalCoins)"
       
       shield.position = player.position
-      shield.size = CGSize(width: player.size.width + 5, height: player.size.height + 25)
+      let shieldSize = player.size.width + 5
+      shield.size = CGSize(width: shieldSize, height: shieldSize)
       shield.alpha = 2
       
-      shield.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: shield.size.width, height: shield.size.height))
+//      shield.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: shield.size.width, height: shield.size.height))
+      shield.physicsBody = SKPhysicsBody(circleOfRadius: shield.size.width/2)
       shield.physicsBody?.dynamic = true
       shield.physicsBody?.categoryBitMask = PhysicsCategory.Shield.rawValue
       shield.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
@@ -1151,7 +1136,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let fadeAway = SKAction.fadeOutWithDuration(1.0)
       let startNextLevel = SKAction.runBlock() {
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield)
+        self.backgroundLayer.removeAllChildren()
         self.backgroundLayer.removeFromParent()
         self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()

@@ -26,7 +26,6 @@ class Shield: SKSpriteNode {
   }
   
   required init?(coder aDecoder: NSCoder) {
-    // Decoding length here would be nice...
     super.init(coder: aDecoder)
   }
 }

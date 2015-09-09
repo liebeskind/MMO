@@ -648,7 +648,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
       monster.position = CGPoint(x: rightPoint + monster.size.height, y: actualY)
       // Create the actions
-      let actionMove = SKAction.moveTo(CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y), duration: NSTimeInterval(actualDuration))
+      monster.realDest = CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y)
+      let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
       let actionMoveDone = SKAction.removeFromParent()
       monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
 
@@ -697,14 +698,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         let direction = offset.normalized()
         let shootAmount = direction * (self.size.width + monster.size.width)
-        let realDest = shootAmount + node.position
+        monster.realDest = shootAmount + node.position
         
         monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)
         let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
         let angle = atan2(v.dy, v.dx)
         
         monster.zRotation = angle
-        let actionMove = SKAction.moveTo(realDest, duration: NSTimeInterval(actualDuration))
+        let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
         
         let actionMoveDone = SKAction.removeFromParent()
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
@@ -821,11 +822,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // Create the actions
         if let monsterExistingMoveDuration = monster.moveDuration {
-          actionMove = SKAction.moveTo(CGPoint(x: monster.leftPoint! - monster.size.width/2, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monsterExistingMoveDuration))
+          actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(self.slowmoSpeedModifier + monsterExistingMoveDuration))
         } else {
-          actionMove = SKAction.moveTo(CGPoint(x: monster.leftPoint! - monster.size.width/2, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier))
+          actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(self.slowmoSpeedModifier))
         }
-//        let actionMove = SKAction.moveTo(CGPoint(x: -100.0, y: monster.playerPosition!.y), duration: NSTimeInterval(self.slowmoSpeedModifier + monster.moveDuration!))
         let actionMoveDone = SKAction.removeFromParent()
         
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
@@ -850,7 +850,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           let monster = node as! Monster
           
           // Create the actions
-          let actionMove = SKAction.moveTo(CGPoint(x: monster.leftPoint! - monster.size.width/2, y: monster.playerPosition!.y), duration: NSTimeInterval(monster.moveDuration!))
+          let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(monster.moveDuration!))
           let actionMoveDone = SKAction.removeFromParent()
           
           monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))

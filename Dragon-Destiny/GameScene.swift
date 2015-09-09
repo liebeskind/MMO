@@ -1033,7 +1033,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     // 2 - Set up initial location of projectile
     var projectile = SKSpriteNode(texture: SKTexture(imageNamed: "Fireball0"))
     
-    projectile.position = player.position
+    let projectilePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+    projectile.position = CGPoint(x: player.position.x + projectilePosVector.dx, y: player.position.y + projectilePosVector.dy) //Makes fireball appear to come from mouth of player rather than from middle of body.
     projectile.size = CGSize(width: 25.0, height: 25.0)
     
     projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)

@@ -77,6 +77,7 @@ enum PhysicsCategory : UInt32 {
   case Player = 0b100
   case Coin = 01000
   case Crossbow = 00100
+  case Shield = 00010
 }
 
 //enum BodyType:UInt32 {
@@ -153,6 +154,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var slowmoPurchased = false
   var slowmoSpeedModifier = CGFloat(6.0)
   let slowmoDuration = 10.0
+  
+  var purchaseShield = SKSpriteNode(imageNamed: "ShieldUpgradeButton")
+  let shieldUpgradeCost = 50
+  var shieldPurchased = false
+  var shield = SKSpriteNode(imageNamed: "Shield")
   
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
 
@@ -385,6 +391,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width - 12, y: attackButton.position.y)
     purchaseSlowmo.zPosition = 2
     self.addChild(purchaseSlowmo)
+    
+    purchaseShield.size = attackButton.size
+    purchaseShield.alpha = attackButton.alpha
+    purchaseShield.position = CGPoint(x: purchaseSlowmo.position.x - purchaseSlowmo.size.width - 12, y: attackButton.position.y)
+    purchaseShield.zPosition = 2
+    self.addChild(purchaseShield)
     
     purchaseFlame.size = CGSize(width: 100.0, height: 26.0)
     purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-80)
@@ -709,6 +721,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let shrink = SKAction.scaleTo(0, duration: 0.6)
       purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
       flamePurchased = true
+    case purchaseShield:
+      if totalCoins < shieldUpgradeCost {return}
+      if shieldPurchased == true {return}
+      totalCoins -= shieldUpgradeCost
+      totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+      
+      shield.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: flame.size.width, height: flame.size.height))
+      shield.physicsBody?.dynamic = true
+      shield.physicsBody?.categoryBitMask = PhysicsCategory.Shield.rawValue
+      shield.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
+      shield.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      
+      shield.position = player.position
+      shield.size = CGSize(width: player.size.width + 10, height: player.size.height + 10)
+      shield.alpha = 2
+      backgroundLayer.addChild(shield)
+      
+      purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 1.0))
+      
     case purchaseSlowmo:
       if totalCoins < slowmoUpgradeCost {return}
       if slowmoPurchased == true {return}
@@ -850,6 +881,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         } 
       } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseFlame)
+      } else if (CGRectContainsPoint(purchaseShield.frame, touchLocation)) && playerDead == false {
+        upgradePurchased(purchaseShield)
       } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseSlowmo)
       } else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
@@ -1129,13 +1162,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         highScoreBoard.text = "High Score: \(coinsCollected)"
       }
     }
+  }
+    
+  func shieldHitByMonster(monster: SKSpriteNode) {
+    shield.runAction(SKAction.sequence([SKAction.scaleTo(1.2, duration: 0.4), SKAction.removeFromParent()]))
+    purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
+    
+    monster.size = CGSize(width: 50.0, height: 30.0)
+    monster.texture = arrowScenes[2]
+    monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
+    monster.physicsBody?.dynamic = true
+    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+    monster.physicsBody?.contactTestBitMask = PhysicsCategory.None.rawValue
+    monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+    
+    var burningArrowScenes = arrowScenes
+    burningArrowScenes.removeAtIndex(0)
+    
+    let arrowHit = SKAction.animateWithTextures(burningArrowScenes, timePerFrame: 0.05)
+    let removeArrow = SKAction.removeFromParent()
+    monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
+    
+    monstersDestroyed++
+  }
     
 //    // Adds additional monsters when collect coins to maintain number of arrows being fired at higher levels.
 //    if self.coinsCollected >= 50 && slowmoPurchased == false {
 //      self.removeActionForKey("addingMonsters")
 //      self.addMonsterBlock(0.5)
 //    }
-  }
   
   func didBeginContact(contact: SKPhysicsContact) {
     
@@ -1180,6 +1235,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             self.playerShotCrossbow(bodyA)
           } else {
             self.playerShotCrossbow(bodyB)
+          }
+        }
+      }
+      
+    case PhysicsCategory.Shield.rawValue | PhysicsCategory.Monster.rawValue:
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
+            self.shieldHitByMonster(bodyA)
+          } else {
+            self.shieldHitByMonster(bodyB)
           }
         }
       }
@@ -1270,6 +1336,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
       flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
       flame.zRotation = player.zRotation + 1.57079633
+      
+      let shieldPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+      shield.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+      shield.zRotation = player.zRotation + 1.57079633
     }
   }
   

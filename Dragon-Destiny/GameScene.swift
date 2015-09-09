@@ -158,6 +158,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var purchaseShield = SKSpriteNode(imageNamed: "ShieldUpgradeButton")
   let shieldUpgradeCost = 50
   var shield = Shield(imageNamed: "ShieldActive")
+  let shieldHitSoundEffect = SKAction.playSoundFileNamed("ShieldHit.wav", atVolume: 0.5, waitForCompletion: false)
+  let shieldDestroyedSoundEffect = SKAction.playSoundFileNamed("ShieldDestroyed.wav", atVolume: 0.5, waitForCompletion: false)
   
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
 
@@ -1177,7 +1179,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     if shield.health <= 0 {
       let removeShield = SKAction.removeFromParent()
       let resetShieldTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldActive"))
-      shield.runAction(SKAction.sequence([popShield, removeShield, resetShieldTexture]))
+      shield.runAction(SKAction.sequence([popShield, shieldDestroyedSoundEffect, removeShield, resetShieldTexture]))
       purchaseShield.removeAllActions()
       purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
       let setShieldPurchasedToFalse = SKAction.runBlock  {
@@ -1186,7 +1188,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       self.runAction(SKAction.sequence([SKAction.waitForDuration(0.3), setShieldPurchasedToFalse]))
     } else {
       let changeTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldBroken"))
-      shield.runAction(SKAction.sequence([popShield, changeTexture]))
+      shield.runAction(SKAction.sequence([popShield, shieldHitSoundEffect, changeTexture]))
     }
     
   }

@@ -34,6 +34,8 @@
 		294381BC1B87A40400E332DA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294381BA1B87A40400E332DA /* MainMenu.xib */; };
 		294381C81B87A40400E332DA /* Dragon_Destiny_MacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294381C71B87A40400E332DA /* Dragon_Destiny_MacTests.swift */; };
 		29480AC21B9FE5480020B2BB /* shieldUpgradeImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */; };
+		29480AC51B9FF0B10020B2BB /* ShieldActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC31B9FF0B10020B2BB /* ShieldActive.png */; };
+		29480AC61B9FF0B10020B2BB /* ShieldBroken.png in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC41B9FF0B10020B2BB /* ShieldBroken.png */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -118,6 +120,8 @@
 		294381C61B87A40400E332DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		294381C71B87A40400E332DA /* Dragon_Destiny_MacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragon_Destiny_MacTests.swift; sourceTree = "<group>"; };
 		29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = shieldUpgradeImages.atlas; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas; sourceTree = "<group>"; };
+		29480AC31B9FF0B10020B2BB /* ShieldActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldActive.png; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas/ShieldActive.png; sourceTree = "<group>"; };
+		29480AC41B9FF0B10020B2BB /* ShieldBroken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldBroken.png; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas/ShieldBroken.png; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -207,6 +211,8 @@
 		29385B7B1B7941CF000D0986 /* ImageAssets */ = {
 			isa = PBXGroup;
 			children = (
+				29480AC31B9FF0B10020B2BB /* ShieldActive.png */,
+				29480AC41B9FF0B10020B2BB /* ShieldBroken.png */,
 				29FA56811B93AC6E00977BEF /* ShieldUpgradeButton.png */,
 				29F6B3831B8C07920094919F /* pause-button.png */,
 				29F6B3841B8C07920094919F /* paused-pushed.png */,
@@ -529,6 +535,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29480AC51B9FF0B10020B2BB /* ShieldActive.png in Resources */,
 				3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */,
 				29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */,
 				29C2AE041B7C4737005F74E2 /* funnyClang.wav in Resources */,
@@ -545,6 +552,7 @@
 				29C2AE021B7C4445005F74E2 /* Flame.mp3 in Resources */,
 				357164F319DB1E4800ED38A9 /* LaunchScreen.xib in Resources */,
 				357164F019DB1E4800ED38A9 /* Images.xcassets in Resources */,
+				29480AC61B9FF0B10020B2BB /* ShieldBroken.png in Resources */,
 				29385B7F1B7A8CA4000D0986 /* SlowmoUpgradeButton.png in Resources */,
 				29480AC21B9FE5480020B2BB /* shieldUpgradeImages.atlas in Resources */,
 				29FA56821B93AC6E00977BEF /* ShieldUpgradeButton.png in Resources */,

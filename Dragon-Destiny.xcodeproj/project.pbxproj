@@ -33,6 +33,7 @@
 		294381B91B87A40400E332DA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 294381B81B87A40400E332DA /* Images.xcassets */; };
 		294381BC1B87A40400E332DA /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 294381BA1B87A40400E332DA /* MainMenu.xib */; };
 		294381C81B87A40400E332DA /* Dragon_Destiny_MacTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294381C71B87A40400E332DA /* Dragon_Destiny_MacTests.swift */; };
+		29480AC21B9FE5480020B2BB /* shieldUpgradeImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -52,7 +53,6 @@
 		29F6B38C1B8D3DDA0094919F /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F6B38B1B8D3DDA0094919F /* Boss.swift */; };
 		29F6B38E1B8EC2C80094919F /* crossbowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29F6B38D1B8EC2C80094919F /* crossbowImages.atlas */; };
 		29FA567E1B93A65500977BEF /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FA567D1B93A65500977BEF /* Shield.swift */; };
-		29FA56801B93AC4000977BEF /* Shield.png in Resources */ = {isa = PBXBuildFile; fileRef = 29FA567F1B93AC4000977BEF /* Shield.png */; };
 		29FA56821B93AC6E00977BEF /* ShieldUpgradeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29FA56811B93AC6E00977BEF /* ShieldUpgradeButton.png */; };
 		357164E519DB1E4800ED38A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E419DB1E4800ED38A9 /* AppDelegate.swift */; };
 		357164E919DB1E4800ED38A9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357164E819DB1E4800ED38A9 /* GameScene.swift */; };
@@ -117,6 +117,7 @@
 		294381C11B87A40400E332DA /* Dragon-Destiny-MacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Dragon-Destiny-MacTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		294381C61B87A40400E332DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		294381C71B87A40400E332DA /* Dragon_Destiny_MacTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dragon_Destiny_MacTests.swift; sourceTree = "<group>"; };
+		29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = shieldUpgradeImages.atlas; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -136,7 +137,6 @@
 		29F6B38B1B8D3DDA0094919F /* Boss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Boss.swift; path = ../Boss.swift; sourceTree = "<group>"; };
 		29F6B38D1B8EC2C80094919F /* crossbowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = crossbowImages.atlas; path = ../../../../Designs/MMO/crossbowImages.atlas; sourceTree = "<group>"; };
 		29FA567D1B93A65500977BEF /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shield.swift; path = ../Shield.swift; sourceTree = "<group>"; };
-		29FA567F1B93AC4000977BEF /* Shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Shield.png; path = ../../../../Designs/MMO/Shield.png; sourceTree = "<group>"; };
 		29FA56811B93AC6E00977BEF /* ShieldUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldUpgradeButton.png; path = ../../../../Designs/MMO/ShieldUpgradeButton.png; sourceTree = "<group>"; };
 		357164DF19DB1E4800ED38A9 /* Dragon-Destiny.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dragon-Destiny.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		357164E319DB1E4800ED38A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,7 +207,6 @@
 		29385B7B1B7941CF000D0986 /* ImageAssets */ = {
 			isa = PBXGroup;
 			children = (
-				29FA567F1B93AC4000977BEF /* Shield.png */,
 				29FA56811B93AC6E00977BEF /* ShieldUpgradeButton.png */,
 				29F6B3831B8C07920094919F /* pause-button.png */,
 				29F6B3841B8C07920094919F /* paused-pushed.png */,
@@ -285,6 +284,7 @@
 				29385B851B7BBA95000D0986 /* Dragon-Destiny-Bridging-Header.h */,
 				29385B7B1B7941CF000D0986 /* ImageAssets */,
 				3571650819DB1F5500ED38A9 /* Sounds */,
+				29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */,
 				294381A81B84544800E332DA /* skyBackgroundImages.atlas */,
 				29F6B38D1B8EC2C80094919F /* crossbowImages.atlas */,
 				2963548E1B75D426003E73D0 /* fullFlameImages.atlas */,
@@ -546,11 +546,11 @@
 				357164F319DB1E4800ED38A9 /* LaunchScreen.xib in Resources */,
 				357164F019DB1E4800ED38A9 /* Images.xcassets in Resources */,
 				29385B7F1B7A8CA4000D0986 /* SlowmoUpgradeButton.png in Resources */,
+				29480AC21B9FE5480020B2BB /* shieldUpgradeImages.atlas in Resources */,
 				29FA56821B93AC6E00977BEF /* ShieldUpgradeButton.png in Resources */,
 				29F6B38E1B8EC2C80094919F /* crossbowImages.atlas in Resources */,
 				29F6B3881B8CE5A30094919F /* GoogleService-Info.plist in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
-				29FA56801B93AC4000977BEF /* Shield.png in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
 				29F6B3851B8C07920094919F /* pause-button.png in Resources */,
 				29C2ADF81B7C35CE005F74E2 /* epicMusic.mp3 in Resources */,

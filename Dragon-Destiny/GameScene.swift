@@ -734,7 +734,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       shield.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
       
       shield.position = player.position
-      shield.size = CGSize(width: player.size.width + 10, height: player.size.height + 10)
+      shield.size = CGSize(width: player.size.width, height: player.size.height + 20)
       shield.alpha = 2
       backgroundLayer.addChild(shield)
       
@@ -1338,7 +1338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       flame.zRotation = player.zRotation + 1.57079633
       
       let shieldPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-      shield.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+      shield.position = CGPoint(x: player.position.x, y: player.position.y)
       shield.zRotation = player.zRotation + 1.57079633
     }
   }

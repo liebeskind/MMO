@@ -104,6 +104,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let musicController = MusicController()
   
+  let dragonSelected = 1
+  
   let backgroundMovePointsPerSec: CGFloat = 5.0
   let backgroundLayer = SKNode()
   var backgroundWidth = CGFloat()
@@ -120,6 +122,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var fireballScenes: [SKTexture]!
   var arrowScenes: [SKTexture]!
   var firstFireballFrame: SKTexture?
+  let fireballSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -232,25 +235,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     self.addCoinBlock(self.levelReached * 30)
     self.addCrossbows()
     
-////    backgroundColor = SKColor.whiteColor()
-//    background.size = frame.size
-//    background.zPosition = -1
-//    background.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))
-//    self.addChild(background)
-    
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
     
-    let numImages = playerAnimatedAtlas.textureNames.count
+    let numImages = playerAnimatedAtlas.textureNames.count/2
     for var i=0; i<numImages; i++ {
-      let playerTextureName = "BlueDragonFlap\(i)"
+      let playerTextureName = dragonSelected == 0 ? "BlueDragonFlap\(i)" : "RedDragonFlap\(i)"
       flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
-    }
-    
-    //Makes wing flapping animation more fluid as doesn't just reset at end
-    for var i=numImages-1; i>=0; i-- {
-      let playerTextureName = "BlueDragonFlap\(i)"
-      flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
+      flyFrames.insert(playerAnimatedAtlas.textureNamed(playerTextureName), atIndex: 0) //Makes wing flapping animation more fluid as doesn't just reset at end
     }
     
     playerFlyingScenes = flyFrames
@@ -275,8 +267,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     flyingPlayer()
     
-//    fireballSoundEffect = playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
-    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.0) //Loads the sound, so don't have lag first time fire
+//    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.0) //Loads the sound, so don't have lag first time fire
     
     let fireballAnimatedAtlas = SKTextureAtlas(named: "fireballImages")
     var fireballFrames = [SKTexture]()
@@ -417,37 +408,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
   }
   
-//  func playSoundFileNamed(fileName: String, atVolume: Float, waitForCompletion: Bool) -> AVAudioPlayer {
-//    
-//    let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: nil)
-//    if (url == nil) {
-//      println("Could not find file: \(fileName)")
-//      return AVAudioPlayer()
-//    }
-//    
-//    var error: NSError? = nil
-//    let player = AVAudioPlayer(contentsOfURL: url, error: &error)
-//    if player == nil {
-//      println("Could not create audio player: \(error!)")
-//      return AVAudioPlayer()
-//    }
-//    
-//    player.volume = atVolume
-//    player.numberOfLoops = 0
-//    player.prepareToPlay()
-//    
-//    let playAction: SKAction = SKAction.runBlock { player.play() }
-//    
-//    //    if(waitForCompletion){
-//    //      let waitAction = SKAction.waitForDuration(player.duration)
-//    //      let groupAction: SKAction = SKAction.group([playAction, waitAction])
-//    //      return groupAction
-//    //    }
-//    
-//    return player
-//  }
-
-  
   func random() -> CGFloat {
     return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
   }
@@ -581,16 +541,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       coinCount++
 //    }
   }
-
-  func addMonsterBlock(speed: Double) {
-    self.runAction(SKAction.repeatActionForever(
-      SKAction.sequence([
-        SKAction.runBlock(self.addMonster),
-        SKAction.waitForDuration(speed)
-        ])
-      ), withKey: "addingMonsters"
-    )
-  }
   
   func addCrossbows() {
     for i in 1...self.levelReached {
@@ -610,6 +560,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
       }
     }
+  }
+  
+  func addMonsterBlock(speed: Double) {
+    self.runAction(SKAction.repeatActionForever(
+      SKAction.sequence([
+        SKAction.runBlock(self.addMonster),
+        SKAction.waitForDuration(speed)
+        ])
+      ), withKey: "addingMonsters"
+    )
   }
   
   func addMonster() {
@@ -773,23 +733,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       if slowmoPurchased == true {return}
       totalCoins -= slowmoUpgradeCost
       totalCoinsBoard.text = "Total Coins: \(totalCoins)"
-      
-      let playUpgrade = SKAction.runBlock {
-        self.musicController.pauseBackgroundMusic()
-        self.musicController.playUpgradeMusic("dubstepMusic.mp3")
-      }
-      
-      let returnToBackgroundMusic = SKAction.runBlock {
-        self.musicController.stopUpgradeMusic()
-        self.musicController.resumeBackgroundMusic()
-      }
-      
-      runAction(SKAction.sequence([playUpgrade, SKAction.waitForDuration(slowmoDuration), returnToBackgroundMusic]))
-      
       self.slowmoPurchased = true
-      let quickPop = SKAction.scaleTo(1.1, duration: 0.1)
-      let shrink = SKAction.scaleTo(0, duration: slowmoDuration)
-      let grow = SKAction.scaleTo(1.0, duration: 0.1)
+      
+      self.removeActionForKey("addingMonsters")
+      self.addMonsterBlock(2.0)
       
       var countDown = 10
       let count = SKLabelNode(fontNamed: "Chalkduster")
@@ -799,19 +746,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       count.fontSize = 30.0
       count.zPosition = 2
       purchaseSlowmo.addChild(count)
-
-      let wait = SKAction.waitForDuration(1.0)
-      let keepCount = SKAction.runBlock {
-        countDown = self.reduceByOne(countDown)
-        count.text = String(countDown)
-        if (countDown < 2) {
-          count.removeFromParent()
-        }
-      }
       
-      self.removeActionForKey("addingMonsters")
-      self.addMonsterBlock(2.0)
-      
+      //Changes speed of existing arrows
       backgroundLayer.enumerateChildNodesWithName("arrow") {
         node, stop in
         node.removeAllActions()
@@ -832,16 +768,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
       }
       
+      let playUpgrade = SKAction.runBlock {
+        self.musicController.pauseBackgroundMusic()
+        self.musicController.playUpgradeMusic("dubstepMusic.mp3")
+      }
+      
+      let returnToBackgroundMusic = SKAction.runBlock {
+        self.musicController.stopUpgradeMusic()
+        self.musicController.resumeBackgroundMusic()
+      }
+      
+      let wait = SKAction.waitForDuration(1.0)
+      let keepCount = SKAction.runBlock {
+        countDown = self.reduceByOne(countDown)
+        count.text = String(countDown)
+        if (countDown < 2) {
+          count.removeFromParent()
+        }
+      }
+    
+      let countDownSequence = SKAction.repeatAction(SKAction.sequence([wait, keepCount]), count: 10)
+      let shrink = SKAction.scaleTo(0, duration: slowmoDuration)
+      let shrinkAndCountGroup = SKAction.group([shrink, countDownSequence])
+      let quickPop = SKAction.scaleTo(1.1, duration: 0.1)
+      let grow = SKAction.scaleTo(1.0, duration: 0.1)
+      
+      
       let returnToNormalSpeed = SKAction.runBlock {
         self.slowmoPurchased = false
         
         self.removeActionForKey("addingMonsters")
-//        if self.coinsCollected < 50 {
         self.addMonsterBlock(1.0)
-//        }
-//        else {
-//          self.addMonsterBlock(0.5)
-//        }
         
         self.backgroundLayer.enumerateChildNodesWithName("arrow") {
           node, stop in
@@ -856,10 +813,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           monster.runAction(SKAction.sequence([actionMove, actionMoveDone]))
         }
       }
-    
-      let countDownSequence = SKAction.repeatAction(SKAction.sequence([wait, keepCount]), count: 10)
-      let shrinkAndCountGroup = SKAction.group([shrink, countDownSequence])
       
+      self.runAction(SKAction.sequence([playUpgrade, SKAction.waitForDuration(slowmoDuration), returnToBackgroundMusic]))
       purchaseSlowmo.runAction(SKAction.sequence([quickPop, shrinkAndCountGroup, grow, returnToNormalSpeed]))
       
       var slowmoPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "slowmo", label: "slowmoPurchased", value: slowmoUpgradeCost)
@@ -888,7 +843,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
       if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead == false {
         attackButtonPushed()
-        if flamePurchased == true {
+        if dragonSelected == 1 {
           flame = SKSpriteNode(texture: flameScenes[0])
           flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
           flame.zPosition = 1
@@ -1012,7 +967,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func attackButtonPushed() {
 //    println("attack")
-    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.5)
+//    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.5)
 //    fireballSoundEffect.play()
     
     // 2 - Set up initial location of projectile
@@ -1047,7 +1002,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
    
     let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
     let shrink = SKAction.scaleTo(0.0, duration: 0.6)
-    let shootFireballGroup = SKAction.group([shootFireball, shrink])
+    let shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
   
     projectile.runAction(shootFireballGroup)
     projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))

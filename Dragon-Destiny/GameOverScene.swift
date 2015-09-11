@@ -18,8 +18,12 @@ class GameOverScene: SKScene {
   
   let blueDragon = SKSpriteNode(imageNamed: "BlueDragonChooser")
   let redDragon = SKSpriteNode(imageNamed: "RedDragonChooser")
+  let greenDragon = SKSpriteNode(imageNamed: "GreenDragonChooser")
+  let yellowDragon = SKSpriteNode(imageNamed: "YellowDragonChooser")
   let flame = SKSpriteNode(imageNamed: "FlameChooser")
   let fireball = SKSpriteNode(imageNamed: "FireballChooser")
+  let laser1 = SKSpriteNode(imageNamed: "LaserChooser")
+  let laser2 = SKSpriteNode(imageNamed: "LaserChooser")
   
   init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int) {
     
@@ -103,24 +107,43 @@ class GameOverScene: SKScene {
     addChild(levelLabel)
     
     blueDragon.size = CGSize(width: 50, height: 30)
-    blueDragon.position = CGPoint(x: self.size.width * 9/24, y: restartButton.position.y + restartButton.size.height / 2 + blueDragon.size.height)
+    blueDragon.position = CGPoint(x: self.size.width * 6/24, y: restartButton.position.y + restartButton.size.height / 2 + blueDragon.size.height)
     self.addChild(blueDragon)
     
     redDragon.size = CGSize(width: 50, height: 30)
-    redDragon.position = CGPoint(x: self.size.width * 15/24, y: restartButton.position.y + restartButton.size.height / 2 + redDragon.size.height)
+    redDragon.position = CGPoint(x: self.size.width * 10/24, y: restartButton.position.y + restartButton.size.height / 2 + redDragon.size.height)
     self.addChild(redDragon)
+    
+    greenDragon.size = CGSize(width: 50, height: 30)
+    greenDragon.position = CGPoint(x: self.size.width * 14/24, y: restartButton.position.y + restartButton.size.height / 2 + greenDragon.size.height)
+    self.addChild(greenDragon)
+    
+    yellowDragon.size = CGSize(width: 50, height: 30)
+    yellowDragon.position = CGPoint(x: self.size.width * 18/24, y: restartButton.position.y + restartButton.size.height / 2 + yellowDragon.size.height)
+    self.addChild(yellowDragon)
     
     flame.size = CGSize(width: 26, height: 48)
     flame.position = CGPoint(x: redDragon.position.x, y: redDragon.position.y + redDragon.size.height/2 + flame.size.height/2 - 1)
     
     fireball.size = CGSize(width: 15, height: 15)
     fireball.position = CGPoint(x: blueDragon.position.x, y: blueDragon.position.y + blueDragon.size.height/2 + flame.size.height/2 - 1)
+    
+    laser1.size = CGSize(width: 9, height: 20)
+    laser1.position = CGPoint(x: greenDragon.position.x, y: greenDragon.position.y + greenDragon.size.height/2 + flame.size.height/2 - 1)
+
+    laser2.size = CGSize(width: 9, height: 48)
+    laser2.position = CGPoint(x: yellowDragon.position.x, y: yellowDragon.position.y + yellowDragon.size.height/2 + flame.size.height/2 - 1)
+
 
     switch dragonSelected {
     case 0:
       self.addChild(fireball)
     case 1:
       self.addChild(flame)
+    case 2:
+      self.addChild(laser1)
+    case 3:
+      self.addChild(laser2)
     default:
       self.addChild(fireball)
     }
@@ -141,6 +164,10 @@ class GameOverScene: SKScene {
 
       let redDragonExtendedRect = CGRectMake(redDragon.position.x - redDragon.size.width/2, redDragon.position.y - redDragon.size.height/2, redDragon.size.width, redDragon.size.height * 4)
       
+      let greenDragonExtendedRect = CGRectMake(greenDragon.position.x - greenDragon.size.width/2, greenDragon.position.y - greenDragon.size.height/2, greenDragon.size.width, greenDragon.size.height * 4)
+      
+      let yellowDragonExtendedRect = CGRectMake(yellowDragon.position.x - yellowDragon.size.width/2, yellowDragon.position.y - yellowDragon.size.height/2, yellowDragon.size.width, yellowDragon.size.height * 4)
+      
       if restartButton.containsPoint(touchLocation) {
         restartButton.runAction(SKAction.scaleTo(1.25, duration: 0.5))
       }
@@ -148,12 +175,30 @@ class GameOverScene: SKScene {
         self.dragonSelected = 0
         fireball.removeFromParent()
         flame.removeFromParent()
+        laser1.removeFromParent()
+        laser2.removeFromParent()
         self.addChild(fireball)
       } else if (CGRectContainsPoint(redDragonExtendedRect, touchLocation)) {
         self.dragonSelected = 1
         fireball.removeFromParent()
         flame.removeFromParent()
+        laser1.removeFromParent()
+        laser2.removeFromParent()
         self.addChild(flame)
+      } else if (CGRectContainsPoint(greenDragonExtendedRect, touchLocation)) {
+        self.dragonSelected = 2
+        fireball.removeFromParent()
+        flame.removeFromParent()
+        laser1.removeFromParent()
+        laser2.removeFromParent()
+        self.addChild(laser1)
+      } else if (CGRectContainsPoint(yellowDragonExtendedRect, touchLocation)) {
+        self.dragonSelected = 3
+        fireball.removeFromParent()
+        flame.removeFromParent()
+        laser1.removeFromParent()
+        laser2.removeFromParent()
+        self.addChild(laser2)
       }
     }
   }

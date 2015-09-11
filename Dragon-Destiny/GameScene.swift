@@ -83,17 +83,8 @@ enum PhysicsCategory : UInt32 {
   case Coin = 01000
   case Crossbow = 00100
   case Shield = 00010
+  case Laser = 01101
 }
-
-//enum BodyType:UInt32 {
-//  
-//  case player = 1
-//  case ground = 2
-//  case anotherBody1 = 4
-//  case anotherBody2 = 8
-//  case anotherBody3 = 16
-//  
-//}
 
 enum MoveStates:Int {
   
@@ -123,6 +114,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var arrowScenes: [SKTexture]!
   var firstFireballFrame: SKTexture?
   let fireballSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
+  
+  var laserBallScenes: [SKTexture]!
+  var firstLaserBallFrame: SKTexture?
+  let laserBallSoundEffect = SKAction.playSoundFileNamed("FireballSound.wav", atVolume: 0.5, waitForCompletion: false)
   
   var monstersDestroyed = 0
   var coinsCollected = 0
@@ -155,6 +150,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var flame = SKSpriteNode()
   var flameScenes: [SKTexture]!
   var flameStartScenes: [SKTexture]!
+  
+  var laser = SKSpriteNode()
+  var laserScenes: [SKTexture]!
+  var laserStartScenes: [SKTexture]!
   
   var purchaseSlowmo = SKSpriteNode(imageNamed: "SlowmoUpgradeButton")
   let slowmoUpgradeCost = 10
@@ -239,9 +238,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
     
-    let numImages = playerAnimatedAtlas.textureNames.count/2
+    let numImages = playerAnimatedAtlas.textureNames.count/4 //Number changes based on # of dragons available
     for var i=0; i<numImages; i++ {
-      let playerTextureName = dragonSelected == 0 ? "BlueDragonFlap\(i)" : "RedDragonFlap\(i)"
+      
+      var playerTextureName: String
+      switch dragonSelected {
+      case 0: playerTextureName = "BlueDragonFlap\(i)"
+      case 1: playerTextureName = "RedDragonFlap\(i)"
+      case 2: playerTextureName = "GreenDragonFlap\(i)"
+      case 3: playerTextureName = "YellowDragonFlap\(i)"
+      default: playerTextureName = "BlueDragonFlap\(i)"
+      }
+      
       flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
       flyFrames.insert(playerAnimatedAtlas.textureNamed(playerTextureName), atIndex: 0) //Makes wing flapping animation more fluid as doesn't just reset at end
     }
@@ -316,6 +324,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     flameStartScenes = flameStartFrames
+//    flameScenes = flameFrames
+    
+    let laserBallAnimatedAtlas = SKTextureAtlas(named: "laserBallImages")
+    var laserBallFrames = [SKTexture]()
+    
+    let numLaserBallImages = laserBallAnimatedAtlas.textureNames.count
+    for var i=0; i<numLaserBallImages; i++ {
+      let laserBallTextureName = "LaserBall\(i)"
+      laserBallFrames.append(laserBallAnimatedAtlas.textureNamed(laserBallTextureName))
+    }
+    
+    laserBallScenes = laserBallFrames
+    firstLaserBallFrame = laserBallScenes[0]
+    
+    let laserStartAnimatedAtlas = SKTextureAtlas(named: "laserImages")
+    var laserStartFrames = [SKTexture]()
+    
+    let numLaserStartImages = laserStartAnimatedAtlas.textureNames.count
+    for var i=0; i<numLaserStartImages; i++ {
+      let laserStartTextureName = "Laser\(i)"
+      laserStartFrames.append(laserStartAnimatedAtlas.textureNamed(laserStartTextureName))
+    }
+    
+    laserStartScenes = laserStartFrames
+    
+    let laserAnimatedAtlas = SKTextureAtlas(named: "fullLaserImages")
+    var laserFrames = [SKTexture]()
+    
+    let numLaserImages = laserAnimatedAtlas.textureNames.count
+    for var i=0; i<numLaserImages; i++ {
+      let laserTextureName = "FullLaser\(i)"
+      laserFrames.append(laserAnimatedAtlas.textureNamed(laserTextureName))
+    }
+    
+    laserScenes = laserFrames
+    
 //
 //    addMonster()
 //    addCoins()
@@ -557,7 +601,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         crossbowEnemy.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: crossbowEnemy.size.width, height: crossbowEnemy.size.height))
         crossbowEnemy.physicsBody?.dynamic = true
         crossbowEnemy.physicsBody?.categoryBitMask = PhysicsCategory.Crossbow.rawValue
-        crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
+        crossbowEnemy.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue | PhysicsCategory.Laser.rawValue
         crossbowEnemy.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
       }
     }
@@ -588,8 +632,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
       monster.physicsBody?.dynamic = true
       monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
-      monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-      monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+      monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue | PhysicsCategory.Laser.rawValue
       monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
       
       // Add the monster to the scene
@@ -629,8 +672,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
         monster.physicsBody?.dynamic = true
         monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
-        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue
-        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Player.rawValue
+        monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue | PhysicsCategory.Laser.rawValue
         monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
         
         // Add the monster to the scene
@@ -844,24 +886,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
       if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead == false {
         attackButtonPushed()
-        if dragonSelected == 1 {
-          flame = SKSpriteNode(texture: flameScenes[0])
-          flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
-          flame.zPosition = 1
-          
-          let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.07)
-          let flameStart = SKAction.group([ animateFlame, SKAction.scaleBy(4.0, duration: 0.5) ])
-          let repeatForever = SKAction.repeatActionForever(animateFlame)
-          flame.runAction(SKAction.sequence([flameStart, repeatForever]))
-          
-          flame.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: flame.size.width, height: flame.size.height))
-          flame.physicsBody?.dynamic = true
-          flame.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
-          flame.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
-          flame.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-          
-          backgroundLayer.addChild(flame)
-        } 
       } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseFlame)
       } else if (CGRectContainsPoint(purchaseShield.frame, touchLocation)) && playerDead == false {
@@ -924,34 +948,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
-        flame.removeFromParent()
+        removeProjectile()
       }
     }
-    
-//    stickActive = false
-//    flame.hidden = true
-    
-//    if (stickActive == true) {
-//      stickActive = false
-//      playerMoving = false
-//      stickActive = false
-//
-//      let move:SKAction = SKAction.moveTo(base.position, duration: 0.2)
-//      move.timingMode = .EaseOut
-//      
-//      ball.runAction(move)
-//      
-//      let fade:SKAction = SKAction.fadeAlphaTo(0, duration: 0.3)
-//      
-//      ball.runAction(fade)
-//      base.runAction(fade)
-      
-//      shipSpeedX /= 2
-//      shipSpeedY /= 2
-      
-//      shipSpeedX = 0
-//      shipSpeedY = 0
-//    }
+  }
+  
+  func removeProjectile() {
+    switch dragonSelected {
+    case 1: flame.removeFromParent()
+    case 3: laser.removeFromParent()
+    default: break
+    }
   }
   
   func pausedButtonPushed() {
@@ -967,65 +974,125 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func attackButtonPushed() {
-//    println("attack")
-//    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.5)
-//    fireballSoundEffect.play()
+    if dragonSelected == 1 || dragonSelected == 0 {
+      var projectile = SKSpriteNode(texture: firstFireballFrame)
+      
+      let projectilePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+      projectile.position = CGPoint(x: player.position.x + projectilePosVector.dx, y: player.position.y + projectilePosVector.dy) //Makes fireball appear to come from mouth of player rather than from middle of body.
+      projectile.size = CGSize(width: 25.0, height: 25.0)
+      
+      projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+      projectile.physicsBody?.dynamic = true
+      projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
+      projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue | PhysicsCategory.Crossbow.rawValue
+      projectile.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      projectile.physicsBody?.usesPreciseCollisionDetection = true
+      
+      var offset = CGPoint()
+      if ball.position != base.position {
+        offset = ball.position - base.position
+      } else {
+        offset = mostRecentBallPosition - mostRecentBasePosition
+      }
+      
+      backgroundLayer.addChild(projectile)
+      
+      let direction = offset.normalized()
+      let shootAmount = direction * 200
+      let realDest = shootAmount + projectile.position
+      
+      let actionMove = SKAction.moveTo(realDest, duration: 0.4)
+      let actionMoveDone = SKAction.removeFromParent()
+     
+      let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
+      let shrink = SKAction.scaleTo(0.0, duration: 0.6)
+      let shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
     
-    // 2 - Set up initial location of projectile
-    var projectile = SKSpriteNode(texture: SKTexture(imageNamed: "Fireball0"))
-    
-    let projectilePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-    projectile.position = CGPoint(x: player.position.x + projectilePosVector.dx, y: player.position.y + projectilePosVector.dy) //Makes fireball appear to come from mouth of player rather than from middle of body.
-    projectile.size = CGSize(width: 25.0, height: 25.0)
-    
-    projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
-    projectile.physicsBody?.dynamic = true
-    projectile.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
-    projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue
-    projectile.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-    projectile.physicsBody?.usesPreciseCollisionDetection = true
-    
-    var offset = CGPoint()
-    if ball.position != base.position {
-      offset = ball.position - base.position
-    } else {
-      offset = mostRecentBallPosition - mostRecentBasePosition
+      projectile.runAction(shootFireballGroup)
+      projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
     
-    backgroundLayer.addChild(projectile)
+    if dragonSelected == 1 {
+      flame = SKSpriteNode(texture: flameScenes[0])
+      flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
+      flame.zPosition = 1
+      
+      let animateFlame = SKAction.animateWithTextures(flameScenes, timePerFrame: 0.07)
+      let flameStart = SKAction.group([ animateFlame, SKAction.scaleBy(4.0, duration: 0.5) ])
+      let repeatForever = SKAction.repeatActionForever(animateFlame)
+      flame.runAction(SKAction.sequence([flameStart, repeatForever]))
+      
+      flame.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: flame.size.width, height: flame.size.height))
+      flame.physicsBody?.dynamic = true
+      flame.physicsBody?.categoryBitMask = PhysicsCategory.Projectile.rawValue
+      flame.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue | PhysicsCategory.Crossbow.rawValue
+      flame.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      
+      backgroundLayer.addChild(flame)
+    }
     
-    let direction = offset.normalized()
-    let shootAmount = direction * 200
-    let realDest = shootAmount + projectile.position
+    if dragonSelected == 2 {
+      var projectile = SKSpriteNode(texture: firstLaserBallFrame)
+      
+      let projectilePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+      projectile.position = CGPoint(x: player.position.x + projectilePosVector.dx, y: player.position.y + projectilePosVector.dy) //Makes fireball appear to come from mouth of player rather than from middle of body.
+      projectile.size = CGSize(width: 30.0, height: 9.0)
+      projectile.zRotation = player.zRotation + 1.57079633
+      
+      projectile.physicsBody = SKPhysicsBody(circleOfRadius: projectile.size.width/2)
+      projectile.physicsBody?.dynamic = true
+      projectile.physicsBody?.categoryBitMask = PhysicsCategory.Laser.rawValue
+      projectile.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue | PhysicsCategory.Crossbow.rawValue
+      projectile.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      projectile.physicsBody?.usesPreciseCollisionDetection = true
+      
+      var offset = CGPoint()
+      if ball.position != base.position {
+        offset = ball.position - base.position
+      } else {
+        offset = mostRecentBallPosition - mostRecentBasePosition
+      }
+      
+      backgroundLayer.addChild(projectile)
+      
+      let direction = offset.normalized()
+      let shootAmount = direction * (self.size.width)
+      let realDest = shootAmount + projectile.position
+      
+      let actionMove = SKAction.moveTo(realDest, duration: 1.0)
+      let actionMoveDone = SKAction.removeFromParent()
+      
+      let shootLaserBall = SKAction.animateWithTextures(laserBallScenes, timePerFrame: 0.05)
+//      let shrink = SKAction.scaleTo(0.2, duration: 2.0)
+      let shootLaserBallGroup = SKAction.group([shootLaserBall, laserBallSoundEffect])
+      
+      projectile.runAction(shootLaserBallGroup)
+      projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+    }
     
-    let actionMove = SKAction.moveTo(realDest, duration: 0.4)
-    let actionMoveDone = SKAction.removeFromParent()
-   
-    let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
-    let shrink = SKAction.scaleTo(0.0, duration: 0.6)
-    let shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
-  
-    projectile.runAction(shootFireballGroup)
-    projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
+    if dragonSelected == 3 {
+      laser = SKSpriteNode(texture: laserScenes[0])
+      laser.size = CGSize(width: player.size.width, height: 9)
+      laser.zPosition = 1
+      
+//      let animateLaser = SKAction.animateWithTextures(laserScenes, timePerFrame: 0.07)
+//      let laserStart = SKAction.group([ animateLaser, SKAction.scaleBy(4.0, duration: 0.5) ])
+//      let repeatForever = SKAction.repeatActionForever(animateLaser)
+//      laser.runAction(repeatForever)
+      
+      laser.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: laser.size.width, height: laser.size.height))
+      laser.physicsBody?.dynamic = true
+      laser.physicsBody?.categoryBitMask = PhysicsCategory.Laser.rawValue
+      laser.physicsBody?.contactTestBitMask = PhysicsCategory.Monster.rawValue | PhysicsCategory.Crossbow.rawValue
+      laser.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+      
+      backgroundLayer.addChild(laser)
+    }
   }
 
   
   func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
     projectile.removeFromParent()
-    
-//    coinsCollected++
-//    totalCoins++
-//    NSUserDefaults.standardUserDefaults().setObject(totalCoins,forKey:"TotalCoins")
-//    
-//    scoreBoard.text = "Score: \(coinsCollected)"
-//    totalCoinsBoard.text = "Total Coins: \(totalCoins)"
-//    
-//    if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
-//      if coinsCollected > savedScore {
-//        NSUserDefaults.standardUserDefaults().setObject(coinsCollected,forKey:"HighestScore")
-//        highScoreBoard.text = "High Score: \(coinsCollected)"
-//      }
-//    }
     
     monster.size = CGSize(width: 50.0, height: 30.0)
     monster.texture = arrowScenes[2]
@@ -1045,9 +1112,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monstersDestroyed++
   }
   
-  func playerShotCrossbow(crossbowHit: SKSpriteNode) {
+  func laserDidCollideWithMonster(laser:SKSpriteNode, monster:SKSpriteNode) {
+    monster.size = CGSize(width: 50.0, height: 30.0)
+    monster.texture = arrowScenes[2]
+    monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
+    monster.physicsBody?.dynamic = true
+    monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+    monster.physicsBody?.contactTestBitMask = PhysicsCategory.None.rawValue
+    monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+    
+    var burningArrowScenes = arrowScenes
+    burningArrowScenes.removeAtIndex(0)
+    
+    let arrowHit = SKAction.animateWithTextures(burningArrowScenes, timePerFrame: 0.05)
+    let removeArrow = SKAction.removeFromParent()
+    monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
+    
+    monstersDestroyed++
+  }
+  
+  func playerShotCrossbow(crossbowHit: SKSpriteNode, laser: Bool) {
     if let boss = crossbowHit as? Boss {
-      boss.health -= 50
+      if laser {
+        boss.health = 0
+      } else {
+        boss.health -= 50
+      }
+      
       
       if boss.health > 0 {
         crossbowHit.texture = SKTexture(imageNamed: "CrossbowBroken1")
@@ -1184,8 +1275,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
     case PhysicsCategory.Monster.rawValue | PhysicsCategory.Projectile.rawValue:
       
-      // Step 2. Disambiguate the bodies in the contact
-      
       if let bodyB = contact.bodyB.node as? SKSpriteNode {
         if let bodyA = contact.bodyA.node as? SKSpriteNode {
           if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
@@ -1196,8 +1285,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         }
       }
       
-    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Player.rawValue:
+    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Laser.rawValue:
       
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
+            laserDidCollideWithMonster(bodyB, monster: bodyA)
+          } else {
+            laserDidCollideWithMonster(bodyA, monster: bodyB)
+          }
+        }
+      }
+      
+    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Player.rawValue:
       // Here we don't care which body is which, the scene is ending
       monsterDidCollideWithPlayer()
       
@@ -1216,9 +1316,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       if let bodyB = contact.bodyB.node as? SKSpriteNode {
         if let bodyA = contact.bodyA.node as? SKSpriteNode {
           if contact.bodyA.categoryBitMask == PhysicsCategory.Crossbow.rawValue {
-            self.playerShotCrossbow(bodyA)
+            self.playerShotCrossbow(bodyA, laser: false)
           } else {
-            self.playerShotCrossbow(bodyB)
+            self.playerShotCrossbow(bodyB, laser: false)
+          }
+        }
+      }
+    
+    case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Laser.rawValue:
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Crossbow.rawValue {
+            self.playerShotCrossbow(bodyA, laser: true)
+          } else {
+            self.playerShotCrossbow(bodyB, laser: true)
           }
         }
       }
@@ -1236,35 +1347,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
     case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Coin.rawValue:
       break
-
     case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Player.rawValue:
       break
-      
     case PhysicsCategory.Crossbow.rawValue | PhysicsCategory.Monster.rawValue:
       break
       
     case PhysicsCategory.Shield.rawValue | PhysicsCategory.Coin.rawValue:
       break
-
     case PhysicsCategory.Shield.rawValue | PhysicsCategory.Projectile.rawValue:
       break
-
     case PhysicsCategory.Shield.rawValue | PhysicsCategory.Player.rawValue:
       break
-
     case PhysicsCategory.Shield.rawValue | PhysicsCategory.Crossbow.rawValue:
+      break
+    case PhysicsCategory.Shield.rawValue | PhysicsCategory.Laser.rawValue:
+      break
+
+    case PhysicsCategory.Laser.rawValue | PhysicsCategory.Coin.rawValue:
+      break
+    case PhysicsCategory.Laser.rawValue | PhysicsCategory.Player.rawValue:
       break
 
     case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue:
-      println("projectile + player")
-    
+      break
     case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Coin.rawValue:
-      println("projectile + coin")
-
+      break
+   
     case PhysicsCategory.Monster.rawValue | PhysicsCategory.Coin.rawValue:
-      println("monster + coin")
+      break
+    case PhysicsCategory.Monster.rawValue | PhysicsCategory.Monster.rawValue:
+      break
       
     default:
+      println(contact.bodyA.node)
+      println(contact.bodyB.node)
       fatalError("other collision: \(contactMask)")
     }
   }
@@ -1329,9 +1445,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   //        }
       }
       
-      let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-      flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
-      flame.zRotation = player.zRotation + 1.57079633
+      if dragonSelected == 1 {
+        let flamePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+        flame.position = CGPoint(x: player.position.x + flamePosVector.dx, y: player.position.y + flamePosVector.dy)
+        flame.zRotation = player.zRotation + 1.57079633
+      }
+      
+      if dragonSelected == 3 {
+        let laserPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
+        laser.position = CGPoint(x: player.position.x + 3.0 * laserPosVector.dx, y: player.position.y + 3.0 * laserPosVector.dy)
+        laser.zRotation = player.zRotation + 1.57079633
+      }
       
       if shield.purchased == true {
         let shieldPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)

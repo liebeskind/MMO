@@ -15,6 +15,8 @@ class StartMenuViewController: UIViewController {
   @IBOutlet weak var redButton: UIButton!
   @IBOutlet weak var fireballImage: UIImageView!
   @IBOutlet weak var flameImage: UIImageView!
+  @IBOutlet weak var laserBallImage: UIImageView!
+  @IBOutlet weak var laserImage: UIImageView!
   
   var dragonSelected = 0
   var previouslySelectedDragon: UIButton?
@@ -30,6 +32,8 @@ class StartMenuViewController: UIViewController {
   override func viewDidAppear(animated: Bool) {
     fireballImage.hidden = false
     flameImage.hidden = true
+    laserBallImage.hidden = true
+    laserImage.hidden = true
   }
   
   @IBAction func dragonSelectionButtonPressed(sender: UIButton) {
@@ -42,11 +46,28 @@ class StartMenuViewController: UIViewController {
     case 0:
       fireballImage.hidden = false
       flameImage.hidden = true
+      laserBallImage.hidden = true
+      laserImage.hidden = true
     case 1:
       fireballImage.hidden = true
       flameImage.hidden = false
+      laserBallImage.hidden = true
+      laserImage.hidden = true
+    case 2:
+      fireballImage.hidden = true
+      flameImage.hidden = true
+      laserBallImage.hidden = false
+      laserImage.hidden = true
+    case 3:
+      fireballImage.hidden = true
+      flameImage.hidden = true
+      laserBallImage.hidden = true
+      laserImage.hidden = false
     default:
-      break
+      fireballImage.hidden = false
+      flameImage.hidden = true
+      laserBallImage.hidden = true
+      laserImage.hidden = true
     }
   }
   

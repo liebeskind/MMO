@@ -14,7 +14,16 @@ class GameOverScene: SKScene {
   let restartButton = SKSpriteNode(imageNamed: "RestartButton")
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
-  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int) {
+  var dragonSelected: Int!
+  
+  let blueDragon = SKSpriteNode(imageNamed: "BlueDragonChooser")
+  let redDragon = SKSpriteNode(imageNamed: "RedDragonChooser")
+  let flame = SKSpriteNode(imageNamed: "FlameChooser")
+  let fireball = SKSpriteNode(imageNamed: "FireballChooser")
+  
+  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int) {
+    
+    self.dragonSelected = dragonSelected
     
     super.init(size: size)
     
@@ -93,13 +102,58 @@ class GameOverScene: SKScene {
     levelLabel.position = CGPoint(x: size.width/2, y: monstersLabel.position.y - monstersLabel.fontSize)
     addChild(levelLabel)
     
+    blueDragon.size = CGSize(width: 50, height: 30)
+    blueDragon.position = CGPoint(x: self.size.width * 9/24, y: restartButton.position.y + restartButton.size.height / 2 + blueDragon.size.height)
+    self.addChild(blueDragon)
+    
+    redDragon.size = CGSize(width: 50, height: 30)
+    redDragon.position = CGPoint(x: self.size.width * 15/24, y: restartButton.position.y + restartButton.size.height / 2 + redDragon.size.height)
+    self.addChild(redDragon)
+    
+    flame.size = CGSize(width: 26, height: 48)
+    flame.position = CGPoint(x: redDragon.position.x, y: redDragon.position.y + redDragon.size.height/2 + flame.size.height/2 - 1)
+    
+    fireball.size = CGSize(width: 15, height: 15)
+    fireball.position = CGPoint(x: blueDragon.position.x, y: blueDragon.position.y + blueDragon.size.height/2 + flame.size.height/2 - 1)
+
+    switch dragonSelected {
+    case 0:
+      self.addChild(fireball)
+    case 1:
+      self.addChild(flame)
+    default:
+      self.addChild(fireball)
+    }
+    
+    let dragonLabel = SKLabelNode(fontNamed: "Avenir")
+    dragonLabel.position = CGPoint(x: self.size.width/2, y: flame.position.y + flame.size.height)
+    dragonLabel.fontSize = 20
+    dragonLabel.text = "Choose Dragon"
+    self.addChild(dragonLabel)
+    
   }
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
+      
+      let blueDragonExtendedRect = CGRectMake(blueDragon.position.x - blueDragon.size.width/2, blueDragon.position.y - blueDragon.size.height/2, blueDragon.size.width, blueDragon.size.height * 4)
+
+      let redDragonExtendedRect = CGRectMake(redDragon.position.x - redDragon.size.width/2, redDragon.position.y - redDragon.size.height/2, redDragon.size.width, redDragon.size.height * 4)
+      
       if restartButton.containsPoint(touchLocation) {
         restartButton.runAction(SKAction.scaleTo(1.25, duration: 0.5))
+      }
+      if (CGRectContainsPoint(blueDragonExtendedRect, touchLocation)) {
+        self.dragonSelected = 0
+        fireball.removeFromParent()
+        flame.removeFromParent()
+        self.addChild(fireball)
+      } else if (CGRectContainsPoint(redDragonExtendedRect, touchLocation)) {
+        self.dragonSelected = 1
+        fireball.removeFromParent()
+        flame.removeFromParent()
+        self.addChild(flame)
       }
     }
   }
@@ -125,7 +179,7 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: 0)
+      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

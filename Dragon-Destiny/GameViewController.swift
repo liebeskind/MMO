@@ -13,6 +13,8 @@ import GoogleMobileAds
 
 class GameViewController: UIViewController, GADInterstitialDelegate, UINavigationControllerDelegate {
   
+  var dragonType: Int?
+  
   var interstitial:GADInterstitial?
 //  var interstitialAd:ADInterstitialAd! = nil
 //  var interstitialAdView: UIView = UIView()
@@ -28,7 +30,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let scene = GameScene(size: view.bounds.size, level: 1, coinsCollected: 0, shield: Shield())
+    let scene = GameScene(size: view.bounds.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: dragonType!)
     let skView = view as! SKView
     skView.ignoresSiblingOrder = true
     scene.scaleMode = .ResizeFill

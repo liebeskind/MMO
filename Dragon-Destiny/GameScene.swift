@@ -104,7 +104,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let musicController = MusicController()
   
-  let dragonSelected = 1
+  var dragonSelected: Int!
   
   let backgroundMovePointsPerSec: CGFloat = 5.0
   let backgroundLayer = SKNode()
@@ -184,11 +184,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
-  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield) {
+  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield, dragonType: Int) {
     super.init(size: size)
     self.levelReached = level
     self.coinsCollected = coinsCollected
     self.shield = shield
+    self.dragonSelected = dragonType
   }
   
   override func didMoveToView(view: SKView) {
@@ -1087,15 +1088,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         node.removeFromParent()
       }
       
-      let pause = SKAction.waitForDuration(1.0)
+      let pause = SKAction.waitForDuration(0.5)
       let fadeAway = SKAction.fadeOutWithDuration(1.0)
       let startNextLevel = SKAction.runBlock() {
-        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield)
-        self.backgroundLayer.removeAllChildren()
-        self.backgroundLayer.removeFromParent()
         self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()
+        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected)
+        self.backgroundLayer.removeAllChildren()
+        self.backgroundLayer.removeFromParent()
         self.view?.presentScene(scene, transition:reveal)
       }
       

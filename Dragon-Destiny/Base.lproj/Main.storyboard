@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ufV-dH-VRF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="a8b-EY-zGm">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -36,23 +36,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DragonArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="nhL-VP-uA3">
-                                <rect key="frame" x="225" y="28" width="150" height="150"/>
+                                <rect key="frame" x="263" y="28" width="75" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="7J7-gJ-DFx"/>
+                                    <constraint firstAttribute="width" constant="75" id="7J7-gJ-DFx"/>
                                     <constraint firstAttribute="width" secondItem="nhL-VP-uA3" secondAttribute="height" multiplier="1:1" id="qPE-j8-qtT"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dragon Destiny" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkv-5B-gvJ">
-                                <rect key="frame" x="16" y="186" width="568" height="60"/>
+                                <rect key="frame" x="16" y="103" width="568" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Rcq-2c-RJb"/>
+                                    <constraint firstAttribute="height" constant="40" id="Rcq-2c-RJb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Dragon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wp8-sC-I9Z">
+                                <rect key="frame" x="16" y="385" width="568" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="8Yr-i7-uWU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4Y-f1-hNm">
-                                <rect key="frame" x="199.5" y="254" width="200" height="48"/>
+                                <rect key="frame" x="200" y="532" width="200" height="48"/>
                                 <color key="backgroundColor" red="0.02493136487" green="0.38575753829999998" blue="0.71137152780000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="7LT-Z1-NBx"/>
@@ -66,26 +75,124 @@
                                     <action selector="playArcadeButtonPushed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="f4A-Zw-lPo"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpY-CS-eqQ">
+                                <rect key="frame" x="314" y="432" width="80" height="92"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="sbh-rY-HHG"/>
+                                    <constraint firstAttribute="height" constant="92" id="v8S-Vg-BQJ"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="8Bo-Ux-ZAl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkU-i2-xJn">
+                                <rect key="frame" x="206" y="432" width="80" height="92"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="92" id="Um3-TU-oWy"/>
+                                    <constraint firstAttribute="width" constant="80" id="ZjL-QF-AtS"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="6db-sJ-haK"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlameChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="hF0-pF-Ci6">
+                                <rect key="frame" x="341" y="437" width="26" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="26" id="C5h-Af-p7Z"/>
+                                    <constraint firstAttribute="height" constant="48" id="qZO-R7-MeI"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FireballChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDZ-fk-r18">
+                                <rect key="frame" x="238" y="453" width="15" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="15" id="OjU-7i-11H"/>
+                                    <constraint firstAttribute="height" constant="15" id="tba-uA-qYl"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RedDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ewc-Kp-h4V">
+                                <rect key="frame" x="330" y="484" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="rLg-fm-RdM"/>
+                                    <constraint firstAttribute="height" constant="30" id="rP4-WE-nBK"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-rt-A8s">
+                                <rect key="frame" x="220" y="484" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Msm-b5-6gO"/>
+                                    <constraint firstAttribute="width" constant="50" id="NV6-vU-vLn"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="nhL-VP-uA3" firstAttribute="top" secondItem="gcA-BA-ggj" secondAttribute="bottom" constant="8" id="08M-pE-792"/>
+                            <constraint firstAttribute="centerX" secondItem="hF0-pF-Ci6" secondAttribute="centerX" constant="-54" id="AYP-e1-nuG"/>
+                            <constraint firstItem="5e7-rt-A8s" firstAttribute="top" secondItem="XDZ-fk-r18" secondAttribute="bottom" constant="16" id="CbD-nI-8Lz"/>
                             <constraint firstItem="gkv-5B-gvJ" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="D6M-ck-tK7"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="RpY-CS-eqQ" secondAttribute="bottom" constant="8" id="FkN-de-RJs"/>
                             <constraint firstItem="gkv-5B-gvJ" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="G9B-DR-cRd"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="gkv-5B-gvJ" secondAttribute="bottom" constant="8" id="Hei-i3-VSc"/>
-                            <constraint firstItem="gkv-5B-gvJ" firstAttribute="top" secondItem="nhL-VP-uA3" secondAttribute="bottom" constant="8" id="K2d-DV-OFJ"/>
+                            <constraint firstItem="gkv-5B-gvJ" firstAttribute="top" secondItem="nhL-VP-uA3" secondAttribute="bottom" id="K2d-DV-OFJ"/>
+                            <constraint firstItem="Ewc-Kp-h4V" firstAttribute="top" secondItem="hF0-pF-Ci6" secondAttribute="bottom" constant="-1" id="P1U-Xc-2r0"/>
+                            <constraint firstAttribute="centerX" secondItem="XDZ-fk-r18" secondAttribute="centerX" constant="54.5" id="Trz-QL-Uqy"/>
+                            <constraint firstAttribute="centerX" secondItem="bkU-i2-xJn" secondAttribute="centerX" constant="54" id="VUb-8k-MOu"/>
                             <constraint firstAttribute="centerX" secondItem="h4Y-f1-hNm" secondAttribute="centerX" id="X09-eu-OZr"/>
-                            <constraint firstItem="nhL-VP-uA3" firstAttribute="top" secondItem="gcA-BA-ggj" secondAttribute="bottom" constant="8" id="rzf-D1-0gg"/>
+                            <constraint firstItem="0ZM-rN-WYP" firstAttribute="top" secondItem="h4Y-f1-hNm" secondAttribute="bottom" constant="20" id="be6-3Z-N94"/>
+                            <constraint firstItem="Wp8-sC-I9Z" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="cD3-54-OUH"/>
+                            <constraint firstItem="Wp8-sC-I9Z" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="dyc-Vm-ji8"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="18" id="fJa-j7-ruk"/>
+                            <constraint firstAttribute="centerX" secondItem="Ewc-Kp-h4V" secondAttribute="centerX" constant="-55" id="jA0-BA-S7s"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Ewc-Kp-h4V" secondAttribute="bottom" constant="18" id="qeB-Pd-U9e"/>
+                            <constraint firstItem="bkU-i2-xJn" firstAttribute="top" secondItem="Wp8-sC-I9Z" secondAttribute="bottom" constant="-13" id="y17-yG-6Tb"/>
                             <constraint firstAttribute="centerX" secondItem="nhL-VP-uA3" secondAttribute="centerX" id="yz6-ty-FU5"/>
+                            <constraint firstAttribute="centerX" secondItem="RpY-CS-eqQ" secondAttribute="centerX" constant="-54" id="z6I-qZ-RM7"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="bkU-i2-xJn" secondAttribute="bottom" constant="8" id="zdb-kE-h3h"/>
+                            <constraint firstAttribute="centerX" secondItem="5e7-rt-A8s" secondAttribute="centerX" constant="55" id="zhC-Up-JBB"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="S55-0w-IRs"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="blueButton" destination="bkU-i2-xJn" id="0Tb-9h-CxL"/>
+                        <outlet property="fireballImage" destination="XDZ-fk-r18" id="ahm-oa-Wd6"/>
+                        <outlet property="flameImage" destination="hF0-pF-Ci6" id="eUQ-yd-ufj"/>
+                        <outlet property="redButton" destination="RpY-CS-eqQ" id="F6e-d8-d1G"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yO8-UR-sg9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1124" y="344"/>
+            <point key="canvasLocation" x="1826" y="342"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o6Q-kC-dPM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="a8b-EY-zGm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Be0-iG-qFr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ufV-dH-VRF" kind="relationship" relationship="rootViewController" id="i6m-JE-N9T"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ipd-aG-Rdx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1014" y="342"/>
         </scene>
     </scenes>
     <resources>
+        <image name="BlueDragonChooser.png" width="992" height="624"/>
         <image name="DragonArtwork" width="512" height="512"/>
+        <image name="FireballChooser.png" width="575" height="599"/>
+        <image name="FlameChooser.png" width="477" height="1185"/>
+        <image name="RedDragonChooser.png" width="1042" height="633"/>
     </resources>
 </document>

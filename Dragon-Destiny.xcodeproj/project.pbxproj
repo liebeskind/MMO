@@ -38,6 +38,10 @@
 		29480AC61B9FF0B10020B2BB /* ShieldBroken.png in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC41B9FF0B10020B2BB /* ShieldBroken.png */; };
 		29500EC71BA0D8A00043893E /* ShieldHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500EC61BA0D8A00043893E /* ShieldHit.wav */; };
 		29500EC91BA0D8C70043893E /* ShieldDestroyed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500EC81BA0D8C70043893E /* ShieldDestroyed.wav */; };
+		29500ECC1BA246280043893E /* FlameChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500ECB1BA246280043893E /* FlameChooser.png */; };
+		29500ECE1BA253E80043893E /* FireballChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500ECD1BA253E80043893E /* FireballChooser.png */; };
+		29500ED01BA254090043893E /* RedDragonChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500ECF1BA254090043893E /* RedDragonChooser.png */; };
+		29500ED21BA254140043893E /* BlueDragonChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500ED11BA254140043893E /* BlueDragonChooser.png */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -126,6 +130,10 @@
 		29480AC41B9FF0B10020B2BB /* ShieldBroken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldBroken.png; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas/ShieldBroken.png; sourceTree = "<group>"; };
 		29500EC61BA0D8A00043893E /* ShieldHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShieldHit.wav; sourceTree = "<group>"; };
 		29500EC81BA0D8C70043893E /* ShieldDestroyed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShieldDestroyed.wav; sourceTree = "<group>"; };
+		29500ECB1BA246280043893E /* FlameChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlameChooser.png; sourceTree = "<group>"; };
+		29500ECD1BA253E80043893E /* FireballChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FireballChooser.png; sourceTree = "<group>"; };
+		29500ECF1BA254090043893E /* RedDragonChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedDragonChooser.png; sourceTree = "<group>"; };
+		29500ED11BA254140043893E /* BlueDragonChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlueDragonChooser.png; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -216,8 +224,12 @@
 			isa = PBXGroup;
 			children = (
 				29480AC31B9FF0B10020B2BB /* ShieldActive.png */,
+				29500ECB1BA246280043893E /* FlameChooser.png */,
 				29480AC41B9FF0B10020B2BB /* ShieldBroken.png */,
 				29FA56811B93AC6E00977BEF /* ShieldUpgradeButton.png */,
+				29500ECF1BA254090043893E /* RedDragonChooser.png */,
+				29500ECD1BA253E80043893E /* FireballChooser.png */,
+				29500ED11BA254140043893E /* BlueDragonChooser.png */,
 				29F6B3831B8C07920094919F /* pause-button.png */,
 				29F6B3841B8C07920094919F /* paused-pushed.png */,
 				29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */,
@@ -547,6 +559,7 @@
 				29C2AE041B7C4737005F74E2 /* funnyClang.wav in Resources */,
 				29C2AE001B7C40FA005F74E2 /* FireballSound.wav in Resources */,
 				29C2ADF71B7C35CE005F74E2 /* duelMusic.mp3 in Resources */,
+				29500ECE1BA253E80043893E /* FireballChooser.png in Resources */,
 				2963548F1B75D426003E73D0 /* fullFlameImages.atlas in Resources */,
 				296354771B727DE1003E73D0 /* playerImages.atlas in Resources */,
 				3571650C19DB1F5500ED38A9 /* background-music-aac.caf in Resources */,
@@ -554,6 +567,7 @@
 				29F6B3861B8C07920094919F /* paused-pushed.png in Resources */,
 				29C2ADFA1B7C36E5005F74E2 /* dubstepMusic.mp3 in Resources */,
 				294381A91B84544800E332DA /* skyBackgroundImages.atlas in Resources */,
+				29500ED01BA254090043893E /* RedDragonChooser.png in Resources */,
 				2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */,
 				29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */,
 				29C2AE021B7C4445005F74E2 /* Flame.mp3 in Resources */,
@@ -568,6 +582,8 @@
 				29F6B3881B8CE5A30094919F /* GoogleService-Info.plist in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
+				29500ECC1BA246280043893E /* FlameChooser.png in Resources */,
+				29500ED21BA254140043893E /* BlueDragonChooser.png in Resources */,
 				29F6B3851B8C07920094919F /* pause-button.png in Resources */,
 				29C2ADF81B7C35CE005F74E2 /* epicMusic.mp3 in Resources */,
 				29EC4ACC1B8BAFBD00E8804D /* PlayerDeath.wav in Resources */,

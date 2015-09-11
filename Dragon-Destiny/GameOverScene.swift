@@ -102,7 +102,7 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield())
+      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: 0)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

@@ -11,6 +11,14 @@ import SpriteKit
 
 class StartMenuViewController: UIViewController {
 
+  @IBOutlet weak var blueButton: UIButton!
+  @IBOutlet weak var redButton: UIButton!
+  @IBOutlet weak var fireballImage: UIImageView!
+  @IBOutlet weak var flameImage: UIImageView!
+  
+  var dragonSelected = 0
+  var previouslySelectedDragon: UIButton?
+  
   override func viewWillAppear(animated: Bool) {
     var tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "StartMenuViewController")
@@ -19,14 +27,39 @@ class StartMenuViewController: UIViewController {
     tracker.send(builder.build() as [NSObject : AnyObject])
   }
   
+  override func viewDidAppear(animated: Bool) {
+    fireballImage.hidden = false
+    flameImage.hidden = true
+  }
+  
+  @IBAction func dragonSelectionButtonPressed(sender: UIButton) {
+    dragonSelected = sender.tag
+    sender.highlighted = true
+    previouslySelectedDragon?.highlighted = false
+    previouslySelectedDragon = sender
+    
+    switch sender.tag {
+    case 0:
+      fireballImage.hidden = false
+      flameImage.hidden = true
+    case 1:
+      fireballImage.hidden = true
+      flameImage.hidden = false
+    default:
+      break
+    }
+  }
+  
   @IBAction func playArcadeButtonPushed(sender: UIButton) {
 //    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
 //    let scene = GameScene(size: self.view.frame.size)
     
     let gameViewController = self.storyboard!.instantiateViewControllerWithIdentifier("GameViewController") as! GameViewController
-      
-//    self.navigationController!.pushViewController(gameViewController, animated: true)
     
-    self.presentViewController(gameViewController, animated: false, completion: nil)
+    gameViewController.dragonType = dragonSelected
+      
+    self.navigationController!.pushViewController(gameViewController, animated: true)
+    
+//    self.presentViewController(gameViewController, animated: false, completion: nil)
   }
 }

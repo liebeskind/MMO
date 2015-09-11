@@ -14,7 +14,7 @@ class GameOverScene: SKScene {
   let restartButton = SKSpriteNode(imageNamed: "RestartButton")
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
-  init(size: CGSize, won:Bool, score: Int) {
+  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int) {
     
     super.init(size: size)
     
@@ -22,9 +22,8 @@ class GameOverScene: SKScene {
 
     backgroundColor = SKColor.whiteColor()
 
-    
-    restartButton.position = CGPoint(x: size.width/2, y: size.height/2)
     restartButton.size = CGSize(width: 228.0, height: 69.0)
+    restartButton.position = CGPoint(x: size.width/2, y: 8 + restartButton.size.height/2)
     restartButton.name = "restart"
     addChild(restartButton)
     
@@ -54,21 +53,45 @@ class GameOverScene: SKScene {
       tracker.send(coinsCollected.build() as [NSObject: AnyObject])
     }
     
-    var message = won ? "You Won!" : "Game Over!  You collected \(score) coins."
-    let label = SKLabelNode(fontNamed: "Avenir")
-    label.text = message
-    label.fontSize = 30
-    label.fontColor = SKColor.blackColor()
-    label.position = CGPoint(x: size.width/2, y: restartButton.position.y + restartButton.size.height/2 + label.fontSize)
-    addChild(label)
-    
-    message = "Dragon Destiny"
+    var message = "Dragon Destiny"
     let dragonDestinyLabel = SKLabelNode(fontNamed: "Chalkduster")
     dragonDestinyLabel.text = message
     dragonDestinyLabel.fontSize = 30
     dragonDestinyLabel.fontColor = SKColor.blackColor()
-    dragonDestinyLabel.position = CGPoint(x: size.width/2, y: label.position.y + dragonDestinyLabel.fontSize + label.fontSize/2)
+    dragonDestinyLabel.position = CGPoint(x: size.width/2, y: self.size.height - 8 - dragonDestinyLabel.fontSize)
     addChild(dragonDestinyLabel)
+    
+    message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(levelReached * 30))*100))%)"
+    let coinsLabel = SKLabelNode(fontNamed: "Avenir")
+    coinsLabel.text = message
+    coinsLabel.fontSize = 20
+    coinsLabel.fontColor = SKColor.blackColor()
+    coinsLabel.position = CGPoint(x: size.width/2, y: dragonDestinyLabel.position.y - dragonDestinyLabel.fontSize)
+    addChild(coinsLabel)
+    
+//    message = "% Coins Collected: \(Int(Float(Float(score) / Float(levelReached * 30))*100))%"
+//    let percentageLabel = SKLabelNode(fontNamed: "Avenir")
+//    percentageLabel.text = message
+//    percentageLabel.fontSize = 20
+//    percentageLabel.fontColor = SKColor.blackColor()
+//    percentageLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
+//    addChild(percentageLabel)
+ 
+    message = "Arrows Shot Down: \(monstersDestroyed)"
+    let monstersLabel = SKLabelNode(fontNamed: "Avenir")
+    monstersLabel.text = message
+    monstersLabel.fontSize = 20
+    monstersLabel.fontColor = SKColor.blackColor()
+    monstersLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
+    addChild(monstersLabel)
+
+    message = "Level Reached: \(levelReached)"
+    let levelLabel = SKLabelNode(fontNamed: "Avenir")
+    levelLabel.text = message
+    levelLabel.fontSize = 20
+    levelLabel.fontColor = SKColor.blackColor()
+    levelLabel.position = CGPoint(x: size.width/2, y: monstersLabel.position.y - monstersLabel.fontSize)
+    addChild(levelLabel)
     
   }
   

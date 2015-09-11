@@ -1114,7 +1114,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       self.musicController.stopUpgradeMusic()
       self.musicController.playSoundEffect("PlayerDeath.wav", atVolume: 0.5)
       let gameOverTransition = SKAction.runBlock {
-        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected)
+        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         self.view?.presentScene(gameOverScene, transition: reveal)
         self.playerDead = false

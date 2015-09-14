@@ -226,6 +226,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="blueButton" destination="bkU-i2-xJn" id="0Tb-9h-CxL"/>
+                        <outlet property="dragonDestinyTitle" destination="gkv-5B-gvJ" id="Ilz-fb-4V0"/>
                         <outlet property="fireballImage" destination="XDZ-fk-r18" id="ahm-oa-Wd6"/>
                         <outlet property="flameImage" destination="hF0-pF-Ci6" id="eUQ-yd-ufj"/>
                         <outlet property="laserBallImage" destination="koS-DX-OnS" id="ALh-Wa-Yfg"/>

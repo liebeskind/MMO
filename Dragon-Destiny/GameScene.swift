@@ -95,6 +95,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let musicController = MusicController()
   
+  var birthdayMode = true
+  
   var dragonSelected: Int!
   
   let backgroundMovePointsPerSec: CGFloat = 5.0
@@ -183,12 +185,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
-  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield, dragonType: Int) {
+  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield, dragonType: Int, birthdayMode: Bool) {
     super.init(size: size)
     self.levelReached = level
     self.coinsCollected = coinsCollected
     self.shield = shield
     self.dragonSelected = dragonType
+    self.birthdayMode = birthdayMode
   }
   
   override func didMoveToView(view: SKView) {
@@ -218,7 +221,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundLayer.zPosition = -1
     addChild(backgroundLayer)
     
-    musicController.playBackgroundMusic("epicMusic.mp3")
+    
+    if birthdayMode { musicController.playBackgroundMusic("BeautifulBirthday.mp3") }
+    else { musicController.playBackgroundMusic("epicMusic.mp3") }
   
     for i in 0...self.levelReached {
       totalBackgrounds = i
@@ -238,7 +243,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
     
-    let numImages = playerAnimatedAtlas.textureNames.count/4 //Number changes based on # of dragons available
+    let numImages = playerAnimatedAtlas.textureNames.count/5 //Number changes based on # of dragons available
     for var i=0; i<numImages; i++ {
       
       var playerTextureName: String
@@ -249,6 +254,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       case 3: playerTextureName = "YellowDragonFlap\(i)"
       default: playerTextureName = "BlueDragonFlap\(i)"
       }
+      
+      if birthdayMode { playerTextureName = "BirthdayFace\(i)" }
       
       flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
       flyFrames.insert(playerAnimatedAtlas.textureNamed(playerTextureName), atIndex: 0) //Makes wing flapping animation more fluid as doesn't just reset at end
@@ -569,6 +576,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func addCoins() {
 //    while coinCount < 11 {
       let coin = SKSpriteNode(imageNamed: "coin")
+    if birthdayMode { coin.texture = SKTexture(imageNamed: "gift") }
       coin.physicsBody = SKPhysicsBody(circleOfRadius: coin.size.width/2)
       coin.physicsBody?.dynamic = true
       coin.physicsBody?.categoryBitMask = PhysicsCategory.Coin.rawValue
@@ -591,6 +599,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     for i in 1...self.levelReached {
       if i%2 != 0 { //Only adds a new crossbow every other level, starting with level 1
         let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
+        if birthdayMode { crossbowEnemy.texture = SKTexture(imageNamed: "Zoe0")}
         crossbowEnemy.name = "boss"
         let yPos = i * Int(self.size.height - navigationBox.size.height) / (self.levelReached + 1) + Int(navigationBox.size.height)
         crossbowEnemy.position = CGPoint(x: backgroundWidth, y: CGFloat(yPos))
@@ -627,6 +636,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       monster.name = "arrow"
       monster.playerPosition = CGPoint(x: player.position.x, y: player.position.y)
       monster.leftPoint = leftPoint
+      
+      if birthdayMode {
+        monster.texture = SKTexture(imageNamed: "CupcakeDes")
+        monster.size = CGSize(width: 50.0, height: 50.0)
+      }
       
       monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
       //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
@@ -667,6 +681,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         monster.zPosition = 3
         monster.playerPosition = CGPoint(x: self.player.position.x, y: self.player.position.y)
         monster.leftPoint = self.leftPoint
+        
+        if self.birthdayMode {
+          monster.texture = SKTexture(imageNamed: "CupcakeDes")
+          monster.size = CGSize(width: 50.0, height: 50.0)
+        }
         
         monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
         //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
@@ -714,15 +733,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
 
         let shortPause = SKAction.waitForDuration(0.01)
-        let fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
-        let fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
-        let fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
-        let fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
+        var fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+        var fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+        var fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
+        var fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
         let pauseLong = SKAction.waitForDuration(0.4)
         let pause = SKAction.waitForDuration(0.08)
-        let resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
-        let stringBack = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
-        let stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+        var resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
+        var stringBack = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+        var stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+        
+        if self.birthdayMode {
+          fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+          fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+          fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "Zoe2"))
+          fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "Zoe0"))
+          resetBow = SKAction.setTexture(SKTexture(imageNamed: "Zoe2"))
+          stringBack = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+          stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+        }
+        
         node.runAction(SKAction.sequence([
           fireArrow1, shortPause, fireArrow2, shortPause, fireArrow3, shortPause, fireArrow4, pauseLong,
           resetBow, pause, stringBack, pause, stringBack2]))
@@ -1007,8 +1037,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
      
       let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
       let shrink = SKAction.scaleTo(0.0, duration: 0.6)
-      let shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
+      var shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
     
+      if birthdayMode {
+        shootFireballGroup = SKAction.group([fireballSoundEffect, shrink])
+        projectile.texture = SKTexture(imageNamed: "windBlowing")
+      }
+
       projectile.runAction(shootFireballGroup)
       projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
     }
@@ -1191,7 +1226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode)
         self.backgroundLayer.removeAllChildren()
         self.backgroundLayer.removeFromParent()
         self.view?.presentScene(scene, transition:reveal)
@@ -1211,7 +1246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       self.musicController.stopUpgradeMusic()
       self.musicController.playSoundEffect("PlayerDeath.wav", atVolume: 0.5)
       let gameOverTransition = SKAction.runBlock {
-        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected)
+        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected, birthdayMode: false)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         self.view?.presentScene(gameOverScene, transition: reveal)
         self.playerDead = false

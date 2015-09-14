@@ -15,6 +15,7 @@ class GameOverScene: SKScene {
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
   var dragonSelected: Int!
+  var birthdayMode: Bool?
   
   let blueDragon = SKSpriteNode(imageNamed: "BlueDragonChooser")
   let redDragon = SKSpriteNode(imageNamed: "RedDragonChooser")
@@ -25,9 +26,10 @@ class GameOverScene: SKScene {
   let laser1 = SKSpriteNode(imageNamed: "LaserChooser")
   let laser2 = SKSpriteNode(imageNamed: "LaserChooser")
   
-  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int) {
+  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool) {
     
     self.dragonSelected = dragonSelected
+    self.birthdayMode = birthdayMode
     
     super.init(size: size)
     
@@ -224,7 +226,7 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected)
+      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode!)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

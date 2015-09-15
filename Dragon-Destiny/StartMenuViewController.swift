@@ -54,6 +54,10 @@ class StartMenuViewController: UIViewController {
   var laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
   var laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
   
+  let flameDragonCost = 200
+  let laserBallDragonCost = 600
+  let laserBeamDragonCost = 1200
+  
   override func viewDidLoad() {
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
     
@@ -150,7 +154,7 @@ class StartMenuViewController: UIViewController {
         laserImage.hidden = true
       } else {
         if let enoughCoins = self.totalCoins {
-          if enoughCoins >= 200 {
+          if enoughCoins >= flameDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -162,7 +166,7 @@ class StartMenuViewController: UIViewController {
               self.redButton.userInteractionEnabled = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"flameDragonPurchased")
               
-              self.totalCoins! -= 200
+              self.totalCoins! -= self.flameDragonCost
               self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
               NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
 
@@ -201,7 +205,7 @@ class StartMenuViewController: UIViewController {
         laserImage.hidden = true
       } else {
         if let enoughCoins = self.totalCoins {
-          if enoughCoins >= 200 {
+          if enoughCoins >= laserBallDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -214,7 +218,7 @@ class StartMenuViewController: UIViewController {
               self.greenButton.userInteractionEnabled = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
               
-              self.totalCoins! -= 600
+              self.totalCoins! -= self.laserBallDragonCost
               self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
               NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
               
@@ -252,7 +256,51 @@ class StartMenuViewController: UIViewController {
         laserBallImage.hidden = true
         laserImage.hidden = false
       } else {
-        println("purchase laser beam dragon?")
+        if let enoughCoins = self.totalCoins {
+          if enoughCoins >= laserBeamDragonCost {
+            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+              self.laserBeamDragonPurchased = true
+              self.fireballImage.hidden = true
+              self.flameImage.hidden = true
+              self.laserBallImage.hidden = true
+              self.laserImage.hidden = false
+              self.lockLaserBeam.removeFromSuperview()
+              self.dragonSelected = 3
+              self.yellowButton.userInteractionEnabled = true
+              NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBeamDragonPurchased")
+              
+              self.totalCoins! -= self.laserBeamDragonCost
+              self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
+              NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+              
+              let path = NSBundle.mainBundle().pathForResource("laserBeamVideo", ofType:"mov")
+              let url = NSURL.fileURLWithPath(path!)
+              self.moviePlayer = MPMoviePlayerController(contentURL: url)
+              if let player = self.moviePlayer {
+                player.view.frame = CGRect(x: self.view.frame.size.width/10, y: self.view.frame.size.height/10, width: self.view.frame.size.width - 2 * self.view.frame.size.width/10, height: self.view.frame.size.height - 2 * self.view.frame.size.height/10)
+                player.scalingMode = MPMovieScalingMode.AspectFit
+                player.fullscreen = true
+                player.controlStyle = MPMovieControlStyle.None
+                player.movieSourceType = MPMovieSourceType.File
+                player.repeatMode = MPMovieRepeatMode.None
+                player.prepareToPlay()
+                player.play()
+                
+                self.view.addSubview(player.view)
+                
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+              }
+            }))
+            
+            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
+              println("Handle Cancel Logic here")
+            }))
+            
+            presentViewController(purchaseDragonAlert, animated: true, completion: nil)
+          }
+        }
       }
     default:
       fireballImage.hidden = false

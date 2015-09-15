@@ -55,6 +55,8 @@
 		29500F221BA763BF0043893E /* zoeImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29500F211BA763BF0043893E /* zoeImages.atlas */; };
 		29500F241BA76C3B0043893E /* gift.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F231BA76C3B0043893E /* gift.png */; };
 		29500F261BA887C40043893E /* gray_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F251BA887C40043893E /* gray_lock.png */; };
+		29500F2D1BA8BB6E0043893E /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29500F2C1BA8BB6E0043893E /* VideoController.swift */; };
+		29500F301BA8CD7F0043893E /* flameVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F2F1BA8CD7F0043893E /* flameVideo.mov */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -160,6 +162,8 @@
 		29500F211BA763BF0043893E /* zoeImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = zoeImages.atlas; path = ../../../../Designs/MMO/zoeImages.atlas; sourceTree = "<group>"; };
 		29500F231BA76C3B0043893E /* gift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift.png; sourceTree = "<group>"; };
 		29500F251BA887C40043893E /* gray_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gray_lock.png; sourceTree = "<group>"; };
+		29500F2C1BA8BB6E0043893E /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
+		29500F2F1BA8CD7F0043893E /* flameVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = flameVideo.mov; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -309,6 +313,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		29500F271BA8B8750043893E /* VideoAssets */ = {
+			isa = PBXGroup;
+			children = (
+				29500F2F1BA8CD7F0043893E /* flameVideo.mov */,
+			);
+			name = VideoAssets;
+			sourceTree = "<group>";
+		};
 		357164D619DB1E4800ED38A9 = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				29385B851B7BBA95000D0986 /* Dragon-Destiny-Bridging-Header.h */,
+				29500F271BA8B8750043893E /* VideoAssets */,
 				29385B7B1B7941CF000D0986 /* ImageAssets */,
 				3571650819DB1F5500ED38A9 /* Sounds */,
 				29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */,
@@ -356,6 +369,7 @@
 				29385BA21B7BE588000D0986 /* InAppPurchaseViewController.swift */,
 				29385B9E1B7BD385000D0986 /* SocialViewController.swift */,
 				29C2AE051B7C4CEB005F74E2 /* MusicController.swift */,
+				29500F2C1BA8BB6E0043893E /* VideoController.swift */,
 				29F6B38B1B8D3DDA0094919F /* Boss.swift */,
 				29FA567D1B93A65500977BEF /* Shield.swift */,
 				29385B801B7AA3C4000D0986 /* Monster.swift */,
@@ -593,6 +607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29480AC51B9FF0B10020B2BB /* ShieldActive.png in Resources */,
+				29500F301BA8CD7F0043893E /* flameVideo.mov in Resources */,
 				29500F0E1BA34F980043893E /* GreenDragonChooser.png in Resources */,
 				3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */,
 				29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */,
@@ -729,6 +744,7 @@
 				29FA567E1B93A65500977BEF /* Shield.swift in Sources */,
 				29EC4ACE1B8BDBD200E8804D /* StartMenuViewController.swift in Sources */,
 				29385B9F1B7BD385000D0986 /* SocialViewController.swift in Sources */,
+				29500F2D1BA8BB6E0043893E /* VideoController.swift in Sources */,
 				29C2AE061B7C4CEB005F74E2 /* MusicController.swift in Sources */,
 				3571651019DB322700ED38A9 /* GameOverScene.swift in Sources */,
 				29F6B38C1B8D3DDA0094919F /* Boss.swift in Sources */,

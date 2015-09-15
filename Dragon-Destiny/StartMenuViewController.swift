@@ -8,6 +8,8 @@
 
 import UIKit
 import SpriteKit
+import AVFoundation
+import MediaPlayer
 
 class StartMenuViewController: UIViewController {
 
@@ -36,6 +38,9 @@ class StartMenuViewController: UIViewController {
   @IBOutlet weak var laserBallCostLabel: UILabel!
   @IBOutlet weak var laserBeamCostLabel: UILabel!
   
+  let videoPlayer = VideoController()
+  var moviePlayer: MPMoviePlayerController!
+  
   var birthdayPicker = UIButton()
   var birthdayPickerLabel = UILabel()
   
@@ -45,7 +50,7 @@ class StartMenuViewController: UIViewController {
   var totalCoins: Int?
   var birthdayMode = false
   
-  let flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
+  var flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
   let laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
   let laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
   
@@ -123,6 +128,8 @@ class StartMenuViewController: UIViewController {
     }
   }
   
+
+  
   @IBAction func dragonSelectionButtonPressed(sender: UIButton) {
     dragonSelected = sender.tag
     sender.highlighted = true
@@ -147,9 +154,36 @@ class StartMenuViewController: UIViewController {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+              self.flameDragonPurchased = true
+              self.fireballImage.hidden = true
+              self.flameImage.hidden = false
+              self.lockFlame.removeFromSuperview()
+              self.dragonSelected = 1
+              self.redButton.userInteractionEnabled = true
+              
               self.totalCoins! -= 200
               self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
               NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+
+              let path = NSBundle.mainBundle().pathForResource("flameVideo", ofType:"mov")
+              let url = NSURL.fileURLWithPath(path!)
+              self.moviePlayer = MPMoviePlayerController(contentURL: url)
+              if let player = self.moviePlayer {
+                player.view.frame = CGRect(x: self.view.frame.size.width/10, y: self.view.frame.size.height/10, width: self.view.frame.size.width - 2 * self.view.frame.size.width/10, height: self.view.frame.size.height - 2 * self.view.frame.size.height/10)
+//                player.view.sizeToFit()
+                player.scalingMode = MPMovieScalingMode.AspectFit
+                player.fullscreen = true
+                player.controlStyle = MPMovieControlStyle.None
+                player.movieSourceType = MPMovieSourceType.File
+                player.repeatMode = MPMovieRepeatMode.None
+                player.prepareToPlay()
+                player.play()
+                
+                self.view.addSubview(player.view)
+//                self.presentViewController(player.view, animated: true, completion: nil)
+                
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+              }
             }))
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
@@ -184,6 +218,13 @@ class StartMenuViewController: UIViewController {
       laserBallImage.hidden = true
       laserImage.hidden = true
     }
+  }
+  
+  func doneButtonClick(sender:NSNotification?){
+    let value = UIInterfaceOrientation.Portrait.rawValue
+    UIDevice.currentDevice().setValue(value, forKey: "orientation")
+    self.moviePlayer.stop()
+    self.moviePlayer.view.removeFromSuperview()
   }
   
   @IBAction func playArcadeButtonPushed(sender: UIButton) {

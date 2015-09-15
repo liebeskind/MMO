@@ -51,6 +51,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Coins: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epG-am-tU8">
+                                <rect key="frame" x="16" y="28" width="70" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8BA-kA-U5M"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Dragon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wp8-sC-I9Z">
                                 <rect key="frame" x="16" y="385" width="568" height="60"/>
                                 <constraints>
@@ -75,20 +84,7 @@
                                     <action selector="playArcadeButtonPushed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="f4A-Zw-lPo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpY-CS-eqQ">
-                                <rect key="frame" x="216" y="432" width="80" height="92"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="sbh-rY-HHG"/>
-                                    <constraint firstAttribute="height" constant="92" id="v8S-Vg-BQJ"/>
-                                </constraints>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="8Bo-Ux-ZAl"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkU-i2-xJn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkU-i2-xJn" userLabel="fireballButton">
                                 <rect key="frame" x="128" y="432" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="92" id="Um3-TU-oWy"/>
@@ -101,13 +97,6 @@
                                     <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="6db-sJ-haK"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlameChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="hF0-pF-Ci6">
-                                <rect key="frame" x="243" y="437" width="26" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="26" id="C5h-Af-p7Z"/>
-                                    <constraint firstAttribute="height" constant="48" id="qZO-R7-MeI"/>
-                                </constraints>
-                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FireballChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDZ-fk-r18">
                                 <rect key="frame" x="160" y="453" width="15" height="15"/>
                                 <constraints>
@@ -115,14 +104,50 @@
                                     <constraint firstAttribute="height" constant="15" id="tba-uA-qYl"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RedDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ewc-Kp-h4V">
-                                <rect key="frame" x="232" y="484" width="50" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-rt-A8s">
+                                <rect key="frame" x="142" y="484" width="50" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Msm-b5-6gO"/>
+                                    <constraint firstAttribute="width" constant="50" id="NV6-vU-vLn"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpY-CS-eqQ" userLabel="flameButton">
+                                <rect key="frame" x="216" y="432" width="80" height="92"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="sbh-rY-HHG"/>
+                                    <constraint firstAttribute="height" constant="92" id="v8S-Vg-BQJ"/>
+                                </constraints>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="8Bo-Ux-ZAl"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlameChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="hF0-pF-Ci6">
+                                <rect key="frame" x="243" y="437" width="26" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="26" id="C5h-Af-p7Z"/>
+                                    <constraint firstAttribute="height" constant="48" id="qZO-R7-MeI"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="RedDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ewc-Kp-h4V">
+                                <rect key="frame" x="231" y="484" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="rLg-fm-RdM"/>
                                     <constraint firstAttribute="height" constant="30" id="rP4-WE-nBK"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBI-vB-cu9">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="f8x-M0-WAW" userLabel="flame_gray_lock.png">
+                                <rect key="frame" x="224" y="432" width="64" height="92"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nj-bs-C9F">
+                                <rect key="frame" x="230" y="477" width="53" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBI-vB-cu9" userLabel="laserBallButton">
                                 <rect key="frame" x="304" y="432" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="9Fp-EC-0ch"/>
@@ -135,6 +160,13 @@
                                     <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="B8l-lr-7GB"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaserChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="koS-DX-OnS" userLabel="LaserBallChooser.png">
+                                <rect key="frame" x="340" y="451" width="9" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="9" id="Y0x-fu-K4z"/>
+                                    <constraint firstAttribute="height" constant="20" id="bqB-bm-LoW"/>
+                                </constraints>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-QT-cQK">
                                 <rect key="frame" x="320" y="484" width="50" height="30"/>
                                 <constraints>
@@ -142,7 +174,16 @@
                                     <constraint firstAttribute="height" constant="30" id="w98-Cs-3U8"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hn1-mL-hst">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="yhx-7h-sxe" userLabel="laser_ball_gray_lock.png">
+                                <rect key="frame" x="313" y="432" width="64" height="92"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="600 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNg-UR-LCD">
+                                <rect key="frame" x="319" y="477" width="53" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hn1-mL-hst" userLabel="laserBeamButton">
                                 <rect key="frame" x="392" y="432" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="HMM-NF-JCy"/>
@@ -155,7 +196,7 @@
                                     <action selector="dragonSelectionButtonPressed:" destination="ufV-dH-VRF" eventType="touchUpInside" id="Tfe-ad-LZe"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaserChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="joe-5f-gcc">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaserChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="joe-5f-gcc" userLabel="LaserBeamChooser.png">
                                 <rect key="frame" x="429" y="437" width="9" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="QL0-7x-3QR"/>
@@ -169,69 +210,102 @@
                                     <constraint firstAttribute="width" constant="50" id="ag0-La-s9h"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-rt-A8s">
-                                <rect key="frame" x="142" y="484" width="50" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Msm-b5-6gO"/>
-                                    <constraint firstAttribute="width" constant="50" id="NV6-vU-vLn"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="Got-2b-IOH" userLabel="laser_beamgray_lock.png">
+                                <rect key="frame" x="401" y="432" width="64" height="92"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaserChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="koS-DX-OnS">
-                                <rect key="frame" x="340" y="451" width="9" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="9" id="Y0x-fu-K4z"/>
-                                    <constraint firstAttribute="height" constant="20" id="bqB-bm-LoW"/>
-                                </constraints>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,200 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37N-Ze-KsV">
+                                <rect key="frame" x="407" y="477" width="53" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="nhL-VP-uA3" firstAttribute="top" secondItem="gcA-BA-ggj" secondAttribute="bottom" constant="8" id="08M-pE-792"/>
+                            <constraint firstItem="yhx-7h-sxe" firstAttribute="top" secondItem="gNg-UR-LCD" secondAttribute="top" constant="-45" id="0Pg-kr-yuH"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="NqC-QT-cQK" secondAttribute="bottom" constant="18" id="3rs-H9-cI2"/>
                             <constraint firstAttribute="centerX" secondItem="KBI-vB-cu9" secondAttribute="centerX" constant="-44" id="6rX-sD-s7c"/>
                             <constraint firstItem="qCj-h7-pmu" firstAttribute="top" secondItem="joe-5f-gcc" secondAttribute="bottom" constant="-1" id="7mG-eV-kED"/>
                             <constraint firstAttribute="centerX" secondItem="hF0-pF-Ci6" secondAttribute="centerX" constant="44" id="AYP-e1-nuG"/>
+                            <constraint firstItem="37N-Ze-KsV" firstAttribute="leading" secondItem="Got-2b-IOH" secondAttribute="leading" constant="6" id="Aw2-Re-XOD"/>
+                            <constraint firstItem="KBI-vB-cu9" firstAttribute="top" secondItem="yhx-7h-sxe" secondAttribute="top" id="BGU-Mh-iz8"/>
                             <constraint firstItem="5e7-rt-A8s" firstAttribute="top" secondItem="XDZ-fk-r18" secondAttribute="bottom" constant="16" id="CbD-nI-8Lz"/>
                             <constraint firstItem="gkv-5B-gvJ" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="D6M-ck-tK7"/>
+                            <constraint firstItem="37N-Ze-KsV" firstAttribute="bottom" secondItem="Got-2b-IOH" secondAttribute="bottom" constant="-3" id="D9l-O5-ySr"/>
                             <constraint firstItem="NqC-QT-cQK" firstAttribute="top" secondItem="koS-DX-OnS" secondAttribute="bottom" constant="13" id="EFM-Vs-J7r"/>
                             <constraint firstAttribute="centerX" secondItem="NqC-QT-cQK" secondAttribute="centerX" constant="-45" id="F2Q-OV-VLf"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="RpY-CS-eqQ" secondAttribute="bottom" constant="8" id="FkN-de-RJs"/>
                             <constraint firstItem="gkv-5B-gvJ" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="G9B-DR-cRd"/>
+                            <constraint firstItem="yhx-7h-sxe" firstAttribute="leading" secondItem="gNg-UR-LCD" secondAttribute="leading" constant="-6" id="IM8-4x-IaG"/>
+                            <constraint firstItem="RpY-CS-eqQ" firstAttribute="bottom" secondItem="f8x-M0-WAW" secondAttribute="bottom" id="JQz-Ig-Rd3"/>
                             <constraint firstAttribute="centerX" secondItem="Hn1-mL-hst" secondAttribute="centerX" constant="-132" id="Jbp-BQ-jr9"/>
+                            <constraint firstItem="9nj-bs-C9F" firstAttribute="bottom" secondItem="f8x-M0-WAW" secondAttribute="bottom" constant="-3" id="Jl6-A1-vcT"/>
                             <constraint firstItem="gkv-5B-gvJ" firstAttribute="top" secondItem="nhL-VP-uA3" secondAttribute="bottom" id="K2d-DV-OFJ"/>
+                            <constraint firstItem="Hn1-mL-hst" firstAttribute="trailing" secondItem="Got-2b-IOH" secondAttribute="trailing" constant="7" id="Mq3-eF-8Gx"/>
+                            <constraint firstItem="yhx-7h-sxe" firstAttribute="trailing" secondItem="gNg-UR-LCD" secondAttribute="trailing" constant="5" id="Nry-Sa-zbh"/>
+                            <constraint firstItem="Hn1-mL-hst" firstAttribute="bottom" secondItem="Got-2b-IOH" secondAttribute="bottom" id="Opr-hT-zbX"/>
                             <constraint firstItem="Ewc-Kp-h4V" firstAttribute="top" secondItem="hF0-pF-Ci6" secondAttribute="bottom" constant="-1" id="P1U-Xc-2r0"/>
+                            <constraint firstItem="Hn1-mL-hst" firstAttribute="top" secondItem="Got-2b-IOH" secondAttribute="top" id="PbE-bL-E07"/>
+                            <constraint firstItem="9nj-bs-C9F" firstAttribute="top" secondItem="f8x-M0-WAW" secondAttribute="top" constant="45" id="Pru-FP-pbW"/>
+                            <constraint firstItem="RpY-CS-eqQ" firstAttribute="leading" secondItem="f8x-M0-WAW" secondAttribute="leading" constant="-8" id="QPX-zu-mbK"/>
+                            <constraint firstItem="RpY-CS-eqQ" firstAttribute="top" secondItem="f8x-M0-WAW" secondAttribute="top" id="QT6-pI-RFB"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="qCj-h7-pmu" secondAttribute="bottom" constant="18" id="Ql0-LW-ObF"/>
                             <constraint firstAttribute="centerX" secondItem="XDZ-fk-r18" secondAttribute="centerX" constant="132.5" id="Trz-QL-Uqy"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Hn1-mL-hst" secondAttribute="bottom" constant="8" id="UVV-Ze-1JG"/>
                             <constraint firstAttribute="centerX" secondItem="koS-DX-OnS" secondAttribute="centerX" constant="-44.5" id="UXX-bp-tTb"/>
                             <constraint firstAttribute="centerX" secondItem="bkU-i2-xJn" secondAttribute="centerX" constant="132" id="VUb-8k-MOu"/>
+                            <constraint firstItem="Hn1-mL-hst" firstAttribute="leading" secondItem="Got-2b-IOH" secondAttribute="leading" constant="-9" id="WCn-Mh-xvM"/>
                             <constraint firstAttribute="centerX" secondItem="h4Y-f1-hNm" secondAttribute="centerX" id="X09-eu-OZr"/>
                             <constraint firstAttribute="centerX" secondItem="joe-5f-gcc" secondAttribute="centerX" constant="-133.5" id="aJw-X4-HMk"/>
+                            <constraint firstItem="37N-Ze-KsV" firstAttribute="trailing" secondItem="Got-2b-IOH" secondAttribute="trailing" constant="-5" id="aXr-Oi-JPa"/>
+                            <constraint firstItem="9nj-bs-C9F" firstAttribute="trailing" secondItem="f8x-M0-WAW" secondAttribute="trailing" constant="-5" id="ayj-Gi-08U"/>
+                            <constraint firstItem="epG-am-tU8" firstAttribute="top" secondItem="gcA-BA-ggj" secondAttribute="bottom" constant="8" id="bXp-3X-Eej"/>
                             <constraint firstItem="0ZM-rN-WYP" firstAttribute="top" secondItem="h4Y-f1-hNm" secondAttribute="bottom" constant="20" id="be6-3Z-N94"/>
                             <constraint firstItem="Wp8-sC-I9Z" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="cD3-54-OUH"/>
+                            <constraint firstItem="9nj-bs-C9F" firstAttribute="leading" secondItem="f8x-M0-WAW" secondAttribute="leading" constant="6" id="cyL-d0-3jV"/>
                             <constraint firstItem="Wp8-sC-I9Z" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="dyc-Vm-ji8"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="18" id="fJa-j7-ruk"/>
+                            <constraint firstItem="yhx-7h-sxe" firstAttribute="bottom" secondItem="gNg-UR-LCD" secondAttribute="bottom" constant="3" id="hYO-us-pCr"/>
                             <constraint firstAttribute="centerX" secondItem="Ewc-Kp-h4V" secondAttribute="centerX" constant="43" id="jA0-BA-S7s"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="KBI-vB-cu9" secondAttribute="bottom" constant="8" id="k2P-7p-ZXy"/>
+                            <constraint firstItem="KBI-vB-cu9" firstAttribute="trailing" secondItem="yhx-7h-sxe" secondAttribute="trailing" constant="7" id="olz-4K-nkM"/>
+                            <constraint firstItem="37N-Ze-KsV" firstAttribute="top" secondItem="Got-2b-IOH" secondAttribute="top" constant="45" id="q8u-Ak-IgR"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Ewc-Kp-h4V" secondAttribute="bottom" constant="18" id="qeB-Pd-U9e"/>
                             <constraint firstAttribute="centerX" secondItem="qCj-h7-pmu" secondAttribute="centerX" constant="-133" id="ufy-5K-wtz"/>
                             <constraint firstItem="bkU-i2-xJn" firstAttribute="top" secondItem="Wp8-sC-I9Z" secondAttribute="bottom" constant="-13" id="y17-yG-6Tb"/>
+                            <constraint firstItem="KBI-vB-cu9" firstAttribute="bottom" secondItem="yhx-7h-sxe" secondAttribute="bottom" id="y7k-JJ-pph"/>
                             <constraint firstAttribute="centerX" secondItem="nhL-VP-uA3" secondAttribute="centerX" id="yz6-ty-FU5"/>
                             <constraint firstAttribute="centerX" secondItem="RpY-CS-eqQ" secondAttribute="centerX" constant="44" id="z6I-qZ-RM7"/>
+                            <constraint firstItem="epG-am-tU8" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="zLC-Kl-DmN"/>
+                            <constraint firstItem="KBI-vB-cu9" firstAttribute="leading" secondItem="yhx-7h-sxe" secondAttribute="leading" constant="-9" id="zMF-YK-W6U"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="bkU-i2-xJn" secondAttribute="bottom" constant="8" id="zdb-kE-h3h"/>
                             <constraint firstAttribute="centerX" secondItem="5e7-rt-A8s" secondAttribute="centerX" constant="133" id="zhC-Up-JBB"/>
+                            <constraint firstItem="RpY-CS-eqQ" firstAttribute="trailing" secondItem="f8x-M0-WAW" secondAttribute="trailing" constant="8" id="zhT-bV-7LW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="S55-0w-IRs"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="blueButton" destination="bkU-i2-xJn" id="0Tb-9h-CxL"/>
-                        <outlet property="dragonDestinyTitle" destination="gkv-5B-gvJ" id="Ilz-fb-4V0"/>
+                        <outlet property="dragonDestinyTitle" destination="gkv-5B-gvJ" id="DPL-sK-swC"/>
                         <outlet property="fireballImage" destination="XDZ-fk-r18" id="ahm-oa-Wd6"/>
+                        <outlet property="flameCostLabel" destination="9nj-bs-C9F" id="tJq-A7-11e"/>
+                        <outlet property="flameDragonImage" destination="Ewc-Kp-h4V" id="fCh-X3-JJZ"/>
                         <outlet property="flameImage" destination="hF0-pF-Ci6" id="eUQ-yd-ufj"/>
+                        <outlet property="greenButton" destination="KBI-vB-cu9" id="PtH-1H-RQb"/>
+                        <outlet property="laserBallCostLabel" destination="gNg-UR-LCD" id="FgN-9J-C1R"/>
+                        <outlet property="laserBallDragonImage" destination="NqC-QT-cQK" id="jd7-IT-FVJ"/>
                         <outlet property="laserBallImage" destination="koS-DX-OnS" id="ALh-Wa-Yfg"/>
+                        <outlet property="laserBeamCostLabel" destination="37N-Ze-KsV" id="npY-up-fQn"/>
+                        <outlet property="laserBeamDragonImage" destination="qCj-h7-pmu" id="ax3-eB-gzZ"/>
                         <outlet property="laserImage" destination="joe-5f-gcc" id="2NA-I7-OJ2"/>
+                        <outlet property="lockFlame" destination="f8x-M0-WAW" id="Dqn-Be-V17"/>
+                        <outlet property="lockLaserBall" destination="yhx-7h-sxe" id="mJO-az-sox"/>
+                        <outlet property="lockLaserBeam" destination="Got-2b-IOH" id="paf-ei-Pro"/>
                         <outlet property="redButton" destination="RpY-CS-eqQ" id="F6e-d8-d1G"/>
+                        <outlet property="totalCoinsLabel" destination="epG-am-tU8" id="RXx-mc-5e5"/>
+                        <outlet property="yellowButton" destination="Hn1-mL-hst" id="knW-nQ-ACj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yO8-UR-sg9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -256,6 +330,23 @@
             </objects>
             <point key="canvasLocation" x="1014" y="342"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="lBx-Os-1pg">
+            <objects>
+                <viewController id="HpJ-RV-VYx" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cnJ-FT-LFN"/>
+                        <viewControllerLayoutGuide type="bottom" id="aoh-fk-VZi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3uK-AV-UdI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aLo-8m-gaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
     </scenes>
     <resources>
         <image name="BlueDragonChooser.png" width="992" height="624"/>
@@ -266,5 +357,6 @@
         <image name="LaserChooser.png" width="74" height="638"/>
         <image name="RedDragonChooser.png" width="1042" height="633"/>
         <image name="YellowDragonChooser.png" width="1042" height="633"/>
+        <image name="gray_lock.png" width="384" height="512"/>
     </resources>
 </document>

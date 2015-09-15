@@ -14,8 +14,12 @@ class GameOverScene: SKScene {
   let restartButton = SKSpriteNode(imageNamed: "RestartButton")
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
+  let dragonDestinyLabel = SKLabelNode(fontNamed: "Chalkduster")
+  
+  let birthdayPickerLabel = SKLabelNode()
+  
   var dragonSelected: Int!
-  var birthdayMode: Bool?
+  var birthdayMode = false
   
   let blueDragon = SKSpriteNode(imageNamed: "BlueDragonChooser")
   let redDragon = SKSpriteNode(imageNamed: "RedDragonChooser")
@@ -69,7 +73,8 @@ class GameOverScene: SKScene {
     }
     
     var message = "Dragon Destiny"
-    let dragonDestinyLabel = SKLabelNode(fontNamed: "Chalkduster")
+    if birthdayMode { message = "Birthday Destiny" }
+
     dragonDestinyLabel.text = message
     dragonDestinyLabel.fontSize = 30
     dragonDestinyLabel.fontColor = SKColor.blackColor()
@@ -156,6 +161,19 @@ class GameOverScene: SKScene {
     dragonLabel.text = "Choose Dragon"
     self.addChild(dragonLabel)
     
+//    if birthdayMode {
+//      birthdayPickerLabel.text = " Mode"
+//    } else {
+//      birthdayPickerLabel.text = "Dragon Mode"
+//    }
+    
+    birthdayPickerLabel.text = "Change Mode"
+    
+    birthdayPickerLabel.fontName = "MarkerFelt-Thin"
+    birthdayPickerLabel.fontSize = 25
+    birthdayPickerLabel.fontColor = UIColor.blueColor()
+    birthdayPickerLabel.position = CGPoint(x: size.width - birthdayPickerLabel.frame.width/2, y: size.height - birthdayPickerLabel.fontSize)
+    self.addChild(birthdayPickerLabel)
   }
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -201,7 +219,18 @@ class GameOverScene: SKScene {
         laser1.removeFromParent()
         laser2.removeFromParent()
         self.addChild(laser2)
+      } else if (CGRectContainsPoint(birthdayPickerLabel.frame, touchLocation)) {
+        if birthdayMode {
+          birthdayMode = false
+//          birthdayPickerLabel.text = "Dragon Mode"
+          dragonDestinyLabel.text = "Dragon Destiny"
+        } else {
+          birthdayMode = true
+//          birthdayPickerLabel.text = "Birthday Mode"
+          dragonDestinyLabel.text = "Birthday Destiny"
+        }
       }
+
     }
   }
   
@@ -226,7 +255,7 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode!)
+      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

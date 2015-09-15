@@ -212,7 +212,7 @@ class StartMenuViewController: UIViewController {
               self.lockLaserBall.removeFromSuperview()
               self.dragonSelected = 2
               self.greenButton.userInteractionEnabled = true
-//              NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
+              NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
               
               self.totalCoins! -= 600
               self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"

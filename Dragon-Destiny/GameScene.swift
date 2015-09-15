@@ -1111,7 +1111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     if dragonSelected == 3 {
       println("Shot laser beam")
       laser = SKSpriteNode(texture: laserScenes[0])
-      laser.size = CGSize(width: player.size.width, height: 9)
+      laser.size = CGSize(width: player.size.width*2, height: 9)
       laser.zPosition = 1
       
 //      let animateLaser = SKAction.animateWithTextures(laserScenes, timePerFrame: 0.07)
@@ -1493,7 +1493,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       if dragonSelected == 3 {
         let laserPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
-        laser.position = CGPoint(x: player.position.x + 3.0 * laserPosVector.dx, y: player.position.y + 3.0 * laserPosVector.dy)
+        laser.position = CGPoint(x: player.position.x + 4.5 * laserPosVector.dx, y: player.position.y + 4.5 * laserPosVector.dy)
         laser.zRotation = player.zRotation + 1.57079633
       }
       

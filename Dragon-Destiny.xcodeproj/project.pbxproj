@@ -57,6 +57,7 @@
 		29500F261BA887C40043893E /* gray_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F251BA887C40043893E /* gray_lock.png */; };
 		29500F2D1BA8BB6E0043893E /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29500F2C1BA8BB6E0043893E /* VideoController.swift */; };
 		29500F301BA8CD7F0043893E /* flameVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F2F1BA8CD7F0043893E /* flameVideo.mov */; };
+		29500F321BA8D2DF0043893E /* laserBallVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F311BA8D2DF0043893E /* laserBallVideo.mov */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -164,6 +165,7 @@
 		29500F251BA887C40043893E /* gray_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gray_lock.png; sourceTree = "<group>"; };
 		29500F2C1BA8BB6E0043893E /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		29500F2F1BA8CD7F0043893E /* flameVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = flameVideo.mov; sourceTree = "<group>"; };
+		29500F311BA8D2DF0043893E /* laserBallVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = laserBallVideo.mov; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 		29500F271BA8B8750043893E /* VideoAssets */ = {
 			isa = PBXGroup;
 			children = (
+				29500F311BA8D2DF0043893E /* laserBallVideo.mov */,
 				29500F2F1BA8CD7F0043893E /* flameVideo.mov */,
 			);
 			name = VideoAssets;
@@ -629,6 +632,7 @@
 				29500ED01BA254090043893E /* RedDragonChooser.png in Resources */,
 				2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */,
 				29500F1C1BA75B1D0043893E /* windBlowing.png in Resources */,
+				29500F321BA8D2DF0043893E /* laserBallVideo.mov in Resources */,
 				29500F0A1BA34F220043893E /* LaserChooser.png in Resources */,
 				29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */,
 				29500F081BA34D520043893E /* laserImages.atlas in Resources */,

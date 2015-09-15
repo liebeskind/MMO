@@ -51,8 +51,8 @@ class StartMenuViewController: UIViewController {
   var birthdayMode = false
   
   var flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
-  let laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
-  let laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
+  var laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
+  var laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
   
   override func viewDidLoad() {
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
@@ -160,6 +160,7 @@ class StartMenuViewController: UIViewController {
               self.lockFlame.removeFromSuperview()
               self.dragonSelected = 1
               self.redButton.userInteractionEnabled = true
+              NSUserDefaults.standardUserDefaults().setObject(true,forKey:"flameDragonPurchased")
               
               self.totalCoins! -= 200
               self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
@@ -170,7 +171,6 @@ class StartMenuViewController: UIViewController {
               self.moviePlayer = MPMoviePlayerController(contentURL: url)
               if let player = self.moviePlayer {
                 player.view.frame = CGRect(x: self.view.frame.size.width/10, y: self.view.frame.size.height/10, width: self.view.frame.size.width - 2 * self.view.frame.size.width/10, height: self.view.frame.size.height - 2 * self.view.frame.size.height/10)
-//                player.view.sizeToFit()
                 player.scalingMode = MPMovieScalingMode.AspectFit
                 player.fullscreen = true
                 player.controlStyle = MPMovieControlStyle.None
@@ -180,7 +180,6 @@ class StartMenuViewController: UIViewController {
                 player.play()
                 
                 self.view.addSubview(player.view)
-//                self.presentViewController(player.view, animated: true, completion: nil)
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
@@ -201,7 +200,50 @@ class StartMenuViewController: UIViewController {
         laserBallImage.hidden = false
         laserImage.hidden = true
       } else {
-        println("purchase laser ball dragon?")
+        if let enoughCoins = self.totalCoins {
+          if enoughCoins >= 200 {
+            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+              self.laserBallDragonPurchased = true
+              self.fireballImage.hidden = true
+              self.flameImage.hidden = true
+              self.laserBallImage.hidden = false
+              self.lockLaserBall.removeFromSuperview()
+              self.dragonSelected = 2
+              self.greenButton.userInteractionEnabled = true
+//              NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
+              
+              self.totalCoins! -= 600
+              self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
+              NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+              
+              let path = NSBundle.mainBundle().pathForResource("laserBallVideo", ofType:"mov")
+              let url = NSURL.fileURLWithPath(path!)
+              self.moviePlayer = MPMoviePlayerController(contentURL: url)
+              if let player = self.moviePlayer {
+                player.view.frame = CGRect(x: self.view.frame.size.width/10, y: self.view.frame.size.height/10, width: self.view.frame.size.width - 2 * self.view.frame.size.width/10, height: self.view.frame.size.height - 2 * self.view.frame.size.height/10)
+                player.scalingMode = MPMovieScalingMode.AspectFit
+                player.fullscreen = true
+                player.controlStyle = MPMovieControlStyle.None
+                player.movieSourceType = MPMovieSourceType.File
+                player.repeatMode = MPMovieRepeatMode.None
+                player.prepareToPlay()
+                player.play()
+                
+                self.view.addSubview(player.view)
+                
+                NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+              }
+            }))
+            
+            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
+              println("Handle Cancel Logic here")
+            }))
+            
+            presentViewController(purchaseDragonAlert, animated: true, completion: nil)
+          }
+        }
       }
     case 3:
       if laserBeamDragonPurchased == true {

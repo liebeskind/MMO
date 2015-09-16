@@ -8,7 +8,6 @@
 
 import UIKit
 import SpriteKit
-import AVFoundation
 import MediaPlayer
 
 class StartMenuViewController: UIViewController {
@@ -38,7 +37,6 @@ class StartMenuViewController: UIViewController {
   @IBOutlet weak var laserBallCostLabel: UILabel!
   @IBOutlet weak var laserBeamCostLabel: UILabel!
   
-  let videoPlayer = VideoController()
   var moviePlayer: MPMoviePlayerController!
   
   var birthdayPicker = UIButton()
@@ -70,7 +68,6 @@ class StartMenuViewController: UIViewController {
       lockFlame.hidden = true
       flameCostLabel.hidden = true
     } else {
-//      redButton.userInteractionEnabled = false
     }
     
     if laserBallDragonPurchased == true {
@@ -78,7 +75,6 @@ class StartMenuViewController: UIViewController {
       lockLaserBall.hidden = true
       laserBallCostLabel.hidden = true
     } else {
-//      greenButton.userInteractionEnabled = false
     }
     
     if laserBeamDragonPurchased == true {
@@ -86,7 +82,6 @@ class StartMenuViewController: UIViewController {
       lockLaserBeam.hidden = true
       laserBeamCostLabel.hidden = true
     } else {
-//      yellowButton.userInteractionEnabled = false
     }
   }
   
@@ -163,7 +158,6 @@ class StartMenuViewController: UIViewController {
               self.flameImage.hidden = false
               self.lockFlame.removeFromSuperview()
               self.dragonSelected = 1
-              self.redButton.userInteractionEnabled = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"flameDragonPurchased")
               
               self.totalCoins! -= self.flameDragonCost
@@ -215,7 +209,6 @@ class StartMenuViewController: UIViewController {
               self.laserBallImage.hidden = false
               self.lockLaserBall.removeFromSuperview()
               self.dragonSelected = 2
-              self.greenButton.userInteractionEnabled = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
               
               self.totalCoins! -= self.laserBallDragonCost
@@ -258,7 +251,7 @@ class StartMenuViewController: UIViewController {
       } else {
         if let enoughCoins = self.totalCoins {
           if enoughCoins >= laserBeamDragonCost {
-            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
               self.laserBeamDragonPurchased = true
@@ -268,7 +261,6 @@ class StartMenuViewController: UIViewController {
               self.laserImage.hidden = false
               self.lockLaserBeam.removeFromSuperview()
               self.dragonSelected = 3
-              self.yellowButton.userInteractionEnabled = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBeamDragonPurchased")
               
               self.totalCoins! -= self.laserBeamDragonCost

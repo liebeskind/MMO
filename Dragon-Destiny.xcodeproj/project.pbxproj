@@ -55,7 +55,6 @@
 		29500F221BA763BF0043893E /* zoeImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29500F211BA763BF0043893E /* zoeImages.atlas */; };
 		29500F241BA76C3B0043893E /* gift.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F231BA76C3B0043893E /* gift.png */; };
 		29500F261BA887C40043893E /* gray_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F251BA887C40043893E /* gray_lock.png */; };
-		29500F2D1BA8BB6E0043893E /* VideoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29500F2C1BA8BB6E0043893E /* VideoController.swift */; };
 		29500F301BA8CD7F0043893E /* flameVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F2F1BA8CD7F0043893E /* flameVideo.mov */; };
 		29500F321BA8D2DF0043893E /* laserBallVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F311BA8D2DF0043893E /* laserBallVideo.mov */; };
 		29500F341BA8D8980043893E /* laserBeamVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F331BA8D8980043893E /* laserBeamVideo.mov */; };
@@ -164,7 +163,6 @@
 		29500F211BA763BF0043893E /* zoeImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = zoeImages.atlas; path = ../../../../Designs/MMO/zoeImages.atlas; sourceTree = "<group>"; };
 		29500F231BA76C3B0043893E /* gift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gift.png; sourceTree = "<group>"; };
 		29500F251BA887C40043893E /* gray_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gray_lock.png; sourceTree = "<group>"; };
-		29500F2C1BA8BB6E0043893E /* VideoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoController.swift; sourceTree = "<group>"; };
 		29500F2F1BA8CD7F0043893E /* flameVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = flameVideo.mov; sourceTree = "<group>"; };
 		29500F311BA8D2DF0043893E /* laserBallVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = laserBallVideo.mov; sourceTree = "<group>"; };
 		29500F331BA8D8980043893E /* laserBeamVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = laserBeamVideo.mov; sourceTree = "<group>"; };
@@ -375,7 +373,6 @@
 				29385BA21B7BE588000D0986 /* InAppPurchaseViewController.swift */,
 				29385B9E1B7BD385000D0986 /* SocialViewController.swift */,
 				29C2AE051B7C4CEB005F74E2 /* MusicController.swift */,
-				29500F2C1BA8BB6E0043893E /* VideoController.swift */,
 				29F6B38B1B8D3DDA0094919F /* Boss.swift */,
 				29FA567D1B93A65500977BEF /* Shield.swift */,
 				29385B801B7AA3C4000D0986 /* Monster.swift */,
@@ -752,7 +749,6 @@
 				29FA567E1B93A65500977BEF /* Shield.swift in Sources */,
 				29EC4ACE1B8BDBD200E8804D /* StartMenuViewController.swift in Sources */,
 				29385B9F1B7BD385000D0986 /* SocialViewController.swift in Sources */,
-				29500F2D1BA8BB6E0043893E /* VideoController.swift in Sources */,
 				29C2AE061B7C4CEB005F74E2 /* MusicController.swift in Sources */,
 				3571651019DB322700ED38A9 /* GameOverScene.swift in Sources */,
 				29F6B38C1B8D3DDA0094919F /* Boss.swift in Sources */,

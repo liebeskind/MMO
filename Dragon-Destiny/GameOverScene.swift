@@ -8,6 +8,7 @@
 
 import Foundation
 import SpriteKit
+import MediaPlayer
 
 class GameOverScene: SKScene {
   
@@ -15,6 +16,7 @@ class GameOverScene: SKScene {
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
   let dragonDestinyLabel = SKLabelNode(fontNamed: "Chalkduster")
+  let totalCoinsLabel = SKLabelNode(fontNamed: "System")
   
   let birthdayPickerLabel = SKLabelNode()
   
@@ -30,12 +32,33 @@ class GameOverScene: SKScene {
   let laser1 = SKSpriteNode(imageNamed: "LaserChooser")
   let laser2 = SKSpriteNode(imageNamed: "LaserChooser")
   
+  let lockFlame = SKSpriteNode(imageNamed: "gray_lock")
+  let lockLaserBall = SKSpriteNode(imageNamed: "gray_lock")
+  let lockLaserBeam = SKSpriteNode(imageNamed: "gray_lock")
+  
+  let flameCostLabel = SKLabelNode(fontNamed: "System")
+  let laserBallCostLabel = SKLabelNode(fontNamed: "System")
+  let laserBeamCostLabel = SKLabelNode(fontNamed: "System")
+  
+  var moviePlayer: MPMoviePlayerController!
+  
+  var totalCoins: Int?
+  
+  var flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
+  var laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
+  var laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
+  
+  let flameDragonCost = 200
+  let laserBallDragonCost = 600
+  let laserBeamDragonCost = 1200
+  
   init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool) {
+    
+    super.init(size: size)
     
     self.dragonSelected = dragonSelected
     self.birthdayMode = birthdayMode
-    
-    super.init(size: size)
+    self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
     
     NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
 
@@ -174,6 +197,71 @@ class GameOverScene: SKScene {
     birthdayPickerLabel.fontColor = UIColor.blueColor()
     birthdayPickerLabel.position = CGPoint(x: size.width - birthdayPickerLabel.frame.width/2, y: size.height - birthdayPickerLabel.fontSize)
     self.addChild(birthdayPickerLabel)
+    
+    let lockHeight = yellowDragon.size.height + flame.size.height
+    
+    lockFlame.position = CGPoint(x: redDragon.position.x, y: redDragon.position.y + 20)
+    lockFlame.size = CGSize(width: 0.7 * lockHeight, height: lockHeight)
+    lockFlame.zPosition = 10
+    self.addChild(lockFlame)
+    
+    flameCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
+    flameCostLabel.zPosition = 11
+    flameCostLabel.text = "200 Coins"
+    flameCostLabel.fontSize = 10
+    lockFlame.addChild(flameCostLabel)
+    
+    lockLaserBall.position = CGPoint(x: greenDragon.position.x, y: greenDragon.position.y + 20)
+    lockLaserBall.size = CGSize(width: 0.7 * lockHeight, height: lockHeight)
+    lockLaserBall.zPosition = 10
+    self.addChild(lockLaserBall)
+    
+    laserBallCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
+    laserBallCostLabel.zPosition = 11
+    laserBallCostLabel.text = "600 Coins"
+    laserBallCostLabel.fontSize = 10
+    lockLaserBall.addChild(laserBallCostLabel)
+
+    lockLaserBeam.position = CGPoint(x: yellowDragon.position.x, y: yellowDragon.position.y + 20)
+    lockLaserBeam.size = CGSize(width: 0.7 * lockHeight, height: lockHeight)
+    lockLaserBeam.zPosition = 10
+    self.addChild(lockLaserBeam)
+    
+    laserBeamCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
+    laserBeamCostLabel.zPosition = 11
+    laserBeamCostLabel.text = "1200 Coins"
+    laserBeamCostLabel.fontSize = 10
+    lockLaserBeam.addChild(laserBeamCostLabel)
+    
+    totalCoinsLabel.position = CGPoint(x: 10, y: 10)
+    totalCoinsLabel.fontSize = 12
+    totalCoinsLabel.text = "Total Coins: \(self.totalCoins)"
+    totalCoinsLabel.fontColor = UIColor.blackColor()
+    self.addChild(totalCoinsLabel)
+    
+    NSUserDefaults.standardUserDefaults().setObject(false,forKey:"flameDragonPurchased")
+    flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
+    
+    if flameDragonPurchased == true {
+      println("flame dragon purchased")
+      lockFlame.hidden = true
+      flameCostLabel.hidden = true
+    } else {
+    }
+    
+    if laserBallDragonPurchased == true {
+      println("laser ball dragon purchased")
+      lockLaserBall.hidden = true
+      laserBallCostLabel.hidden = true
+    } else {
+    }
+    
+    if laserBeamDragonPurchased == true {
+      println("laser beam dragon purchased")
+      lockLaserBeam.hidden = true
+      laserBeamCostLabel.hidden = true
+    } else {
+    }
   }
   
   override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
@@ -199,26 +287,173 @@ class GameOverScene: SKScene {
         laser2.removeFromParent()
         self.addChild(fireball)
       } else if (CGRectContainsPoint(redDragonExtendedRect, touchLocation)) {
-        self.dragonSelected = 1
-        fireball.removeFromParent()
-        flame.removeFromParent()
-        laser1.removeFromParent()
-        laser2.removeFromParent()
-        self.addChild(flame)
+        if flameDragonPurchased == true {
+          self.dragonSelected = 1
+          fireball.removeFromParent()
+          flame.removeFromParent()
+          laser1.removeFromParent()
+          laser2.removeFromParent()
+          self.addChild(flame)
+        } else {
+          if let enoughCoins = self.totalCoins {
+            if enoughCoins >= flameDragonCost {
+              let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+              
+              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+                println("flame dragon purchased")
+                self.flameDragonPurchased = true
+                self.fireball.removeFromParent()
+                self.flame.removeFromParent()
+                self.laser1.removeFromParent()
+                self.laser2.removeFromParent()
+                self.lockFlame.removeFromParent()
+                self.addChild(self.flame)
+                self.dragonSelected = 1
+                NSUserDefaults.standardUserDefaults().setObject(true,forKey:"flameDragonPurchased")
+                
+                self.totalCoins! -= self.flameDragonCost
+                self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
+                NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+                
+                let path = NSBundle.mainBundle().pathForResource("flameVideo", ofType:"mov")
+                let url = NSURL.fileURLWithPath(path!)
+                self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                if let player = self.moviePlayer {
+                  player.view?.frame = CGRect(x: self.size.width/10, y: self.size.height/10, width: self.size.width - 2 * self.size.width/10, height: self.size.height - 2 * self.size.height/10)
+                  player.scalingMode = MPMovieScalingMode.AspectFit
+                  player.fullscreen = true
+                  player.controlStyle = MPMovieControlStyle.None
+                  player.movieSourceType = MPMovieSourceType.File
+                  player.repeatMode = MPMovieRepeatMode.None
+                  player.prepareToPlay()
+                  player.play()
+                  
+                  self.view?.addSubview(player.view)
+                  
+                  NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+                }
+              }))
+              
+              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
+                println("Handle Cancel Logic here")
+              }))
+              
+              self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
+            }
+          }
+        }
       } else if (CGRectContainsPoint(greenDragonExtendedRect, touchLocation)) {
-        self.dragonSelected = 2
-        fireball.removeFromParent()
-        flame.removeFromParent()
-        laser1.removeFromParent()
-        laser2.removeFromParent()
-        self.addChild(laser1)
+        if laserBallDragonPurchased == true {
+          self.dragonSelected = 2
+          fireball.removeFromParent()
+          flame.removeFromParent()
+          laser1.removeFromParent()
+          laser2.removeFromParent()
+          self.addChild(laser1)
+        } else {
+          if let enoughCoins = self.totalCoins {
+            if enoughCoins >= laserBallDragonCost {
+              let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+              
+              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+                println("laser ball dragon purchased")
+                self.laserBallDragonPurchased = true
+                self.fireball.removeFromParent()
+                self.flame.removeFromParent()
+                self.laser1.removeFromParent()
+                self.laser2.removeFromParent()
+                self.lockLaserBall.removeFromParent()
+                self.addChild(self.laser1)
+                self.dragonSelected = 2
+                NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
+                
+                self.totalCoins! -= self.laserBallDragonCost
+                self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
+                NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+                
+                let path = NSBundle.mainBundle().pathForResource("laserBallVideo", ofType:"mov")
+                let url = NSURL.fileURLWithPath(path!)
+                self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                if let player = self.moviePlayer {
+                  player.view?.frame = CGRect(x: self.size.width/10, y: self.size.height/10, width: self.size.width - 2 * self.size.width/10, height: self.size.height - 2 * self.size.height/10)
+                  player.scalingMode = MPMovieScalingMode.AspectFit
+                  player.fullscreen = true
+                  player.controlStyle = MPMovieControlStyle.None
+                  player.movieSourceType = MPMovieSourceType.File
+                  player.repeatMode = MPMovieRepeatMode.None
+                  player.prepareToPlay()
+                  player.play()
+                  
+                  self.view?.addSubview(player.view)
+                  
+                  NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+                }
+              }))
+              
+              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
+                println("Handle Cancel Logic here")
+              }))
+              
+              self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
+            }
+          }
+        }
       } else if (CGRectContainsPoint(yellowDragonExtendedRect, touchLocation)) {
-        self.dragonSelected = 3
-        fireball.removeFromParent()
-        flame.removeFromParent()
-        laser1.removeFromParent()
-        laser2.removeFromParent()
-        self.addChild(laser2)
+        if laserBeamDragonPurchased == true {
+          self.dragonSelected = 3
+          fireball.removeFromParent()
+          flame.removeFromParent()
+          laser1.removeFromParent()
+          laser2.removeFromParent()
+          self.addChild(laser2)
+        } else {
+          if let enoughCoins = self.totalCoins {
+            if enoughCoins >= laserBeamDragonCost {
+              let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+              
+              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+                println("laser beam dragon purchased")
+                self.laserBeamDragonPurchased = true
+                self.fireball.removeFromParent()
+                self.flame.removeFromParent()
+                self.laser1.removeFromParent()
+                self.laser2.removeFromParent()
+                self.lockLaserBeam.removeFromParent()
+                self.addChild(self.laser2)
+                self.dragonSelected = 3
+                NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBeamDragonPurchased")
+                
+                self.totalCoins! -= self.laserBeamDragonCost
+                self.totalCoinsLabel.text = "Total Coins: \(self.totalCoins!)"
+                NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+                
+                let path = NSBundle.mainBundle().pathForResource("laserBeamVideo", ofType:"mov")
+                let url = NSURL.fileURLWithPath(path!)
+                self.moviePlayer = MPMoviePlayerController(contentURL: url)
+                if let player = self.moviePlayer {
+                  player.view?.frame = CGRect(x: self.size.width/10, y: self.size.height/10, width: self.size.width - 2 * self.size.width/10, height: self.size.height - 2 * self.size.height/10)
+                  player.scalingMode = MPMovieScalingMode.AspectFit
+                  player.fullscreen = true
+                  player.controlStyle = MPMovieControlStyle.None
+                  player.movieSourceType = MPMovieSourceType.File
+                  player.repeatMode = MPMovieRepeatMode.None
+                  player.prepareToPlay()
+                  player.play()
+                  
+                  self.view?.addSubview(player.view)
+                  
+                  NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
+                }
+              }))
+              
+              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
+                println("Handle Cancel Logic here")
+              }))
+              
+              self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
+            }
+          }
+        }
       } else if (CGRectContainsPoint(birthdayPickerLabel.frame, touchLocation)) {
         if birthdayMode {
           birthdayMode = false
@@ -230,8 +465,14 @@ class GameOverScene: SKScene {
           dragonDestinyLabel.text = "Birthday Destiny"
         }
       }
-
     }
+  }
+  
+  func doneButtonClick(sender:NSNotification?){
+    let value = UIInterfaceOrientation.Portrait.rawValue
+    UIDevice.currentDevice().setValue(value, forKey: "orientation")
+    self.moviePlayer.stop()
+    self.moviePlayer.view.removeFromSuperview()
   }
   
   override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {

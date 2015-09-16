@@ -1294,6 +1294,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
       let setShieldPurchasedToFalse = SKAction.runBlock  {
         self.shield.purchased = false
+        self.purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
       }
       self.runAction(SKAction.sequence([SKAction.waitForDuration(0.3), setShieldPurchasedToFalse]))
     } else {

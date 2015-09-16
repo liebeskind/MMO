@@ -19,6 +19,7 @@ class GameOverScene: SKScene {
   let totalCoinsLabel = SKLabelNode(fontNamed: "System")
   
   let birthdayPickerLabel = SKLabelNode()
+  var birthdayPicture = UIImage()
   
   var dragonSelected: Int!
   var birthdayMode = false
@@ -52,12 +53,13 @@ class GameOverScene: SKScene {
   let laserBallDragonCost = 600
   let laserBeamDragonCost = 1200
   
-  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool) {
+  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
     
     super.init(size: size)
     
     self.dragonSelected = dragonSelected
     self.birthdayMode = birthdayMode
+    self.birthdayPicture = birthdayPicture
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
     
     NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
@@ -196,7 +198,7 @@ class GameOverScene: SKScene {
     birthdayPickerLabel.fontSize = 25
     birthdayPickerLabel.fontColor = UIColor.blueColor()
     birthdayPickerLabel.position = CGPoint(x: size.width - birthdayPickerLabel.frame.width/2, y: size.height - birthdayPickerLabel.fontSize)
-    self.addChild(birthdayPickerLabel)
+//    self.addChild(birthdayPickerLabel)
     
     let lockHeight = yellowDragon.size.height + flame.size.height
     
@@ -502,7 +504,7 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode)
+      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

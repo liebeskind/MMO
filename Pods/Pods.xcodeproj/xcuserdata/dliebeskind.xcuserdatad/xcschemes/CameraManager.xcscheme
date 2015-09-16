@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E4EC5D4163FB862CDF7CA46E"
-               BuildableName = "Pods_Dragon_Destiny.framework"
-               BlueprintName = "Pods-Dragon-Destiny"
+               BlueprintIdentifier = "65E98E6FE637B7EC58E9819A"
+               BuildableName = "CameraManager.framework"
+               BlueprintName = "CameraManager"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

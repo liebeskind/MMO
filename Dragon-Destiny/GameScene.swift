@@ -91,11 +91,20 @@ enum MoveStates:Int {
   case N,S,E,W,NE,NW,SE,SW
 }
 
+func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
+  let context = CIContext(options: nil)
+  if context != nil {
+    return context.createCGImage(inputImage, fromRect: inputImage.extent())
+  }
+  return nil
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate{
   
   let musicController = MusicController()
   
   var birthdayMode = true
+  var birthdayPicture = UIImage()
   
   var dragonSelected: Int!
   
@@ -185,7 +194,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
-  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield, dragonType: Int, birthdayMode: Bool) {
+  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield, dragonType: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
     super.init(size: size)
     self.levelReached = level
     self.coinsCollected = coinsCollected
@@ -243,7 +252,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
     
-    let numImages = playerAnimatedAtlas.textureNames.count/5 //Number changes based on # of dragons available
+    let numImages = playerAnimatedAtlas.textureNames.count/4 //Number changes based on # of dragons available
     for var i=0; i<numImages; i++ {
       
       var playerTextureName: String
@@ -255,8 +264,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       default: playerTextureName = "BlueDragonFlap\(i)"
       }
       
-      if birthdayMode { playerTextureName = "BirthdayFace\(i)" }
-      
       flyFrames.append(playerAnimatedAtlas.textureNamed(playerTextureName))
       flyFrames.insert(playerAnimatedAtlas.textureNamed(playerTextureName), atIndex: 0) //Makes wing flapping animation more fluid as doesn't just reset at end
     }
@@ -265,6 +272,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     let firstFrame = playerFlyingScenes[0]
     player = SKSpriteNode(texture: firstFrame)
+    
+    if birthdayMode {
+      player.texture = SKTexture(image: self.birthdayPicture)
+    }
     
     backgroundLayer.addChild(player)
     
@@ -281,22 +292,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     player.physicsBody?.contactTestBitMask = PhysicsCategory.Coin.rawValue
     player.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
     
-    flyingPlayer()
+    if !birthdayMode {
+      flyingPlayer()
+    }
     
 //    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.0) //Loads the sound, so don't have lag first time fire
     
-    let fireballAnimatedAtlas = SKTextureAtlas(named: "fireballImages")
-    var fireballFrames = [SKTexture]()
-    
-    let numFireballImages = fireballAnimatedAtlas.textureNames.count
-    for var i=0; i<numFireballImages; i++ {
-      let fireballTextureName = "Fireball\(i)"
-      fireballFrames.append(fireballAnimatedAtlas.textureNamed(fireballTextureName))
+    if dragonSelected == 0 {
+      let fireballAnimatedAtlas = SKTextureAtlas(named: "fireballImages")
+      var fireballFrames = [SKTexture]()
+      
+      let numFireballImages = fireballAnimatedAtlas.textureNames.count
+      for var i=0; i<numFireballImages; i++ {
+        let fireballTextureName = "Fireball\(i)"
+        fireballFrames.append(fireballAnimatedAtlas.textureNamed(fireballTextureName))
+      }
+      
+      fireballScenes = fireballFrames
+      
+      firstFireballFrame = fireballScenes[0]
     }
-    
-    fireballScenes = fireballFrames
-    
-    firstFireballFrame = fireballScenes[0]
 //    projectile = SKSpriteNode(texture: firstFireballFrame) // Not sure this does anything.  Meant to cache so no delay.
     
     let arrowAnimatedAtlas = SKTextureAtlas(named: "arrowImages")
@@ -310,62 +325,66 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     arrowScenes = arrowFrames
     
-    let flameAnimatedAtlas = SKTextureAtlas(named: "fullFlameImages")
-    var flameFrames = [SKTexture]()
+    if dragonSelected == 1 {
+      let flameAnimatedAtlas = SKTextureAtlas(named: "fullFlameImages")
+      var flameFrames = [SKTexture]()
+      
+      let numFlameImages = flameAnimatedAtlas.textureNames.count
+      for var i=0; i<numFlameImages; i++ {
+        let flameTextureName = "FullFlame\(i)"
+        flameFrames.append(flameAnimatedAtlas.textureNamed(flameTextureName))
+      }
+      flameScenes = flameFrames
     
-    let numFlameImages = flameAnimatedAtlas.textureNames.count
-    for var i=0; i<numFlameImages; i++ {
-      let flameTextureName = "FullFlame\(i)"
-      flameFrames.append(flameAnimatedAtlas.textureNamed(flameTextureName))
+    
+      let flameStartAnimatedAtlas = SKTextureAtlas(named: "flameImages")
+      var flameStartFrames = [SKTexture]()
+      
+      let numFlameStartImages = flameStartAnimatedAtlas.textureNames.count
+      for var i=0; i<numFlameStartImages; i++ {
+        let flameStartTextureName = "Flame\(i)"
+        flameStartFrames.append(flameStartAnimatedAtlas.textureNamed(flameStartTextureName))
+      }
+      flameStartScenes = flameStartFrames
     }
     
-    flameScenes = flameFrames
-    
-    let flameStartAnimatedAtlas = SKTextureAtlas(named: "flameImages")
-    var flameStartFrames = [SKTexture]()
-    
-    let numFlameStartImages = flameStartAnimatedAtlas.textureNames.count
-    for var i=0; i<numFlameStartImages; i++ {
-      let flameStartTextureName = "Flame\(i)"
-      flameStartFrames.append(flameStartAnimatedAtlas.textureNamed(flameStartTextureName))
+    if dragonSelected == 2 {
+      let laserBallAnimatedAtlas = SKTextureAtlas(named: "laserBallImages")
+      var laserBallFrames = [SKTexture]()
+      
+      let numLaserBallImages = laserBallAnimatedAtlas.textureNames.count
+      for var i=0; i<numLaserBallImages; i++ {
+        let laserBallTextureName = "LaserBall\(i)"
+        laserBallFrames.append(laserBallAnimatedAtlas.textureNamed(laserBallTextureName))
+      }
+      
+      laserBallScenes = laserBallFrames
+      firstLaserBallFrame = laserBallScenes[0]
     }
     
-    flameStartScenes = flameStartFrames
-//    flameScenes = flameFrames
-    
-    let laserBallAnimatedAtlas = SKTextureAtlas(named: "laserBallImages")
-    var laserBallFrames = [SKTexture]()
-    
-    let numLaserBallImages = laserBallAnimatedAtlas.textureNames.count
-    for var i=0; i<numLaserBallImages; i++ {
-      let laserBallTextureName = "LaserBall\(i)"
-      laserBallFrames.append(laserBallAnimatedAtlas.textureNamed(laserBallTextureName))
+    if dragonSelected == 3 {
+      let laserStartAnimatedAtlas = SKTextureAtlas(named: "laserImages")
+      var laserStartFrames = [SKTexture]()
+      
+      let numLaserStartImages = laserStartAnimatedAtlas.textureNames.count
+      for var i=0; i<numLaserStartImages; i++ {
+        let laserStartTextureName = "Laser\(i)"
+        laserStartFrames.append(laserStartAnimatedAtlas.textureNamed(laserStartTextureName))
+      }
+      
+      laserStartScenes = laserStartFrames
+      
+      let laserAnimatedAtlas = SKTextureAtlas(named: "fullLaserImages")
+      var laserFrames = [SKTexture]()
+      
+      let numLaserImages = laserAnimatedAtlas.textureNames.count
+      for var i=0; i<numLaserImages; i++ {
+        let laserTextureName = "FullLaser\(i)"
+        laserFrames.append(laserAnimatedAtlas.textureNamed(laserTextureName))
+      }
+      
+      laserScenes = laserFrames
     }
-    
-    laserBallScenes = laserBallFrames
-    firstLaserBallFrame = laserBallScenes[0]
-    
-    let laserStartAnimatedAtlas = SKTextureAtlas(named: "laserImages")
-    var laserStartFrames = [SKTexture]()
-    
-    let numLaserStartImages = laserStartAnimatedAtlas.textureNames.count
-    for var i=0; i<numLaserStartImages; i++ {
-      let laserStartTextureName = "Laser\(i)"
-      laserStartFrames.append(laserStartAnimatedAtlas.textureNamed(laserStartTextureName))
-    }
-    
-    laserStartScenes = laserStartFrames
-    
-    let laserAnimatedAtlas = SKTextureAtlas(named: "fullLaserImages")
-    var laserFrames = [SKTexture]()
-    
-    let numLaserImages = laserAnimatedAtlas.textureNames.count
-    for var i=0; i<numLaserImages; i++ {
-      let laserTextureName = "FullLaser\(i)"
-      laserFrames.append(laserAnimatedAtlas.textureNamed(laserTextureName))
-    }
-    
-    laserScenes = laserFrames
     
 //
 //    addMonster()
@@ -509,7 +528,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundNode.size = CGSize(
       width: background1.size.width + background2.size.width,
       height: frame.size.height)
-    backgroundWidth = backgroundNode.size.width * CGFloat(totalBackgrounds)
+    backgroundWidth = backgroundNode.size.width * CGFloat(totalBackgrounds) / 2
     return backgroundNode
   }
   
@@ -991,10 +1010,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       pausedButton.texture = SKTexture(imageNamed: "paused-pushed")
       paused = true
       self.addChild(pausedLabel)
+      musicController.pauseBackgroundMusic()
     } else if paused {
       pausedButton.texture = SKTexture(imageNamed: "pause-button")
       paused = false
       pausedLabel.removeFromParent()
+      musicController.resumeBackgroundMusic()
     }
   }
   
@@ -1221,7 +1242,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         self.backgroundLayer.removeAllChildren()
         self.backgroundLayer.removeFromParent()
         self.view?.presentScene(scene, transition:reveal)
@@ -1241,7 +1262,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       self.musicController.stopUpgradeMusic()
       self.musicController.playSoundEffect("PlayerDeath.wav", atVolume: 0.5)
       let gameOverTransition = SKAction.runBlock {
-        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode)
+        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         self.view?.presentScene(gameOverScene, transition: reveal)
         self.playerDead = false

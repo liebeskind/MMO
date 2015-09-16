@@ -627,58 +627,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func addMonster() {
-    // Position the monster slightly off-screen along the right edge,
-    // and along a random position along the Y axis as calculated above
-    if rightPoint < backgroundWidth {
-      // Create sprite
-      let monster = Monster(texture: arrowScenes[0])
-      monster.size = CGSize(width: 50.0, height: 10.0)
-      monster.name = "arrow"
-      monster.playerPosition = CGPoint(x: player.position.x, y: player.position.y)
-      monster.leftPoint = leftPoint
-      
-      if birthdayMode {
-        monster.texture = SKTexture(imageNamed: "CupcakeDes")
-        monster.size = CGSize(width: 50.0, height: 50.0)
-      }
-      
-      monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
-      //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
-      monster.physicsBody?.dynamic = true
-      monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
-      monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue | PhysicsCategory.Laser.rawValue
-      monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
-      
-      // Add the monster to the scene
-      backgroundLayer.addChild(monster)
-      
-      // Determine speed of the monster
-//      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-      let minimum = max(Double(3 - self.levelReached/3), 0.5)
-      let maximum = minimum + 1.5
-      var actualDuration = random(min: CGFloat(minimum), max: CGFloat(maximum))
-      if slowmoPurchased {
-        monster.moveDuration = actualDuration
-        actualDuration += slowmoSpeedModifier
-      }
-      
-      // Determine where to spawn the monster along the Y axis
-      let actualY = random(min: monster.size.height/2 + baseSize, max: size.height - monster.size.height/2)
-      monster.position = CGPoint(x: rightPoint + monster.size.height, y: actualY)
-      // Create the actions
-      monster.realDest = CGPoint(x: leftPoint - monster.size.width/2, y: player.position.y)
-      let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
-      let actionMoveDone = SKAction.removeFromParent()
-      monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
-
-    } else {
-      backgroundLayer.enumerateChildNodesWithName("boss") {
-        node, stop in
-
+    
+    backgroundLayer.enumerateChildNodesWithName("boss") {
+      node, stop in
+      if self.rightPoint < self.backgroundWidth {
+        // Create sprite
         let monster = Monster(texture: self.arrowScenes[0])
         monster.size = CGSize(width: 50.0, height: 10.0)
         monster.name = "arrow"
-        monster.zPosition = 3
         monster.playerPosition = CGPoint(x: self.player.position.x, y: self.player.position.y)
         monster.leftPoint = self.leftPoint
         
@@ -698,7 +654,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.backgroundLayer.addChild(monster)
         
         // Determine speed of the monster
-//        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
+  //      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
         let minimum = max(Double(3 - self.levelReached/3), 0.5)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
@@ -707,63 +663,99 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           actualDuration += self.slowmoSpeedModifier
         }
         
-//        node.zRotation = angle
-        
-        var vector = CGVector()
-        var offset = self.player.position - node.position
-        
-  //      if ball.position != base.position {
-  //        offset = ball.position - base.position
-  //      } else {
-  //        offset = mostRecentBallPosition - mostRecentBasePosition
-  //      }
-        
-        let direction = offset.normalized()
-        let shootAmount = direction * (self.size.width + monster.size.width)
-        monster.realDest = shootAmount + node.position
-        
-        monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)
-        let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
-        let angle = atan2(v.dy, v.dx)
-        
-        monster.zRotation = angle
+        // Determine where to spawn the monster along the Y axis
+        let actualY = self.random(min: monster.size.height/2 + self.baseSize, max: self.size.height - monster.size.height/2)
+        monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: actualY)
+        // Create the actions
+        monster.realDest = CGPoint(x: self.leftPoint - monster.size.width/2, y: self.player.position.y)
         let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
-        
         let actionMoveDone = SKAction.removeFromParent()
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
 
-        let shortPause = SKAction.waitForDuration(0.01)
-        var fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
-        var fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
-        var fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
-        var fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
-        let pauseLong = SKAction.waitForDuration(0.4)
-        let pause = SKAction.waitForDuration(0.08)
-        var resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
-        var stringBack = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
-        var stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
-        
-        if self.birthdayMode {
-          fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
-          fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
-          fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "Zoe2"))
-          fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "Zoe0"))
-          resetBow = SKAction.setTexture(SKTexture(imageNamed: "Zoe2"))
-          stringBack = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
-          stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+      } else {
+          let monster = Monster(texture: self.arrowScenes[0])
+          monster.size = CGSize(width: 50.0, height: 10.0)
+          monster.name = "arrow"
+          monster.zPosition = 3
+          monster.playerPosition = CGPoint(x: self.player.position.x, y: self.player.position.y)
+          monster.leftPoint = self.leftPoint
+          
+          if self.birthdayMode {
+            monster.texture = SKTexture(imageNamed: "CupcakeDes")
+            monster.size = CGSize(width: 50.0, height: 50.0)
+          }
+          
+          monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: monster.size.width, height: monster.size.height))
+          //    monster.physicsBody = SKPhysicsBody(circleOfRadius: monster.size.width/2)
+          monster.physicsBody?.dynamic = true
+          monster.physicsBody?.categoryBitMask = PhysicsCategory.Monster.rawValue
+          monster.physicsBody?.contactTestBitMask = PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue | PhysicsCategory.Laser.rawValue
+          monster.physicsBody?.collisionBitMask = PhysicsCategory.None.rawValue
+          
+          // Add the monster to the scene
+          self.backgroundLayer.addChild(monster)
+          
+          // Determine speed of the monster
+  //        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
+          let minimum = max(Double(3 - self.levelReached/3), 0.5)
+          let maximum = minimum + 1.5
+          var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
+          if self.slowmoPurchased {
+            monster.moveDuration = actualDuration
+            actualDuration += self.slowmoSpeedModifier
+          }
+          
+  //        node.zRotation = angle
+          
+          var vector = CGVector()
+          var offset = self.player.position - node.position
+          
+    //      if ball.position != base.position {
+    //        offset = ball.position - base.position
+    //      } else {
+    //        offset = mostRecentBallPosition - mostRecentBasePosition
+    //      }
+          
+          let direction = offset.normalized()
+          let shootAmount = direction * (self.size.width + monster.size.width)
+          monster.realDest = shootAmount + node.position
+          
+          monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: node.position.y)
+          let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
+          let angle = atan2(v.dy, v.dx)
+          
+          monster.zRotation = angle
+          let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
+          
+          let actionMoveDone = SKAction.removeFromParent()
+          monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
+
+          let shortPause = SKAction.waitForDuration(0.01)
+          var fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+          var fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+          var fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
+          var fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowFired"))
+          let pauseLong = SKAction.waitForDuration(0.4)
+          let pause = SKAction.waitForDuration(0.08)
+          var resetBow = SKAction.setTexture(SKTexture(imageNamed: "CrossbowResetting"))
+          var stringBack = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack"))
+          var stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "CrossbowStringBack2"))
+          
+          if self.birthdayMode {
+            fireArrow1 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+            fireArrow2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+            fireArrow3 = SKAction.setTexture(SKTexture(imageNamed: "Zoe2"))
+            fireArrow4 = SKAction.setTexture(SKTexture(imageNamed: "Zoe0"))
+            resetBow = SKAction.setTexture(SKTexture(imageNamed: "Zoe2"))
+            stringBack = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+            stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
+          }
+          
+          node.runAction(SKAction.sequence([
+            fireArrow1, shortPause, fireArrow2, shortPause, fireArrow3, shortPause, fireArrow4, pauseLong,
+            resetBow, pause, stringBack, pause, stringBack2]))
         }
-        
-        node.runAction(SKAction.sequence([
-          fireArrow1, shortPause, fireArrow2, shortPause, fireArrow3, shortPause, fireArrow4, pauseLong,
-          resetBow, pause, stringBack, pause, stringBack2]))
       }
-    }
-//
-//    monster.zRotation = angle
-    
-//    let actionMoveDone = SKAction.removeFromParent()
-//
-//    monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
   }
   
   func upgradePurchased(upgrade: SKSpriteNode) {

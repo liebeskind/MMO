@@ -59,6 +59,8 @@
 		29500F321BA8D2DF0043893E /* laserBallVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F311BA8D2DF0043893E /* laserBallVideo.mov */; };
 		29500F341BA8D8980043893E /* laserBeamVideo.mov in Resources */ = {isa = PBXBuildFile; fileRef = 29500F331BA8D8980043893E /* laserBeamVideo.mov */; };
 		29500F381BA92F150043893E /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29500F371BA92F150043893E /* ImageViewController.swift */; };
+		29500F3A1BA9F8030043893E /* soundIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F391BA9F8030043893E /* soundIcon.png */; };
+		29500F3C1BA9F80D0043893E /* muteSoundIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F3B1BA9F80D0043893E /* muteSoundIcon.png */; };
 		296354771B727DE1003E73D0 /* playerImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354761B727DE1003E73D0 /* playerImages.atlas */; };
 		296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 296354841B729EC4003E73D0 /* fireballImages.atlas */; };
 		2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2963548A1B75BBEF003E73D0 /* flameImages.atlas */; };
@@ -168,6 +170,8 @@
 		29500F311BA8D2DF0043893E /* laserBallVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = laserBallVideo.mov; sourceTree = "<group>"; };
 		29500F331BA8D8980043893E /* laserBeamVideo.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = laserBeamVideo.mov; sourceTree = "<group>"; };
 		29500F371BA92F150043893E /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageViewController.swift; path = ../ImageViewController.swift; sourceTree = "<group>"; };
+		29500F391BA9F8030043893E /* soundIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = soundIcon.png; path = ../../../../Designs/MMO/soundIcon.png; sourceTree = "<group>"; };
+		29500F3B1BA9F80D0043893E /* muteSoundIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = muteSoundIcon.png; path = ../../../../Designs/MMO/muteSoundIcon.png; sourceTree = "<group>"; };
 		296354761B727DE1003E73D0 /* playerImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = playerImages.atlas; path = ../../../../Designs/MMO/playerImages.atlas; sourceTree = "<group>"; };
 		296354841B729EC4003E73D0 /* fireballImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = fireballImages.atlas; path = ../fireballImages.atlas; sourceTree = "<group>"; };
 		2963548A1B75BBEF003E73D0 /* flameImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = flameImages.atlas; path = ../../../../Designs/MMO/flameImages.atlas; sourceTree = "<group>"; };
@@ -274,6 +278,8 @@
 				29F6B3841B8C07920094919F /* paused-pushed.png */,
 				29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */,
 				29500F1B1BA75B1D0043893E /* windBlowing.png */,
+				29500F391BA9F8030043893E /* soundIcon.png */,
+				29500F3B1BA9F80D0043893E /* muteSoundIcon.png */,
 				29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */,
 			);
 			name = ImageAssets;
@@ -632,6 +638,7 @@
 				29F6B3861B8C07920094919F /* paused-pushed.png in Resources */,
 				29C2ADFA1B7C36E5005F74E2 /* dubstepMusic.mp3 in Resources */,
 				294381A91B84544800E332DA /* skyBackgroundImages.atlas in Resources */,
+				29500F3C1BA9F80D0043893E /* muteSoundIcon.png in Resources */,
 				29500ED01BA254090043893E /* RedDragonChooser.png in Resources */,
 				2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */,
 				29500F1C1BA75B1D0043893E /* windBlowing.png in Resources */,
@@ -654,6 +661,7 @@
 				29F6B3881B8CE5A30094919F /* GoogleService-Info.plist in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
+				29500F3A1BA9F8030043893E /* soundIcon.png in Resources */,
 				29500F101BA355750043893E /* laserBallImages.atlas in Resources */,
 				29500ECC1BA246280043893E /* FlameChooser.png in Resources */,
 				29500ED21BA254140043893E /* BlueDragonChooser.png in Resources */,

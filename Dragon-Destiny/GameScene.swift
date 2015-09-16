@@ -137,6 +137,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let totalCoinsBoard = SKLabelNode(fontNamed: "Avenir")
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
   let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
+  let monstersKilledBoard = SKLabelNode(fontNamed: "Avenir")
   
   var currentState = MoveStates.N
   
@@ -406,7 +407,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     scoreBoard.text = "Score: \(coinsCollected)"
     self.addChild(scoreBoard)
     
-    highScoreBoard.position = CGPoint(x: 5, y: scoreBoard.position.y - scoreBoard.fontSize - 5)
+    monstersKilledBoard.fontColor = UIColor.blackColor()
+    monstersKilledBoard.fontSize = scoreBoard.fontSize
+    monstersKilledBoard.position = CGPoint(x: 5, y: scoreBoard.position.y - scoreBoard.fontSize - 5)
+    monstersKilledBoard.horizontalAlignmentMode = .Left
+    monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
+    self.addChild(monstersKilledBoard)
+    
+    highScoreBoard.position = CGPoint(x: 5, y: monstersKilledBoard.position.y - scoreBoard.fontSize - 5)
     highScoreBoard.fontColor = UIColor.blackColor()
     highScoreBoard.fontSize = scoreBoard.fontSize
     highScoreBoard.horizontalAlignmentMode = .Left
@@ -662,7 +670,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // Determine speed of the monster
   //      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-        let minimum = max(Double(3 - self.levelReached/4), 0.5)
+        let minimum = max(Double(3 - self.levelReached/5), 0.5)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
         if self.slowmoPurchased {
@@ -704,7 +712,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           
           // Determine speed of the monster
   //        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
-          let minimum = max(Double(3 - self.levelReached/4), 0.5)
+          let minimum = max(Double(3 - self.levelReached/5), 0.5)
           let maximum = minimum + 1.5
           var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
           if self.slowmoPurchased {

@@ -1161,6 +1161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
     
     monstersDestroyed++
+    monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
   }
   
   func laserDidCollideWithMonster(laser:SKSpriteNode, monster:SKSpriteNode) {
@@ -1181,6 +1182,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monster.runAction(SKAction.sequence([arrowHit, removeArrow]))
     
     monstersDestroyed++
+    monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
   }
   
   func playerShotCrossbow(crossbowHit: SKSpriteNode, laser: Bool) {
@@ -1297,9 +1299,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func shieldHitByMonster(monster: SKSpriteNode) {
     monster.removeFromParent()
     monstersDestroyed++
-    println("Shield hit!")
+    monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
     shield.health -= 50
-    
     let popShield = SKAction.sequence([SKAction.scaleTo(1.2, duration: 0.1), SKAction.scaleTo(1.0, duration: 0.1)])
     
     if shield.health <= 0 {

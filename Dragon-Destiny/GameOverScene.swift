@@ -46,6 +46,7 @@ class GameOverScene: SKScene {
   var moviePlayer: MPMoviePlayerController!
   
   var totalCoins: Int?
+  var coinsPerLevelMultiplier = 15
   
   var flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
   var laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
@@ -57,7 +58,7 @@ class GameOverScene: SKScene {
   
   var muted = false
   
-  init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
+  init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, coinsPerLevelMultiplier: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
     
     super.init(size: size)
     
@@ -65,6 +66,7 @@ class GameOverScene: SKScene {
     self.dragonSelected = dragonSelected
     self.birthdayMode = birthdayMode
     self.birthdayPicture = birthdayPicture
+    self.coinsPerLevelMultiplier = coinsPerLevelMultiplier
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
     
     NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
@@ -117,7 +119,7 @@ class GameOverScene: SKScene {
     dragonDestinyLabel.position = CGPoint(x: size.width/2, y: self.size.height - 8 - dragonDestinyLabel.fontSize)
     addChild(dragonDestinyLabel)
     
-    message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(levelReached * 30))*100))%)"
+    message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(levelReached * self.coinsPerLevelMultiplier))*100))%)"
     let coinsLabel = SKLabelNode(fontNamed: "Avenir")
     coinsLabel.text = message
     coinsLabel.fontSize = 20
@@ -525,7 +527,7 @@ class GameOverScene: SKScene {
       var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonSelected)
       self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])
 
-      let scene = GameScene(size: self.size, level: 1, muted: self.muted, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+      let scene = GameScene(size: self.size, level: 1, muted: self.muted, coinsCollected: 0, monstersDestroyed: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

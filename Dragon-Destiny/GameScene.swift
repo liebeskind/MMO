@@ -193,10 +193,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
   var levelReached = 1
+  let coinsPerLevelMultiplier = 15
   
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
-  init(size: CGSize, level: Int, muted: Bool, coinsCollected: Int, shield: Shield, dragonType: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
+  init(size: CGSize, level: Int, muted: Bool, coinsCollected: Int, monstersDestroyed: Int, shield: Shield, dragonType: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
     super.init(size: size)
     self.levelReached = level
     self.coinsCollected = coinsCollected
@@ -204,6 +205,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     self.dragonSelected = dragonType
     self.birthdayMode = birthdayMode
     self.muted = muted
+    self.monstersDestroyed = monstersDestroyed
   }
   
   override func didMoveToView(view: SKView) {
@@ -245,7 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     rightPoint = self.frame.width
     movePoint = rightPoint / 1.5
 
-    self.addCoinBlock(self.levelReached * 15)
+    self.addCoinBlock(self.levelReached * self.coinsPerLevelMultiplier)
     self.addCrossbows()
     
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
@@ -268,6 +270,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     
     playerFlyingScenes = flyFrames
+    
+    SKTexture.preloadTextures(playerFlyingScenes, withCompletionHandler: { () -> Void in})
     
     let firstFrame = playerFlyingScenes[0]
     player = SKSpriteNode(texture: firstFrame)
@@ -1286,7 +1290,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, muted: self.muted, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, muted: self.muted, coinsCollected: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         self.backgroundLayer.removeAllChildren()
         self.backgroundLayer.removeFromParent()
         self.view?.presentScene(scene, transition:reveal)
@@ -1306,7 +1310,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       self.musicController.stopUpgradeMusic()
       self.musicController.playSoundEffect("PlayerDeath.wav")
       let gameOverTransition = SKAction.runBlock {
-        let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+        let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, coinsPerLevelMultiplier: self.coinsPerLevelMultiplier, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         self.view?.presentScene(gameOverScene, transition: reveal)
         self.playerDead = false

@@ -42,7 +42,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
     var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonType)
     self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])
     
-    let scene = GameScene(size: view.bounds.size, level: 1, muted: false, coinsCollected: 0, shield: Shield(), dragonType: dragonType!, birthdayMode: birthdayMode, birthdayPicture: birthimg)
+    let scene = GameScene(size: view.bounds.size, level: 1, muted: false, coinsCollected: 0, monstersDestroyed: 0, shield: Shield(), dragonType: dragonType!, birthdayMode: birthdayMode, birthdayPicture: birthimg)
     let skView = view as! SKView
     skView.ignoresSiblingOrder = true
     scene.scaleMode = .ResizeFill

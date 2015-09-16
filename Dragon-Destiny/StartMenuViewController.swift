@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 import MediaPlayer
-import CameraManager
+//import CameraManager
 
 class StartMenuViewController: UIViewController {
 
@@ -38,23 +38,23 @@ class StartMenuViewController: UIViewController {
   @IBOutlet weak var laserBallCostLabel: UILabel!
   @IBOutlet weak var laserBeamCostLabel: UILabel!
   
-  let birthdayModeContainer = UIView()
+//  let birthdayModeContainer = UIView()
   
   var moviePlayer: MPMoviePlayerController!
   
-  let cameraManager = CameraManager.sharedInstance
-  var cameraView = UIView()
-  
-  var cameraButton = UIButton()
+//  let cameraManager = CameraManager.sharedInstance
+//  var cameraView = UIView()
+//  
+//  var cameraButton = UIButton()
 //  @IBOutlet weak var flashModeButton: UIButton!
   
 //  @IBOutlet weak var askForPermissionsButton: UIButton!
 //  @IBOutlet weak var askForPermissionsLabel: UILabel!
   
-  let playerImage = UIImageView()
-  
-  var birthdayPicker = UIButton()
-  var birthdayPickerLabel = UILabel()
+//  let playerImage = UIImageView()
+//  
+//  var birthdayPicker = UIButton()
+//  var birthdayPickerLabel = UILabel()
   
   var dragonSelected = 0
   var previouslySelectedDragon: UIButton?
@@ -70,9 +70,9 @@ class StartMenuViewController: UIViewController {
   let laserBallDragonCost = 600
   let laserBeamDragonCost = 1200
   
-  override func shouldAutorotate() -> Bool {
-    return false
-  }
+//  override func shouldAutorotate() -> Bool {
+//    return false
+//  }
 //
 //  override func supportedInterfaceOrientations() -> Int {
 //    return Int(UIInterfaceOrientationMask.All.rawValue)
@@ -105,29 +105,29 @@ class StartMenuViewController: UIViewController {
     } else {
     }
     
-    self.cameraManager.showAccessPermissionPopupAutomatically = false
+//    self.cameraManager.showAccessPermissionPopupAutomatically = false
     
 //    self.askForPermissionsButton.hidden = true
 //    self.askForPermissionsLabel.hidden = true
     
-    let currentCameraState = self.cameraManager.currentCameraStatus()
-    
-    if currentCameraState == .NotDetermined {
+//    let currentCameraState = self.cameraManager.currentCameraStatus()
+//    
+//    if currentCameraState == .NotDetermined {
 //      self.askForPermissionsButton.hidden = false
 //      self.askForPermissionsLabel.hidden = false
-    } else if (currentCameraState == .Ready) {
-      self.addCameraToView()
-    }
-    if !self.cameraManager.hasFlash {
+//    } else if (currentCameraState == .Ready) {
+//      self.addCameraToView()
+//    }
+//    if !self.cameraManager.hasFlash {
 //      self.flashModeButton.enabled = false
 //      self.flashModeButton.setTitle("No flash", forState: UIControlState.Normal)
-    }
-    self.cameraView.frame = CGRect(x: 25, y: 25, width: self.view.frame.width - 50, height: self.view.frame.height - 50)
-    self.cameraButton.frame = CGRect(x: cameraView.frame.width/2 - 50, y: cameraView.frame.height-75, width: 100, height: 50)
-    self.cameraButton.setTitle("Take Picture", forState: .Normal)
-    self.cameraButton.backgroundColor = UIColor.blueColor()
-    let takePicture = UITapGestureRecognizer(target: self, action: "recordButtonTapped")
-    self.cameraButton.addGestureRecognizer(takePicture)
+//    }
+//    self.cameraView.frame = CGRect(x: 25, y: 25, width: self.view.frame.width - 50, height: self.view.frame.height - 50)
+//    self.cameraButton.frame = CGRect(x: cameraView.frame.width/2 - 50, y: cameraView.frame.height-75, width: 100, height: 50)
+//    self.cameraButton.setTitle("Take Picture", forState: .Normal)
+//    self.cameraButton.backgroundColor = UIColor.blueColor()
+//    let takePicture = UITapGestureRecognizer(target: self, action: "recordButtonTapped")
+//    self.cameraButton.addGestureRecognizer(takePicture)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -144,56 +144,56 @@ class StartMenuViewController: UIViewController {
     laserBallImage.hidden = true
     laserImage.hidden = true
     
-    birthdayPickerLabel.text = "Change Mode"
-    birthdayPickerLabel.font = UIFont(name: "MarkerFelt-Thin", size: 25)
-    birthdayPickerLabel.textColor = UIColor.blueColor()
-    birthdayPickerLabel.textAlignment = .Center
-    birthdayPickerLabel.numberOfLines = 5
-    birthdayPickerLabel.frame = CGRectMake(200, 0, self.view.frame.width, 50)
-    birthdayPicker.setTitle("", forState: .Normal)
-    birthdayPicker.setTitleColor(UIColor.redColor(), forState: .Normal)
-    birthdayPicker.frame = CGRectMake(200, 0, self.view.frame.width, 50)
-    birthdayPicker.addTarget(self, action: "birthdayPickerPressed:", forControlEvents: .TouchUpInside)
+//    birthdayPickerLabel.text = "Change Mode"
+//    birthdayPickerLabel.font = UIFont(name: "MarkerFelt-Thin", size: 25)
+//    birthdayPickerLabel.textColor = UIColor.blueColor()
+//    birthdayPickerLabel.textAlignment = .Center
+//    birthdayPickerLabel.numberOfLines = 5
+//    birthdayPickerLabel.frame = CGRectMake(200, 0, self.view.frame.width, 50)
+//    birthdayPicker.setTitle("", forState: .Normal)
+//    birthdayPicker.setTitleColor(UIColor.redColor(), forState: .Normal)
+//    birthdayPicker.frame = CGRectMake(200, 0, self.view.frame.width, 50)
+//    birthdayPicker.addTarget(self, action: "birthdayPickerPressed:", forControlEvents: .TouchUpInside)
 //    self.view.addSubview(birthdayPickerLabel)
 //    self.view.addSubview(birthdayPicker)
   }
   
-  func birthdayPickerPressed(sender: UIButton!) {
-    if birthdayMode {
-      birthdayMode = false
-      birthdayPickerLabel.text = "Change Mode"
-      dragonDestinyTitle.text = "Dragon Destiny"
-      birthdayModeContainer.removeFromSuperview()
-      playerImage.removeFromSuperview()
-    } else {
-      birthdayMode = true
-      birthdayPickerLabel.text = "Change Mode"
-      dragonDestinyTitle.text = "Birthday Destiny"
-
-      birthdayModeContainer.frame = CGRect(x: blueButton.frame.origin.x, y: blueButton.frame.origin.y, width: yellowButton.frame.origin.x + yellowButton.frame.width - blueButton.frame.origin.x, height: blueButton.frame.height)
-      birthdayModeContainer.backgroundColor = UIColor.whiteColor()
-      self.view.addSubview(birthdayModeContainer)
-
-      playerImage.frame = CGRect(x: birthdayModeContainer.frame.width/2 - 35, y: 10, width: 70, height: 70)
-      playerImage.image = UIImage(named: "ShieldActive")
-      
-      playerImage.userInteractionEnabled = true
-      let touchImage = UITapGestureRecognizer(target: self, action: "pickImage")
-      playerImage.addGestureRecognizer(touchImage)
-
-      self.birthdayModeContainer.addSubview(playerImage)
-    }
-  }
+//  func birthdayPickerPressed(sender: UIButton!) {
+//    if birthdayMode {
+//      birthdayMode = false
+//      birthdayPickerLabel.text = "Change Mode"
+//      dragonDestinyTitle.text = "Dragon Destiny"
+//      birthdayModeContainer.removeFromSuperview()
+//      playerImage.removeFromSuperview()
+//    } else {
+//      birthdayMode = true
+//      birthdayPickerLabel.text = "Change Mode"
+//      dragonDestinyTitle.text = "Birthday Destiny"
+//
+//      birthdayModeContainer.frame = CGRect(x: blueButton.frame.origin.x, y: blueButton.frame.origin.y, width: yellowButton.frame.origin.x + yellowButton.frame.width - blueButton.frame.origin.x, height: blueButton.frame.height)
+//      birthdayModeContainer.backgroundColor = UIColor.whiteColor()
+//      self.view.addSubview(birthdayModeContainer)
+//
+//      playerImage.frame = CGRect(x: birthdayModeContainer.frame.width/2 - 35, y: 10, width: 70, height: 70)
+//      playerImage.image = UIImage(named: "ShieldActive")
+//      
+//      playerImage.userInteractionEnabled = true
+//      let touchImage = UITapGestureRecognizer(target: self, action: "pickImage")
+//      playerImage.addGestureRecognizer(touchImage)
+//
+//      self.birthdayModeContainer.addSubview(playerImage)
+//    }
+//  }
   
-  func pickImage() {
-    self.view.addSubview(self.cameraView)
-    self.cameraView.addSubview(self.cameraButton)
-    cameraManager.cameraOutputMode = .StillImage
-    cameraManager.flashMode = .Off
-    cameraManager.writeFilesToPhoneLibrary = true
-    cameraManager.cameraDevice = .Front
-    cameraManager.cameraOutputQuality = .Low
-    
+//  func pickImage() {
+//    self.view.addSubview(self.cameraView)
+//    self.cameraView.addSubview(self.cameraButton)
+//    cameraManager.cameraOutputMode = .StillImage
+//    cameraManager.flashMode = .Off
+//    cameraManager.writeFilesToPhoneLibrary = true
+//    cameraManager.cameraDevice = .Front
+//    cameraManager.cameraOutputQuality = .Low
+  
 //    imagePicker.allowsEditing = false
 ////    if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
 //      imagePicker.sourceType = .Camera
@@ -207,12 +207,12 @@ class StartMenuViewController: UIViewController {
 ////      self.presentViewController(alertController, animated: true, completion: nil)
 ////    }
 //    presentViewController(imagePicker, animated: true, completion: nil)
-  }
-    
-    private func addCameraToView() {
-      self.cameraManager.addPreviewLayerToView(self.cameraView, newCameraOutputMode: CameraOutputMode.VideoWithMic)
-      CameraManager.sharedInstance.showErrorBlock = { (erTitle: String, erMessage: String) -> Void in
-        
+//  }
+  
+//    private func addCameraToView() {
+//      self.cameraManager.addPreviewLayerToView(self.cameraView, newCameraOutputMode: CameraOutputMode.VideoWithMic)
+//      CameraManager.sharedInstance.showErrorBlock = { (erTitle: String, erMessage: String) -> Void in
+  
         //            var alertController = UIAlertController(title: erTitle, message: erMessage, preferredStyle: .Alert)
         //            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: { (alertAction) -> Void in
         //                //
@@ -225,40 +225,40 @@ class StartMenuViewController: UIViewController {
         //                    //
         //                })
         //            }
-      }
-    }
+//      }
+//    }
+//  
+//  @IBAction func changeFlashMode(sender: UIButton)
+//  {
   
-  @IBAction func changeFlashMode(sender: UIButton)
-  {
     
-    
-    switch (self.cameraManager.changeFlashMode()) {
-    case .Off:
-      sender.setTitle("Flash Off", forState: UIControlState.Normal)
-    case .On:
-      sender.setTitle("Flash On", forState: UIControlState.Normal)
-    case .Auto:
-      sender.setTitle("Flash Auto", forState: UIControlState.Normal)
-    }
-  }
-  
-  func recordButtonTapped()
-  {
-    println("tapped record button")
+//    switch (self.cameraManager.changeFlashMode()) {
+//    case .Off:
+//      sender.setTitle("Flash Off", forState: UIControlState.Normal)
+//    case .On:
+//      sender.setTitle("Flash On", forState: UIControlState.Normal)
+//    case .Auto:
+//      sender.setTitle("Flash Auto", forState: UIControlState.Normal)
+//    }
+//  }
+//  
+//  func recordButtonTapped()
+//  {
+//    println("tapped record button")
 //    switch (self.cameraManager.cameraOutputMode) {
 //    case .StillImage:
-      self.cameraManager.capturePictureWithCompletition({ (image, error) -> Void in
+//      self.cameraManager.capturePictureWithCompletition({ (image, error) -> Void in
 //        let vc: ImageViewController? = self.storyboard?.instantiateViewControllerWithIdentifier("ImageVC") as? ImageViewController
 //        if let validVC: ImageViewController = vc {
 //          if let capturedImage = image {
 //            validVC.image = capturedImage
-            println("got here")
-        self.playerImage.image = image
-        self.cameraView.removeFromSuperview()
+//            println("got here")
+//        self.playerImage.image = image
+//        self.cameraView.removeFromSuperview()
 //            self.navigationController?.pushViewController(validVC, animated: true)
 //          }
 //        }
-      })
+//      })
 //    case .VideoWithMic, .VideoOnly:
 //      sender.selected = !sender.selected
 //      sender.setTitle(" ", forState: UIControlState.Selected)
@@ -273,80 +273,80 @@ class StartMenuViewController: UIViewController {
 //        })
 //      }
 //    }
-  }
+//  }
   
-  @IBAction func outputModeButtonTapped(sender: UIButton)
-  {
-    self.cameraManager.cameraOutputMode = self.cameraManager.cameraOutputMode == CameraOutputMode.VideoWithMic ? CameraOutputMode.StillImage : CameraOutputMode.VideoWithMic
-    switch (self.cameraManager.cameraOutputMode) {
-    case .StillImage:
-      self.cameraButton.selected = false
-      self.cameraButton.backgroundColor = UIColor.greenColor()
-      sender.setTitle("Image", forState: UIControlState.Normal)
-    case .VideoWithMic, .VideoOnly:
-      sender.setTitle("Video", forState: UIControlState.Normal)
-    }
-  }
-  
-  @IBAction func changeCameraDevice(sender: UIButton)
-  {
-    self.cameraManager.cameraDevice = self.cameraManager.cameraDevice == CameraDevice.Front ? CameraDevice.Back : CameraDevice.Front
-    switch (self.cameraManager.cameraDevice) {
-    case .Front:
-      sender.setTitle("Front", forState: UIControlState.Normal)
-    case .Back:
-      sender.setTitle("Back", forState: UIControlState.Normal)
-    }
-  }
-  
-  @IBAction func askForCameraPermissions(sender: UIButton)
-  {
-    self.cameraManager.askUserForCameraPermissions({ permissionGranted in
-//      self.askForPermissionsButton.hidden = true
-//      self.askForPermissionsLabel.hidden = true
-//      self.askForPermissionsButton.alpha = 0
-//      self.askForPermissionsLabel.alpha = 0
-      if permissionGranted {
-        self.addCameraToView()
-      }
-    })
-  }
-  
-  @IBAction func changeCameraQuality(sender: UIButton)
-  {
-    switch (self.cameraManager.changeQualityMode()) {
-    case .High:
-      sender.setTitle("High", forState: UIControlState.Normal)
-    case .Low:
-      sender.setTitle("Low", forState: UIControlState.Normal)
-    case .Medium:
-      sender.setTitle("Medium", forState: UIControlState.Normal)
-    }
-  }
+//  @IBAction func outputModeButtonTapped(sender: UIButton)
+//  {
+//    self.cameraManager.cameraOutputMode = self.cameraManager.cameraOutputMode == CameraOutputMode.VideoWithMic ? CameraOutputMode.StillImage : CameraOutputMode.VideoWithMic
+//    switch (self.cameraManager.cameraOutputMode) {
+//    case .StillImage:
+//      self.cameraButton.selected = false
+//      self.cameraButton.backgroundColor = UIColor.greenColor()
+//      sender.setTitle("Image", forState: UIControlState.Normal)
+//    case .VideoWithMic, .VideoOnly:
+//      sender.setTitle("Video", forState: UIControlState.Normal)
+//    }
+//  }
+//  
+//  @IBAction func changeCameraDevice(sender: UIButton)
+//  {
+//    self.cameraManager.cameraDevice = self.cameraManager.cameraDevice == CameraDevice.Front ? CameraDevice.Back : CameraDevice.Front
+//    switch (self.cameraManager.cameraDevice) {
+//    case .Front:
+//      sender.setTitle("Front", forState: UIControlState.Normal)
+//    case .Back:
+//      sender.setTitle("Back", forState: UIControlState.Normal)
+//    }
+//  }
+//  
+//  @IBAction func askForCameraPermissions(sender: UIButton)
+//  {
+//    self.cameraManager.askUserForCameraPermissions({ permissionGranted in
+////      self.askForPermissionsButton.hidden = true
+////      self.askForPermissionsLabel.hidden = true
+////      self.askForPermissionsButton.alpha = 0
+////      self.askForPermissionsLabel.alpha = 0
+//      if permissionGranted {
+//        self.addCameraToView()
+//      }
+//    })
+//  }
+//  
+//  @IBAction func changeCameraQuality(sender: UIButton)
+//  {
+//    switch (self.cameraManager.changeQualityMode()) {
+//    case .High:
+//      sender.setTitle("High", forState: UIControlState.Normal)
+//    case .Low:
+//      sender.setTitle("Low", forState: UIControlState.Normal)
+//    case .Medium:
+//      sender.setTitle("Medium", forState: UIControlState.Normal)
+//    }
+//  }
+//
+//
+//  
+//  // MARK: - UIImagePickerControllerDelegate Methods
+//  
+//  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+//    if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//      UIImageWriteToSavedPhotosAlbum(pickedImage, nil, nil, nil) //Saves image to camera roll
+//      
+//      let imageSize = CGSize(width: 100, height: 100)
+//      
+////      var imagePicked = Toucan(image: pickedImage).resize(imageSize, fitMode: Toucan.Resize.FitMode.Crop).maskWithRoundedRect(cornerRadius: 5).image
+//      
+//      playerImage.image = pickedImage
+//      playerImage.contentMode = .ScaleAspectFit
+//    }
+//    
+//    dismissViewControllerAnimated(true, completion: nil)
+//  }
+//  
+//  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+//    dismissViewControllerAnimated(true, completion: nil)
+//  }
 
-
-  
-  // MARK: - UIImagePickerControllerDelegate Methods
-  
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-    if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-      UIImageWriteToSavedPhotosAlbum(pickedImage, nil, nil, nil) //Saves image to camera roll
-      
-      let imageSize = CGSize(width: 100, height: 100)
-      
-//      var imagePicked = Toucan(image: pickedImage).resize(imageSize, fitMode: Toucan.Resize.FitMode.Crop).maskWithRoundedRect(cornerRadius: 5).image
-      
-      playerImage.image = pickedImage
-      playerImage.contentMode = .ScaleAspectFit
-    }
-    
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
-  func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-    dismissViewControllerAnimated(true, completion: nil)
-  }
-  
   @IBAction func dragonSelectionButtonPressed(sender: UIButton) {
     dragonSelected = sender.tag
     sender.highlighted = true
@@ -535,8 +535,8 @@ class StartMenuViewController: UIViewController {
     
     gameViewController.dragonType = dragonSelected
     gameViewController.birthdayMode = self.birthdayMode
-    gameViewController.birthdayImage = self.playerImage
-      
+//    gameViewController.birthdayImage = self.playerImage
+    
     self.navigationController!.pushViewController(gameViewController, animated: true)
     
 //    self.presentViewController(gameViewController, animated: false, completion: nil)

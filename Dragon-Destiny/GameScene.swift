@@ -629,7 +629,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   func addMonster() {
     
     backgroundLayer.enumerateChildNodesWithName("boss") {
-      node, stop in
+      nodeTemp, stop in
+      let node = nodeTemp as! Boss
       if self.rightPoint < self.backgroundWidth {
         // Create sprite
         let monster = Monster(texture: self.arrowScenes[0])
@@ -751,11 +752,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
             stringBack2 = SKAction.setTexture(SKTexture(imageNamed: "Zoe1"))
           }
           
+        if node.health == 100 {
           node.runAction(SKAction.sequence([
             fireArrow1, shortPause, fireArrow2, shortPause, fireArrow3, shortPause, fireArrow4, pauseLong,
             resetBow, pause, stringBack, pause, stringBack2]))
         }
       }
+    }
   }
   
   func upgradePurchased(upgrade: SKSpriteNode) {

@@ -233,9 +233,15 @@ class GameOverScene: SKScene {
     laserBeamCostLabel.fontSize = 10
     lockLaserBeam.addChild(laserBeamCostLabel)
     
-    totalCoinsLabel.position = CGPoint(x: 10, y: 10)
+    if let coinsUnwrapped = self.totalCoins {
+      totalCoinsLabel.text = "Total Coins: \(coinsUnwrapped)"
+    } else {
+      totalCoinsLabel.text = "No Coins Yet"
+    }
+    
+
     totalCoinsLabel.fontSize = 12
-    totalCoinsLabel.text = "Total Coins: \(self.totalCoins)"
+    totalCoinsLabel.position = CGPoint(x: totalCoinsLabel.frame.width/2 + 10, y: self.size.height - 20)
     totalCoinsLabel.fontColor = UIColor.blackColor()
     self.addChild(totalCoinsLabel)
     

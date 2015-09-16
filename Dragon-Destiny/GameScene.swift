@@ -825,6 +825,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 1.0))
       
+      var shieldPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "shield", label: "shieldPurchased", value: shieldUpgradeCost)
+      tracker.send(shieldPurchasedEvent.build() as [NSObject: AnyObject])
+      
     case purchaseSlowmo:
       if totalCoins < slowmoUpgradeCost {return}
       if slowmoPurchased == true {return}
@@ -1053,7 +1056,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func attackButtonPushed() {
     if dragonSelected == 1 || dragonSelected == 0 {
-      println("Shot fireball")
       let projectile = SKSpriteNode(texture: firstFireballFrame)
       
       let projectilePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)

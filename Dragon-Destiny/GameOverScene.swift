@@ -12,6 +12,8 @@ import MediaPlayer
 
 class GameOverScene: SKScene {
   
+  var tracker = GAI.sharedInstance().defaultTracker
+  
   let restartButton = SKSpriteNode(imageNamed: "RestartButton")
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
@@ -92,11 +94,17 @@ class GameOverScene: SKScene {
     var builder = GAIDictionaryBuilder.createScreenView()
     tracker.send(builder.build() as [NSObject : AnyObject])
     
-    var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("coinsCollectedAtDeath", action: "Collected", label: "Coins", value: score)
+    var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Coins", value: score)
     tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+    
+    var monstDestroyed = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Destroyed", label: "Monsters", value: monstersDestroyed)
+    tracker.send(monstDestroyed.build() as [NSObject: AnyObject])
+    
+    var levelReach = GAIDictionaryBuilder.createEventWithCategory("tDeath", action: "LevelReached", label: "Level", value: levelReached)
+    tracker.send(levelReach.build() as [NSObject: AnyObject])
 
     if score > 50 {
-      var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("coinsCollectedAtDeath", action: "Collected", label: "Over50Coins", value: score)
+      var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Over50Coins", value: score)
       tracker.send(coinsCollected.build() as [NSObject: AnyObject])
     }
     
@@ -254,21 +262,18 @@ class GameOverScene: SKScene {
     flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
     
     if flameDragonPurchased == true {
-      println("flame dragon purchased")
       lockFlame.hidden = true
       flameCostLabel.hidden = true
     } else {
     }
     
     if laserBallDragonPurchased == true {
-      println("laser ball dragon purchased")
       lockLaserBall.hidden = true
       laserBallCostLabel.hidden = true
     } else {
     }
     
     if laserBeamDragonPurchased == true {
-      println("laser beam dragon purchased")
       lockLaserBeam.hidden = true
       laserBeamCostLabel.hidden = true
     } else {
@@ -341,6 +346,9 @@ class GameOverScene: SKScene {
                   
                   self.view?.addSubview(player.view)
                   
+                  var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost)
+                  self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                  
                   NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
                 }
               }))
@@ -396,6 +404,9 @@ class GameOverScene: SKScene {
                   player.play()
                   
                   self.view?.addSubview(player.view)
+                  
+                  var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "laserBallDragonPurchased", value: self.laserBallDragonCost)
+                  self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
                   
                   NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
                 }
@@ -453,6 +464,9 @@ class GameOverScene: SKScene {
                   
                   self.view?.addSubview(player.view)
                   
+                  var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
+                  self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                  
                   NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
                 }
               }))
@@ -507,6 +521,10 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+
+      var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonSelected)
+      self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])
+
       let scene = GameScene(size: self.size, level: 1, muted: self.muted, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
       self.view?.presentScene(scene, transition:reveal)
     }

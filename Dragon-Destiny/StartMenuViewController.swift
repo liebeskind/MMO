@@ -38,6 +38,8 @@ class StartMenuViewController: UIViewController {
   @IBOutlet weak var laserBallCostLabel: UILabel!
   @IBOutlet weak var laserBeamCostLabel: UILabel!
   
+  var tracker = GAI.sharedInstance().defaultTracker
+  
 //  let birthdayModeContainer = UIView()
   
   var moviePlayer: MPMoviePlayerController!
@@ -397,6 +399,9 @@ class StartMenuViewController: UIViewController {
                 
                 self.view.addSubview(player.view)
                 
+                var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost)
+                self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
             }))
@@ -447,6 +452,9 @@ class StartMenuViewController: UIViewController {
                 player.play()
                 
                 self.view.addSubview(player.view)
+                
+                var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBallDragonPurchased", value: self.laserBallDragonCost)
+                self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
@@ -499,6 +507,9 @@ class StartMenuViewController: UIViewController {
                 player.play()
                 
                 self.view.addSubview(player.view)
+                
+                var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
+                self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }

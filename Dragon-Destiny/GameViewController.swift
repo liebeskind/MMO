@@ -16,6 +16,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
   var dragonType: Int?
   var birthdayMode: Bool!
   var birthdayImage = UIImageView()
+  var tracker = GAI.sharedInstance().defaultTracker
   
   var interstitial:GADInterstitial?
 //  var interstitialAd:ADInterstitialAd! = nil
@@ -37,6 +38,9 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
     if let image = birthdayImage.image {
       birthimg = image
     }
+    
+    var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonType)
+    self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])
     
     let scene = GameScene(size: view.bounds.size, level: 1, muted: false, coinsCollected: 0, shield: Shield(), dragonType: dragonType!, birthdayMode: birthdayMode, birthdayPicture: birthimg)
     let skView = view as! SKView

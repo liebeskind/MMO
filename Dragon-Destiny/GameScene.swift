@@ -526,11 +526,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     switch (levelReached + 2) % 3  {
     case 0:
-      background1.texture = SKTexture(imageNamed: "sky")
-      background2.texture = SKTexture(imageNamed: "sky2")
+      background1.texture = SKTexture(imageNamed: "skyPurple")
+      background2.texture = SKTexture(imageNamed: "skyPurple")
     case 1:
-      background1.texture = SKTexture(imageNamed: "skyNight")
-      background2.texture = SKTexture(imageNamed: "skyNight2")
+      background1.texture = SKTexture(imageNamed: "skyBlueSecond")
+      background2.texture = SKTexture(imageNamed: "skyBlueSecond")
     case 2:
       background1.texture = SKTexture(imageNamed: "skyGrass")
       background2.texture = SKTexture(imageNamed: "skyGrass2")
@@ -1238,12 +1238,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func playerShotCrossbow(crossbowHit: SKSpriteNode, laser: Bool) {
     if let boss = crossbowHit as? Boss {
+      boss.health -= 50
+      
       if laser {
         boss.health = 0
-      } else {
-        boss.health -= 50
       }
-      
       
       if boss.health > 0 {
         crossbowHit.texture = SKTexture(imageNamed: "CrossbowBroken1")

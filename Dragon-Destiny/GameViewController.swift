@@ -38,7 +38,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
       birthimg = image
     }
     
-    let scene = GameScene(size: view.bounds.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: dragonType!, birthdayMode: birthdayMode, birthdayPicture: birthimg)
+    let scene = GameScene(size: view.bounds.size, level: 1, muted: false, coinsCollected: 0, shield: Shield(), dragonType: dragonType!, birthdayMode: birthdayMode, birthdayPicture: birthimg)
     let skView = view as! SKView
     skView.ignoresSiblingOrder = true
     scene.scaleMode = .ResizeFill

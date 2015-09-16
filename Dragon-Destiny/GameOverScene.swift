@@ -53,10 +53,13 @@ class GameOverScene: SKScene {
   let laserBallDragonCost = 600
   let laserBeamDragonCost = 1200
   
-  init(size: CGSize, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
+  var muted = false
+  
+  init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
     
     super.init(size: size)
     
+    self.muted = muted
     self.dragonSelected = dragonSelected
     self.birthdayMode = birthdayMode
     self.birthdayPicture = birthdayPicture
@@ -504,7 +507,7 @@ class GameOverScene: SKScene {
     let scaleBack = SKAction.scaleTo(1.0, duration: 0.2)
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-      let scene = GameScene(size: self.size, level: 1, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+      let scene = GameScene(size: self.size, level: 1, muted: self.muted, coinsCollected: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
       self.view?.presentScene(scene, transition:reveal)
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))

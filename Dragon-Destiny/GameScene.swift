@@ -180,13 +180,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let shieldDestroyedSoundEffect = SKAction.playSoundFileNamed("ShieldDestroyed.wav", atVolume: 0.5, waitForCompletion: false)
   
   let navigationBox = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: 200.0, height: 150.0))
-
-//  var projectile = SKSpriteNode()
   
   var dt: NSTimeInterval = 0
   
   var pausedButton = SKSpriteNode(imageNamed: "pause-button")
   let pausedLabel = SKLabelNode(text: "Paused")
+  
+  let muteButton = SKSpriteNode(imageNamed: "soundIcon")
+  var muted = false
   
   var tracker = GAI.sharedInstance().defaultTracker
   
@@ -195,13 +196,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
-  init(size: CGSize, level: Int, coinsCollected: Int, shield: Shield, dragonType: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
+  init(size: CGSize, level: Int, muted: Bool, coinsCollected: Int, shield: Shield, dragonType: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
     super.init(size: size)
     self.levelReached = level
     self.coinsCollected = coinsCollected
     self.shield = shield
     self.dragonSelected = dragonType
     self.birthdayMode = birthdayMode
+    self.muted = muted
   }
   
   override func didMoveToView(view: SKView) {
@@ -231,10 +233,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundLayer.zPosition = -1
     addChild(backgroundLayer)
     
-    
-    if birthdayMode { musicController.playBackgroundMusic("BeautifulBirthday.mp3") }
-    else { musicController.playBackgroundMusic("epicMusic.mp3") }
-  
     for i in 0...self.levelReached {
       totalBackgrounds = i
       let background = backgroundNode()
@@ -399,6 +397,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     pausedLabel.fontColor = UIColor.orangeColor()
     pausedLabel.fontName = "Chalkduster"
     pausedLabel.fontSize = 90
+    
+    muteButton.size = CGSize(width: 45.0, height: 45.0)
+    muteButton.position = CGPoint(x: size.width - muteButton.size.width/2 - pausedButton.size.width, y: size.height - muteButton.size.height/2)
+    muteButton.zPosition = 2
+    muteButton.alpha = 0.9
+    self.addChild(muteButton)
+    
+    if muted {
+      muteButton.texture = SKTexture(imageNamed: "muteSoundIcon")
+      muted = true
+      musicController.muteAllSound()
+      musicController.pauseBackgroundMusic()
+    } else if birthdayMode {
+      musicController.playBackgroundMusic("BeautifulBirthday.mp3")
+    } else {
+      musicController.playBackgroundMusic("epicMusic.mp3")
+    }
     
     scoreBoard.fontColor = UIColor.blackColor()
     scoreBoard.fontSize = 15
@@ -933,6 +948,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         upgradePurchased(purchaseSlowmo)
       } else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
         pausedButtonPushed()
+      } else if (CGRectContainsPoint(muteButton.frame, touchLocation)) && playerDead == false {
+        muteButtonPushed()
       } else if (CGRectContainsPoint(base.frame, touchLocation)) && playerDead == false {
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position
@@ -1014,6 +1031,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
   }
   
+  func muteButtonPushed() {
+    if !muted {
+      muteButton.texture = SKTexture(imageNamed: "muteSoundIcon")
+      muted = true
+      musicController.muteAllSound()
+      musicController.pauseBackgroundMusic()
+      if let upgradeMusic = musicController.upgradeMusicPlayer {
+        upgradeMusic.volume = Float(0.0)
+      }
+    } else if muted {
+      muteButton.texture = SKTexture(imageNamed: "soundIcon")
+      muted = false
+      musicController.unMuteAllSound()
+      if !slowmoPurchased { musicController.resumeBackgroundMusic() }
+      if let upgradeMusic = musicController.upgradeMusicPlayer {
+        upgradeMusic.volume = musicController.upgradeVolume
+      }
+    }
+  }
+  
   func attackButtonPushed() {
     if dragonSelected == 1 || dragonSelected == 0 {
       println("Shot fireball")
@@ -1045,7 +1082,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       let actionMove = SKAction.moveTo(realDest, duration: 0.4)
       let actionMoveDone = SKAction.removeFromParent()
-     
+      
       let shootFireball = SKAction.animateWithTextures(fireballScenes, timePerFrame: 0.05)
       let shrink = SKAction.scaleTo(0.0, duration: 0.6)
       var shootFireballGroup = SKAction.group([fireballSoundEffect, shootFireball, shrink])
@@ -1053,6 +1090,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       if birthdayMode {
         shootFireballGroup = SKAction.group([fireballSoundEffect, shrink])
         projectile.texture = SKTexture(imageNamed: "windBlowing")
+      }
+      
+      if muted {
+        shootFireballGroup = SKAction.group([shootFireball, shrink])
       }
 
       projectile.runAction(shootFireballGroup)
@@ -1113,7 +1154,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       let shootLaserBall = SKAction.animateWithTextures(laserBallScenes, timePerFrame: 0.05)
 //      let shrink = SKAction.scaleTo(0.2, duration: 2.0)
-      let shootLaserBallGroup = SKAction.group([shootLaserBall, laserBallSoundEffect])
+      var shootLaserBallGroup = SKAction.group([shootLaserBall, laserBallSoundEffect])
+      
+      if muted {
+        shootLaserBallGroup = shootLaserBall
+      }
       
       projectile.runAction(shootLaserBallGroup)
       projectile.runAction(SKAction.sequence([actionMove, actionMoveDone]))
@@ -1239,7 +1284,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.musicController.stopBackgroundMusic()
         self.musicController.stopUpgradeMusic()
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+        let scene = GameScene(size: self.size, level: self.levelReached+1, muted: self.muted, coinsCollected: self.coinsCollected, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         self.backgroundLayer.removeAllChildren()
         self.backgroundLayer.removeFromParent()
         self.view?.presentScene(scene, transition:reveal)
@@ -1257,9 +1302,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       self.musicController.stopBackgroundMusic()
       self.musicController.stopUpgradeMusic()
-      self.musicController.playSoundEffect("PlayerDeath.wav", atVolume: 0.5)
+      self.musicController.playSoundEffect("PlayerDeath.wav")
       let gameOverTransition = SKAction.runBlock {
-        let gameOverScene = GameOverScene(size: self.size, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+        let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
         self.view?.presentScene(gameOverScene, transition: reveal)
         self.playerDead = false

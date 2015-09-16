@@ -13,6 +13,22 @@ class MusicController: UIViewController {
   var soundEffectPlayer: AVAudioPlayer!
   var upgradeMusicPlayer: AVAudioPlayer!
 
+  var backgroundVolume = Float(0.8)
+  var upgradeVolume = Float(0.9)
+  var soundEffectVolume = Float(0.5)
+
+  func muteAllSound() {
+    self.backgroundVolume = Float(0.0)
+    self.upgradeVolume = Float(0.0)
+    self.soundEffectVolume = Float(0.0)
+  }
+  
+  func unMuteAllSound() {
+    self.backgroundVolume = Float(0.8)
+    self.upgradeVolume = Float(0.9)
+    self.soundEffectVolume = Float(0.5)
+  }
+  
   func playBackgroundMusic(filename: String) {
     let url = NSBundle.mainBundle().URLForResource(
       filename, withExtension: nil)
@@ -36,23 +52,31 @@ class MusicController: UIViewController {
   }
 
   @objc func pauseBackgroundMusic() {
-    if backgroundMusicPlayer.volume > 0 {
-      backgroundMusicPlayer.volume -= 0.05
-//      self.performSelector("reduceBackgroundMusicVolume", withObject: nil, afterDelay: 0.1)
-      NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("pauseBackgroundMusic"), userInfo: nil, repeats: false)
-      
-    } else {
-      backgroundMusicPlayer.pause()
+    if backgroundMusicPlayer != nil {
+      if backgroundMusicPlayer.volume > 0 {
+        backgroundMusicPlayer.volume -= 0.05
+  //      self.performSelector("reduceBackgroundMusicVolume", withObject: nil, afterDelay: 0.1)
+        NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("pauseBackgroundMusic"), userInfo: nil, repeats: false)
+        
+      } else {
+        backgroundMusicPlayer.pause()
+      }
     }
   }
 
   func stopBackgroundMusic() {
-    backgroundMusicPlayer.pause()
+    if backgroundMusicPlayer != nil {
+      backgroundMusicPlayer.pause()
+    }
   }
 
   func resumeBackgroundMusic() {
-    backgroundMusicPlayer.volume = 0.8
-    backgroundMusicPlayer.play()
+    if backgroundMusicPlayer == nil {
+      playBackgroundMusic("epicMusic.mp3")
+    } else {
+      backgroundMusicPlayer.volume = self.backgroundVolume
+      backgroundMusicPlayer.play()
+    }
   }
 
   func playUpgradeMusic(filename: String) {
@@ -71,7 +95,7 @@ class MusicController: UIViewController {
       return
     }
     
-    upgradeMusicPlayer.volume = 0.9
+    upgradeMusicPlayer.volume = self.upgradeVolume
     upgradeMusicPlayer.numberOfLoops = 0
     upgradeMusicPlayer.prepareToPlay()
     upgradeMusicPlayer.play()
@@ -83,7 +107,7 @@ class MusicController: UIViewController {
     }
   }
 
-  func playSoundEffect(filename: String, atVolume: Float) {
+  func playSoundEffect(filename: String) {
     let url = NSBundle.mainBundle().URLForResource(
       filename, withExtension: nil)
     if (url == nil) {
@@ -99,7 +123,7 @@ class MusicController: UIViewController {
       return
     }
     
-    soundEffectPlayer.volume = atVolume
+    soundEffectPlayer.volume = self.soundEffectVolume
     soundEffectPlayer.numberOfLoops = 0
     soundEffectPlayer.prepareToPlay()
     soundEffectPlayer.play()

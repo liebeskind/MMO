@@ -155,9 +155,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var mostRecentBallPosition = CGPoint() // Used for aiming attack when not moving
   var mostRecentBasePosition = CGPoint() // Used for aiming attack when not moving
   
-  var purchaseFlame = SKSpriteNode(imageNamed: "FlameUpgradeButton")
-  let flameUpgradeCost = 20
-  var flamePurchased = false
+//  var purchaseFlame = SKSpriteNode(imageNamed: "FlameUpgradeButton")
+//  let flameUpgradeCost = 20
+//  var flamePurchased = false
   var flame = SKSpriteNode()
   var flameScenes: [SKTexture]!
   var flameStartScenes: [SKTexture]!
@@ -173,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let slowmoDuration = 10.0
   
   var purchaseShield = SKSpriteNode(imageNamed: "ShieldUpgradeButton")
-  let shieldUpgradeCost = 50
+  let shieldUpgradeCost = 25
   var shield = Shield()
   let shieldHitSoundEffect = SKAction.playSoundFileNamed("ShieldHit.wav", atVolume: 0.5, waitForCompletion: false)
   let shieldDestroyedSoundEffect = SKAction.playSoundFileNamed("ShieldDestroyed.wav", atVolume: 0.5, waitForCompletion: false)
@@ -246,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     rightPoint = self.frame.width
     movePoint = rightPoint / 1.5
 
-    self.addCoinBlock(self.levelReached * 30)
+    self.addCoinBlock(self.levelReached * 15)
     self.addCrossbows()
     
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
@@ -348,7 +348,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       flameStartScenes = flameStartFrames
     }
     
-    if dragonSelected == 2 {
+    if dragonSelected == 2 || dragonSelected == 3 {
       let laserBallAnimatedAtlas = SKTextureAtlas(named: "laserBallImages")
       var laserBallFrames = [SKTexture]()
       
@@ -386,15 +386,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       laserScenes = laserFrames
     }
     
-//
-//    addMonster()
-//    addCoins()
-    
     self.addMonsterBlock(1.0)
-    
-//    runAction(SKAction.repeatAction(
-//      SKAction.runBlock(addCoin), count: 10)
-//    )
     
     pausedButton.size = CGSize(width: 51.0, height: 51.0)
     pausedButton.position = CGPoint(x: size.width - pausedButton.size.width/2, y: size.height - pausedButton.size.height/2)
@@ -472,11 +464,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     } else {
       backgroundLayer.addChild(shield)
     }
-    
-    purchaseFlame.size = CGSize(width: 100.0, height: 26.0)
-    purchaseFlame.position = CGPoint(x: size.width - 100, y: size.height-80)
-//    self.addChild(purchaseFlame)
-    
   }
   
   func random() -> CGFloat {
@@ -616,7 +603,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func addCrossbows() {
     for i in 1...self.levelReached {
-      if i%2 != 0 { //Only adds a new crossbow every other level, starting with level 1
+      if i%2 != 0 { //Only adds a new crossbow every 3rd level, starting with level 1
         let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
         if birthdayMode { crossbowEnemy.texture = SKTexture(imageNamed: "Zoe0")}
         crossbowEnemy.name = "boss"
@@ -675,7 +662,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // Determine speed of the monster
   //      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-        let minimum = max(Double(3 - self.levelReached/3), 0.5)
+        let minimum = max(Double(3 - self.levelReached/4), 0.5)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
         if self.slowmoPurchased {
@@ -717,7 +704,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           
           // Determine speed of the monster
   //        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
-          let minimum = max(Double(3 - self.levelReached/3), 0.5)
+          let minimum = max(Double(3 - self.levelReached/4), 0.5)
           let maximum = minimum + 1.5
           var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
           if self.slowmoPurchased {
@@ -782,14 +769,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func upgradePurchased(upgrade: SKSpriteNode) {
     switch upgrade {
-    case purchaseFlame:
-      if totalCoins < flameUpgradeCost {return}
-      if flamePurchased == true {return}
-      totalCoins -= flameUpgradeCost
-      totalCoinsBoard.text = "Total Coins: \(totalCoins)"
-      let shrink = SKAction.scaleTo(0, duration: 0.6)
-      purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
-      flamePurchased = true
+//    case purchaseFlame:
+//      if totalCoins < flameUpgradeCost {return}
+//      if flamePurchased == true {return}
+//      totalCoins -= flameUpgradeCost
+//      totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+//      let shrink = SKAction.scaleTo(0, duration: 0.6)
+//      purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
+//      flamePurchased = true
     case purchaseShield:
       if totalCoins < shieldUpgradeCost {return}
       if shield.purchased == true {return}
@@ -930,8 +917,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
       if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead == false {
         attackButtonPushed()
-      } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) && playerDead == false {
-        upgradePurchased(purchaseFlame)
+//      } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) && playerDead == false {
+//        upgradePurchased(purchaseFlame)
       } else if (CGRectContainsPoint(purchaseShield.frame, touchLocation)) && playerDead == false {
         upgradePurchased(purchaseShield)
       } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead == false {

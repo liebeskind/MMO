@@ -544,7 +544,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       background1.texture = SKTexture(imageNamed: "sky")
       background2.texture = SKTexture(imageNamed: "sky2")
     case 1:
-      labelColors = UIColor.redColor()
+      labelColors = UIColor.whiteColor()
       background1.texture = SKTexture(imageNamed: "sharkAttack1")
       background2.texture = SKTexture(imageNamed: "sharkAttack2")
     case 2:
@@ -560,7 +560,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       background1.texture = SKTexture(imageNamed: "darkClouds1")
       background2.texture = SKTexture(imageNamed: "darkClouds2")
     case 5:
-      labelColors = UIColor.redColor()
+      labelColors = UIColor.whiteColor()
       background1.texture = SKTexture(imageNamed: "oceanNasa2")
       background2.texture = SKTexture(imageNamed: "oceanNasa1")
     case 6:
@@ -714,7 +714,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func addMonster() {
-    
     backgroundLayer.enumerateChildNodesWithName("boss") {
       nodeTemp, stop in
       let node = nodeTemp as! Boss

@@ -119,7 +119,12 @@ class GameOverScene: SKScene {
     dragonDestinyLabel.position = CGPoint(x: size.width/2, y: self.size.height - 8 - dragonDestinyLabel.fontSize)
     addChild(dragonDestinyLabel)
     
-    message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(levelReached * self.coinsPerLevelMultiplier))*100))%)"
+    var totalCoins = 0
+    for i in 0...levelReached {
+      totalCoins += i * self.coinsPerLevelMultiplier
+    }
+    
+    message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%)"
     let coinsLabel = SKLabelNode(fontNamed: "Avenir")
     coinsLabel.text = message
     coinsLabel.fontSize = 20

@@ -232,24 +232,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     navigationBox.size = CGSize(width: frame.size.width, height: baseSize)
     addChild(navigationBox)
     
-    backgroundLayer.zPosition = -1
-    addChild(backgroundLayer)
-    
-    for i in 0...self.levelReached {
-      totalBackgrounds = i
-      let background = backgroundNode()
-      background.anchorPoint = CGPointZero
-      background.position = CGPoint(x: CGFloat(i)*background.size.width, y: 0)
-      background.name = "background"
-      backgroundLayer.addChild(background)
-    }
-    
-    rightPoint = self.frame.width
-    movePoint = rightPoint / 1.5
-
-    self.addCoinBlock(self.levelReached * self.coinsPerLevelMultiplier)
-    self.addCrossbows()
-    
     let playerAnimatedAtlas = SKTextureAtlas(named: "playerImages")
     var flyFrames = [SKTexture]()
     
@@ -391,7 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     self.addMonsterBlock(1.0)
     
-    pausedButton.size = CGSize(width: 51.0, height: 51.0)
+    pausedButton.size = CGSize(width: 40.0, height: 40.0)
     pausedButton.position = CGPoint(x: size.width - pausedButton.size.width/2, y: size.height - pausedButton.size.height/2)
     pausedButton.zPosition = 2
     pausedButton.alpha = 0.9
@@ -402,7 +384,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     pausedLabel.fontName = "Chalkduster"
     pausedLabel.fontSize = 90
     
-    muteButton.size = CGSize(width: 45.0, height: 45.0)
+    muteButton.size = CGSize(width: 35.0, height: 35.0)
     muteButton.position = CGPoint(x: size.width - muteButton.size.width/2 - pausedButton.size.width, y: size.height - muteButton.size.height/2)
     muteButton.zPosition = 2
     muteButton.alpha = 0.9
@@ -419,24 +401,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       musicController.playBackgroundMusic("epicMusic.mp3")
     }
     
+    levelLabel.text = "Level \(levelReached)"
+    levelLabel.fontSize = 30
+    levelLabel.position = CGPoint(x: size.width/2, y: size.height - levelLabel.fontSize)
+    levelLabel.fontColor = UIColor.blackColor()
+    levelLabel.zPosition = 2
+    self.addChild(levelLabel)
+    
     scoreBoard.fontColor = UIColor.blackColor()
-    scoreBoard.fontSize = 15
-    scoreBoard.position = CGPoint(x: 5, y: size.height - scoreBoard.fontSize - 5)
+    scoreBoard.fontSize = 12
+    scoreBoard.position = CGPoint(x: 15, y: size.height - scoreBoard.fontSize - 5)
     scoreBoard.horizontalAlignmentMode = .Left
     scoreBoard.text = "Score: \(coinsCollected)"
+    scoreBoard.zPosition = 2
     self.addChild(scoreBoard)
     
     monstersKilledBoard.fontColor = UIColor.blackColor()
     monstersKilledBoard.fontSize = scoreBoard.fontSize
-    monstersKilledBoard.position = CGPoint(x: 5, y: scoreBoard.position.y - scoreBoard.fontSize - 5)
+    monstersKilledBoard.position = CGPoint(x: 15, y: scoreBoard.position.y - scoreBoard.fontSize - 5)
     monstersKilledBoard.horizontalAlignmentMode = .Left
     monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
+    monstersKilledBoard.zPosition = 2
     self.addChild(monstersKilledBoard)
     
-    highScoreBoard.position = CGPoint(x: 5, y: monstersKilledBoard.position.y - scoreBoard.fontSize - 5)
+    highScoreBoard.position = CGPoint(x: 15, y: monstersKilledBoard.position.y - scoreBoard.fontSize - 5)
     highScoreBoard.fontColor = UIColor.blackColor()
     highScoreBoard.fontSize = scoreBoard.fontSize
     highScoreBoard.horizontalAlignmentMode = .Left
+    highScoreBoard.zPosition = 2
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
       highScoreBoard.text = "High Score: \(savedScore)"
     } else {
@@ -444,18 +436,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     self.addChild(highScoreBoard)
     
-    totalCoinsBoard.position = CGPoint(x: 5, y: highScoreBoard.position.y - highScoreBoard.fontSize - 5)
+    totalCoinsBoard.position = CGPoint(x: 15, y: highScoreBoard.position.y - highScoreBoard.fontSize - 5)
     totalCoinsBoard.fontColor = UIColor.blackColor()
     totalCoinsBoard.fontSize = scoreBoard.fontSize
     totalCoinsBoard.horizontalAlignmentMode = .Left
     totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+    totalCoinsBoard.zPosition = 2
     self.addChild(totalCoinsBoard)
     
-    levelLabel.text = "Level \(levelReached)"
-    levelLabel.fontSize = 30
-    levelLabel.position = CGPoint(x: size.width/2, y: size.height-levelLabel.fontSize)
-    levelLabel.fontColor = UIColor.blackColor()
-    self.addChild(levelLabel)
+    let scoreBoardBackground = SKShapeNode(rect: CGRect(x: 5, y: totalCoinsBoard.position.y - 5, width: monstersKilledBoard.frame.width + 25, height: size.height - totalCoinsBoard.position.y + 1), cornerRadius: 15.0)
+    scoreBoardBackground.fillColor = UIColor.lightGrayColor()
+//    scoreBoardBackground.fillTexture = SKTexture(imageNamed: "grayTexture")
+    scoreBoardBackground.zPosition = 1
+    scoreBoardBackground.alpha = 0.5
+//    self.addChild(scoreBoardBackground)
+    
+    backgroundLayer.zPosition = -1
+    addChild(backgroundLayer)
+    
+    for i in 0...self.levelReached {
+      totalBackgrounds = i
+      let background = backgroundNode()
+      background.anchorPoint = CGPointZero
+      background.position = CGPoint(x: CGFloat(i)*background.size.width, y: 0)
+      background.name = "background"
+      backgroundLayer.addChild(background)
+    }
+    
+    rightPoint = self.frame.width
+    movePoint = rightPoint / 1.5
+    
+    self.addCoinBlock(self.levelReached * self.coinsPerLevelMultiplier)
+    self.addCrossbows()
     
     addChild(base)
     base.position = CGPointMake(10.0 + baseSize/2, baseSize/2)
@@ -524,20 +536,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     background2.zPosition = -1
     backgroundNode.addChild(background2)
     
-    switch (levelReached + 2) % 3  {
+    var labelColors = UIColor.blackColor()
+    
+    switch (levelReached + 9) % 10  {
     case 0:
-      background1.texture = SKTexture(imageNamed: "skyPurple")
-      background2.texture = SKTexture(imageNamed: "skyPurple")
+      labelColors = UIColor.blackColor()
+      background1.texture = SKTexture(imageNamed: "sky")
+      background2.texture = SKTexture(imageNamed: "sky2")
     case 1:
-      background1.texture = SKTexture(imageNamed: "skyBlueSecond")
-      background2.texture = SKTexture(imageNamed: "skyBlueSecond")
+      labelColors = UIColor.blackColor()
+      background1.texture = SKTexture(imageNamed: "sharkAttack1")
+      background2.texture = SKTexture(imageNamed: "sharkAttack2")
     case 2:
-      background1.texture = SKTexture(imageNamed: "skyGrass")
-      background2.texture = SKTexture(imageNamed: "skyGrass2")
+      labelColors = UIColor.yellowColor()
+      background1.texture = SKTexture(imageNamed: "desertNasa1")
+      background2.texture = SKTexture(imageNamed: "desertNasa2")
+    case 3:
+      labelColors = UIColor.yellowColor()
+      background1.texture = SKTexture(imageNamed: "threeGorges1")
+      background2.texture = SKTexture(imageNamed: "threeGorges2")
+    case 4:
+      labelColors = UIColor.whiteColor()
+      background1.texture = SKTexture(imageNamed: "darkClouds1")
+      background2.texture = SKTexture(imageNamed: "darkClouds2")
+    case 5:
+      labelColors = UIColor.redColor()
+      background1.texture = SKTexture(imageNamed: "oceanNasa2")
+      background2.texture = SKTexture(imageNamed: "oceanNasa1")
+    case 6:
+      labelColors = UIColor.yellowColor()
+      background1.texture = SKTexture(imageNamed: "algerianDesert1")
+      background2.texture = SKTexture(imageNamed: "algerianDesert2")
+    case 7:
+      labelColors = UIColor.whiteColor()
+      background1.texture = SKTexture(imageNamed: "oceanBackground1")
+      background2.texture = SKTexture(imageNamed: "oceanBackground2")
+    case 8:
+      labelColors = UIColor.blackColor()
+      background1.texture = SKTexture(imageNamed: "sheepField1")
+      background2.texture = SKTexture(imageNamed: "sheepField2")
+    case 9:
+      labelColors = UIColor.yellowColor()
+      background1.texture = SKTexture(imageNamed: "europa1")
+      background2.texture = SKTexture(imageNamed: "europa2")
     default:
+      labelColors = UIColor.blackColor()
       background1.texture = SKTexture(imageNamed: "sky")
       background2.texture = SKTexture(imageNamed: "sky2")
     }
+    
+    levelLabel.fontColor = labelColors
+    scoreBoard.fontColor = labelColors
+    highScoreBoard.fontColor = labelColors
+    monstersKilledBoard.fontColor = labelColors
+    totalCoinsBoard.fontColor = labelColors
   
     backgroundNode.size = CGSize(
       width: background1.size.width + background2.size.width,
@@ -664,7 +716,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     backgroundLayer.enumerateChildNodesWithName("boss") {
       nodeTemp, stop in
       let node = nodeTemp as! Boss
-      if self.rightPoint < self.backgroundWidth {
+      if self.rightPoint < self.backgroundWidth && node.health > 0 {
         // Create sprite
         let monster = Monster(texture: self.arrowScenes[0])
         monster.size = CGSize(width: 50.0, height: 10.0)
@@ -689,7 +741,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         
         // Determine speed of the monster
   //      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-        let minimum = max(Double(3 - self.levelReached/5), 0.5)
+        let minimum = max(Double(3 - self.levelReached/6), 0.5)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
         if self.slowmoPurchased {
@@ -706,7 +758,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         let actionMoveDone = SKAction.removeFromParent()
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")
 
-      } else {
+      } else if node.health > 0 {
           let monster = Monster(texture: self.arrowScenes[0])
           monster.size = CGSize(width: 50.0, height: 10.0)
           monster.name = "arrow"
@@ -731,7 +783,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
           
           // Determine speed of the monster
   //        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
-          let minimum = max(Double(3 - self.levelReached/5), 0.5)
+          let minimum = max(Double(3 - self.levelReached/6), 0.5)
           let maximum = minimum + 1.5
           var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
           if self.slowmoPurchased {

@@ -36,7 +36,6 @@
 		29480AC21B9FE5480020B2BB /* shieldUpgradeImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */; };
 		29480AC51B9FF0B10020B2BB /* ShieldActive.png in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC31B9FF0B10020B2BB /* ShieldActive.png */; };
 		29480AC61B9FF0B10020B2BB /* ShieldBroken.png in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC41B9FF0B10020B2BB /* ShieldBroken.png */; };
-		294E4A751BAA5E0800007CDB /* grayTexture.png in Resources */ = {isa = PBXBuildFile; fileRef = 294E4A741BAA5E0800007CDB /* grayTexture.png */; };
 		29500EC71BA0D8A00043893E /* ShieldHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500EC61BA0D8A00043893E /* ShieldHit.wav */; };
 		29500EC91BA0D8C70043893E /* ShieldDestroyed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500EC81BA0D8C70043893E /* ShieldDestroyed.wav */; };
 		29500ECC1BA246280043893E /* FlameChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500ECB1BA246280043893E /* FlameChooser.png */; };
@@ -148,7 +147,6 @@
 		29480AC11B9FE5480020B2BB /* shieldUpgradeImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = shieldUpgradeImages.atlas; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas; sourceTree = "<group>"; };
 		29480AC31B9FF0B10020B2BB /* ShieldActive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldActive.png; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas/ShieldActive.png; sourceTree = "<group>"; };
 		29480AC41B9FF0B10020B2BB /* ShieldBroken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldBroken.png; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas/ShieldBroken.png; sourceTree = "<group>"; };
-		294E4A741BAA5E0800007CDB /* grayTexture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = grayTexture.png; path = ../../../../Designs/MMO/grayTexture.png; sourceTree = "<group>"; };
 		29500EC61BA0D8A00043893E /* ShieldHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShieldHit.wav; sourceTree = "<group>"; };
 		29500EC81BA0D8C70043893E /* ShieldDestroyed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShieldDestroyed.wav; sourceTree = "<group>"; };
 		29500ECB1BA246280043893E /* FlameChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlameChooser.png; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 				29500ECB1BA246280043893E /* FlameChooser.png */,
 				29500F191BA749050043893E /* CupcakeDes.png */,
 				29480AC41B9FF0B10020B2BB /* ShieldBroken.png */,
-				294E4A741BAA5E0800007CDB /* grayTexture.png */,
 				29500F251BA887C40043893E /* gray_lock.png */,
 				29FA56811B93AC6E00977BEF /* ShieldUpgradeButton.png */,
 				29500ECF1BA254090043893E /* RedDragonChooser.png */,
@@ -633,7 +630,6 @@
 				29C2AE001B7C40FA005F74E2 /* FireballSound.wav in Resources */,
 				29C2ADF71B7C35CE005F74E2 /* duelMusic.mp3 in Resources */,
 				29500ECE1BA253E80043893E /* FireballChooser.png in Resources */,
-				294E4A751BAA5E0800007CDB /* grayTexture.png in Resources */,
 				2963548F1B75D426003E73D0 /* fullFlameImages.atlas in Resources */,
 				296354771B727DE1003E73D0 /* playerImages.atlas in Resources */,
 				3571650C19DB1F5500ED38A9 /* background-music-aac.caf in Resources */,

@@ -544,7 +544,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       background1.texture = SKTexture(imageNamed: "sky")
       background2.texture = SKTexture(imageNamed: "sky2")
     case 1:
-      labelColors = UIColor.blackColor()
+      labelColors = UIColor.redColor()
       background1.texture = SKTexture(imageNamed: "sharkAttack1")
       background2.texture = SKTexture(imageNamed: "sharkAttack2")
     case 2:
@@ -552,11 +552,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       background1.texture = SKTexture(imageNamed: "desertNasa1")
       background2.texture = SKTexture(imageNamed: "desertNasa2")
     case 3:
-      labelColors = UIColor.yellowColor()
+      labelColors = UIColor.whiteColor()
       background1.texture = SKTexture(imageNamed: "threeGorges1")
       background2.texture = SKTexture(imageNamed: "threeGorges2")
     case 4:
-      labelColors = UIColor.whiteColor()
+      labelColors = UIColor.yellowColor()
       background1.texture = SKTexture(imageNamed: "darkClouds1")
       background2.texture = SKTexture(imageNamed: "darkClouds2")
     case 5:
@@ -702,10 +702,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   }
   
   func addMonsterBlock(speed: Double) {
+    self.removeActionForKey("addingMonsters")
+    let pause = SKAction.waitForDuration(2.0)
     self.runAction(SKAction.repeatActionForever(
       SKAction.sequence([
-        SKAction.runBlock(self.addMonster),
-        SKAction.waitForDuration(speed)
+        SKAction.waitForDuration(speed),
+        SKAction.runBlock(self.addMonster)
         ])
       ), withKey: "addingMonsters"
     )

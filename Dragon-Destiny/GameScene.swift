@@ -541,7 +541,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     var labelColors = UIColor.blackColor()
     
-    switch (levelReached + 9) % 10  {
+    switch (levelReached + 11) % 12  {
     case 0:
       labelColors = UIColor.blackColor()
       background1.texture = SKTexture(imageNamed: "sky")
@@ -576,9 +576,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       background2.texture = SKTexture(imageNamed: "oceanBackground2")
     case 8:
       labelColors = UIColor.blackColor()
+      background1.texture = SKTexture(imageNamed: "skyPurple1")
+      background2.texture = SKTexture(imageNamed: "skyPurple2")
+    case 9:
+      labelColors = UIColor.whiteColor()
+      background1.texture = SKTexture(imageNamed: "desertErosion1")
+      background2.texture = SKTexture(imageNamed: "desertErosion2")
+    case 10:
+      labelColors = UIColor.blackColor()
       background1.texture = SKTexture(imageNamed: "sheepField1")
       background2.texture = SKTexture(imageNamed: "sheepField2")
-    case 9:
+    case 11:
       labelColors = UIColor.yellowColor()
       background1.texture = SKTexture(imageNamed: "europa1")
       background2.texture = SKTexture(imageNamed: "europa2")
@@ -685,7 +693,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func addCrossbows() {
     for i in 1...self.levelReached {
-      if i%2 != 0 { //Only adds a new crossbow every 3rd level, starting with level 1
+      if (i + 2) % 3 == 0 { //Only adds a new crossbow every 3rd level, starting with level 1
         let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
         if birthdayMode { crossbowEnemy.texture = SKTexture(imageNamed: "Zoe0")}
         crossbowEnemy.name = "boss"

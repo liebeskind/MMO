@@ -84,7 +84,6 @@ class StartMenuViewController: UIViewController {
   
   override func viewDidLoad() {
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
-    self.totalCoins = 10000
 //    imagePicker.delegate = self
     
     if let hasCoins = self.totalCoins {

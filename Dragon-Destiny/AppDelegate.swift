@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Optional: configure GAI options.
     var gai = GAI.sharedInstance()
     gai.trackUncaughtExceptions = true  // report uncaught exceptions
+    gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
 //    gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
     
     UIScreen.mainScreen().brightness = 0.9

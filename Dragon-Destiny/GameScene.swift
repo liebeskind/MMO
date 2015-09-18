@@ -1363,31 +1363,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
   }
   
+  func endGame() {
+    paused = false
+    self.musicController.stopBackgroundMusic()
+    self.musicController.playSoundEffect("PlayerDeath.wav")
+    
+    let gameOverTransition = SKAction.runBlock {
+      let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, coinsPerLevelMultiplier: self.coinsPerLevelMultiplier, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+      let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+//      self.playerDead = false
+      self.view?.presentScene(gameOverScene, transition: reveal)
+    }
+    
+    self.player.removeActionForKey("playerFlappingWings")
+    let freezeTexture = SKAction.setTexture(self.playerFlyingScenes[0])
+    let spinShrinkDuration = 1.5
+    let spinPlayer = SKAction.rotateByAngle(10.0, duration: spinShrinkDuration)
+    let shrinkPlayer = SKAction.scaleTo(0.0, duration: spinShrinkDuration)
+    
+    let spinAndShrinkGroup = SKAction.group([spinPlayer, shrinkPlayer])
+    
+    self.player.runAction(SKAction.sequence([freezeTexture, spinAndShrinkGroup, gameOverTransition]))
+  }
+  
   func monsterDidCollideWithPlayer() {
     println("Monster got the player!")
+    paused = true
+    
     if playerDead == false {
-      playerDead = true
-      AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+      self.playerDead = true
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
       
-      self.musicController.stopBackgroundMusic()
+      self.musicController.pauseBackgroundMusic()
       self.musicController.stopUpgradeMusic()
       self.musicController.playSoundEffect("PlayerDeath.wav")
-      let gameOverTransition = SKAction.runBlock {
-        let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, coinsPerLevelMultiplier: self.coinsPerLevelMultiplier, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
-        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+      
+      let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend 100 coins to revive?", preferredStyle: UIAlertControllerStyle.Alert)
+      
+      gameOverAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
         self.playerDead = false
-        self.view?.presentScene(gameOverScene, transition: reveal)
+        self.paused = false
+        self.musicController.resumeBackgroundMusic()
+        
+        self.totalCoins -= 100
+        NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+        self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
+      }))
+      
+      gameOverAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
+        self.endGame()
+      }))
+      
+      if totalCoins >= 100 {
+        self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
+      } else {
+        self.endGame()
       }
-      
-      player.removeActionForKey("playerFlappingWings")
-      let freezeTexture = SKAction.setTexture(playerFlyingScenes[0])
-      let spinShrinkDuration = 1.5
-      let spinPlayer = SKAction.rotateByAngle(10.0, duration: spinShrinkDuration)
-      let shrinkPlayer = SKAction.scaleTo(0.0, duration: spinShrinkDuration)
-      
-      let spinAndShrinkGroup = SKAction.group([spinPlayer, shrinkPlayer])
-      
-      player.runAction(SKAction.sequence([freezeTexture, spinAndShrinkGroup, gameOverTransition]))
     }
   }
   

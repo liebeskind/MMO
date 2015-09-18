@@ -103,7 +103,7 @@ class GameOverScene: SKScene {
     var monstDestroyed = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Destroyed", label: "Monsters", value: monstersDestroyed)
     tracker.send(monstDestroyed.build() as [NSObject: AnyObject])
     
-    var levelReach = GAIDictionaryBuilder.createEventWithCategory("tDeath", action: "LevelReached", label: "Level", value: levelReached)
+    var levelReach = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "LevelReached", label: "Level", value: levelReached)
     tracker.send(levelReach.build() as [NSObject: AnyObject])
 
     if score > 50 {

@@ -15,7 +15,7 @@ class InAppPurchaseViewController: UIViewController, SKProductsRequestDelegate, 
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    product_id = "YOUR_PRODUCT_ID";
+    product_id = "1030065958";
     SKPaymentQueue.defaultQueue().addTransactionObserver(self)
     
     //Check if product is purchased

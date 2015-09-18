@@ -1388,24 +1388,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   func monsterDidCollideWithPlayer() {
     println("Monster got the player!")
-    paused = true
-    
+
     if playerDead == false {
+      
       self.playerDead = true
-        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+      paused = true
+      AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
       
       self.musicController.pauseBackgroundMusic()
       self.musicController.stopUpgradeMusic()
-      self.musicController.playSoundEffect("PlayerDeath.wav")
+
+      let coinsToEvadeDeath = 100 + 10 * (self.levelReached-1)
       
-      let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend 100 coins to revive?", preferredStyle: UIAlertControllerStyle.Alert)
+      let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend \(coinsToEvadeDeath) coins to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
       
       gameOverAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
         self.playerDead = false
         self.paused = false
         self.musicController.resumeBackgroundMusic()
         
-        self.totalCoins -= 100
+        self.totalCoins -= coinsToEvadeDeath
         NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
         self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
       }))
@@ -1414,7 +1416,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.endGame()
       }))
       
-      if totalCoins >= 100 {
+      if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 {
+        self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
       } else {
         self.endGame()

@@ -9,6 +9,7 @@
 import UIKit
 import SpriteKit
 import MediaPlayer
+import AudioToolbox
 //import CameraManager
 
 class StartMenuViewController: UIViewController {
@@ -38,7 +39,8 @@ class StartMenuViewController: UIViewController {
   @IBOutlet weak var laserBallCostLabel: UILabel!
   @IBOutlet weak var laserBeamCostLabel: UILabel!
   
-  var tracker = GAI.sharedInstance().defaultTracker
+//  var tracker = GAI.sharedInstance().defaultTracker
+  var tracker: GAITracker!
   
 //  let birthdayModeContainer = UIView()
   
@@ -59,7 +61,7 @@ class StartMenuViewController: UIViewController {
 //  var birthdayPickerLabel = UILabel()
   
   var dragonSelected = 0
-  var previouslySelectedDragon: UIButton?
+//  var previouslySelectedDragon: UIButton?
   
   var totalCoins: Int?
   var birthdayMode = false
@@ -82,6 +84,7 @@ class StartMenuViewController: UIViewController {
   
   override func viewDidLoad() {
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
+    self.totalCoins = 10000
 //    imagePicker.delegate = self
     
     if let hasCoins = self.totalCoins {
@@ -133,7 +136,7 @@ class StartMenuViewController: UIViewController {
   }
   
   override func viewWillAppear(animated: Bool) {
-    var tracker = GAI.sharedInstance().defaultTracker
+    tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "StartMenuViewController")
     
     var builder = GAIDictionaryBuilder.createScreenView()
@@ -350,13 +353,14 @@ class StartMenuViewController: UIViewController {
 //  }
 
   @IBAction func dragonSelectionButtonPressed(sender: UIButton) {
-    dragonSelected = sender.tag
-    sender.highlighted = true
-    previouslySelectedDragon?.highlighted = false
-    previouslySelectedDragon = sender
+//    dragonSelected = sender.tag
+//    sender.highlighted = true
+//    previouslySelectedDragon?.highlighted = false
+//    previouslySelectedDragon = sender
     
     switch sender.tag {
     case 0:
+      dragonSelected = 0
       fireballImage.hidden = false
       flameImage.hidden = true
       laserBallImage.hidden = true
@@ -369,7 +373,9 @@ class StartMenuViewController: UIViewController {
         laserImage.hidden = true
       } else {
         if let enoughCoins = self.totalCoins {
-          if enoughCoins >= flameDragonCost {
+          if enoughCoins < flameDragonCost {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+          } else if enoughCoins >= flameDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -399,8 +405,8 @@ class StartMenuViewController: UIViewController {
                 
                 self.view.addSubview(player.view)
                 
-                var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost)
-                self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                var flameDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost).build()
+                self.tracker.send(flameDragonPurchasedEvent as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
@@ -412,6 +418,8 @@ class StartMenuViewController: UIViewController {
             
             presentViewController(purchaseDragonAlert, animated: true, completion: nil)
           }
+        } else {
+          AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
       }
     case 2:
@@ -422,7 +430,9 @@ class StartMenuViewController: UIViewController {
         laserImage.hidden = true
       } else {
         if let enoughCoins = self.totalCoins {
-          if enoughCoins >= laserBallDragonCost {
+          if enoughCoins < laserBallDragonCost {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+          } else if enoughCoins >= laserBallDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -453,8 +463,8 @@ class StartMenuViewController: UIViewController {
                 
                 self.view.addSubview(player.view)
                 
-                var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBallDragonPurchased", value: self.laserBallDragonCost)
-                self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                let laserBallDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBallDragonPurchased", value: self.laserBallDragonCost)
+                self.tracker.send(laserBallDragonPurchasedEvent.build() as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
@@ -476,7 +486,9 @@ class StartMenuViewController: UIViewController {
         laserImage.hidden = false
       } else {
         if let enoughCoins = self.totalCoins {
-          if enoughCoins >= laserBeamDragonCost {
+          if enoughCoins < laserBeamDragonCost {
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+          } else if enoughCoins >= laserBeamDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -508,8 +520,8 @@ class StartMenuViewController: UIViewController {
                 
                 self.view.addSubview(player.view)
                 
-                var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
-                self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                var laserBeamDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
+                self.tracker.send(laserBeamDragonPurchasedEvent.build() as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }

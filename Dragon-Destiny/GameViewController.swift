@@ -16,7 +16,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
   var dragonType: Int?
   var birthdayMode: Bool!
   var birthdayImage = UIImageView()
-  var tracker = GAI.sharedInstance().defaultTracker
+  var tracker: GAITracker!
   
   var interstitial:GADInterstitial?
 //  var interstitialAd:ADInterstitialAd! = nil
@@ -24,11 +24,7 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
 //  var closeButton:UIButton!
   
   override func viewWillAppear(animated: Bool) {
-    var tracker = GAI.sharedInstance().defaultTracker
-    tracker.set(kGAIScreenName, value: "GameViewController")
-    
-    var builder = GAIDictionaryBuilder.createScreenView()
-    tracker.send(builder.build() as [NSObject : AnyObject])
+
   }
   
   override func viewDidLoad() {
@@ -38,6 +34,12 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
     if let image = birthdayImage.image {
       birthimg = image
     }
+    
+    tracker = GAI.sharedInstance().defaultTracker
+    tracker.set(kGAIScreenName, value: "GameViewController")
+    
+    var builder = GAIDictionaryBuilder.createScreenView()
+    tracker.send(builder.build() as [NSObject : AnyObject])
     
     var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonType)
     self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])

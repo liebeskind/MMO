@@ -9,10 +9,11 @@
 import Foundation
 import SpriteKit
 import MediaPlayer
+import AudioToolbox
 
 class GameOverScene: SKScene {
   
-  var tracker = GAI.sharedInstance().defaultTracker
+  var tracker: GAITracker!
   
   let restartButton = SKSpriteNode(imageNamed: "RestartButton")
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
@@ -90,7 +91,7 @@ class GameOverScene: SKScene {
 //    facebookButton.text = "FACEBOOK"
 //    addChild(facebookButton)
     
-    var tracker = GAI.sharedInstance().defaultTracker
+    tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "GameOverScene")
     
     var builder = GAIDictionaryBuilder.createScreenView()
@@ -258,15 +259,11 @@ class GameOverScene: SKScene {
     } else {
       totalCoinsLabel.text = "No Coins Yet"
     }
-    
 
     totalCoinsLabel.fontSize = 12
     totalCoinsLabel.position = CGPoint(x: totalCoinsLabel.frame.width/2 + 10, y: self.size.height - 20)
     totalCoinsLabel.fontColor = UIColor.blackColor()
     self.addChild(totalCoinsLabel)
-    
-    NSUserDefaults.standardUserDefaults().setObject(false,forKey:"flameDragonPurchased")
-    flameDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("flameDragonPurchased") as? Bool
     
     if flameDragonPurchased == true {
       lockFlame.hidden = true
@@ -319,7 +316,9 @@ class GameOverScene: SKScene {
           self.addChild(flame)
         } else {
           if let enoughCoins = self.totalCoins {
-            if enoughCoins >= flameDragonCost {
+            if enoughCoins < flameDragonCost {
+              AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            } else if enoughCoins >= flameDragonCost {
               let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
               purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -353,8 +352,8 @@ class GameOverScene: SKScene {
                   
                   self.view?.addSubview(player.view)
                   
-                  var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost)
-                  self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                  let flameDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost)
+                  self.tracker.send(flameDragonPurchasedEvent.build() as [NSObject: AnyObject])
                   
                   NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
                 }
@@ -378,7 +377,9 @@ class GameOverScene: SKScene {
           self.addChild(laser1)
         } else {
           if let enoughCoins = self.totalCoins {
-            if enoughCoins >= laserBallDragonCost {
+            if enoughCoins < laserBallDragonCost {
+              AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            } else if enoughCoins >= laserBallDragonCost {
               let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
               purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -412,8 +413,8 @@ class GameOverScene: SKScene {
                   
                   self.view?.addSubview(player.view)
                   
-                  var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "laserBallDragonPurchased", value: self.laserBallDragonCost)
-                  self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                  let laserBallDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "laserBallDragonPurchased", value: self.laserBallDragonCost)
+                  self.tracker.send(laserBallDragonPurchasedEvent.build() as [NSObject: AnyObject])
                   
                   NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
                 }
@@ -437,7 +438,9 @@ class GameOverScene: SKScene {
           self.addChild(laser2)
         } else {
           if let enoughCoins = self.totalCoins {
-            if enoughCoins >= laserBeamDragonCost {
+            if enoughCoins < laserBeamDragonCost {
+              AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            } else if enoughCoins >= laserBeamDragonCost {
               let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
               purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
@@ -471,8 +474,8 @@ class GameOverScene: SKScene {
                   
                   self.view?.addSubview(player.view)
                   
-                  var dragonPurchased = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
-                  self.tracker.send(dragonPurchased.build() as [NSObject: AnyObject])
+                  let laserBeamDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
+                  self.tracker.send(laserBeamDragonPurchasedEvent.build() as [NSObject: AnyObject])
                   
                   NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
                 }
@@ -484,7 +487,7 @@ class GameOverScene: SKScene {
               
               self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
             }
-          }
+          } 
         }
       } else if (CGRectContainsPoint(birthdayPickerLabel.frame, touchLocation)) {
         if birthdayMode {

@@ -189,7 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let muteButton = SKSpriteNode(imageNamed: "soundIcon")
   var muted = false
   
-  var tracker = GAI.sharedInstance().defaultTracker
+  var tracker: GAITracker!
   
   var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
   var levelReached = 1
@@ -220,6 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       NSUserDefaults.standardUserDefaults().setObject(0,forKey:"TotalCoins")
     }
     
+    tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "GameScene")
     
     physicsWorld.gravity = CGVectorMake(0, 0)
@@ -283,7 +284,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
 //    musicController.playSoundEffect("FireballSound.wav", atVolume: 0.0) //Loads the sound, so don't have lag first time fire
     
-    if dragonSelected == 0 {
+    let arrowAnimatedAtlas = SKTextureAtlas(named: "arrowImages")
+    var arrowFrames = [SKTexture]()
+    
+    let numArrowImages = arrowAnimatedAtlas.textureNames.count
+    for var i=0; i<numArrowImages; i++ {
+      let arrowTextureName = "Arrow\(i)"
+      arrowFrames.append(arrowAnimatedAtlas.textureNamed(arrowTextureName))
+    }
+    
+    arrowScenes = arrowFrames
+    
+    if dragonSelected == 0 || dragonSelected == 1 {
       let fireballAnimatedAtlas = SKTextureAtlas(named: "fireballImages")
       var fireballFrames = [SKTexture]()
       
@@ -296,19 +308,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       fireballScenes = fireballFrames
       
       firstFireballFrame = fireballScenes[0]
+      SKTexture.preloadTextures(fireballScenes, withCompletionHandler: { () -> Void in})
+
     }
 //    projectile = SKSpriteNode(texture: firstFireballFrame) // Not sure this does anything.  Meant to cache so no delay.
-    
-    let arrowAnimatedAtlas = SKTextureAtlas(named: "arrowImages")
-    var arrowFrames = [SKTexture]()
-    
-    let numArrowImages = arrowAnimatedAtlas.textureNames.count
-    for var i=0; i<numArrowImages; i++ {
-      let arrowTextureName = "Arrow\(i)"
-      arrowFrames.append(arrowAnimatedAtlas.textureNamed(arrowTextureName))
-    }
-    
-    arrowScenes = arrowFrames
     
     if dragonSelected == 1 {
       let flameAnimatedAtlas = SKTextureAtlas(named: "fullFlameImages")
@@ -858,7 +861,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
 //      purchaseFlame.runAction(SKAction.sequence([shrink, SKAction.removeFromParent()]))
 //      flamePurchased = true
     case purchaseShield:
-      if totalCoins < shieldUpgradeCost {return}
+      if totalCoins < shieldUpgradeCost { return AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) }
       if shield.purchased == true {return}
       shield.purchased = true
       shield.texture = SKTexture(imageNamed: "ShieldActive")
@@ -886,7 +889,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       tracker.send(shieldPurchasedEvent.build() as [NSObject: AnyObject])
       
     case purchaseSlowmo:
-      if totalCoins < slowmoUpgradeCost {return}
+      if totalCoins < slowmoUpgradeCost { return AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) }
       if slowmoPurchased == true {return}
       totalCoins -= slowmoUpgradeCost
       totalCoinsBoard.text = "Total Coins: \(totalCoins)"
@@ -998,19 +1001,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     for touch in (touches as! Set<UITouch>) {
       let touchLocation = touch.locationInNode(self)
       let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
-      if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead == false {
+      if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead != true {
         attackButtonPushed()
 //      } else if (CGRectContainsPoint(purchaseFlame.frame, touchLocation)) && playerDead == false {
 //        upgradePurchased(purchaseFlame)
-      } else if (CGRectContainsPoint(purchaseShield.frame, touchLocation)) && playerDead == false {
+      } else if (CGRectContainsPoint(purchaseShield.frame, touchLocation)) && playerDead != true {
         upgradePurchased(purchaseShield)
-      } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead == false {
+      } else if (CGRectContainsPoint(purchaseSlowmo.frame, touchLocation)) && playerDead != true {
         upgradePurchased(purchaseSlowmo)
-      } else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead == false {
+      } else if (CGRectContainsPoint(pausedButton.frame, touchLocation)) && playerDead != true {
         pausedButtonPushed()
-      } else if (CGRectContainsPoint(muteButton.frame, touchLocation)) && playerDead == false {
+      } else if (CGRectContainsPoint(muteButton.frame, touchLocation)) && playerDead != true {
         muteButtonPushed()
-      } else if (CGRectContainsPoint(base.frame, touchLocation)) && playerDead == false {
+      } else if (CGRectContainsPoint(base.frame, touchLocation)) && playerDead != true {
         mostRecentBasePosition = base.position
         mostRecentBallPosition = ball.position
       }
@@ -1364,8 +1367,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let gameOverTransition = SKAction.runBlock {
         let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, coinsPerLevelMultiplier: self.coinsPerLevelMultiplier, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
         let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        self.view?.presentScene(gameOverScene, transition: reveal)
         self.playerDead = false
+        self.view?.presentScene(gameOverScene, transition: reveal)
       }
       
       player.removeActionForKey("playerFlappingWings")

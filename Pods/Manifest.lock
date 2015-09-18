@@ -1,5 +1,4 @@
 PODS:
-  - CameraManager (1.0.14)
   - Google-Mobile-Ads-SDK (7.4.0)
   - Google/Analytics (1.0.7):
     - Google/Core
@@ -16,12 +15,10 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
 
 DEPENDENCIES:
-  - CameraManager (~> 1.0.14)
   - Google-Mobile-Ads-SDK (~> 7.0)
   - Google/Analytics (~> 1.0.0)
 
 SPEC CHECKSUMS:
-  CameraManager: 603f1e628794ceee1ba8d876e91904fe29ab968d
   Google: 875f5a8ade86dd02e36586e4a54814843938c7f6
   Google-Mobile-Ads-SDK: ff8ce0c4b495c60113a6f37916956aab9504d527
   GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49

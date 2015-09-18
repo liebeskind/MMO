@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>CameraManager.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-Dragon-Destiny.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +12,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>01D5017017EDFBFD912FEB097432D303</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>42EEF9CD71A6B055685008987B86D016</key>
+		<key>6E3AEFB7448BD364249CA5500C2D04E2</key>
 		<dict>
 			<key>primary</key>
 			<true/>

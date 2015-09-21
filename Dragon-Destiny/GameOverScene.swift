@@ -10,6 +10,7 @@ import Foundation
 import SpriteKit
 import MediaPlayer
 import AudioToolbox
+import GameKit
 
 class GameOverScene: SKScene {
   
@@ -57,9 +58,12 @@ class GameOverScene: SKScene {
   let laserBallDragonCost = 600
   let laserBeamDragonCost = 1200
   
+  var gcEnabled = Bool() // Stores if the user has Game Center enabled
+  var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
+  
   var muted = false
   
-  init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, coinsPerLevelMultiplier: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
+  init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, coinsPerLevelMultiplier: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage, highScoreAchieved: Bool) {
     
     super.init(size: size)
     
@@ -73,6 +77,8 @@ class GameOverScene: SKScene {
     NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
 
     backgroundColor = SKColor.whiteColor()
+    
+    self.authenticateLocalPlayer()
 
     restartButton.size = CGSize(width: 228.0, height: 69.0)
     restartButton.position = CGPoint(x: size.width/2, y: 8 + restartButton.size.height/2)
@@ -109,6 +115,26 @@ class GameOverScene: SKScene {
     if score > 50 {
       var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Over50Coins", value: score)
       tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+    }
+    
+    if highScoreAchieved == true {
+      var highScoreAchievedEvent = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "HighScore", value: score)
+      tracker.send(highScoreAchievedEvent.build() as [NSObject: AnyObject])
+      
+      var leaderboardID = "DragonDestinyLeaderboard"
+      var sScore = GKScore(leaderboardIdentifier: leaderboardID)
+      sScore.value = Int64(score)
+      
+      let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+      
+      GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
+        if error != nil {
+          println(error.localizedDescription)
+        } else {
+          println("Highscore submitted")
+          
+        }
+      })
     }
     
     var message = "Dragon Destiny"
@@ -281,6 +307,35 @@ class GameOverScene: SKScene {
       lockLaserBeam.hidden = true
       laserBeamCostLabel.hidden = true
     } else {
+    }
+  }
+  
+  
+  func authenticateLocalPlayer() {
+    let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+    
+    localPlayer.authenticateHandler = {(ViewController, error) -> Void in
+      if((ViewController) != nil) {
+        // 1 Show login if player is not logged in
+//        self.presentViewController(ViewController, animated: true, completion: nil)
+      } else if (localPlayer.authenticated) {
+        // 2 Player is already euthenticated & logged in, load game center
+        self.gcEnabled = true
+        
+        // Get the default leaderboard ID
+        localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String!, error: NSError!) -> Void in
+          if error != nil {
+            println(error)
+          } else {
+            self.gcDefaultLeaderBoard = leaderboardIdentifer
+          }
+        })
+      } else {
+        // 3 Game center is not enabled on the users device
+        self.gcEnabled = false
+        println("Local player could not be authenticated, disabling game center")
+        println(error)
+      }
     }
   }
   

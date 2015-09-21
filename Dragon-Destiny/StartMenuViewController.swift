@@ -11,8 +11,9 @@ import SpriteKit
 import MediaPlayer
 import AudioToolbox
 //import CameraManager
+import GameKit
 
-class StartMenuViewController: UIViewController {
+class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate {
 
   @IBOutlet weak var totalCoinsLabel: UILabel!
   @IBOutlet weak var dragonDestinyTitle: UILabel!
@@ -74,6 +75,11 @@ class StartMenuViewController: UIViewController {
   let laserBallDragonCost = 600
   let laserBeamDragonCost = 1200
   
+  var gcEnabled = Bool() // Stores if the user has Game Center enabled
+  var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
+  
+  @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+  
 //  override func shouldAutorotate() -> Bool {
 //    return false
 //  }
@@ -82,9 +88,43 @@ class StartMenuViewController: UIViewController {
 //    return Int(UIInterfaceOrientationMask.All.rawValue)
 //  }
   
+  func authenticateLocalPlayer() {
+    let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+    
+    localPlayer.authenticateHandler = {(ViewController, error) -> Void in
+      if((ViewController) != nil) {
+        // 1 Show login if player is not logged in
+        self.presentViewController(ViewController, animated: true, completion: nil)
+      } else if (localPlayer.authenticated) {
+        // 2 Player is already euthenticated & logged in, load game center
+        self.gcEnabled = true
+        
+        // Get the default leaderboard ID
+        localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String!, error: NSError!) -> Void in
+          if error != nil {
+            println(error)
+          } else {
+            self.gcDefaultLeaderBoard = leaderboardIdentifer
+          }
+        })
+      } else {
+        // 3 Game center is not enabled on the users device
+        self.gcEnabled = false
+        println("Local player could not be authenticated, disabling game center")
+        println(error)
+      }
+    }
+  }
+  
+  func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+    gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
   override func viewDidLoad() {
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
+//    totalCoins = 100000
 //    imagePicker.delegate = self
+    self.authenticateLocalPlayer()
     
     if let hasCoins = self.totalCoins {
       totalCoinsLabel.text = "Total Coins: \(hasCoins)"
@@ -147,6 +187,7 @@ class StartMenuViewController: UIViewController {
     flameImage.hidden = true
     laserBallImage.hidden = true
     laserImage.hidden = true
+    activityIndicator.hidden = true
     
 //    birthdayPickerLabel.text = "Change Mode"
 //    birthdayPickerLabel.font = UIFont(name: "MarkerFelt-Thin", size: 25)
@@ -552,6 +593,9 @@ class StartMenuViewController: UIViewController {
   @IBAction func playArcadeButtonPushed(sender: UIButton) {
 //    let reveal = SKTransition.flipHorizontalWithDuration(0.5)
 //    let scene = GameScene(size: self.view.frame.size)
+    
+    activityIndicator.hidden = false
+    activityIndicator.startAnimating()
     
     let gameViewController = self.storyboard!.instantiateViewControllerWithIdentifier("GameViewController") as! GameViewController
     

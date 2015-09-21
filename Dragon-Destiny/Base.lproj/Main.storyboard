@@ -219,6 +219,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nuu-Hs-3DT">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -226,6 +229,7 @@
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="top" secondItem="gNg-UR-LCD" secondAttribute="top" constant="-45" id="0Pg-kr-yuH"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="NqC-QT-cQK" secondAttribute="bottom" constant="18" id="3rs-H9-cI2"/>
                             <constraint firstAttribute="centerX" secondItem="KBI-vB-cu9" secondAttribute="centerX" constant="-44" id="6rX-sD-s7c"/>
+                            <constraint firstAttribute="centerY" secondItem="Nuu-Hs-3DT" secondAttribute="centerY" id="7h3-kj-nBT"/>
                             <constraint firstItem="qCj-h7-pmu" firstAttribute="top" secondItem="joe-5f-gcc" secondAttribute="bottom" constant="-1" id="7mG-eV-kED"/>
                             <constraint firstAttribute="centerX" secondItem="hF0-pF-Ci6" secondAttribute="centerX" constant="44" id="AYP-e1-nuG"/>
                             <constraint firstItem="37N-Ze-KsV" firstAttribute="leading" secondItem="Got-2b-IOH" secondAttribute="leading" constant="6" id="Aw2-Re-XOD"/>
@@ -267,6 +271,7 @@
                             <constraint firstItem="Wp8-sC-I9Z" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="dyc-Vm-ji8"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="18" id="fJa-j7-ruk"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="bottom" secondItem="gNg-UR-LCD" secondAttribute="bottom" constant="3" id="hYO-us-pCr"/>
+                            <constraint firstAttribute="centerX" secondItem="Nuu-Hs-3DT" secondAttribute="centerX" id="ixB-AH-5pi"/>
                             <constraint firstAttribute="centerX" secondItem="Ewc-Kp-h4V" secondAttribute="centerX" constant="43" id="jA0-BA-S7s"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="KBI-vB-cu9" secondAttribute="bottom" constant="8" id="k2P-7p-ZXy"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="trailing" secondItem="yhx-7h-sxe" secondAttribute="trailing" constant="7" id="olz-4K-nkM"/>
@@ -287,6 +292,7 @@
                     <navigationItem key="navigationItem" id="S55-0w-IRs"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Nuu-Hs-3DT" id="w6p-hp-7B4"/>
                         <outlet property="blueButton" destination="bkU-i2-xJn" id="0Tb-9h-CxL"/>
                         <outlet property="dragonDestinyTitle" destination="gkv-5B-gvJ" id="DPL-sK-swC"/>
                         <outlet property="fireballImage" destination="XDZ-fk-r18" id="ahm-oa-Wd6"/>

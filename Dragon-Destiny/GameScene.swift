@@ -138,6 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   let scoreBoard = SKLabelNode(fontNamed: "Avenir")
   let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
   let monstersKilledBoard = SKLabelNode(fontNamed: "Avenir")
+  var highScoreAchieved = false
   
   var currentState = MoveStates.N
   
@@ -501,9 +502,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     purchaseShield.alpha = attackButton.alpha
     purchaseShield.position = CGPoint(x: purchaseSlowmo.position.x - purchaseSlowmo.size.width - 12, y: attackButton.position.y)
     purchaseShield.zPosition = 2
-    if shield.purchased == false {
-      self.addChild(purchaseShield)
-    } else {
+    self.addChild(purchaseShield)
+    if shield.purchased {
+      purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 0.0), withKey: "shrinking")
       backgroundLayer.addChild(shield)
     }
   }
@@ -891,7 +892,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       backgroundLayer.addChild(shield)
       
-      purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 1.0))
+      purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 1.0), withKey: "shrinking")
       
       var shieldPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "shield", label: "shieldPurchased", value: shieldUpgradeCost)
       tracker.send(shieldPurchasedEvent.build() as [NSObject: AnyObject])
@@ -1347,16 +1348,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         node.removeFromParent()
       }
       
+      backgroundLayer.enumerateChildNodesWithName("arrow") {
+        node, _ in
+        node.removeFromParent()
+      }
+      
       let pause = SKAction.waitForDuration(0.5)
       let fadeAway = SKAction.fadeOutWithDuration(1.0)
       let startNextLevel = SKAction.runBlock() {
-        self.musicController.stopBackgroundMusic()
-        self.musicController.stopUpgradeMusic()
-        let reveal = SKTransition.flipHorizontalWithDuration(0.5)
-        let scene = GameScene(size: self.size, level: self.levelReached+1, muted: self.muted, coinsCollected: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
-        self.backgroundLayer.removeAllChildren()
-        self.backgroundLayer.removeFromParent()
-        self.view?.presentScene(scene, transition:reveal)
+        if self.playerDead == false {
+          self.musicController.stopBackgroundMusic()
+          self.musicController.stopUpgradeMusic()
+          let reveal = SKTransition.flipHorizontalWithDuration(0.5)
+          let scene = GameScene(size: self.size, level: self.levelReached+1, muted: self.muted, coinsCollected: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, shield: self.shield, dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+          self.backgroundLayer.removeAllChildren()
+          self.backgroundLayer.removeFromParent()
+          self.view?.presentScene(scene, transition:reveal)
+        }
       }
       
       wonLevelLabel.runAction(SKAction.sequence([pause, fadeAway, startNextLevel]))
@@ -1369,7 +1377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     self.musicController.playSoundEffect("PlayerDeath.wav")
     
     let gameOverTransition = SKAction.runBlock {
-      let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, coinsPerLevelMultiplier: self.coinsPerLevelMultiplier, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
+      let gameOverScene = GameOverScene(size: self.size, muted: self.muted, won: false, score: self.coinsCollected, monstersDestroyed: self.monstersDestroyed, levelReached: self.levelReached, coinsPerLevelMultiplier: self.coinsPerLevelMultiplier, dragonSelected: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture, highScoreAchieved: self.highScoreAchieved)
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
 //      self.playerDead = false
       self.view?.presentScene(gameOverScene, transition: reveal)
@@ -1386,7 +1394,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     self.player.runAction(SKAction.sequence([freezeTexture, spinAndShrinkGroup, gameOverTransition]))
   }
   
-  func monsterDidCollideWithPlayer() {
+  func monsterDidCollideWithPlayer(monster: SKSpriteNode) {
     println("Monster got the player!")
 
     if playerDead == false {
@@ -1403,11 +1411,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend \(coinsToEvadeDeath) coins to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
       
       gameOverAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+        monster.removeFromParent()
         self.playerDead = false
         self.paused = false
         self.musicController.resumeBackgroundMusic()
         
-        self.totalCoins -= coinsToEvadeDeath
+        self.totalCoins -= (coinsToEvadeDeath - self.shieldUpgradeCost)
+        self.upgradePurchased(self.purchaseShield)
         NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
         self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
       }))
@@ -1438,6 +1448,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
       if coinsCollected > savedScore {
+        highScoreAchieved = true
         NSUserDefaults.standardUserDefaults().setObject(coinsCollected,forKey:"HighestScore")
         highScoreBoard.text = "High Score: \(coinsCollected)"
       }
@@ -1449,19 +1460,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     monstersDestroyed++
     monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
     shield.health -= 50
-    let popShield = SKAction.sequence([SKAction.scaleTo(1.2, duration: 0.1), SKAction.scaleTo(1.0, duration: 0.1)])
+    let popShield = SKAction.sequence([SKAction.scaleTo(1.3, duration: 0.1), SKAction.scaleTo(1.0, duration: 0.1)])
     
     if shield.health <= 0 {
       let removeShield = SKAction.removeFromParent()
       let resetShieldTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldActive"))
-      shield.runAction(SKAction.sequence([popShield, shieldDestroyedSoundEffect, removeShield, resetShieldTexture]))
-      purchaseShield.removeAllActions()
+      shield.runAction(SKAction.sequence([shieldDestroyedSoundEffect, removeShield, resetShieldTexture]))
+      purchaseShield.removeActionForKey("shrinking")
+//      purchaseShield.size = CGSize(width: baseSize * 1.3, height: baseSize * 0.9)
       purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
-      let setShieldPurchasedToFalse = SKAction.runBlock  {
-        self.shield.purchased = false
-        self.purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
-      }
-      self.runAction(SKAction.sequence([SKAction.waitForDuration(0.3), setShieldPurchasedToFalse]))
+      self.shield.purchased = false
     } else {
       let changeTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldBroken"))
       shield.runAction(SKAction.sequence([popShield, shieldHitSoundEffect, changeTexture]))
@@ -1499,7 +1507,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
     case PhysicsCategory.Monster.rawValue | PhysicsCategory.Player.rawValue:
       // Here we don't care which body is which, the scene is ending
-      monsterDidCollideWithPlayer()
+      if let bodyB = contact.bodyB.node as? SKSpriteNode {
+        if let bodyA = contact.bodyA.node as? SKSpriteNode {
+          if contact.bodyA.categoryBitMask == PhysicsCategory.Monster.rawValue {
+            monsterDidCollideWithPlayer(bodyA)
+          } else {
+            monsterDidCollideWithPlayer(bodyB)
+          }
+        }
+      }
       
     case PhysicsCategory.Player.rawValue | PhysicsCategory.Coin.rawValue:
       if let bodyB = contact.bodyB.node as? SKSpriteNode {

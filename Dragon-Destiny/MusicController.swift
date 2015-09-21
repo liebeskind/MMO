@@ -30,6 +30,7 @@ class MusicController: UIViewController {
   }
   
   func playBackgroundMusic(filename: String) {
+    backgroundMusicPlayer = nil
     let url = NSBundle.mainBundle().URLForResource(
       filename, withExtension: nil)
     if (url == nil) {
@@ -44,6 +45,8 @@ class MusicController: UIViewController {
       println("Could not create audio player: \(error!)")
       return
     }
+    
+    if backgroundMusicPlayer.playing { return }
     
     backgroundMusicPlayer.volume = 0.8
     backgroundMusicPlayer.numberOfLoops = -1
@@ -71,6 +74,11 @@ class MusicController: UIViewController {
   }
 
   func resumeBackgroundMusic() {
+    if let upgradeMusic = upgradeMusicPlayer {
+      if upgradeMusic.playing { return }
+    }
+    
+    if backgroundMusicPlayer.playing { return }
     if backgroundMusicPlayer == nil {
       playBackgroundMusic("epicMusic.mp3")
     } else {
@@ -95,12 +103,31 @@ class MusicController: UIViewController {
       return
     }
     
+    if upgradeMusicPlayer.playing { return }
+    
     upgradeMusicPlayer.volume = self.upgradeVolume
     upgradeMusicPlayer.numberOfLoops = 0
     upgradeMusicPlayer.prepareToPlay()
     upgradeMusicPlayer.play()
   }
 
+  func pauseUpgradeMusic() {
+    if upgradeMusicPlayer != nil {
+      upgradeMusicPlayer.pause()
+    }
+  }
+  
+  func resumeUpgradeMusic() {
+    if let upgradeMusic = upgradeMusicPlayer {
+      if upgradeMusic.playing { return }
+    }
+    
+    if upgradeMusicPlayer != nil {
+      upgradeMusicPlayer.volume = self.upgradeVolume
+      upgradeMusicPlayer.play()
+    }
+  }
+  
   func stopUpgradeMusic() {
     if upgradeMusicPlayer != nil {
       upgradeMusicPlayer.stop()

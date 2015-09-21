@@ -388,6 +388,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     pausedLabel.fontName = "Chalkduster"
     pausedLabel.fontSize = 90
     
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("returnFromBackground"), name: "BackFromBackground", object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("goingToBackground"), name: "GoingToBackground", object: nil)
+    
     muteButton.size = CGSize(width: 35.0, height: 35.0)
     muteButton.position = CGPoint(x: size.width - muteButton.size.width/2 - pausedButton.size.width, y: size.height - muteButton.size.height/2)
     muteButton.zPosition = 2
@@ -507,6 +510,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 0.0), withKey: "shrinking")
       backgroundLayer.addChild(shield)
     }
+  }
+  
+  deinit {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
+  override func willMoveFromView(view: SKView) {
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  
   }
   
   func random() -> CGFloat {
@@ -1089,17 +1101,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
   }
   
+  func returnFromBackground() {
+    println("return from background")
+    paused = false
+    pausedLabel.removeFromParent()
+
+    if slowmoPurchased { musicController.resumeUpgradeMusic() } else { musicController.playBackgroundMusic("epicMusic.mp3") }
+    pausedButton.texture = SKTexture(imageNamed: "pause-button")
+  }
+  
+  func goingToBackground() {
+    println("going to background")
+    paused = true
+    pausedLabel.removeFromParent()
+    musicController.pauseUpgradeMusic()
+    musicController.stopBackgroundMusic()
+  }
+  
   func pausedButtonPushed() {
     if !paused {
       pausedButton.texture = SKTexture(imageNamed: "paused-pushed")
       paused = true
+      pausedLabel.removeFromParent()
       self.addChild(pausedLabel)
       musicController.pauseBackgroundMusic()
+      musicController.pauseUpgradeMusic()
     } else if paused {
       pausedButton.texture = SKTexture(imageNamed: "pause-button")
       paused = false
       pausedLabel.removeFromParent()
       musicController.resumeBackgroundMusic()
+      musicController.resumeUpgradeMusic()
     }
   }
   
@@ -1474,7 +1506,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       let changeTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldBroken"))
       shield.runAction(SKAction.sequence([popShield, shieldHitSoundEffect, changeTexture]))
     }
-    
   }
   
   func didBeginContact(contact: SKPhysicsContact) {

@@ -62,6 +62,8 @@ class GameViewController: UIViewController, GADInterstitialDelegate, UINavigatio
     interstitial = createAndLoadInterstitial()
 //    UIViewController.prepareInterstitialAds()
 //    self.interstitialPresentationPolicy = ADInterstitialPresentationPolicy.Manual
+  
+//    skView.scene!.view!.paused = true
   }
   
   override func prefersStatusBarHidden() -> Bool {

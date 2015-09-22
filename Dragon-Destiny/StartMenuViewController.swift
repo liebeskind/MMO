@@ -22,6 +22,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
   @IBOutlet weak var redButton: UIButton!
   @IBOutlet weak var greenButton: UIButton!
   @IBOutlet weak var yellowButton: UIButton!
+  @IBOutlet weak var playButton: UIButton!
   
   @IBOutlet weak var fireballImage: UIImageView!
   @IBOutlet weak var flameImage: UIImageView!
@@ -148,6 +149,8 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
       laserBeamCostLabel.hidden = true
     } else {
     }
+    
+    playButton.layer.cornerRadius = 10
     
 //    self.cameraManager.showAccessPermissionPopupAutomatically = false
     
@@ -516,6 +519,8 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
             
             presentViewController(purchaseDragonAlert, animated: true, completion: nil)
           }
+        } else {
+          AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
       }
     case 3:
@@ -573,6 +578,8 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
             
             presentViewController(purchaseDragonAlert, animated: true, completion: nil)
           }
+        } else {
+          AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         }
       }
     default:

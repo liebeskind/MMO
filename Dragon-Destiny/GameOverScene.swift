@@ -16,11 +16,11 @@ class GameOverScene: SKScene {
   
   var tracker: GAITracker!
   
-  let restartButton = SKSpriteNode(imageNamed: "RestartButton")
+  var restartButton = SKShapeNode()
   var twitterButton = SKSpriteNode(imageNamed: "RestartButton")
   
   let dragonDestinyLabel = SKLabelNode(fontNamed: "Chalkduster")
-  let totalCoinsLabel = SKLabelNode(fontNamed: "System")
+  let totalCoinsLabel = SKLabelNode(fontNamed: "Copperplate")
   
   let birthdayPickerLabel = SKLabelNode()
   var birthdayPicture = UIImage()
@@ -41,9 +41,9 @@ class GameOverScene: SKScene {
   let lockLaserBall = SKSpriteNode(imageNamed: "gray_lock")
   let lockLaserBeam = SKSpriteNode(imageNamed: "gray_lock")
   
-  let flameCostLabel = SKLabelNode(fontNamed: "System")
-  let laserBallCostLabel = SKLabelNode(fontNamed: "System")
-  let laserBeamCostLabel = SKLabelNode(fontNamed: "System")
+  let flameCostLabel = SKLabelNode(fontNamed: "Copperplate")
+  let laserBallCostLabel = SKLabelNode(fontNamed: "Copperplate")
+  let laserBeamCostLabel = SKLabelNode(fontNamed: "Copperplate")
   
   var moviePlayer: MPMoviePlayerController!
   
@@ -77,13 +77,28 @@ class GameOverScene: SKScene {
     NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
 
     backgroundColor = SKColor.whiteColor()
+    let backgroundImage = SKSpriteNode(imageNamed: "dragonMainScreenBackground")
+    backgroundImage.position = CGPoint(x: size.width/2, y: size.height/2)
+    let aspectRatio = CGFloat(1128/754)
+    backgroundImage.size = CGSize(width: (size.width + 20) * aspectRatio, height: (size.height + 20) * (1/aspectRatio))
+    backgroundImage.zPosition = -1
+    addChild(backgroundImage)
+    
     
     self.authenticateLocalPlayer()
 
-    restartButton.size = CGSize(width: 228.0, height: 69.0)
-    restartButton.position = CGPoint(x: size.width/2, y: 8 + restartButton.size.height/2)
+    restartButton = SKShapeNode(rect: CGRect(x: self.size.width / 2 - 130/2, y: 30, width: 130, height: 43), cornerRadius: 10)
+//    restartButton.position = CGPoint(x: size.width/2, y: 8 + restartButton.size.height/2)
     restartButton.name = "restart"
+    restartButton.fillColor = UIColor(red:0.02, green:0.38, blue:0.71, alpha:1.0)
     addChild(restartButton)
+    
+    let playLabel = SKLabelNode(fontNamed: "Copperplate")
+    playLabel.fontSize = 30
+    playLabel.text = "PLAY"
+    playLabel.fontColor = UIColor.whiteColor()
+    playLabel.position = CGPoint(x: self.size.width / 2 , y: 43)
+    restartButton.addChild(playLabel)
     
 //    twitterButton.position = CGPoint(x: self.size.width/2, y: restartButton.position.y - restartButton.size.height - 15)
 //    twitterButton.size = CGSize(width: 228.0, height: 69.0)
@@ -144,7 +159,7 @@ class GameOverScene: SKScene {
     dragonDestinyLabel.fontSize = 30
     dragonDestinyLabel.fontColor = SKColor.blackColor()
     dragonDestinyLabel.position = CGPoint(x: size.width/2, y: self.size.height - 8 - dragonDestinyLabel.fontSize)
-    addChild(dragonDestinyLabel)
+//    addChild(dragonDestinyLabel)
     
     var totalCoins = 0
     for i in 0...levelReached {
@@ -152,11 +167,11 @@ class GameOverScene: SKScene {
     }
     
     message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%)"
-    let coinsLabel = SKLabelNode(fontNamed: "Avenir")
+    let coinsLabel = SKLabelNode(fontNamed: "Copperplate")
     coinsLabel.text = message
     coinsLabel.fontSize = 20
     coinsLabel.fontColor = SKColor.blackColor()
-    coinsLabel.position = CGPoint(x: size.width/2, y: dragonDestinyLabel.position.y - dragonDestinyLabel.fontSize)
+    coinsLabel.position = CGPoint(x: size.width/2, y: self.size.height - 10 - dragonDestinyLabel.fontSize)
     addChild(coinsLabel)
     
 //    message = "% Coins Collected: \(Int(Float(Float(score) / Float(levelReached * 30))*100))%"
@@ -168,7 +183,7 @@ class GameOverScene: SKScene {
 //    addChild(percentageLabel)
  
     message = "Arrows Shot Down: \(monstersDestroyed)"
-    let monstersLabel = SKLabelNode(fontNamed: "Avenir")
+    let monstersLabel = SKLabelNode(fontNamed: "Copperplate")
     monstersLabel.text = message
     monstersLabel.fontSize = 20
     monstersLabel.fontColor = SKColor.blackColor()
@@ -176,27 +191,28 @@ class GameOverScene: SKScene {
     addChild(monstersLabel)
 
     message = "Level Reached: \(levelReached)"
-    let levelLabel = SKLabelNode(fontNamed: "Avenir")
+    let levelLabel = SKLabelNode(fontNamed: "Copperplate")
     levelLabel.text = message
     levelLabel.fontSize = 20
     levelLabel.fontColor = SKColor.blackColor()
     levelLabel.position = CGPoint(x: size.width/2, y: monstersLabel.position.y - monstersLabel.fontSize)
     addChild(levelLabel)
     
+    
     blueDragon.size = CGSize(width: 50, height: 30)
-    blueDragon.position = CGPoint(x: self.size.width * 6/24, y: restartButton.position.y + restartButton.size.height / 2 + blueDragon.size.height)
+    blueDragon.position = CGPoint(x: self.size.width * 6/24, y: 43 + restartButton.frame.height / 2 + blueDragon.size.height / 2 + 20)
     self.addChild(blueDragon)
     
     redDragon.size = CGSize(width: 50, height: 30)
-    redDragon.position = CGPoint(x: self.size.width * 10/24, y: restartButton.position.y + restartButton.size.height / 2 + redDragon.size.height)
+    redDragon.position = CGPoint(x: self.size.width * 10/24, y: 43 + restartButton.frame.height / 2 + redDragon.size.height / 2 + 20)
     self.addChild(redDragon)
     
     greenDragon.size = CGSize(width: 50, height: 30)
-    greenDragon.position = CGPoint(x: self.size.width * 14/24, y: restartButton.position.y + restartButton.size.height / 2 + greenDragon.size.height)
+    greenDragon.position = CGPoint(x: self.size.width * 14/24, y: 43 + restartButton.frame.height / 2 + greenDragon.size.height / 2 + 20)
     self.addChild(greenDragon)
     
     yellowDragon.size = CGSize(width: 50, height: 30)
-    yellowDragon.position = CGPoint(x: self.size.width * 18/24, y: restartButton.position.y + restartButton.size.height / 2 + yellowDragon.size.height)
+    yellowDragon.position = CGPoint(x: self.size.width * 18/24, y: 43 + restartButton.frame.height / 2 + yellowDragon.size.height / 2 + 20)
     self.addChild(yellowDragon)
     
     flame.size = CGSize(width: 26, height: 48)
@@ -210,6 +226,14 @@ class GameOverScene: SKScene {
 
     laser2.size = CGSize(width: 9, height: 48)
     laser2.position = CGPoint(x: yellowDragon.position.x, y: yellowDragon.position.y + yellowDragon.size.height/2 + flame.size.height/2 - 1)
+    
+    message = "Choose Dragon of Destiny"
+    let chooseDragonLabel = SKLabelNode(fontNamed: "Copperplate")
+    chooseDragonLabel.text = message
+    chooseDragonLabel.fontSize = 30
+    chooseDragonLabel.fontColor = SKColor.blackColor()
+    chooseDragonLabel.position = CGPoint(x: size.width/2, y: blueDragon.position.y + blueDragon.size.height + chooseDragonLabel.fontSize + 8)
+    addChild(chooseDragonLabel)
 
 
     switch dragonSelected {
@@ -225,11 +249,11 @@ class GameOverScene: SKScene {
       self.addChild(fireball)
     }
     
-    let dragonLabel = SKLabelNode(fontNamed: "Avenir")
-    dragonLabel.position = CGPoint(x: self.size.width/2, y: flame.position.y + flame.size.height)
-    dragonLabel.fontSize = 20
-    dragonLabel.text = "Choose Dragon"
-    self.addChild(dragonLabel)
+//    let dragonLabel = SKLabelNode(fontNamed: "Copperplate")
+//    dragonLabel.position = CGPoint(x: self.size.width/2, y: flame.position.y + flame.size.height)
+//    dragonLabel.fontSize = 20
+//    dragonLabel.text = "Choose Dragon of Destiny"
+//    self.addChild(dragonLabel)
     
 //    if birthdayMode {
 //      birthdayPickerLabel.text = " Mode"
@@ -352,7 +376,7 @@ class GameOverScene: SKScene {
       let yellowDragonExtendedRect = CGRectMake(yellowDragon.position.x - yellowDragon.size.width/2, yellowDragon.position.y - yellowDragon.size.height/2, yellowDragon.size.width, yellowDragon.size.height * 4)
       
       if restartButton.containsPoint(touchLocation) {
-        restartButton.runAction(SKAction.scaleTo(1.25, duration: 0.5))
+//        restartButton.runAction(SKAction.scaleTo(1.25, duration: 0.5))
       }
       if (CGRectContainsPoint(blueDragonExtendedRect, touchLocation)) {
         self.dragonSelected = 0

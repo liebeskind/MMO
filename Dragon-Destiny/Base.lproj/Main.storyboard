@@ -35,48 +35,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DragonArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="nhL-VP-uA3">
-                                <rect key="frame" x="263" y="28" width="75" height="75"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dragonMainScreenBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="wZ4-jT-zSP">
+                                <rect key="frame" x="-9" y="114" width="618" height="373"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="7J7-gJ-DFx"/>
-                                    <constraint firstAttribute="width" secondItem="nhL-VP-uA3" secondAttribute="height" multiplier="1:1" id="qPE-j8-qtT"/>
+                                    <constraint firstAttribute="width" secondItem="wZ4-jT-zSP" secondAttribute="height" multiplier="537:350" constant="45.779999999999973" id="MZe-gn-iwi"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dragon Destiny" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkv-5B-gvJ">
-                                <rect key="frame" x="16" y="103" width="568" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Rcq-2c-RJb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Coins: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epG-am-tU8">
-                                <rect key="frame" x="16" y="28" width="70" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Coins: None" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="epG-am-tU8">
+                                <rect key="frame" x="16" y="28" width="111" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="8BA-kA-U5M"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Dragon" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wp8-sC-I9Z">
-                                <rect key="frame" x="16" y="385" width="568" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Dragon of Destiny" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wp8-sC-I9Z">
+                                <rect key="frame" x="16" y="358" width="568" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="8Yr-i7-uWU"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4Y-f1-hNm">
-                                <rect key="frame" x="200" y="532" width="200" height="48"/>
-                                <color key="backgroundColor" red="0.02493136487" green="0.38575753829999998" blue="0.71137152780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="225" y="527" width="150" height="43"/>
+                                <color key="backgroundColor" red="0.023529411764705882" green="0.38431372549019605" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="7LT-Z1-NBx"/>
+                                    <constraint firstAttribute="width" constant="150" id="7LT-Z1-NBx"/>
+                                    <constraint firstAttribute="height" constant="43" id="sF6-9Q-734"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="Play Arcade">
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="30"/>
+                                <state key="normal" title="PLAY">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -85,7 +74,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bkU-i2-xJn" userLabel="fireballButton">
-                                <rect key="frame" x="128" y="432" width="80" height="92"/>
+                                <rect key="frame" x="128" y="405" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="92" id="Um3-TU-oWy"/>
                                     <constraint firstAttribute="width" constant="80" id="ZjL-QF-AtS"/>
@@ -98,21 +87,21 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FireballChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDZ-fk-r18">
-                                <rect key="frame" x="160" y="453" width="15" height="15"/>
+                                <rect key="frame" x="160" y="426" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="OjU-7i-11H"/>
                                     <constraint firstAttribute="height" constant="15" id="tba-uA-qYl"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlueDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="5e7-rt-A8s">
-                                <rect key="frame" x="142" y="484" width="50" height="30"/>
+                                <rect key="frame" x="142" y="457" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Msm-b5-6gO"/>
                                     <constraint firstAttribute="width" constant="50" id="NV6-vU-vLn"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RpY-CS-eqQ" userLabel="flameButton">
-                                <rect key="frame" x="216" y="432" width="80" height="92"/>
+                                <rect key="frame" x="216" y="405" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="sbh-rY-HHG"/>
                                     <constraint firstAttribute="height" constant="92" id="v8S-Vg-BQJ"/>
@@ -125,30 +114,30 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FlameChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="hF0-pF-Ci6">
-                                <rect key="frame" x="243" y="437" width="26" height="48"/>
+                                <rect key="frame" x="243" y="410" width="26" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="26" id="C5h-Af-p7Z"/>
                                     <constraint firstAttribute="height" constant="48" id="qZO-R7-MeI"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="RedDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ewc-Kp-h4V">
-                                <rect key="frame" x="231" y="484" width="50" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RedDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ewc-Kp-h4V">
+                                <rect key="frame" x="232" y="457" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="rLg-fm-RdM"/>
                                     <constraint firstAttribute="height" constant="30" id="rP4-WE-nBK"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="f8x-M0-WAW" userLabel="flame_gray_lock.png">
-                                <rect key="frame" x="224" y="432" width="64" height="92"/>
+                                <rect key="frame" x="224" y="405" width="64" height="92"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nj-bs-C9F">
-                                <rect key="frame" x="230" y="477" width="53" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="230" y="450" width="53" height="44"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KBI-vB-cu9" userLabel="laserBallButton">
-                                <rect key="frame" x="304" y="432" width="80" height="92"/>
+                                <rect key="frame" x="304" y="405" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="9Fp-EC-0ch"/>
                                     <constraint firstAttribute="height" constant="92" id="sq9-IN-3uD"/>
@@ -161,30 +150,24 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaserChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="koS-DX-OnS" userLabel="LaserBallChooser.png">
-                                <rect key="frame" x="340" y="451" width="9" height="20"/>
+                                <rect key="frame" x="340" y="424" width="9" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="9" id="Y0x-fu-K4z"/>
                                     <constraint firstAttribute="height" constant="20" id="bqB-bm-LoW"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="NqC-QT-cQK">
-                                <rect key="frame" x="320" y="484" width="50" height="30"/>
+                                <rect key="frame" x="320" y="457" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="ryS-OK-WdN"/>
                                     <constraint firstAttribute="height" constant="30" id="w98-Cs-3U8"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="yhx-7h-sxe" userLabel="laser_ball_gray_lock.png">
-                                <rect key="frame" x="313" y="432" width="64" height="92"/>
+                                <rect key="frame" x="313" y="405" width="64" height="92"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="600 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNg-UR-LCD">
-                                <rect key="frame" x="319" y="477" width="53" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hn1-mL-hst" userLabel="laserBeamButton">
-                                <rect key="frame" x="392" y="432" width="80" height="92"/>
+                                <rect key="frame" x="392" y="405" width="80" height="92"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="HMM-NF-JCy"/>
                                     <constraint firstAttribute="height" constant="92" id="RAW-Hq-LL3"/>
@@ -197,66 +180,72 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaserChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="joe-5f-gcc" userLabel="LaserBeamChooser.png">
-                                <rect key="frame" x="429" y="437" width="9" height="48"/>
+                                <rect key="frame" x="429" y="410" width="9" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="QL0-7x-3QR"/>
                                     <constraint firstAttribute="width" constant="9" id="fdS-7R-Tzf"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="YellowDragonChooser.png" translatesAutoresizingMaskIntoConstraints="NO" id="qCj-h7-pmu">
-                                <rect key="frame" x="408" y="484" width="50" height="30"/>
+                                <rect key="frame" x="408" y="457" width="50" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="BSl-pG-t2S"/>
                                     <constraint firstAttribute="width" constant="50" id="ag0-La-s9h"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="Got-2b-IOH" userLabel="laser_beamgray_lock.png">
-                                <rect key="frame" x="401" y="432" width="64" height="92"/>
+                                <rect key="frame" x="401" y="405" width="64" height="92"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,200 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37N-Ze-KsV">
-                                <rect key="frame" x="407" y="477" width="53" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="407" y="450" width="53" height="44"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nuu-Hs-3DT">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="600 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNg-UR-LCD">
+                                <rect key="frame" x="319" y="450" width="53" height="44"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nhL-VP-uA3" firstAttribute="top" secondItem="gcA-BA-ggj" secondAttribute="bottom" constant="8" id="08M-pE-792"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="top" secondItem="gNg-UR-LCD" secondAttribute="top" constant="-45" id="0Pg-kr-yuH"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="NqC-QT-cQK" secondAttribute="bottom" constant="18" id="3rs-H9-cI2"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="NqC-QT-cQK" secondAttribute="bottom" constant="40" id="3rs-H9-cI2"/>
                             <constraint firstAttribute="centerX" secondItem="KBI-vB-cu9" secondAttribute="centerX" constant="-44" id="6rX-sD-s7c"/>
                             <constraint firstAttribute="centerY" secondItem="Nuu-Hs-3DT" secondAttribute="centerY" id="7h3-kj-nBT"/>
                             <constraint firstItem="qCj-h7-pmu" firstAttribute="top" secondItem="joe-5f-gcc" secondAttribute="bottom" constant="-1" id="7mG-eV-kED"/>
                             <constraint firstAttribute="centerX" secondItem="hF0-pF-Ci6" secondAttribute="centerX" constant="44" id="AYP-e1-nuG"/>
                             <constraint firstItem="37N-Ze-KsV" firstAttribute="leading" secondItem="Got-2b-IOH" secondAttribute="leading" constant="6" id="Aw2-Re-XOD"/>
+                            <constraint firstItem="wZ4-jT-zSP" firstAttribute="width" secondItem="wZ4-jT-zSP" secondAttribute="height" multiplier="537:350" id="BDQ-28-5rT"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="top" secondItem="yhx-7h-sxe" secondAttribute="top" id="BGU-Mh-iz8"/>
                             <constraint firstItem="5e7-rt-A8s" firstAttribute="top" secondItem="XDZ-fk-r18" secondAttribute="bottom" constant="16" id="CbD-nI-8Lz"/>
-                            <constraint firstItem="gkv-5B-gvJ" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="D6M-ck-tK7"/>
                             <constraint firstItem="37N-Ze-KsV" firstAttribute="bottom" secondItem="Got-2b-IOH" secondAttribute="bottom" constant="-3" id="D9l-O5-ySr"/>
                             <constraint firstItem="NqC-QT-cQK" firstAttribute="top" secondItem="koS-DX-OnS" secondAttribute="bottom" constant="13" id="EFM-Vs-J7r"/>
                             <constraint firstAttribute="centerX" secondItem="NqC-QT-cQK" secondAttribute="centerX" constant="-45" id="F2Q-OV-VLf"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="RpY-CS-eqQ" secondAttribute="bottom" constant="8" id="FkN-de-RJs"/>
-                            <constraint firstItem="gkv-5B-gvJ" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="G9B-DR-cRd"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="RpY-CS-eqQ" secondAttribute="bottom" constant="30" id="FkN-de-RJs"/>
+                            <constraint firstItem="wZ4-jT-zSP" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" constant="-16" id="FsX-0Y-Ipf"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="leading" secondItem="gNg-UR-LCD" secondAttribute="leading" constant="-6" id="IM8-4x-IaG"/>
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="bottom" secondItem="f8x-M0-WAW" secondAttribute="bottom" id="JQz-Ig-Rd3"/>
                             <constraint firstAttribute="centerX" secondItem="Hn1-mL-hst" secondAttribute="centerX" constant="-132" id="Jbp-BQ-jr9"/>
                             <constraint firstItem="9nj-bs-C9F" firstAttribute="bottom" secondItem="f8x-M0-WAW" secondAttribute="bottom" constant="-3" id="Jl6-A1-vcT"/>
-                            <constraint firstItem="gkv-5B-gvJ" firstAttribute="top" secondItem="nhL-VP-uA3" secondAttribute="bottom" id="K2d-DV-OFJ"/>
+                            <constraint firstAttribute="centerY" secondItem="wZ4-jT-zSP" secondAttribute="centerY" id="KVA-uY-jNw"/>
                             <constraint firstItem="Hn1-mL-hst" firstAttribute="trailing" secondItem="Got-2b-IOH" secondAttribute="trailing" constant="7" id="Mq3-eF-8Gx"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="trailing" secondItem="gNg-UR-LCD" secondAttribute="trailing" constant="5" id="Nry-Sa-zbh"/>
                             <constraint firstItem="Hn1-mL-hst" firstAttribute="bottom" secondItem="Got-2b-IOH" secondAttribute="bottom" id="Opr-hT-zbX"/>
                             <constraint firstItem="Ewc-Kp-h4V" firstAttribute="top" secondItem="hF0-pF-Ci6" secondAttribute="bottom" constant="-1" id="P1U-Xc-2r0"/>
                             <constraint firstItem="Hn1-mL-hst" firstAttribute="top" secondItem="Got-2b-IOH" secondAttribute="top" id="PbE-bL-E07"/>
                             <constraint firstItem="9nj-bs-C9F" firstAttribute="top" secondItem="f8x-M0-WAW" secondAttribute="top" constant="45" id="Pru-FP-pbW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wZ4-jT-zSP" secondAttribute="trailing" constant="-16" id="QO5-nc-zgX"/>
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="leading" secondItem="f8x-M0-WAW" secondAttribute="leading" constant="-8" id="QPX-zu-mbK"/>
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="top" secondItem="f8x-M0-WAW" secondAttribute="top" id="QT6-pI-RFB"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="qCj-h7-pmu" secondAttribute="bottom" constant="18" id="Ql0-LW-ObF"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="qCj-h7-pmu" secondAttribute="bottom" constant="40" id="Ql0-LW-ObF"/>
                             <constraint firstAttribute="centerX" secondItem="XDZ-fk-r18" secondAttribute="centerX" constant="132.5" id="Trz-QL-Uqy"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Hn1-mL-hst" secondAttribute="bottom" constant="8" id="UVV-Ze-1JG"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Hn1-mL-hst" secondAttribute="bottom" constant="30" id="UVV-Ze-1JG"/>
                             <constraint firstAttribute="centerX" secondItem="koS-DX-OnS" secondAttribute="centerX" constant="-44.5" id="UXX-bp-tTb"/>
                             <constraint firstAttribute="centerX" secondItem="bkU-i2-xJn" secondAttribute="centerX" constant="132" id="VUb-8k-MOu"/>
                             <constraint firstItem="Hn1-mL-hst" firstAttribute="leading" secondItem="Got-2b-IOH" secondAttribute="leading" constant="-9" id="WCn-Mh-xvM"/>
@@ -265,36 +254,43 @@
                             <constraint firstItem="37N-Ze-KsV" firstAttribute="trailing" secondItem="Got-2b-IOH" secondAttribute="trailing" constant="-5" id="aXr-Oi-JPa"/>
                             <constraint firstItem="9nj-bs-C9F" firstAttribute="trailing" secondItem="f8x-M0-WAW" secondAttribute="trailing" constant="-5" id="ayj-Gi-08U"/>
                             <constraint firstItem="epG-am-tU8" firstAttribute="top" secondItem="gcA-BA-ggj" secondAttribute="bottom" constant="8" id="bXp-3X-Eej"/>
-                            <constraint firstItem="0ZM-rN-WYP" firstAttribute="top" secondItem="h4Y-f1-hNm" secondAttribute="bottom" constant="20" id="be6-3Z-N94"/>
                             <constraint firstItem="Wp8-sC-I9Z" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="cD3-54-OUH"/>
                             <constraint firstItem="9nj-bs-C9F" firstAttribute="leading" secondItem="f8x-M0-WAW" secondAttribute="leading" constant="6" id="cyL-d0-3jV"/>
                             <constraint firstItem="Wp8-sC-I9Z" firstAttribute="trailing" secondItem="AnG-bG-uhC" secondAttribute="trailingMargin" id="dyc-Vm-ji8"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="18" id="fJa-j7-ruk"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="40" id="fJa-j7-ruk"/>
+                            <constraint firstItem="wZ4-jT-zSP" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leading" constant="-9" id="fXq-WD-zT5"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="bottom" secondItem="gNg-UR-LCD" secondAttribute="bottom" constant="3" id="hYO-us-pCr"/>
                             <constraint firstAttribute="centerX" secondItem="Nuu-Hs-3DT" secondAttribute="centerX" id="ixB-AH-5pi"/>
                             <constraint firstAttribute="centerX" secondItem="Ewc-Kp-h4V" secondAttribute="centerX" constant="43" id="jA0-BA-S7s"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="KBI-vB-cu9" secondAttribute="bottom" constant="8" id="k2P-7p-ZXy"/>
+                            <constraint firstItem="0ZM-rN-WYP" firstAttribute="top" secondItem="h4Y-f1-hNm" secondAttribute="bottom" constant="30" id="jfk-Fu-elW"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="KBI-vB-cu9" secondAttribute="bottom" constant="30" id="k2P-7p-ZXy"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="trailing" secondItem="yhx-7h-sxe" secondAttribute="trailing" constant="7" id="olz-4K-nkM"/>
+                            <constraint firstAttribute="trailing" secondItem="wZ4-jT-zSP" secondAttribute="trailing" constant="-9" id="p1Q-ni-UHc"/>
                             <constraint firstItem="37N-Ze-KsV" firstAttribute="top" secondItem="Got-2b-IOH" secondAttribute="top" constant="45" id="q8u-Ak-IgR"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Ewc-Kp-h4V" secondAttribute="bottom" constant="18" id="qeB-Pd-U9e"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Ewc-Kp-h4V" secondAttribute="bottom" constant="40" id="qeB-Pd-U9e"/>
                             <constraint firstAttribute="centerX" secondItem="qCj-h7-pmu" secondAttribute="centerX" constant="-133" id="ufy-5K-wtz"/>
                             <constraint firstItem="bkU-i2-xJn" firstAttribute="top" secondItem="Wp8-sC-I9Z" secondAttribute="bottom" constant="-13" id="y17-yG-6Tb"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="bottom" secondItem="yhx-7h-sxe" secondAttribute="bottom" id="y7k-JJ-pph"/>
-                            <constraint firstAttribute="centerX" secondItem="nhL-VP-uA3" secondAttribute="centerX" id="yz6-ty-FU5"/>
                             <constraint firstAttribute="centerX" secondItem="RpY-CS-eqQ" secondAttribute="centerX" constant="44" id="z6I-qZ-RM7"/>
                             <constraint firstItem="epG-am-tU8" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="zLC-Kl-DmN"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="leading" secondItem="yhx-7h-sxe" secondAttribute="leading" constant="-9" id="zMF-YK-W6U"/>
-                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="bkU-i2-xJn" secondAttribute="bottom" constant="8" id="zdb-kE-h3h"/>
+                            <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="bkU-i2-xJn" secondAttribute="bottom" constant="30" id="zdb-kE-h3h"/>
                             <constraint firstAttribute="centerX" secondItem="5e7-rt-A8s" secondAttribute="centerX" constant="133" id="zhC-Up-JBB"/>
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="trailing" secondItem="f8x-M0-WAW" secondAttribute="trailing" constant="8" id="zhT-bV-7LW"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BDQ-28-5rT"/>
+                                <exclude reference="FsX-0Y-Ipf"/>
+                                <exclude reference="QO5-nc-zgX"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="S55-0w-IRs"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="activityIndicator" destination="Nuu-Hs-3DT" id="w6p-hp-7B4"/>
                         <outlet property="blueButton" destination="bkU-i2-xJn" id="0Tb-9h-CxL"/>
-                        <outlet property="dragonDestinyTitle" destination="gkv-5B-gvJ" id="DPL-sK-swC"/>
                         <outlet property="fireballImage" destination="XDZ-fk-r18" id="ahm-oa-Wd6"/>
                         <outlet property="flameCostLabel" destination="9nj-bs-C9F" id="tJq-A7-11e"/>
                         <outlet property="flameDragonImage" destination="Ewc-Kp-h4V" id="fCh-X3-JJZ"/>
@@ -309,6 +305,7 @@
                         <outlet property="lockFlame" destination="f8x-M0-WAW" id="Dqn-Be-V17"/>
                         <outlet property="lockLaserBall" destination="yhx-7h-sxe" id="mJO-az-sox"/>
                         <outlet property="lockLaserBeam" destination="Got-2b-IOH" id="paf-ei-Pro"/>
+                        <outlet property="playButton" destination="h4Y-f1-hNm" id="US7-U5-TAb"/>
                         <outlet property="redButton" destination="RpY-CS-eqQ" id="F6e-d8-d1G"/>
                         <outlet property="totalCoinsLabel" destination="epG-am-tU8" id="RXx-mc-5e5"/>
                         <outlet property="yellowButton" destination="Hn1-mL-hst" id="knW-nQ-ACj"/>
@@ -356,13 +353,13 @@
     </scenes>
     <resources>
         <image name="BlueDragonChooser.png" width="992" height="624"/>
-        <image name="DragonArtwork" width="512" height="512"/>
         <image name="FireballChooser.png" width="575" height="599"/>
         <image name="FlameChooser.png" width="477" height="1185"/>
         <image name="GreenDragonChooser.png" width="1042" height="633"/>
         <image name="LaserChooser.png" width="74" height="638"/>
         <image name="RedDragonChooser.png" width="1042" height="633"/>
         <image name="YellowDragonChooser.png" width="1042" height="633"/>
+        <image name="dragonMainScreenBackground.png" width="1092" height="718"/>
         <image name="gray_lock.png" width="384" height="512"/>
     </resources>
 </document>

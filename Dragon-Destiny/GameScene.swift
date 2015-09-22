@@ -134,10 +134,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   var coinsCollected = 0
   var coinCount = 0
   var totalCoins = Int()
-  let totalCoinsBoard = SKLabelNode(fontNamed: "Avenir")
-  let scoreBoard = SKLabelNode(fontNamed: "Avenir")
-  let highScoreBoard = SKLabelNode(fontNamed: "Avenir")
-  let monstersKilledBoard = SKLabelNode(fontNamed: "Avenir")
+  let totalCoinsBoard = SKLabelNode(fontNamed: "Copperplate")
+  let scoreBoard = SKLabelNode(fontNamed: "Copperplate")
+  let highScoreBoard = SKLabelNode(fontNamed: "Copperplate")
+  let monstersKilledBoard = SKLabelNode(fontNamed: "Copperplate")
   var highScoreAchieved = false
   
   var currentState = MoveStates.N
@@ -192,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
   
   var tracker: GAITracker!
   
-  var levelLabel = SKLabelNode(fontNamed: "Chalkduster")
+  var levelLabel = SKLabelNode(fontNamed: "Copperplate")
   var levelReached = 1
   let coinsPerLevelMultiplier = 15
   
@@ -425,13 +425,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     
     monstersKilledBoard.fontColor = UIColor.blackColor()
     monstersKilledBoard.fontSize = scoreBoard.fontSize
-    monstersKilledBoard.position = CGPoint(x: 15, y: scoreBoard.position.y - scoreBoard.fontSize - 5)
+    monstersKilledBoard.position = CGPoint(x: 15, y: scoreBoard.position.y - scoreBoard.fontSize)
     monstersKilledBoard.horizontalAlignmentMode = .Left
     monstersKilledBoard.text = "Arrows Destroyed: \(monstersDestroyed)"
     monstersKilledBoard.zPosition = 2
     self.addChild(monstersKilledBoard)
     
-    highScoreBoard.position = CGPoint(x: 15, y: monstersKilledBoard.position.y - scoreBoard.fontSize - 5)
+    highScoreBoard.position = CGPoint(x: 15, y: monstersKilledBoard.position.y - scoreBoard.fontSize)
     highScoreBoard.fontColor = UIColor.blackColor()
     highScoreBoard.fontSize = scoreBoard.fontSize
     highScoreBoard.horizontalAlignmentMode = .Left
@@ -441,9 +441,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     } else {
       highScoreBoard.text = "High Score: \(0)"
     }
-    self.addChild(highScoreBoard)
+//    self.addChild(highScoreBoard)
     
-    totalCoinsBoard.position = CGPoint(x: 15, y: highScoreBoard.position.y - highScoreBoard.fontSize - 5)
+    totalCoinsBoard.position = CGPoint(x: 15, y: monstersKilledBoard.position.y - monstersKilledBoard.fontSize)
     totalCoinsBoard.fontColor = UIColor.blackColor()
     totalCoinsBoard.fontSize = scoreBoard.fontSize
     totalCoinsBoard.horizontalAlignmentMode = .Left

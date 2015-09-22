@@ -324,6 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         flameFrames.append(flameAnimatedAtlas.textureNamed(flameTextureName))
       }
       flameScenes = flameFrames
+      SKTexture.preloadTextures(flameScenes, withCompletionHandler: { () -> Void in})
     
     
       let flameStartAnimatedAtlas = SKTextureAtlas(named: "flameImages")
@@ -335,6 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         flameStartFrames.append(flameStartAnimatedAtlas.textureNamed(flameStartTextureName))
       }
       flameStartScenes = flameStartFrames
+      SKTexture.preloadTextures(flameStartScenes, withCompletionHandler: { () -> Void in})
     }
     
     if dragonSelected == 2 || dragonSelected == 3 {
@@ -349,6 +351,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       
       laserBallScenes = laserBallFrames
       firstLaserBallFrame = laserBallScenes[0]
+      SKTexture.preloadTextures(laserBallScenes, withCompletionHandler: { () -> Void in})
     }
     
     if dragonSelected == 3 {
@@ -362,6 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
       
       laserStartScenes = laserStartFrames
+      SKTexture.preloadTextures(laserStartScenes, withCompletionHandler: { () -> Void in})
       
       let laserAnimatedAtlas = SKTextureAtlas(named: "fullLaserImages")
       var laserFrames = [SKTexture]()
@@ -373,6 +377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
       }
       
       laserScenes = laserFrames
+      SKTexture.preloadTextures(laserScenes, withCompletionHandler: { () -> Void in})
     }
     
     self.addMonsterBlock(1.0)

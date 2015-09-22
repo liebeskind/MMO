@@ -166,7 +166,7 @@ class GameOverScene: SKScene {
       totalCoins += i * self.coinsPerLevelMultiplier
     }
     
-    message = "Coins Collected: \(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%)"
+    message = "Score: \(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%)"
     let coinsLabel = SKLabelNode(fontNamed: "Copperplate")
     coinsLabel.text = message
     coinsLabel.fontSize = 20
@@ -182,15 +182,31 @@ class GameOverScene: SKScene {
 //    percentageLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
 //    addChild(percentageLabel)
  
-    message = "Arrows Shot Down: \(monstersDestroyed)"
-    let monstersLabel = SKLabelNode(fontNamed: "Copperplate")
+    var monstersLabel = SKLabelNode()
+    
+    if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+      message = "High Score: \(highScore)"
+      let highScoreLabel = SKLabelNode(fontNamed: "Copperplate")
+      highScoreLabel.text = message
+      highScoreLabel.fontSize = 20
+      highScoreLabel.fontColor = SKColor.blackColor()
+      highScoreLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
+      addChild(highScoreLabel)
+      
+      monstersLabel = SKLabelNode(fontNamed: "Copperplate")
+      monstersLabel.position = CGPoint(x: size.width/2, y: highScoreLabel.position.y - highScoreLabel.fontSize)
+    } else {
+      monstersLabel = SKLabelNode(fontNamed: "Copperplate")
+      monstersLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
+    }
+    
+    message = "Arrows Destroyed: \(monstersDestroyed)"
     monstersLabel.text = message
     monstersLabel.fontSize = 20
     monstersLabel.fontColor = SKColor.blackColor()
-    monstersLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
     addChild(monstersLabel)
 
-    message = "Level Reached: \(levelReached)"
+    message = "Level: \(levelReached)"
     let levelLabel = SKLabelNode(fontNamed: "Copperplate")
     levelLabel.text = message
     levelLabel.fontSize = 20

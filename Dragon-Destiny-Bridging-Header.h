@@ -4,3 +4,6 @@
 
 #import <GoogleMobileAds/GADInterstitial.h>
 #import <Google/Analytics.h>
+#import <Chartboost.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <AdSupport/AdSupport.h>

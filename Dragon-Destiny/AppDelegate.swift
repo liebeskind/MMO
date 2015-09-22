@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADInterstitialDelegate {
 
   var window: UIWindow?
+  var interstitial:GADInterstitial?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
@@ -27,9 +29,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
 //    gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
     
+    Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
+    Chartboost.setAutoCacheAds(true)
+    Chartboost.setShouldPrefetchVideoContent(true)
+    Chartboost.setShouldRequestInterstitialsInFirstSession(true)
+    Chartboost.cacheInterstitial(CBLocationGameOver)
+    
+    interstitial = createAndLoadInterstitial()
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentInterstitial:", name:"showInterstitialAdsID", object: nil)
+    
     UIScreen.mainScreen().brightness = 0.9
     
     return true
+  }
+  
+  @objc private func presentInterstitial(notification: NSNotification){
+    if Chartboost.hasInterstitial(CBLocationGameOver) {
+      Chartboost.showInterstitial(CBLocationGameOver)
+    } else {
+      if let isReady = interstitial?.isReady {
+        interstitial?.presentFromRootViewController(self.window?.rootViewController)
+      }
+    }
+  }
+  
+  func createAndLoadInterstitial()->GADInterstitial {
+    println("adMobCreateAndLoadInterstitial")
+    var interstitial = GADInterstitial(adUnitID: "ca-app-pub-1048344523427807/2816356772")
+    interstitial.delegate = self
+    var request = GADRequest()
+    request.testDevices = ["2f78537250ad45ed0f48261919acaeeb"]
+    interstitial.loadRequest(request)
+    
+    return interstitial
+  }
+
+  func interstitial(ad: GADInterstitial!, didFailToReceiveAdWithError error: GADRequestError!) {
+    //    println("adMobInterstitialDidFailToReceiveAdWithError:\(error.localizedDescription)")
+    interstitial = createAndLoadInterstitial()
+    //    loadInterstitialAd()
+  }
+  
+  func interstitialDidReceiveAd(ad: GADInterstitial!) {
+    println("adMobInterstitialDidReceiveAd")
+  }
+  
+  func interstitialWillDismissScreen(ad: GADInterstitial!) {
+    //    println("adMobInterstitialWillDismissScreen")
+  }
+  
+  func interstitialDidDismissScreen(ad: GADInterstitial!) {
+    //    println("adMobInterstitialDidDismissScreen")
+    interstitial = createAndLoadInterstitial()
+  }
+  
+  func interstitialWillLeaveApplication(ad: GADInterstitial!) {
+    //    println("adMobInterstitialWillLeaveApplication")
+  }
+  
+  func interstitialWillPresentScreen(ad: GADInterstitial!) {
+    println("adMobInterstitialWillPresentScreen")
+  }
+  
+  // Called after an interstitial has been displayed on the screen.
+  func didDisplayInterstitial(location: String!){
+    println("Chartboost ad displayed")
+  }
+  
+  // Called after an interstitial has been loaded from the Chartboost API
+  // servers and cached locally.
+  func didCacheInterstitial(location: String!){
+    println("Chartboost ad cached")
+  }
+  
+  func didDismissInterstitial(location: String!) {
+    println("Chartboost ad dismissed")
+//    Chartboost.cacheInterstitial(CBLocationGameOver)
+  }
+  
+  // Called after an interstitial has attempted to load from the Chartboost API
+  // servers but failed.
+  func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
+    println("Failed to load Chartboost ad")
+//    if let isReady = interstitial?.isReady {
+//      interstitial?.presentFromRootViewController(self.window?.rootViewController)
+//    }
   }
 
   func applicationWillResignActive(application: UIApplication) {

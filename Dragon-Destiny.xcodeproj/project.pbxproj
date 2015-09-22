@@ -38,6 +38,7 @@
 		29480AC61B9FF0B10020B2BB /* ShieldBroken.png in Resources */ = {isa = PBXBuildFile; fileRef = 29480AC41B9FF0B10020B2BB /* ShieldBroken.png */; };
 		294E4A771BB1046800007CDB /* dragonMainScreenBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 294E4A761BB1046800007CDB /* dragonMainScreenBackground.png */; };
 		294E4A791BB1CDCD00007CDB /* AttackButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 294E4A781BB1CDCD00007CDB /* AttackButton.png */; };
+		294E4A7B1BB1DF0800007CDB /* GreenDragonChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 294E4A7A1BB1DF0800007CDB /* GreenDragonChooser.png */; };
 		29500EC71BA0D8A00043893E /* ShieldHit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500EC61BA0D8A00043893E /* ShieldHit.wav */; };
 		29500EC91BA0D8C70043893E /* ShieldDestroyed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500EC81BA0D8C70043893E /* ShieldDestroyed.wav */; };
 		29500ECC1BA246280043893E /* FlameChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500ECB1BA246280043893E /* FlameChooser.png */; };
@@ -48,7 +49,6 @@
 		29500F081BA34D520043893E /* laserImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29500F071BA34D520043893E /* laserImages.atlas */; };
 		29500F0A1BA34F220043893E /* LaserChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F091BA34F220043893E /* LaserChooser.png */; };
 		29500F0C1BA34F8F0043893E /* YellowDragonChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F0B1BA34F8F0043893E /* YellowDragonChooser.png */; };
-		29500F0E1BA34F980043893E /* GreenDragonChooser.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F0D1BA34F980043893E /* GreenDragonChooser.png */; };
 		29500F101BA355750043893E /* laserBallImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29500F0F1BA355750043893E /* laserBallImages.atlas */; };
 		29500F141BA379900043893E /* laserBallSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 29500F131BA379900043893E /* laserBallSound.wav */; };
 		29500F1A1BA749050043893E /* CupcakeDes.png in Resources */ = {isa = PBXBuildFile; fileRef = 29500F191BA749050043893E /* CupcakeDes.png */; };
@@ -151,6 +151,7 @@
 		29480AC41B9FF0B10020B2BB /* ShieldBroken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShieldBroken.png; path = ../../../../Designs/MMO/shieldUpgradeImages.atlas/ShieldBroken.png; sourceTree = "<group>"; };
 		294E4A761BB1046800007CDB /* dragonMainScreenBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dragonMainScreenBackground.png; path = ../../../../Designs/MMO/dragonMainScreenBackground.png; sourceTree = "<group>"; };
 		294E4A781BB1CDCD00007CDB /* AttackButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AttackButton.png; path = ../../../../Designs/MMO/AttackButton.png; sourceTree = "<group>"; };
+		294E4A7A1BB1DF0800007CDB /* GreenDragonChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GreenDragonChooser.png; path = ../../../../Designs/MMO/GreenDragonChooser.png; sourceTree = "<group>"; };
 		29500EC61BA0D8A00043893E /* ShieldHit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShieldHit.wav; sourceTree = "<group>"; };
 		29500EC81BA0D8C70043893E /* ShieldDestroyed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ShieldDestroyed.wav; sourceTree = "<group>"; };
 		29500ECB1BA246280043893E /* FlameChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FlameChooser.png; sourceTree = "<group>"; };
@@ -161,7 +162,6 @@
 		29500F071BA34D520043893E /* laserImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = laserImages.atlas; path = ../../../../Designs/MMO/laserImages.atlas; sourceTree = "<group>"; };
 		29500F091BA34F220043893E /* LaserChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaserChooser.png; sourceTree = "<group>"; };
 		29500F0B1BA34F8F0043893E /* YellowDragonChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YellowDragonChooser.png; sourceTree = "<group>"; };
-		29500F0D1BA34F980043893E /* GreenDragonChooser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenDragonChooser.png; sourceTree = "<group>"; };
 		29500F0F1BA355750043893E /* laserBallImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = laserBallImages.atlas; path = ../../../../Designs/MMO/laserBallImages.atlas; sourceTree = "<group>"; };
 		29500F131BA379900043893E /* laserBallSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laserBallSound.wav; sourceTree = "<group>"; };
 		29500F191BA749050043893E /* CupcakeDes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CupcakeDes.png; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 				29500ECD1BA253E80043893E /* FireballChooser.png */,
 				29500F0B1BA34F8F0043893E /* YellowDragonChooser.png */,
 				29500F091BA34F220043893E /* LaserChooser.png */,
-				29500F0D1BA34F980043893E /* GreenDragonChooser.png */,
+				294E4A7A1BB1DF0800007CDB /* GreenDragonChooser.png */,
 				29500ED11BA254140043893E /* BlueDragonChooser.png */,
 				29F6B3831B8C07920094919F /* pause-button.png */,
 				29F6B3841B8C07920094919F /* paused-pushed.png */,
@@ -626,7 +626,6 @@
 			files = (
 				29480AC51B9FF0B10020B2BB /* ShieldActive.png in Resources */,
 				29500F301BA8CD7F0043893E /* flameVideo.mov in Resources */,
-				29500F0E1BA34F980043893E /* GreenDragonChooser.png in Resources */,
 				3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */,
 				29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */,
 				29C2AE041B7C4737005F74E2 /* funnyClang.wav in Resources */,
@@ -672,6 +671,7 @@
 				29500F3A1BA9F8030043893E /* soundIcon.png in Resources */,
 				29500F101BA355750043893E /* laserBallImages.atlas in Resources */,
 				29500ECC1BA246280043893E /* FlameChooser.png in Resources */,
+				294E4A7B1BB1DF0800007CDB /* GreenDragonChooser.png in Resources */,
 				29500ED21BA254140043893E /* BlueDragonChooser.png in Resources */,
 				29F6B3851B8C07920094919F /* pause-button.png in Resources */,
 				29500F221BA763BF0043893E /* zoeImages.atlas in Resources */,

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3B8D1924DF85C99A7AD65A21"
+               BlueprintIdentifier = "F43E7E59C5C2B4B691AF5617"
                BuildableName = "Pods_Dragon_Destiny.framework"
                BlueprintName = "Pods-Dragon-Destiny"
                ReferencedContainer = "container:Pods.xcodeproj">

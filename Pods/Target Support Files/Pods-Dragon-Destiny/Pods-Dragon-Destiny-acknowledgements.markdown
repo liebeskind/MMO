@@ -1,6 +1,10 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
+## ChartboostSDK
+
+LICENSE © 2011-2015 Chartboost. All rights reserved. LICENSE
+
 ## Google-Mobile-Ads-SDK
 
 Copyright 2011 Google Inc. All Rights Reserved.

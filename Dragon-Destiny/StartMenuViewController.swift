@@ -427,6 +427,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
               self.flameImage.hidden = false
               self.lockFlame.removeFromSuperview()
               self.dragonSelected = 1
+              self.flameCostLabel.hidden = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"flameDragonPurchased")
               
               self.totalCoins! -= self.flameDragonCost
@@ -485,6 +486,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
               self.laserBallImage.hidden = false
               self.lockLaserBall.removeFromSuperview()
               self.dragonSelected = 2
+              self.laserBallCostLabel.hidden = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBallDragonPurchased")
               
               self.totalCoins! -= self.laserBallDragonCost
@@ -544,6 +546,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
               self.laserImage.hidden = false
               self.lockLaserBeam.removeFromSuperview()
               self.dragonSelected = 3
+              self.laserBeamCostLabel.hidden = true
               NSUserDefaults.standardUserDefaults().setObject(true,forKey:"laserBeamDragonPurchased")
               
               self.totalCoins! -= self.laserBeamDragonCost

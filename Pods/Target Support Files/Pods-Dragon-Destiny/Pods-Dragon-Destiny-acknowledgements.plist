@@ -14,6 +14,14 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>LICENSE &#169; 2011-2015 Chartboost. All rights reserved. LICENSE</string>
+			<key>Title</key>
+			<string>ChartboostSDK</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright 2011 Google Inc. All Rights Reserved.</string>
 			<key>Title</key>
 			<string>Google-Mobile-Ads-SDK</string>

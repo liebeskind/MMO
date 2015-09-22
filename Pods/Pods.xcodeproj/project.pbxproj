@@ -13,58 +13,67 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03608806C5166402A6AE2B7A68568403 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = Libraries/libGoogleAnalytics.a; sourceTree = "<group>"; };
+		03253FCCE0B328178587C2028A196B1B /* libGTM_DebugUtils.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_DebugUtils.a; path = Libraries/libGTM_DebugUtils.a; sourceTree = "<group>"; };
 		04EC96AB2BB7D16298F69A8AF939F681 /* Pods-Dragon-Destiny-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Dragon-Destiny-acknowledgements.markdown"; sourceTree = "<group>"; };
+		09957B3E27368460D12A129FBB7004EC /* libGSDK_Overload.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGSDK_Overload.a; path = Libraries/libGSDK_Overload.a; sourceTree = "<group>"; };
+		0A0F4CBAF9CE33BB4B14C100C94F519A /* libGTM_NSScannerJSON.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSScannerJSON.a; path = Libraries/libGTM_NSScannerJSON.a; sourceTree = "<group>"; };
+		0AD302B23E587FD8D15529E954539C0D /* libGTM_GTMURLBuilder.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_GTMURLBuilder.a; path = Libraries/libGTM_GTMURLBuilder.a; sourceTree = "<group>"; };
+		0C0AB40B3A845E2947BDECE8A870CF0F /* libGTMStackTrace.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMStackTrace.a; path = Libraries/libGTMStackTrace.a; sourceTree = "<group>"; };
+		0CCF41C4B50C9907F02A15310B0CF647 /* libGTM_SystemVersion.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_SystemVersion.a; path = Libraries/libGTM_SystemVersion.a; sourceTree = "<group>"; };
 		0D76AA294039B3AF6992FBEAFB226E2B /* Pods-Dragon-Destiny-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Dragon-Destiny-umbrella.h"; sourceTree = "<group>"; };
-		0D99295B0EF03EA8ECE2296F7EFA5BA1 /* GAIFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Headers/Public/GAIFields.h; sourceTree = "<group>"; };
-		0FB9D6C2CA8EEA42DD1D0B17EACEA990 /* GAIEcommerceFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceFields.h; path = Headers/Public/GAIEcommerceFields.h; sourceTree = "<group>"; };
-		164177656D92F41AADF8815B705A861B /* libGTM_Regex.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_Regex.a; path = Libraries/libGTM_Regex.a; sourceTree = "<group>"; };
-		16689F06BD2994CE00543C13FEC80C7A /* libGGLCore.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGGLCore.a; path = Libraries/libGGLCore.a; sourceTree = "<group>"; };
-		18A51D5DF4B6306EE135A02F86474652 /* libGTMSessionFetcher_full.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMSessionFetcher_full.a; path = Libraries/libGTMSessionFetcher_full.a; sourceTree = "<group>"; };
-		2706B001E3D1159C96CD152CEFFED01D /* libGTM_UIFont+LineHeight.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libGTM_UIFont+LineHeight.a"; path = "Libraries/libGTM_UIFont+LineHeight.a"; sourceTree = "<group>"; };
-		2727FCF1941BB76202E4741177E8F50E /* GGLContext+Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GGLContext+Analytics.h"; path = "Headers/GGLAnalytics/Public/GGLContext+Analytics.h"; sourceTree = "<group>"; };
+		115D12CC47D49D3B4544CB6477B1B6B8 /* libGGLCore.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGGLCore.a; path = Libraries/libGGLCore.a; sourceTree = "<group>"; };
+		13715EB218D6F90C4B147762F6414DC7 /* libGTM_iPhone.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_iPhone.a; path = Libraries/libGTM_iPhone.a; sourceTree = "<group>"; };
+		19E5818C6FA99E12F5206BC4FF5B2DC4 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGoogleAnalytics.a; path = Libraries/libGoogleAnalytics.a; sourceTree = "<group>"; };
+		1C91931A4B170446A13B5FD9D9CC48B1 /* Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Analytics.h; path = Headers/GGLAnalytics/Public/Analytics.h; sourceTree = "<group>"; };
+		1D079EDEEB1C5AF37E829E27D467E3CA /* GAITrackedViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = Headers/Public/GAITrackedViewController.h; sourceTree = "<group>"; };
+		2BB33A02FD1209BBF84259F9AD6CD8FD /* GGLContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLContext.h; path = Headers/GGLCore/Public/GGLContext.h; sourceTree = "<group>"; };
+		2C7917AC27814DCCE3740249812EC6A7 /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Headers/Public/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		2DB73F5F855F154F19BC9146DD128D62 /* libGTM_RoundedRectPath.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_RoundedRectPath.a; path = Libraries/libGTM_RoundedRectPath.a; sourceTree = "<group>"; };
 		2E896B692CA90239F40A579BCAEA24EB /* Pods-Dragon-Destiny-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Dragon-Destiny-acknowledgements.plist"; sourceTree = "<group>"; };
-		30931666F617AB17E6579A521522FDEF /* libGTM_KVO.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_KVO.a; path = Libraries/libGTM_KVO.a; sourceTree = "<group>"; };
+		2EF7A27B59532978CE40F852D35B555A /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = Headers/Public/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		30C536F20C2F364730F02F74E2B3BC58 /* GAILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = Headers/Public/GAILogger.h; sourceTree = "<group>"; };
 		333B6335AAFA08E7476C0E0DAD4A27DE /* Pods-Dragon-Destiny-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Dragon-Destiny-frameworks.sh"; sourceTree = "<group>"; };
-		33A559D9E68B22815FD66EB4A5BECE6C /* libGTM_NSStringHTML.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSStringHTML.a; path = Libraries/libGTM_NSStringHTML.a; sourceTree = "<group>"; };
-		3FD2E9BEA7643689C07377E1CB7005E1 /* Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Analytics.h; path = Headers/GGLAnalytics/Public/Analytics.h; sourceTree = "<group>"; };
-		4F036E43B1659AF67A684169C838095D /* GGLContext.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLContext.h; path = Headers/GGLCore/Public/GGLContext.h; sourceTree = "<group>"; };
-		553BAC9AB75E62B656CD425A450D1283 /* libGTMSessionFetcher_core.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMSessionFetcher_core.a; path = Libraries/libGTMSessionFetcher_core.a; sourceTree = "<group>"; };
-		5CD10E59514B966C7F321FEFDEB2F12D /* libGTM_iPhone.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_iPhone.a; path = Libraries/libGTM_iPhone.a; sourceTree = "<group>"; };
-		61FF5509413F244B5D09DB8AB71CB240 /* libGTM_AddressBook.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_AddressBook.a; path = Libraries/libGTM_AddressBook.a; sourceTree = "<group>"; };
-		633CDB97DF655B9D6FD9A071BE439C0A /* GAITrackedViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITrackedViewController.h; path = Headers/Public/GAITrackedViewController.h; sourceTree = "<group>"; };
-		6DA955E30D528F5386DBDD5DB25EA788 /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = Headers/Public/GAIEcommerceProduct.h; sourceTree = "<group>"; };
-		6F4F7CCD21F5C9308F681D8B39404452 /* libGTM_SystemVersion.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_SystemVersion.a; path = Libraries/libGTM_SystemVersion.a; sourceTree = "<group>"; };
-		77C70D396ED5C95E4DCB8A577E3FE041 /* GAITracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = Headers/Public/GAITracker.h; sourceTree = "<group>"; };
-		785E913F0B1B20E6764702721F6A49C0 /* libGSDK_Overload.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGSDK_Overload.a; path = Libraries/libGSDK_Overload.a; sourceTree = "<group>"; };
+		3AAAA84448FAD045604598ABE9EED3BA /* GAIEcommerceFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceFields.h; path = Headers/Public/GAIEcommerceFields.h; sourceTree = "<group>"; };
+		433FEE1728ABCCC4EFBD1CA8337C265D /* GAIEcommerceProduct.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProduct.h; path = Headers/Public/GAIEcommerceProduct.h; sourceTree = "<group>"; };
+		45E56BB8A09DAF4C0C09237BA5A06E03 /* GGLErrorCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLErrorCode.h; path = Headers/GGLCore/Public/GGLErrorCode.h; sourceTree = "<group>"; };
+		500CB56DAE735E6C0FA50A09447DAAD9 /* libGTM_StringEncoding.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_StringEncoding.a; path = Libraries/libGTM_StringEncoding.a; sourceTree = "<group>"; };
+		53CF1690D030A21BFA3EB87E823B038C /* libGTM_NSStringHTML.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSStringHTML.a; path = Libraries/libGTM_NSStringHTML.a; sourceTree = "<group>"; };
+		54F26C28643A375BB0D2E3811E8960A3 /* libGTM_NSDictionary+URLArguments.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libGTM_NSDictionary+URLArguments.a"; path = "Libraries/libGTM_NSDictionary+URLArguments.a"; sourceTree = "<group>"; };
+		5AA5861F04FEF5446DF8B604EE8B3B3B /* libGTM_NSStringXML.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSStringXML.a; path = Libraries/libGTM_NSStringXML.a; sourceTree = "<group>"; };
+		5D1DDDC918C5A44110A6B162B14B7DCF /* libGGLAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGGLAnalytics.a; path = Libraries/libGGLAnalytics.a; sourceTree = "<group>"; };
+		5D3CC7FFD1CC964E0F082252E1AFEB77 /* CBNewsfeedUI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBNewsfeedUI.h; path = Chartboost.framework/Versions/A/Headers/CBNewsfeedUI.h; sourceTree = "<group>"; };
+		61E3917B257F6CD1D225BC15955F9D49 /* libGTM_UIFont+LineHeight.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libGTM_UIFont+LineHeight.a"; path = "Libraries/libGTM_UIFont+LineHeight.a"; sourceTree = "<group>"; };
+		670A10F759EC2FF82414E68E05896B3A /* libGTMSessionFetcher_core.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMSessionFetcher_core.a; path = Libraries/libGTMSessionFetcher_core.a; sourceTree = "<group>"; };
+		6E9A0818873484B95345B6E833FDB31A /* GAI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Headers/Public/GAI.h; sourceTree = "<group>"; };
+		704F8A60A0D74991331CF67553648AB5 /* libGTM_Regex.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_Regex.a; path = Libraries/libGTM_Regex.a; sourceTree = "<group>"; };
+		7358D255A643F94CA4DBEB452CAC5C46 /* libGTM_core.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_core.a; path = Libraries/libGTM_core.a; sourceTree = "<group>"; };
+		76B243593CA2D8AA8E424EFC3BCBC14C /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		7E005C70AA9F32FDFBFEA198FA44D340 /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
-		88E25AFE8538F43636E11443D19D830A /* libGTM_GTMURLBuilder.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_GTMURLBuilder.a; path = Libraries/libGTM_GTMURLBuilder.a; sourceTree = "<group>"; };
-		8C70083683BD4C28A0D5C39E4C574FED /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "GoogleMobileAdsSdkiOS-7.4.0/GoogleMobileAds.framework"; sourceTree = "<group>"; };
-		9468F1F311293452511587D5D63D02E9 /* GAILogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAILogger.h; path = Headers/Public/GAILogger.h; sourceTree = "<group>"; };
-		9D464DB3D0EEBC798458CDEDC747CF40 /* libGTM_NSDictionary+URLArguments.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = "libGTM_NSDictionary+URLArguments.a"; path = "Libraries/libGTM_NSDictionary+URLArguments.a"; sourceTree = "<group>"; };
-		9EEA71D4143D35712053D5C59DF6E1CF /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIDictionaryBuilder.h; path = Headers/Public/GAIDictionaryBuilder.h; sourceTree = "<group>"; };
-		AA5DE4D84789C81AE408CF071A6FCC70 /* GAI.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAI.h; path = Headers/Public/GAI.h; sourceTree = "<group>"; };
-		AA8599BC389609158CF88FD8D50FA6DF /* libGTMStackTrace.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMStackTrace.a; path = Libraries/libGTMStackTrace.a; sourceTree = "<group>"; };
+		80EBC0FE97C696A9ED96886B4704DE95 /* libGTM_KVO.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_KVO.a; path = Libraries/libGTM_KVO.a; sourceTree = "<group>"; };
+		8C4D5D5265B5B041CE2033929581590C /* CBStory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBStory.h; path = Chartboost.framework/Versions/A/Headers/CBStory.h; sourceTree = "<group>"; };
+		953405C4B76291F44C41D601D81833C3 /* GAIFields.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIFields.h; path = Headers/Public/GAIFields.h; sourceTree = "<group>"; };
+		96635FB71BCF0A26BE5A811815E73D72 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "GoogleMobileAdsSdkiOS-7.4.0/GoogleMobileAds.framework"; sourceTree = "<group>"; };
+		9CD8B1E6400BCD2C024D9CC28BAE96BF /* libGTMSessionFetcher_full.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTMSessionFetcher_full.a; path = Libraries/libGTMSessionFetcher_full.a; sourceTree = "<group>"; };
+		A95DE9FC427895CDFCCE52648946FB5A /* Chartboost.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Chartboost.h; path = Chartboost.framework/Versions/A/Headers/Chartboost.h; sourceTree = "<group>"; };
+		AE111764087C5EE3FD5292B7ACA480BE /* CBMoreAppsBadge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBMoreAppsBadge.h; path = Chartboost.framework/Versions/A/Headers/CBMoreAppsBadge.h; sourceTree = "<group>"; };
+		AEECEC2DFE5D7F1F390665D81E3D0A0B /* GGLContext+Analytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GGLContext+Analytics.h"; path = "Headers/GGLAnalytics/Public/GGLContext+Analytics.h"; sourceTree = "<group>"; };
 		B8964FDDC87EF9AE60320429D2F5E05B /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B953511C4C8495B5B4B6D4AFF1A17B3A /* CBNewsfeed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBNewsfeed.h; path = Chartboost.framework/Versions/A/Headers/CBNewsfeed.h; sourceTree = "<group>"; };
 		B9CB3448F9A450E05145F9CAC1B1FC91 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		BEFE84A0898F9286BDF1809DF70B84FE /* Pods-Dragon-Destiny-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Dragon-Destiny-dummy.m"; sourceTree = "<group>"; };
-		C5495258754DF43BFD19CA26B62A22A1 /* libGTM_DebugUtils.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_DebugUtils.a; path = Libraries/libGTM_DebugUtils.a; sourceTree = "<group>"; };
-		C618F2D7A49371543B9CD04C97DC1C22 /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = Headers/Public/GAIEcommercePromotion.h; sourceTree = "<group>"; };
-		C7A8E4A54D3A9FC212E22A0BCED89431 /* libGTM_RoundedRectPath.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_RoundedRectPath.a; path = Libraries/libGTM_RoundedRectPath.a; sourceTree = "<group>"; };
-		C7D70328E35E0EAC169D4C939FCDFB2C /* GAIEcommerceProductAction.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommerceProductAction.h; path = Headers/Public/GAIEcommerceProductAction.h; sourceTree = "<group>"; };
+		CA2B2ABC935B864FE6D76EEBDC1684BF /* Core.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Headers/GGLCore/Public/Core.h; sourceTree = "<group>"; };
 		CA9B4806310D37A86FF5736C2E0DF043 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC66F2BF8FA075E29E18BB835EBAC5F2 /* libGGLAnalytics.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGGLAnalytics.a; path = Libraries/libGGLAnalytics.a; sourceTree = "<group>"; };
+		CC4BC658C48BFE4B55D5848C75D2EFF8 /* CBMoreAppsButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBMoreAppsButton.h; path = Chartboost.framework/Versions/A/Headers/CBMoreAppsButton.h; sourceTree = "<group>"; };
+		CD6606B04FB7C176F59FDFE9080C9DAA /* GAIEcommercePromotion.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAIEcommercePromotion.h; path = Headers/Public/GAIEcommercePromotion.h; sourceTree = "<group>"; };
 		CD6B9E038BAC4047999856BE97859A18 /* Pods-Dragon-Destiny-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Dragon-Destiny-resources.sh"; sourceTree = "<group>"; };
+		D19A440E0A5F56D8B1B4B73D9F1C6740 /* libGTM_AddressBook.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_AddressBook.a; path = Libraries/libGTM_AddressBook.a; sourceTree = "<group>"; };
+		DD10C1E62B64AED56325EDC026BE1F6E /* GGLConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLConfiguration.h; path = Headers/GGLCore/Public/GGLConfiguration.h; sourceTree = "<group>"; };
 		E2389622B1A60BC6AD3754BB27293760 /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
-		E4B59DA28A205468CE213898B617FABC /* libGTM_NSStringXML.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSStringXML.a; path = Libraries/libGTM_NSStringXML.a; sourceTree = "<group>"; };
-		E5D59924170C483FABFC2BFE5C77E3B9 /* libGTM_NSScannerJSON.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_NSScannerJSON.a; path = Libraries/libGTM_NSScannerJSON.a; sourceTree = "<group>"; };
-		E6D4B1484CC783D3EF9B9FDDA083776D /* Core.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Core.h; path = Headers/GGLCore/Public/Core.h; sourceTree = "<group>"; };
-		EE0A852210C51F54FBA10F25A366D7EA /* GGLErrorCode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLErrorCode.h; path = Headers/GGLCore/Public/GGLErrorCode.h; sourceTree = "<group>"; };
-		F14749B874C3209AC40A9522721B8CF6 /* libGTM_core.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_core.a; path = Libraries/libGTM_core.a; sourceTree = "<group>"; };
+		EC0C87D11C80BDB3271ADD91F2FF69B9 /* CBAnalytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBAnalytics.h; path = Chartboost.framework/Versions/A/Headers/CBAnalytics.h; sourceTree = "<group>"; };
+		F46559C7F7D6C7EC503A4D1E8F45BEE6 /* CBInPlay.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CBInPlay.h; path = Chartboost.framework/Versions/A/Headers/CBInPlay.h; sourceTree = "<group>"; };
 		F99D5AE553B30CC31240A7733A0FE3E8 /* Pods-Dragon-Destiny.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Dragon-Destiny.modulemap"; sourceTree = "<group>"; };
-		FC5707189AB35A61AC3D6C3EAED6D05C /* GGLConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GGLConfiguration.h; path = Headers/GGLCore/Public/GGLConfiguration.h; sourceTree = "<group>"; };
-		FEB4B2CCE386AFBEDCDEE14A20CDEB18 /* libGTM_StringEncoding.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libGTM_StringEncoding.a; path = Libraries/libGTM_StringEncoding.a; sourceTree = "<group>"; };
+		FCC7E799AA2AA3B973BFB7AA72FEEF0E /* GAITracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GAITracker.h; path = Headers/Public/GAITracker.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +88,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1AA39A999632EE824549FFD537CE4655 /* Frameworks */ = {
+		06A65113F28B9E47FAA885E54A5B1B47 /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				8C70083683BD4C28A0D5C39E4C574FED /* GoogleMobileAds.framework */,
+				1C91931A4B170446A13B5FD9D9CC48B1 /* Analytics.h */,
+				AEECEC2DFE5D7F1F390665D81E3D0A0B /* GGLContext+Analytics.h */,
+				BB09DF58BF186A0845E01237986BDC89 /* Frameworks */,
+			);
+			name = Analytics;
+			sourceTree = "<group>";
+		};
+		19CAF982A42C02B89A5B4289C495AE08 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				670A10F759EC2FF82414E68E05896B3A /* libGTMSessionFetcher_core.a */,
+				9CD8B1E6400BCD2C024D9CC28BAE96BF /* libGTMSessionFetcher_full.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1A1811A68AC4D9C465CC3FD7FBE04D05 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C0AB40B3A845E2947BDECE8A870CF0F /* libGTMStackTrace.a */,
+				D19A440E0A5F56D8B1B4B73D9F1C6740 /* libGTM_AddressBook.a */,
+				03253FCCE0B328178587C2028A196B1B /* libGTM_DebugUtils.a */,
+				0AD302B23E587FD8D15529E954539C0D /* libGTM_GTMURLBuilder.a */,
+				80EBC0FE97C696A9ED96886B4704DE95 /* libGTM_KVO.a */,
+				54F26C28643A375BB0D2E3811E8960A3 /* libGTM_NSDictionary+URLArguments.a */,
+				0A0F4CBAF9CE33BB4B14C100C94F519A /* libGTM_NSScannerJSON.a */,
+				53CF1690D030A21BFA3EB87E823B038C /* libGTM_NSStringHTML.a */,
+				5AA5861F04FEF5446DF8B604EE8B3B3B /* libGTM_NSStringXML.a */,
+				704F8A60A0D74991331CF67553648AB5 /* libGTM_Regex.a */,
+				2DB73F5F855F154F19BC9146DD128D62 /* libGTM_RoundedRectPath.a */,
+				500CB56DAE735E6C0FA50A09447DAAD9 /* libGTM_StringEncoding.a */,
+				0CCF41C4B50C9907F02A15310B0CF647 /* libGTM_SystemVersion.a */,
+				61E3917B257F6CD1D225BC15955F9D49 /* libGTM_UIFont+LineHeight.a */,
+				7358D255A643F94CA4DBEB452CAC5C46 /* libGTM_core.a */,
+				13715EB218D6F90C4B147762F6414DC7 /* libGTM_iPhone.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1BB808CA62551343EE377CC15A1B7117 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				19E5818C6FA99E12F5206BC4FF5B2DC4 /* libGoogleAnalytics.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -95,20 +146,13 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		3AF9D581B09F8C1200E14DD411525A87 /* Frameworks */ = {
+		1D8446AE5CF7DF965768EBDD3497A1CA /* Google */ = {
 			isa = PBXGroup;
 			children = (
-				CC66F2BF8FA075E29E18BB835EBAC5F2 /* libGGLAnalytics.a */,
+				06A65113F28B9E47FAA885E54A5B1B47 /* Analytics */,
+				746DA1D346D43D45ADBB9DD0AC9E2FEC /* Core */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		480E7E15EA9882B12DAE0C08882B99A3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				03608806C5166402A6AE2B7A68568403 /* libGoogleAnalytics.a */,
-			);
-			name = Frameworks;
+			path = Google;
 			sourceTree = "<group>";
 		};
 		53F661C0CA7190D2CF05023FB33D61E4 /* iOS */ = {
@@ -119,42 +163,40 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		62568D14F4503D6A6665BBB4ED12DECE /* GoogleAnalytics */ = {
+		72D77D218F5F732DCBFA8478A532C64B /* GoogleUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				AA5DE4D84789C81AE408CF071A6FCC70 /* GAI.h */,
-				9EEA71D4143D35712053D5C59DF6E1CF /* GAIDictionaryBuilder.h */,
-				0FB9D6C2CA8EEA42DD1D0B17EACEA990 /* GAIEcommerceFields.h */,
-				6DA955E30D528F5386DBDD5DB25EA788 /* GAIEcommerceProduct.h */,
-				C7D70328E35E0EAC169D4C939FCDFB2C /* GAIEcommerceProductAction.h */,
-				C618F2D7A49371543B9CD04C97DC1C22 /* GAIEcommercePromotion.h */,
-				0D99295B0EF03EA8ECE2296F7EFA5BA1 /* GAIFields.h */,
-				9468F1F311293452511587D5D63D02E9 /* GAILogger.h */,
-				633CDB97DF655B9D6FD9A071BE439C0A /* GAITrackedViewController.h */,
-				77C70D396ED5C95E4DCB8A577E3FE041 /* GAITracker.h */,
-				480E7E15EA9882B12DAE0C08882B99A3 /* Frameworks */,
+				1A1811A68AC4D9C465CC3FD7FBE04D05 /* Frameworks */,
 			);
-			path = GoogleAnalytics;
+			path = GoogleUtilities;
 			sourceTree = "<group>";
 		};
-		65556F2E5291BACDEAE2492D4ED89196 /* Core */ = {
+		746DA1D346D43D45ADBB9DD0AC9E2FEC /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E6D4B1484CC783D3EF9B9FDDA083776D /* Core.h */,
-				FC5707189AB35A61AC3D6C3EAED6D05C /* GGLConfiguration.h */,
-				4F036E43B1659AF67A684169C838095D /* GGLContext.h */,
-				EE0A852210C51F54FBA10F25A366D7EA /* GGLErrorCode.h */,
-				D5084CA63837258BA28612E09C730E47 /* Frameworks */,
+				CA2B2ABC935B864FE6D76EEBDC1684BF /* Core.h */,
+				DD10C1E62B64AED56325EDC026BE1F6E /* GGLConfiguration.h */,
+				2BB33A02FD1209BBF84259F9AD6CD8FD /* GGLContext.h */,
+				45E56BB8A09DAF4C0C09237BA5A06E03 /* GGLErrorCode.h */,
+				797A94FE37AB23B1195DF1BB8536BB0C /* Frameworks */,
 			);
 			name = Core;
 			sourceTree = "<group>";
 		};
-		7AB5BF9AFDEDF6319EED9A9F42987982 /* GoogleUtilities */ = {
+		76C926A9844F81DD43F53F62AAF05D69 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AB64B157DD2390491A429218587271B8 /* Frameworks */,
+				76B243593CA2D8AA8E424EFC3BCBC14C /* Chartboost.framework */,
 			);
-			path = GoogleUtilities;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		797A94FE37AB23B1195DF1BB8536BB0C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				115D12CC47D49D3B4544CB6477B1B6B8 /* libGGLCore.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -162,73 +204,84 @@
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				8F2899FD96D6F3EADD5735F1A5797EC3 /* Pods */,
+				C1BEA3339EDFE99F68F7289A77DB5AB1 /* Pods */,
 				CCA510CFBEA2D207524CDA0D73C3B561 /* Products */,
 				1CE3AEB5DE2131A4BD8C8ADA9F75663D /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8D2805B17693689DD2ABC41D38B0086E /* GoogleNetworkingUtilities */ = {
+		833EA0A1BC35FD05EAA5E783D3AE0D89 /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				F800F1B9ECF59EF87FFBF47B4C8ED373 /* Frameworks */,
+				6E9A0818873484B95345B6E833FDB31A /* GAI.h */,
+				2C7917AC27814DCCE3740249812EC6A7 /* GAIDictionaryBuilder.h */,
+				3AAAA84448FAD045604598ABE9EED3BA /* GAIEcommerceFields.h */,
+				433FEE1728ABCCC4EFBD1CA8337C265D /* GAIEcommerceProduct.h */,
+				2EF7A27B59532978CE40F852D35B555A /* GAIEcommerceProductAction.h */,
+				CD6606B04FB7C176F59FDFE9080C9DAA /* GAIEcommercePromotion.h */,
+				953405C4B76291F44C41D601D81833C3 /* GAIFields.h */,
+				30C536F20C2F364730F02F74E2B3BC58 /* GAILogger.h */,
+				1D079EDEEB1C5AF37E829E27D467E3CA /* GAITrackedViewController.h */,
+				FCC7E799AA2AA3B973BFB7AA72FEEF0E /* GAITracker.h */,
+				1BB808CA62551343EE377CC15A1B7117 /* Frameworks */,
 			);
-			path = GoogleNetworkingUtilities;
+			path = GoogleAnalytics;
 			sourceTree = "<group>";
 		};
-		8F2899FD96D6F3EADD5735F1A5797EC3 /* Pods */ = {
+		996A6C3EF498854C9D959549BE5044AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B8AFEFF4966F3DED4855F75C381BD8F3 /* Google */,
-				F91E86182A3A8D83E6ABB236176D0E24 /* Google-Mobile-Ads-SDK */,
-				62568D14F4503D6A6665BBB4ED12DECE /* GoogleAnalytics */,
-				8D2805B17693689DD2ABC41D38B0086E /* GoogleNetworkingUtilities */,
-				F029D5D0F72098E73BB79F8E19E2F293 /* GoogleSymbolUtilities */,
-				7AB5BF9AFDEDF6319EED9A9F42987982 /* GoogleUtilities */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		AB64B157DD2390491A429218587271B8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AA8599BC389609158CF88FD8D50FA6DF /* libGTMStackTrace.a */,
-				61FF5509413F244B5D09DB8AB71CB240 /* libGTM_AddressBook.a */,
-				C5495258754DF43BFD19CA26B62A22A1 /* libGTM_DebugUtils.a */,
-				88E25AFE8538F43636E11443D19D830A /* libGTM_GTMURLBuilder.a */,
-				30931666F617AB17E6579A521522FDEF /* libGTM_KVO.a */,
-				9D464DB3D0EEBC798458CDEDC747CF40 /* libGTM_NSDictionary+URLArguments.a */,
-				E5D59924170C483FABFC2BFE5C77E3B9 /* libGTM_NSScannerJSON.a */,
-				33A559D9E68B22815FD66EB4A5BECE6C /* libGTM_NSStringHTML.a */,
-				E4B59DA28A205468CE213898B617FABC /* libGTM_NSStringXML.a */,
-				164177656D92F41AADF8815B705A861B /* libGTM_Regex.a */,
-				C7A8E4A54D3A9FC212E22A0BCED89431 /* libGTM_RoundedRectPath.a */,
-				FEB4B2CCE386AFBEDCDEE14A20CDEB18 /* libGTM_StringEncoding.a */,
-				6F4F7CCD21F5C9308F681D8B39404452 /* libGTM_SystemVersion.a */,
-				2706B001E3D1159C96CD152CEFFED01D /* libGTM_UIFont+LineHeight.a */,
-				F14749B874C3209AC40A9522721B8CF6 /* libGTM_core.a */,
-				5CD10E59514B966C7F321FEFDEB2F12D /* libGTM_iPhone.a */,
+				09957B3E27368460D12A129FBB7004EC /* libGSDK_Overload.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B8AFEFF4966F3DED4855F75C381BD8F3 /* Google */ = {
+		99AD73B40008D3EB8127F357BF5198FE /* GoogleNetworkingUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				BA9590F2B854D86F18428B7425005237 /* Analytics */,
-				65556F2E5291BACDEAE2492D4ED89196 /* Core */,
+				19CAF982A42C02B89A5B4289C495AE08 /* Frameworks */,
 			);
-			path = Google;
+			path = GoogleNetworkingUtilities;
 			sourceTree = "<group>";
 		};
-		BA9590F2B854D86F18428B7425005237 /* Analytics */ = {
+		A9F9B62E6AAB143F4EC0582F5CF071FD /* Google-Mobile-Ads-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				3FD2E9BEA7643689C07377E1CB7005E1 /* Analytics.h */,
-				2727FCF1941BB76202E4741177E8F50E /* GGLContext+Analytics.h */,
-				3AF9D581B09F8C1200E14DD411525A87 /* Frameworks */,
+				AB68E8DD4931F851F4CE1CFB0A3BC824 /* Frameworks */,
 			);
-			name = Analytics;
+			path = "Google-Mobile-Ads-SDK";
+			sourceTree = "<group>";
+		};
+		AB68E8DD4931F851F4CE1CFB0A3BC824 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96635FB71BCF0A26BE5A811815E73D72 /* GoogleMobileAds.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1232DB0FC005E5BE08BC4F3F2F8E5EA /* ChartboostSDK */ = {
+			isa = PBXGroup;
+			children = (
+				EC0C87D11C80BDB3271ADD91F2FF69B9 /* CBAnalytics.h */,
+				F46559C7F7D6C7EC503A4D1E8F45BEE6 /* CBInPlay.h */,
+				AE111764087C5EE3FD5292B7ACA480BE /* CBMoreAppsBadge.h */,
+				CC4BC658C48BFE4B55D5848C75D2EFF8 /* CBMoreAppsButton.h */,
+				B953511C4C8495B5B4B6D4AFF1A17B3A /* CBNewsfeed.h */,
+				5D3CC7FFD1CC964E0F082252E1AFEB77 /* CBNewsfeedUI.h */,
+				8C4D5D5265B5B041CE2033929581590C /* CBStory.h */,
+				A95DE9FC427895CDFCCE52648946FB5A /* Chartboost.h */,
+				76C926A9844F81DD43F53F62AAF05D69 /* Frameworks */,
+			);
+			path = ChartboostSDK;
+			sourceTree = "<group>";
+		};
+		BB09DF58BF186A0845E01237986BDC89 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5D1DDDC918C5A44110A6B162B14B7DCF /* libGGLAnalytics.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -237,6 +290,20 @@
 				53F661C0CA7190D2CF05023FB33D61E4 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1BEA3339EDFE99F68F7289A77DB5AB1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B1232DB0FC005E5BE08BC4F3F2F8E5EA /* ChartboostSDK */,
+				1D8446AE5CF7DF965768EBDD3497A1CA /* Google */,
+				A9F9B62E6AAB143F4EC0582F5CF071FD /* Google-Mobile-Ads-SDK */,
+				833EA0A1BC35FD05EAA5E783D3AE0D89 /* GoogleAnalytics */,
+				99AD73B40008D3EB8127F357BF5198FE /* GoogleNetworkingUtilities */,
+				E5C7E919B3A6AE2CE2C31B5E8CCDB6F8 /* GoogleSymbolUtilities */,
+				72D77D218F5F732DCBFA8478A532C64B /* GoogleUtilities */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		CA37E9D040FE007EEC6067347F30EF3B /* Pods-Dragon-Destiny */ = {
@@ -265,45 +332,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D5084CA63837258BA28612E09C730E47 /* Frameworks */ = {
+		E5C7E919B3A6AE2CE2C31B5E8CCDB6F8 /* GoogleSymbolUtilities */ = {
 			isa = PBXGroup;
 			children = (
-				16689F06BD2994CE00543C13FEC80C7A /* libGGLCore.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F029D5D0F72098E73BB79F8E19E2F293 /* GoogleSymbolUtilities */ = {
-			isa = PBXGroup;
-			children = (
-				F045DE52EB33874BC278361C2CBBB7B8 /* Frameworks */,
+				996A6C3EF498854C9D959549BE5044AA /* Frameworks */,
 			);
 			path = GoogleSymbolUtilities;
-			sourceTree = "<group>";
-		};
-		F045DE52EB33874BC278361C2CBBB7B8 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				785E913F0B1B20E6764702721F6A49C0 /* libGSDK_Overload.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F800F1B9ECF59EF87FFBF47B4C8ED373 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				553BAC9AB75E62B656CD425A450D1283 /* libGTMSessionFetcher_core.a */,
-				18A51D5DF4B6306EE135A02F86474652 /* libGTMSessionFetcher_full.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F91E86182A3A8D83E6ABB236176D0E24 /* Google-Mobile-Ads-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				1AA39A999632EE824549FFD537CE4655 /* Frameworks */,
-			);
-			path = "Google-Mobile-Ads-SDK";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

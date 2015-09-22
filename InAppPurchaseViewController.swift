@@ -15,11 +15,11 @@ class InAppPurchaseViewController: UIViewController, SKProductsRequestDelegate, 
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    product_id = "1030065958";
+    product_id = "eliminateAds";
     SKPaymentQueue.defaultQueue().addTransactionObserver(self)
     
     //Check if product is purchased
-    if (defaults.boolForKey("purchased")){
+    if (defaults.boolForKey("eliminateAdsPurchased")){
       // Hide a view or show content depends on your requirement
 //      overlayView.hidden = true
     }
@@ -37,7 +37,7 @@ class InAppPurchaseViewController: UIViewController, SKProductsRequestDelegate, 
       var productsRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: productID as Set<NSObject>)
       productsRequest.delegate = self;
       productsRequest.start();
-      println("Fething Products");
+      println("Fetching Products");
     }else{
       println("can't make purchases");
     }
@@ -83,7 +83,7 @@ class InAppPurchaseViewController: UIViewController, SKProductsRequestDelegate, 
         case .Purchased:
           println("Product Purchased");
           SKPaymentQueue.defaultQueue().finishTransaction(transaction as? SKPaymentTransaction)
-          defaults.setBool(true , forKey: "purchased")
+          defaults.setBool(true , forKey: "eliminateAdsPurchased")
 //          overlayView.hidden = true
           break;
         case .Failed:

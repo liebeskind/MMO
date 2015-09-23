@@ -56,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     if Chartboost.hasInterstitial(CBLocationGameOver) {
       Chartboost.showInterstitial(CBLocationGameOver)
     } else {
+      Chartboost.cacheInterstitial(CBLocationGameOver)
       if let isReady = interstitial?.isReady {
         interstitial?.presentFromRootViewController(self.window?.rootViewController)
       }
@@ -123,7 +124,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   // servers but failed.
   func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
     println("Failed to load Chartboost ad")
-    Chartboost.cacheInterstitial(CBLocationGameOver)
   }
   
   func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {

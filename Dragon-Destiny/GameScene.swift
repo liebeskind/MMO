@@ -786,7 +786,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         let actualY = self.random(min: monster.size.height/2 + self.baseSize, max: self.size.height - monster.size.height/2)
         monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: actualY)
         // Create the actions
-        monster.realDest = CGPoint(x: self.leftPoint - monster.size.width/2, y: self.player.position.y)
+        
+        var offset = self.player.position - monster.position
+        let direction = offset.normalized()
+        let shootAmount = direction * (self.size.width + monster.size.width)
+        monster.realDest = shootAmount + monster.position
+        
+        let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
+        let angle = atan2(v.dy, v.dx)
+        
+        monster.zRotation = angle
+//        let vectorToPlayer = CGVector(dx: (monster.position.x - self.player.position.x), dy:  (monster.position.y - self.player.position.y))
+        
+//        monster.realDest = CGPoint(x: self.leftPoint - monster.size.width/2, y: self.player.position.y)
+//        let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
         let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
         monster.runAction(SKAction.sequence([actionMove, actionMoveDone]), withKey: "moveSequence")

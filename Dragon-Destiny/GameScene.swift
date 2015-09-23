@@ -1463,7 +1463,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame()
       }))
       
-      let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
+      let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
       
       gameOverVideoAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
         monster.removeFromParent()
@@ -1477,7 +1477,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 && (arc4random_uniform(2) + 1) % 2 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
-      } else if Chartboost.hasRewardedVideo(CBLocationGameScreen){
+      } else if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(3) + 1) % 2 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
       } else {
@@ -1492,7 +1492,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     self.paused = false
     self.musicController.resumeBackgroundMusic()
     
-    self.totalCoins += self.shieldUpgradeCost //Used to offset cost of shield purchase below
+    self.totalCoins += self.shieldUpgradeCost + 50 //Used to offset cost of shield purchase below
     self.upgradePurchased(self.purchaseShield)
     NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
     self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"

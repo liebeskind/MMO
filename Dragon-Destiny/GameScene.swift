@@ -874,6 +874,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
           node.runAction(SKAction.sequence([
             fireArrow1, shortPause, fireArrow2, shortPause, fireArrow3, shortPause, fireArrow4, pauseLong,
             resetBow, pause, stringBack, pause, stringBack2]))
+        } else if node.health > 0 {
+          node.texture = SKTexture(imageNamed: "CrossbowBroken1")
         }
       }
     }
@@ -1375,7 +1377,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
     
     if crossbowsWithHealthLeft == false {
-      let wonLevelLabel = SKLabelNode(fontNamed: "Chalkduster")
+      let wonLevelLabel = SKLabelNode(fontNamed: "Copperplate")
       wonLevelLabel.position = CGPoint(x: size.width/2, y: size.height/2)
       wonLevelLabel.fontColor = UIColor.orangeColor()
       wonLevelLabel.text = "You beat level \(levelReached)"

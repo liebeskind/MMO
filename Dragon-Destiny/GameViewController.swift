@@ -18,7 +18,6 @@ class GameViewController: UIViewController, UINavigationControllerDelegate {
   var tracker: GAITracker!
   
   override func viewWillAppear(animated: Bool) {
-
   }
   
   override func viewDidLoad() {

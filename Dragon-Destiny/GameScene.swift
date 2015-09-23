@@ -1461,6 +1461,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       
       gameOverAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
         self.endGame()
+        NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
       }))
       
       let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -1474,15 +1475,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame()
       }))
       
-      if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 && (arc4random_uniform(2) + 1) % 2 == 0 {
-        self.musicController.playSoundEffect("PlayerDeath.wav")
-        self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
-      } else if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(3) + 1) % 2 == 0 {
+      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(2) + 1) % 2 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
+      } else if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 {
+        self.musicController.playSoundEffect("PlayerDeath.wav")
+        self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
       } else {
-        Chartboost.cacheRewardedVideo(CBLocationGameScreen)
+        if !Chartboost.hasRewardedVideo(CBLocationGameScreen) {
+          Chartboost.cacheRewardedVideo(CBLocationGameScreen)
+        }
         self.endGame()
+        NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
       }
     }
   }

@@ -123,16 +123,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   // servers but failed.
   func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
     println("Failed to load Chartboost ad")
-//    if let isReady = interstitial?.isReady {
-//      interstitial?.presentFromRootViewController(self.window?.rootViewController)
-//    }
   }
   
   func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
     println("Failed to load Chartboost Rewarded Video")
-    //    if let isReady = interstitial?.isReady {
-    //      interstitial?.presentFromRootViewController(self.window?.rootViewController)
-    //    }
   }
 
   func applicationWillResignActive(application: UIApplication) {

@@ -76,8 +76,6 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     self.birthdayPicture = birthdayPicture
     self.coinsPerLevelMultiplier = coinsPerLevelMultiplier
     self.totalCoins = NSUserDefaults.standardUserDefaults().objectForKey("TotalCoins") as? Int
-    
-    NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
 
     backgroundColor = SKColor.whiteColor()
     let backgroundImage = SKSpriteNode(imageNamed: "dragonMainScreenBackground")

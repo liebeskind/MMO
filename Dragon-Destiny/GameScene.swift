@@ -718,7 +718,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         let crossbowEnemy = Boss(imageNamed: "CrossbowFired")
         if birthdayMode { crossbowEnemy.texture = SKTexture(imageNamed: "Zoe0")}
         crossbowEnemy.name = "boss"
-        let yPos = i * Int(self.size.height - navigationBox.size.height) / (self.levelReached + 1) + Int(navigationBox.size.height)
+        var yPos = Int()
+        yPos = i * Int(self.size.height - navigationBox.size.height) / (self.levelReached + 1) + Int(navigationBox.size.height)
+        
+        if self.levelReached == 2 {
+          yPos = 2 * Int(self.size.height - navigationBox.size.height) / (self.levelReached + 1) + Int(navigationBox.size.height)
+        }
+        
         crossbowEnemy.position = CGPoint(x: backgroundWidth, y: CGFloat(yPos))
         crossbowEnemy.size = CGSize(width: 75.0, height: 75.0)
         crossbowEnemy.zPosition = 2
@@ -783,19 +789,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         }
         
         // Determine where to spawn the monster along the Y axis
-        let actualY = self.random(min: monster.size.height/2 + self.baseSize, max: self.size.height - monster.size.height/2)
+        let actualY = self.random(min: max(node.position.y - node.size.height/3, self.baseSize), max: min(node.position.y + node.size.height/3, self.size.height))
+        
+//        let bottomLine = node.position.x - self.rightPoint
+        
         monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: actualY)
         // Create the actions
         
-        var offset = self.player.position - monster.position
+        let playerPredictedPosVector = self.convertAngleToVector(Double(self.player.zRotation) + M_PI_2)
+        let playerPredictedPosition = CGPoint(x: self.player.position.x + self.shipSpeedX * playerPredictedPosVector.dx, y: self.player.position.y + self.shipSpeedY * playerPredictedPosVector.dy)
+        
+        var offset = playerPredictedPosition - monster.position
         let direction = offset.normalized()
         let shootAmount = direction * (self.size.width + monster.size.width)
         monster.realDest = shootAmount + monster.position
         
-        let v = CGVector(dx: monster.position.x - self.player.position.x, dy:  monster.position.y - self.player.position.y)
+        let v = CGVector(dx: monster.position.x - playerPredictedPosition.x, dy:  monster.position.y - playerPredictedPosition.y)
         let angle = atan2(v.dy, v.dx)
         
         monster.zRotation = angle
+        
 //        let vectorToPlayer = CGVector(dx: (monster.position.x - self.player.position.x), dy:  (monster.position.y - self.player.position.y))
         
 //        monster.realDest = CGPoint(x: self.leftPoint - monster.size.width/2, y: self.player.position.y)

@@ -99,7 +99,7 @@ func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
   return nil
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate{
+class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   
   let musicController = MusicController()
   
@@ -1463,13 +1463,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
         self.endGame()
       }))
       
-      if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 {
+      let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
+      
+      gameOverVideoAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+        monster.removeFromParent()
+        Chartboost.showRewardedVideo(CBLocationGameScreen)
+      }))
+      
+      gameOverVideoAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
+        self.endGame()
+      }))
+      
+      if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 && (arc4random_uniform(2) + 1) % 2 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
+      } else if Chartboost.hasRewardedVideo(CBLocationGameScreen){
+        self.musicController.playSoundEffect("PlayerDeath.wav")
+        self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
       } else {
+        Chartboost.cacheRewardedVideo(CBLocationGameScreen)
         self.endGame()
       }
     }
+  }
+  
+  func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
+    self.playerDead = false
+    self.paused = false
+    self.musicController.resumeBackgroundMusic()
+    
+    self.totalCoins += self.shieldUpgradeCost //Used to offset cost of shield purchase below
+    self.upgradePurchased(self.purchaseShield)
+    NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+    self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
   }
   
   func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {

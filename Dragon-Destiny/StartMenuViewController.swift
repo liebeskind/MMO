@@ -103,7 +103,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
         // Get the default leaderboard ID
         localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String!, error: NSError!) -> Void in
           if error != nil {
-            println(error)
+//            println(error)
           } else {
             self.gcDefaultLeaderBoard = leaderboardIdentifer
           }
@@ -111,8 +111,8 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
       } else {
         // 3 Game center is not enabled on the users device
         self.gcEnabled = false
-        println("Local player could not be authenticated, disabling game center")
-        println(error)
+//        println("Local player could not be authenticated, disabling game center")
+//        println(error)
       }
     }
   }

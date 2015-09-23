@@ -28,24 +28,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     var gai = GAI.sharedInstance()
     gai.trackUncaughtExceptions = true  // report uncaught exceptions
     gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
-//    gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+    gai.logger.logLevel = GAILogLevel.None  // remove before app release
     
     UIScreen.mainScreen().brightness = 0.9
     
     eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
     
+    Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
+    Chartboost.setAutoCacheAds(true)
+    Chartboost.setShouldPrefetchVideoContent(true)
+    Chartboost.cacheRewardedVideo(CBLocationGameScreen)
+    Chartboost.setShouldRequestInterstitialsInFirstSession(true)
+    
     if eliminateAdsPurchased == nil || eliminateAdsPurchased == false {
-      Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
-      Chartboost.setAutoCacheAds(true)
-      Chartboost.setShouldPrefetchVideoContent(true)
-      Chartboost.setShouldRequestInterstitialsInFirstSession(true)
-      Chartboost.cacheInterstitial(CBLocationGameOver)
-      
+
+      Chartboost.cacheInterstitial(CBLocationGameOver)      
       interstitial = createAndLoadInterstitial()
       
       NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentInterstitial:", name:"showInterstitialAdsID", object: nil)
     }
-    
     return true
   }
   
@@ -62,7 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   }
   
   func createAndLoadInterstitial()->GADInterstitial {
-    println("adMobCreateAndLoadInterstitial")
     var interstitial = GADInterstitial(adUnitID: "ca-app-pub-1048344523427807/2816356772")
     interstitial.delegate = self
     var request = GADRequest()
@@ -110,6 +110,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     println("Chartboost ad cached")
   }
   
+  func didCacheRewardedVideo(location: String!) {
+    println("Chartboost Rewarded Video cached")
+  }
+  
   func didDismissInterstitial(location: String!) {
     println("Chartboost ad dismissed")
 //    Chartboost.cacheInterstitial(CBLocationGameOver)
@@ -122,6 +126,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
 //    if let isReady = interstitial?.isReady {
 //      interstitial?.presentFromRootViewController(self.window?.rootViewController)
 //    }
+  }
+  
+  func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
+    println("Failed to load Chartboost Rewarded Video")
+    //    if let isReady = interstitial?.isReady {
+    //      interstitial?.presentFromRootViewController(self.window?.rootViewController)
+    //    }
   }
 
   func applicationWillResignActive(application: UIApplication) {

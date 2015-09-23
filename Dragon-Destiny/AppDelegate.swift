@@ -14,6 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
 
   var window: UIWindow?
   var interstitial:GADInterstitial?
+  var eliminateAdsPurchased: Bool?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
@@ -29,22 +30,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
 //    gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
     
-    Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
-    Chartboost.setAutoCacheAds(true)
-    Chartboost.setShouldPrefetchVideoContent(true)
-    Chartboost.setShouldRequestInterstitialsInFirstSession(true)
-    Chartboost.cacheInterstitial(CBLocationGameOver)
-    
-    interstitial = createAndLoadInterstitial()
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentInterstitial:", name:"showInterstitialAdsID", object: nil)
-    
     UIScreen.mainScreen().brightness = 0.9
+    
+    eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
+    
+    if eliminateAdsPurchased == nil || eliminateAdsPurchased == false {
+      Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
+      Chartboost.setAutoCacheAds(true)
+      Chartboost.setShouldPrefetchVideoContent(true)
+      Chartboost.setShouldRequestInterstitialsInFirstSession(true)
+      Chartboost.cacheInterstitial(CBLocationGameOver)
+      
+      interstitial = createAndLoadInterstitial()
+      
+      NSNotificationCenter.defaultCenter().addObserver(self, selector: "presentInterstitial:", name:"showInterstitialAdsID", object: nil)
+    }
     
     return true
   }
   
   @objc private func presentInterstitial(notification: NSNotification){
+    eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
+    if eliminateAdsPurchased == true { return }
     if Chartboost.hasInterstitial(CBLocationGameOver) {
       Chartboost.showInterstitial(CBLocationGameOver)
     } else {

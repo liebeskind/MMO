@@ -11,8 +11,9 @@ import SpriteKit
 import MediaPlayer
 import AudioToolbox
 import GameKit
+import StoreKit
 
-class GameOverScene: SKScene {
+class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDelegate {
   
   var tracker: GAITracker!
   
@@ -62,6 +63,8 @@ class GameOverScene: SKScene {
   var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
   
   var muted = false
+  
+  let eliminateAdsButton = SKSpriteNode(imageNamed: "eliminateAdsButton")
   
   init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, coinsPerLevelMultiplier: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage, highScoreAchieved: Bool) {
     
@@ -348,8 +351,21 @@ class GameOverScene: SKScene {
       laserBeamCostLabel.hidden = true
     } else {
     }
+    
   }
   
+  override func didMoveToView(view: SKView) {
+    // Set IAPS
+    if(SKPaymentQueue.canMakePayments()) {
+      println("IAP is enabled, loading")
+      var productID:NSSet = NSSet(objects: "Put IAP id here")
+      var request: SKProductsRequest = SKProductsRequest(productIdentifiers: productID as Set<NSObject>)
+      request.delegate = self
+      request.start()
+    } else {
+      println("please enable IAPS")
+    }
+  }
   
   func authenticateLocalPlayer() {
     let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
@@ -390,6 +406,17 @@ class GameOverScene: SKScene {
       let greenDragonExtendedRect = CGRectMake(greenDragon.position.x - greenDragon.size.width/2, greenDragon.position.y - greenDragon.size.height/2, greenDragon.size.width, greenDragon.size.height * 4)
       
       let yellowDragonExtendedRect = CGRectMake(yellowDragon.position.x - yellowDragon.size.width/2, yellowDragon.position.y - yellowDragon.size.height/2, yellowDragon.size.width, yellowDragon.size.height * 4)
+      
+      if eliminateAdsButton.containsPoint(touchLocation) {
+        for product in list {
+          var prodID = product.productIdentifier
+          if(prodID == "iAp id here") {
+            p = product
+            buyProduct()  //This is one of the functions we added earlier
+            break;
+          }
+        }
+      }
       
       if restartButton.containsPoint(touchLocation) {
 //        restartButton.runAction(SKAction.scaleTo(1.25, duration: 0.5))
@@ -635,7 +662,123 @@ class GameOverScene: SKScene {
     }
     restartButton.runAction(SKAction.sequence([scaleBack, pushRestart]))
   }
+//  
+//  func eliminateAdsButtonPushed() {
+//    buyProduct()
+//  }
+  
+  //In App Purchases
+  var list = [SKProduct]()
+  var p = SKProduct()
+  
+  func buyProduct() {
+    println("buy " + p.productIdentifier)
+    var pay = SKPayment(product: p)
+    SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+    SKPaymentQueue.defaultQueue().addPayment(pay as SKPayment)
+  }
+  
+  func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
+    var myProduct = response.products
+    println("Received \(myProduct.count) products in IAP response")
+    
+    for product in myProduct {
+      println("product added")
+      println(product.productIdentifier)
+      println(product.localizedTitle)
+      println(product.localizedDescription)
+//      println(product.price)
+      
+      list.append(product as! SKProduct)
+      
+      if product.productIdentifier == "eliminateAds" {
+        let eliminateAdsButtonSize = CGFloat(40)
+        eliminateAdsButton.size = CGSize(width: eliminateAdsButtonSize, height: eliminateAdsButtonSize)
+        eliminateAdsButton.position = CGPoint(x: size.width - eliminateAdsButtonSize/1.5, y: size.height - eliminateAdsButtonSize/1.5)
+        eliminateAdsButton.name = "eliminateAdsButton"
+        if !NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased") {
+          addChild(eliminateAdsButton)
+        }
 
+      }
+    }
+  }
+  
+  func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue!) {
+    println("transactions restored")
+    
+    var purchasedItemIDS = []
+    for transaction in queue.transactions {
+      var t: SKPaymentTransaction = transaction as! SKPaymentTransaction
+      
+      let prodID = t.payment.productIdentifier as String
+      
+      switch prodID {
+      case "eliminateAds":
+        NSUserDefaults.standardUserDefaults().setBool(true , forKey: "eliminateAdsPurchased")
+        
+        let eliminateAdsPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("InAppPurchase", action: "eliminateAds", label: "eliminateAdsPurchased", value: 1.99)
+        self.tracker.send(eliminateAdsPurchasedEvent.build() as [NSObject: AnyObject])
+
+        
+        //Right here is where you should put the function that you want to execute when your in app purchase is complete
+      default:
+        println("IAP not setup")
+      }
+      
+    }
+    
+    var alert = UIAlertView(title: "Thank You", message: "Your purchase(s) were restored. You may have to restart the app before ads are removed.", delegate: nil, cancelButtonTitle: "OK")
+    alert.show()
+  }
+  
+  
+  func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
+    println("add paymnet")
+    
+    for transaction:AnyObject in transactions {
+      var trans = transaction as! SKPaymentTransaction
+      println(trans.error)
+      
+      switch trans.transactionState {
+        
+      case .Purchased, .Restored:
+        println("buy, ok unlock iap here")
+        println(p.productIdentifier)
+        
+        let prodID = p.productIdentifier as String
+        switch prodID {
+        case "eliminateAds":
+          
+          //Here you should put the function you want to execute when the purchase is complete
+          var alert = UIAlertView(title: "Thank You", message: "You may have to restart the app before the banner ads are removed.", delegate: nil, cancelButtonTitle: "OK")
+          alert.show()
+        default:
+          println("IAP not setup")
+        }
+        
+        queue.finishTransaction(trans)
+        break;
+      case .Failed:
+        println("buy error")
+        queue.finishTransaction(trans)
+        break;
+      default:
+        println("default")
+        break;
+        
+      }
+    }
+  }
+  
+  func finishTransaction(trans:SKPaymentTransaction)
+  {
+    println("finish trans")
+  }
+  func paymentQueue(queue: SKPaymentQueue!, removedTransactions transactions: [AnyObject]!)
+  {
+    println("remove trans");
+  }
 
   // 6
   required init(coder aDecoder: NSCoder) {

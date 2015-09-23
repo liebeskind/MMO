@@ -11,7 +11,7 @@ import StoreKit
 class InAppPurchaseViewController: UIViewController, SKProductsRequestDelegate, SKPaymentTransactionObserver {
   let defaults = NSUserDefaults.standardUserDefaults()
   
-  var product_id: NSString?;
+  var product_id = "eliminateAds"
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -28,12 +28,12 @@ class InAppPurchaseViewController: UIViewController, SKProductsRequestDelegate, 
     }
   }
   
-  @IBAction func unlockAction(sender: AnyObject) {
+  func eliminateAdsPurchase() {
     println("About to fetch the products")
     
     if (SKPaymentQueue.canMakePayments())
     {
-      var productID:NSSet = NSSet(object: self.product_id!);
+      var productID:NSSet = NSSet(object: self.product_id);
       var productsRequest:SKProductsRequest = SKProductsRequest(productIdentifiers: productID as Set<NSObject>)
       productsRequest.delegate = self;
       productsRequest.start();

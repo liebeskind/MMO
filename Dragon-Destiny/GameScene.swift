@@ -515,6 +515,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 0.0), withKey: "shrinking")
       backgroundLayer.addChild(shield)
     }
+    if !Chartboost.hasRewardedVideo(CBLocationGameScreen) {
+      Chartboost.cacheRewardedVideo(CBLocationGameScreen)
+    }
   }
   
   deinit {
@@ -1482,9 +1485,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
       } else {
-        if !Chartboost.hasRewardedVideo(CBLocationGameScreen) {
-          Chartboost.cacheRewardedVideo(CBLocationGameScreen)
-        }
         self.endGame()
         NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
       }

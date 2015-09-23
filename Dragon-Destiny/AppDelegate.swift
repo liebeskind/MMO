@@ -116,13 +116,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   
   func didDismissInterstitial(location: String!) {
     println("Chartboost ad dismissed")
-//    Chartboost.cacheInterstitial(CBLocationGameOver)
+
   }
   
   // Called after an interstitial has attempted to load from the Chartboost API
   // servers but failed.
   func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
     println("Failed to load Chartboost ad")
+    Chartboost.cacheInterstitial(CBLocationGameOver)
   }
   
   func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {

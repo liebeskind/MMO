@@ -1413,7 +1413,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
   }
   
-  func endGame() {
+  func endGame(showAds: Bool) {
     paused = false
     self.musicController.stopBackgroundMusic()
     self.musicController.playSoundEffect("PlayerDeath.wav")
@@ -1423,6 +1423,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
 //      self.playerDead = false
       self.view?.presentScene(gameOverScene, transition: reveal)
+      if showAds {
+        NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
+      }
     }
     
     self.player.removeActionForKey("playerFlappingWings")
@@ -1465,8 +1468,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       }))
       
       gameOverAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
-        self.endGame()
-        NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
+        self.endGame(true)
       }))
       
       let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
@@ -1477,7 +1479,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       }))
       
       gameOverVideoAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
-        self.endGame()
+        self.endGame(false)
       }))
       
       if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(2) + 1) % 2 == 0 {
@@ -1487,8 +1489,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
       } else {
-        self.endGame()
-        NSNotificationCenter.defaultCenter().postNotificationName("showInterstitialAdsID", object: nil)
+        self.endGame(true)
       }
     }
   }

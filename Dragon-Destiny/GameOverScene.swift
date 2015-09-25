@@ -167,13 +167,23 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       totalCoins += i * self.coinsPerLevelMultiplier
     }
     
-    message = "Score: \(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%)"
+    message = "Score: "
     let coinsLabel = SKLabelNode(fontNamed: "Copperplate")
     coinsLabel.text = message
     coinsLabel.fontSize = 20
     coinsLabel.fontColor = SKColor.blackColor()
     coinsLabel.position = CGPoint(x: size.width/2, y: self.size.height - 10 - dragonDestinyLabel.fontSize)
+    coinsLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
     addChild(coinsLabel)
+    
+    message = "\(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%"
+    let coinsValueLabel = SKLabelNode(fontNamed: "Copperplate")
+    coinsValueLabel.text = message
+    coinsValueLabel.fontSize = 20
+    coinsValueLabel.fontColor = SKColor.blackColor()
+    coinsValueLabel.position = CGPoint(x: coinsLabel.position.x + coinsLabel.frame.width/3, y: coinsLabel.position.y)
+    coinsValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+    addChild(coinsValueLabel)
     
 //    message = "% Coins Collected: \(Int(Float(Float(score) / Float(levelReached * 30))*100))%"
 //    let percentageLabel = SKLabelNode(fontNamed: "Avenir")
@@ -186,13 +196,23 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     var monstersLabel = SKLabelNode()
     
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
-      message = "High Score: \(highScore)"
+      message = "High Score: "
       let highScoreLabel = SKLabelNode(fontNamed: "Copperplate")
       highScoreLabel.text = message
       highScoreLabel.fontSize = 20
       highScoreLabel.fontColor = SKColor.blackColor()
       highScoreLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
+      highScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
       addChild(highScoreLabel)
+      
+      message = "\(highScore)"
+      let highScoreValueLabel = SKLabelNode(fontNamed: "Copperplate")
+      highScoreValueLabel.text = message
+      highScoreValueLabel.fontSize = 20
+      highScoreValueLabel.fontColor = SKColor.blackColor()
+      highScoreValueLabel.position = CGPoint(x: highScoreLabel.position.x + highScoreLabel.frame.width/3, y: highScoreLabel.position.y)
+      highScoreValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+      addChild(highScoreValueLabel)
       
       monstersLabel = SKLabelNode(fontNamed: "Copperplate")
       monstersLabel.position = CGPoint(x: size.width/2, y: highScoreLabel.position.y - highScoreLabel.fontSize)
@@ -201,19 +221,40 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       monstersLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
     }
     
-    message = "Arrows Destroyed: \(monstersDestroyed)"
+    message = "Arrows Destroyed: "
     monstersLabel.text = message
     monstersLabel.fontSize = 20
     monstersLabel.fontColor = SKColor.blackColor()
+    monstersLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
     addChild(monstersLabel)
+    
+    message = "\(monstersDestroyed)"
+    let monstersValueLabel = SKLabelNode(fontNamed: "Copperplate")
+    monstersValueLabel.text = message
+    monstersValueLabel.fontSize = 20
+    monstersValueLabel.fontColor = SKColor.blackColor()
+    monstersValueLabel.position = CGPoint(x: monstersLabel.position.x + monstersLabel.frame.width/3, y: monstersLabel.position.y)
+    monstersValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+    addChild(monstersValueLabel)
 
-    message = "Level: \(levelReached)"
+    message = "Level: "
     let levelLabel = SKLabelNode(fontNamed: "Copperplate")
     levelLabel.text = message
     levelLabel.fontSize = 20
     levelLabel.fontColor = SKColor.blackColor()
     levelLabel.position = CGPoint(x: size.width/2, y: monstersLabel.position.y - monstersLabel.fontSize)
+    levelLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
     addChild(levelLabel)
+    
+    message = "\(levelReached)"
+    let levelValueLabel = SKLabelNode(fontNamed: "Copperplate")
+    levelValueLabel.text = message
+    levelValueLabel.fontSize = 20
+    levelValueLabel.fontColor = SKColor.blackColor()
+    levelValueLabel.position = CGPoint(x: levelLabel.position.x + levelLabel.frame.width/3, y: levelLabel.position.y)
+    levelValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
+    addChild(levelValueLabel)
+
     
     
     blueDragon.size = CGSize(width: 50, height: 30)

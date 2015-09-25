@@ -758,9 +758,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   func addMonster() {
-    backgroundLayer.enumerateChildNodesWithName("boss") {
+      var numNodes = 0
+      backgroundLayer.enumerateChildNodesWithName("boss") {
+      
       nodeTemp, stop in
       let node = nodeTemp as! Boss
+      numNodes++
       if self.rightPoint < self.backgroundWidth && node.health > 0 {
         // Create sprite
         let monster = Monster(texture: self.arrowScenes[0])
@@ -801,23 +804,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         
         monster.position = CGPoint(x: self.rightPoint + monster.size.height, y: actualY)
         // Create the actions
-        
-        let playerPredictedPosVector = self.convertAngleToVector(Double(self.player.zRotation) + M_PI_2)
-        let playerPredictedPosition = CGPoint(x: self.player.position.x + self.shipSpeedX * playerPredictedPosVector.dx, y: self.player.position.y + self.shipSpeedY * playerPredictedPosVector.dy)
-        
-        let offset = playerPredictedPosition - monster.position
-        let direction = offset.normalized()
-        let shootAmount = direction * (self.size.width + monster.size.width)
-        monster.realDest = shootAmount + monster.position
-        
-        let v = CGVector(dx: monster.position.x - playerPredictedPosition.x, dy:  monster.position.y - playerPredictedPosition.y)
-        let angle = atan2(v.dy, v.dx)
-        
-        monster.zRotation = angle
+        if numNodes % 2 == 0 {
+          monster.realDest = CGPoint(x: self.leftPoint - monster.size.width/2, y: self.player.position.y)
+          let v = CGVector(dx: monster.position.x - monster.realDest!.x, dy:  monster.position.y - monster.realDest!.y)
+          let angle = atan2(v.dy, v.dx)
+          monster.zRotation = angle
+          
+        } else {
+          let playerPredictedPosVector = self.convertAngleToVector(Double(self.player.zRotation) + M_PI_2)
+          let playerPredictedPosition = CGPoint(x: self.player.position.x + self.shipSpeedX * playerPredictedPosVector.dx, y: self.player.position.y + self.shipSpeedY * playerPredictedPosVector.dy)
+          
+          let offset = playerPredictedPosition - monster.position
+          let direction = offset.normalized()
+          let shootAmount = direction * (self.size.width + monster.size.width)
+          monster.realDest = shootAmount + monster.position
+          
+          let v = CGVector(dx: monster.position.x - playerPredictedPosition.x, dy:  monster.position.y - playerPredictedPosition.y)
+          let angle = atan2(v.dy, v.dx)
+          monster.zRotation = angle
+        }
         
 //        let vectorToPlayer = CGVector(dx: (monster.position.x - self.player.position.x), dy:  (monster.position.y - self.player.position.y))
-        
-//        monster.realDest = CGPoint(x: self.leftPoint - monster.size.width/2, y: self.player.position.y)
 //        let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
         let actionMove = SKAction.moveTo(monster.realDest!, duration: NSTimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
@@ -1484,7 +1491,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       self.musicController.pauseBackgroundMusic()
       self.musicController.stopUpgradeMusic()
 
-      let coinsToEvadeDeath = 100 + 10 * (self.levelReached-1)
+      let coinsToEvadeDeath = 10 + 2 * coinsPerLevelMultiplier * (self.levelReached-1)
       
       let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend \(coinsToEvadeDeath) coins to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
       
@@ -1503,7 +1510,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame(true)
       }))
       
-      let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
+      let gameOverVideoAlert = UIAlertController(title: "Bonus Life & Coins!", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
       
       gameOverVideoAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
         monster.removeFromParent()
@@ -1524,7 +1531,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(3) + 1) % 2 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
-      } else if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 {
+      } else if totalCoins >= coinsToEvadeDeath {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverAlert, animated: true, completion: nil)
       } else {

@@ -95,7 +95,7 @@
 		3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 3571650A19DB1F5500ED38A9 /* pew-pew-lei.caf */; };
 		3571650E19DB1F5500ED38A9 /* sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 3571650B19DB1F5500ED38A9 /* sprites.atlas */; };
 		3571651019DB322700ED38A9 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3571650F19DB322700ED38A9 /* GameOverScene.swift */; };
-		A9FDD19B479E0BCE18046E05 /* Pods_Dragon_Destiny.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2CE6F3A84F19A2A932D7477 /* Pods_Dragon_Destiny.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		74A36007B5C1D8EC03E78379 /* Pods_Dragon_Destiny.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832FFAD5BE03CD417A7C60BA /* Pods_Dragon_Destiny.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +116,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		08A164D882DFAE09322A3E67 /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
 		29385B791B793114000D0986 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = arrowImages.atlas; path = ../../../../Designs/MMO/arrowImages.atlas; sourceTree = "<group>"; };
 		29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FlameUpgradeButton.png; path = ../../../../Designs/MMO/FlameUpgradeButton.png; sourceTree = "<group>"; };
 		29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowmoUpgradeButton.png; path = ../../../../Designs/MMO/SlowmoUpgradeButton.png; sourceTree = "<group>"; };
@@ -213,9 +214,8 @@
 		3571650A19DB1F5500ED38A9 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		3571650B19DB1F5500ED38A9 /* sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = sprites.atlas; sourceTree = "<group>"; };
 		3571650F19DB322700ED38A9 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
-		4CB6BC49AA57E0D1B03AB0AD /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
-		B2CE6F3A84F19A2A932D7477 /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FEA0A53FB8FE79D2A9069AF3 /* Pods-Dragon-Destiny.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.release.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.release.xcconfig"; sourceTree = "<group>"; };
+		832FFAD5BE03CD417A7C60BA /* Pods_Dragon_Destiny.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Dragon_Destiny.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4627D87A296E6C4CB6E6989 /* Pods-Dragon-Destiny.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Dragon-Destiny.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,7 +250,7 @@
 				29385B8A1B7BBB41000D0986 /* AdSupport.framework in Frameworks */,
 				29385B8B1B7BBB41000D0986 /* AudioToolbox.framework in Frameworks */,
 				29385B831B7BB7D7000D0986 /* iAd.framework in Frameworks */,
-				A9FDD19B479E0BCE18046E05 /* Pods_Dragon_Destiny.framework in Frameworks */,
+				74A36007B5C1D8EC03E78379 /* Pods_Dragon_Destiny.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +351,7 @@
 				294381C41B87A40400E332DA /* Dragon-Destiny-MacTests */,
 				357164E019DB1E4800ED38A9 /* Products */,
 				834ECDE401363BB716515F79 /* Frameworks */,
-				848B9E5AE1205B4602BC6A6C /* Pods */,
+				CC645C9A826EEE78B2C90D0D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -468,16 +468,16 @@
 				29385B8C1B7BBB45000D0986 /* AVFoundation.framework */,
 				29385B881B7BBB41000D0986 /* AdSupport.framework */,
 				29385B891B7BBB41000D0986 /* AudioToolbox.framework */,
-				B2CE6F3A84F19A2A932D7477 /* Pods_Dragon_Destiny.framework */,
+				832FFAD5BE03CD417A7C60BA /* Pods_Dragon_Destiny.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		848B9E5AE1205B4602BC6A6C /* Pods */ = {
+		CC645C9A826EEE78B2C90D0D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4CB6BC49AA57E0D1B03AB0AD /* Pods-Dragon-Destiny.debug.xcconfig */,
-				FEA0A53FB8FE79D2A9069AF3 /* Pods-Dragon-Destiny.release.xcconfig */,
+				B4627D87A296E6C4CB6E6989 /* Pods-Dragon-Destiny.debug.xcconfig */,
+				08A164D882DFAE09322A3E67 /* Pods-Dragon-Destiny.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -524,12 +524,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3571650219DB1E4800ED38A9 /* Build configuration list for PBXNativeTarget "Dragon-Destiny" */;
 			buildPhases = (
-				8C9075C27D71A0DA594A2F02 /* Check Pods Manifest.lock */,
+				79A89F503EE97EDD223B9910 /* Check Pods Manifest.lock */,
 				357164DB19DB1E4800ED38A9 /* Sources */,
 				357164DC19DB1E4800ED38A9 /* Frameworks */,
 				357164DD19DB1E4800ED38A9 /* Resources */,
-				EAE5E6A50B421E90E38D0A05 /* Embed Pods Frameworks */,
-				F70A23B92E4B46E051946CDB /* Copy Pods Resources */,
+				465D74ECAFB0CAC78796C1B1 /* Embed Pods Frameworks */,
+				FD21B2B1943BF73A6E5731F0 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -564,6 +564,8 @@
 		357164D719DB1E4800ED38A9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Cybenex LLC";
 				TargetAttributes = {
@@ -696,22 +698,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8C9075C27D71A0DA594A2F02 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		EAE5E6A50B421E90E38D0A05 /* Embed Pods Frameworks */ = {
+		465D74ECAFB0CAC78796C1B1 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -726,7 +713,22 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Dragon-Destiny/Pods-Dragon-Destiny-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F70A23B92E4B46E051946CDB /* Copy Pods Resources */ = {
+		79A89F503EE97EDD223B9910 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FD21B2B1943BF73A6E5731F0 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -992,11 +994,12 @@
 		};
 		3571650319DB1E4800ED38A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CB6BC49AA57E0D1B03AB0AD /* Pods-Dragon-Destiny.debug.xcconfig */;
+			baseConfigurationReference = B4627D87A296E6C4CB6E6989 /* Pods-Dragon-Destiny.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Dragon-Destiny/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Dragon-Destiny";
@@ -1007,11 +1010,12 @@
 		};
 		3571650419DB1E4800ED38A9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FEA0A53FB8FE79D2A9069AF3 /* Pods-Dragon-Destiny.release.xcconfig */;
+			baseConfigurationReference = 08A164D882DFAE09322A3E67 /* Pods-Dragon-Destiny.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "Dragon-Destiny/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Dragon-Destiny";

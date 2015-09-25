@@ -47,14 +47,20 @@ public extension SKAction {
     
     let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: nil)
     if (url == nil) {
-      println("Could not find file: \(fileName)")
+//      print("Could not find file: \(fileName)")
       return SKAction()
     }
     
     var error: NSError? = nil
-    let player = AVAudioPlayer(contentsOfURL: url, error: &error)
+    let player: AVAudioPlayer!
+    do {
+      player = try AVAudioPlayer(contentsOfURL: url!)
+    } catch let error1 as NSError {
+      error = error1
+      player = nil
+    }
     if player == nil {
-      println("Could not create audio player: \(error!)")
+      print("Could not create audio player: \(error!)")
       return SKAction()
     }
     
@@ -91,13 +97,13 @@ enum MoveStates:Int {
   case N,S,E,W,NE,NW,SE,SW
 }
 
-func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
-  let context = CIContext(options: nil)
-  if context != nil {
-    return context.createCGImage(inputImage, fromRect: inputImage.extent())
-  }
-  return nil
-}
+//func convertCIImageToCGImage(inputImage: CIImage) -> CGImage! {
+//  let context = CIContext(options: nil)
+//  if context != nil {
+//    return context.createCGImage(inputImage, fromRect: inputImage.extent)
+//  }
+//  return nil
+//}
 
 class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   
@@ -210,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   override func didMoveToView(view: SKView) {
-    if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
+    if let _: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
     } else {
       NSUserDefaults.standardUserDefaults().setObject(0,forKey:"HighestScore")
     }
@@ -270,7 +276,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     player.size = CGSize(width: 50, height: 33)
     player.zPosition = 10
     player.zRotation = -1.57079633 //Start off facing right
-    var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
+//    var playerCenter = CGPoint(x: player.position.x, y: player.position.y)
 
     player.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: player.size.width-35, height: player.size.height-20))
     player.physicsBody?.dynamic = true
@@ -533,7 +539,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
   }
 
-  func random(#min: CGFloat, max: CGFloat) -> CGFloat {
+  func random(min min: CGFloat, max: CGFloat) -> CGFloat {
     return random() * (max - min) + min
   }
   
@@ -741,7 +747,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   
   func addMonsterBlock(speed: Double) {
     self.removeActionForKey("addingMonsters")
-    let pause = SKAction.waitForDuration(2.0)
+//    let pause = SKAction.waitForDuration(2.0)
     self.runAction(SKAction.repeatActionForever(
       SKAction.sequence([
         SKAction.waitForDuration(speed),
@@ -799,7 +805,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         let playerPredictedPosVector = self.convertAngleToVector(Double(self.player.zRotation) + M_PI_2)
         let playerPredictedPosition = CGPoint(x: self.player.position.x + self.shipSpeedX * playerPredictedPosVector.dx, y: self.player.position.y + self.shipSpeedY * playerPredictedPosVector.dy)
         
-        var offset = playerPredictedPosition - monster.position
+        let offset = playerPredictedPosition - monster.position
         let direction = offset.normalized()
         let shootAmount = direction * (self.size.width + monster.size.width)
         monster.realDest = shootAmount + monster.position
@@ -852,8 +858,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
           
   //        node.zRotation = angle
           
-          var vector = CGVector()
-          var offset = self.player.position - node.position
+//          var vector = CGVector()
+          let offset = self.player.position - node.position
           
     //      if ball.position != base.position {
     //        offset = ball.position - base.position
@@ -942,8 +948,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       
       purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 1.0), withKey: "shrinking")
       
-      var shieldPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "shield", label: "shieldPurchased", value: shieldUpgradeCost)
-      tracker.send(shieldPurchasedEvent.build() as [NSObject: AnyObject])
+      let shieldPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "shield", label: "shieldPurchased", value: shieldUpgradeCost).build()
+      tracker.send(shieldPurchasedEvent as! [NSObject : AnyObject])
       
     case purchaseSlowmo:
       if totalCoins < slowmoUpgradeCost { return AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) }
@@ -1033,9 +1039,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       
       self.runAction(SKAction.sequence([playUpgrade, SKAction.waitForDuration(slowmoDuration), returnToBackgroundMusic]))
       purchaseSlowmo.runAction(SKAction.sequence([quickPop, shrinkAndCountGroup, grow, returnToNormalSpeed]))
+
       
-      var slowmoPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "slowmo", label: "slowmoPurchased", value: slowmoUpgradeCost)
-      tracker.send(slowmoPurchasedEvent.build() as [NSObject: AnyObject])
+      let slowmoPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "slowmo", label: "slowmoPurchased", value: self.slowmoUpgradeCost)
+      tracker.send(slowmoPurchasedEvent.build() as! [NSObject: AnyObject])
       
     default: return
     }
@@ -1054,8 +1061,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     return vector
   }
   
-  override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    for touch in (touches ) {
       let touchLocation = touch.locationInNode(self)
       let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
       if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead != true {
@@ -1077,9 +1084,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
   }
   
-  override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+  override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     if playerDead == false && !paused {
-      for touch in (touches as! Set<UITouch>) {
+      for touch in (touches) {
         let touchLocation = touch.locationInNode(self)
           
         if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
@@ -1120,8 +1127,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
   }
   
-  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
+  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    for touch in (touches) {
       let touchLocation = touch.locationInNode(self)
       if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
         removeProjectile()
@@ -1138,7 +1145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   func returnFromBackground() {
-    println("return from background")
+    print("return from background")
     paused = false
     pausedLabel.removeFromParent()
 
@@ -1147,7 +1154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   func goingToBackground() {
-    println("going to background")
+    print("going to background")
     paused = true
     pausedLabel.removeFromParent()
     musicController.pauseUpgradeMusic()
@@ -1240,7 +1247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
     
     if dragonSelected == 1 {
-      println("Shot flame")
+      print("Shot flame")
       flame = SKSpriteNode(texture: flameScenes[0])
       flame.size = CGSize(width: player.size.width/2, height: player.size.width/4)
       flame.zPosition = 1
@@ -1260,7 +1267,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
     
     if dragonSelected == 2 || dragonSelected == 3 {
-      println("Shot laserBall")
+      print("Shot laserBall")
       let projectile = SKSpriteNode(texture: firstLaserBallFrame)
       
       let projectilePosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
@@ -1304,7 +1311,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     }
     
     if dragonSelected == 3 {
-      println("Shot laser beam")
+      print("Shot laser beam")
       laser = SKSpriteNode(texture: laserScenes[0])
       laser.size = CGSize(width: player.size.width*2, height: 9)
       laser.zPosition = 1
@@ -1326,7 +1333,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
 
   
   func projectileDidCollideWithMonster(projectile:SKSpriteNode, monster:SKSpriteNode) {
-    println("Arrow hit by fire")
+    print("Arrow hit by fire")
     projectile.removeFromParent()
     
     monster.size = CGSize(width: 50.0, height: 30.0)
@@ -1349,7 +1356,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   func laserDidCollideWithMonster(laser:SKSpriteNode, monster:SKSpriteNode) {
-    println("Arrow hit by laser")
+    print("Arrow hit by laser")
     monster.size = CGSize(width: 50.0, height: 30.0)
     monster.texture = arrowScenes[2]
     monster.physicsBody = SKPhysicsBody(rectangleOfSize: CGSize(width: 0.1, height: 0.1))
@@ -1379,7 +1386,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       
       if boss.health > 0 {
         crossbowHit.texture = SKTexture(imageNamed: "CrossbowBroken1")
-        println("player shot the crossbow!")
+        print("player shot the crossbow!")
       }
       
       if boss.health <= 0 {
@@ -1466,12 +1473,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   func monsterDidCollideWithPlayer(monster: SKSpriteNode) {
-    println("Monster got the player!")
+    print("Monster got the player!")
 
     if playerDead == false {
       
       self.playerDead = true
-      paused = true
+      pausedButtonPushed()
       AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
       
       self.musicController.pauseBackgroundMusic()
@@ -1481,11 +1488,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       
       let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend \(coinsToEvadeDeath) coins to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
       
-      gameOverAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+      gameOverAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
         monster.removeFromParent()
         self.playerDead = false
-        self.paused = false
-        self.musicController.resumeBackgroundMusic()
+        self.pausedButtonPushed()
         
         self.totalCoins -= (coinsToEvadeDeath - self.shieldUpgradeCost)
         self.upgradePurchased(self.purchaseShield)
@@ -1493,22 +1499,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
       }))
       
-      gameOverAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
+      gameOverAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction) in
         self.endGame(true)
       }))
       
       let gameOverVideoAlert = UIAlertController(title: "Game Over", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
       
-      gameOverVideoAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+      gameOverVideoAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
         monster.removeFromParent()
         Chartboost.showRewardedVideo(CBLocationGameScreen)
+        //Can move all the below to AppDelegate
+        self.playerDead = false
+        self.totalCoins += self.shieldUpgradeCost + 50 //Used to offset cost of shield purchase below
+        self.upgradePurchased(self.purchaseShield)
+        NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
+        self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
+        //
       }))
       
-      gameOverVideoAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction!) in
+      gameOverVideoAlert.addAction(UIAlertAction(title: "No, I'll restart", style: .Default, handler: { (action: UIAlertAction) in
         self.endGame(false)
       }))
       
-      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(2) + 1) % 2 == 0 {
+      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(3) + 1) % 2 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
       } else if totalCoins >= coinsToEvadeDeath && self.levelReached > 1 {
@@ -1518,17 +1531,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame(true)
       }
     }
-  }
-  
-  func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
-    self.playerDead = false
-    self.paused = false
-    self.musicController.resumeBackgroundMusic()
-    
-    self.totalCoins += self.shieldUpgradeCost + 50 //Used to offset cost of shield purchase below
-    self.upgradePurchased(self.purchaseShield)
-    NSUserDefaults.standardUserDefaults().setObject(self.totalCoins,forKey:"TotalCoins")
-    self.totalCoinsBoard.text = "Total Coins: \(self.totalCoins)"
   }
   
   func playerCollectedCoin(player:SKSpriteNode, coin: SKSpriteNode) {
@@ -1677,7 +1679,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     case PhysicsCategory.Laser.rawValue | PhysicsCategory.Coin.rawValue:
       break
     case PhysicsCategory.Laser.rawValue | PhysicsCategory.Player.rawValue:
-      println("laser hitting player")
+      print("laser hitting player")
       break
 
     case PhysicsCategory.Projectile.rawValue | PhysicsCategory.Player.rawValue:
@@ -1691,8 +1693,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       break
       
     default:
-      println(contact.bodyA.node)
-      println(contact.bodyB.node)
+      print(contact.bodyA.node)
+      print(contact.bodyB.node)
       fatalError("other collision: \(contactMask)")
     }
   }
@@ -1770,7 +1772,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       }
       
       if shield.purchased == true {
-        let shieldPosVector = convertAngleToVector(Double(player.zRotation) + M_PI_2)
         shield.position = CGPoint(x: player.position.x, y: player.position.y)
         shield.zRotation = player.zRotation + 1.57079633
       }

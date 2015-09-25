@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     assert(configureError == nil, "Error configuring Google services: \(configureError)")
     
     // Optional: configure GAI options.
-    var gai = GAI.sharedInstance()
+    let gai = GAI.sharedInstance()
     gai.trackUncaughtExceptions = true  // report uncaught exceptions
     gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
     gai.logger.logLevel = GAILogLevel.None  // remove before app release
@@ -57,16 +57,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
       Chartboost.showInterstitial(CBLocationGameOver)
     } else {
       Chartboost.cacheInterstitial(CBLocationGameOver)
-      if let isReady = interstitial?.isReady {
+      if let _ = interstitial?.isReady {
         interstitial?.presentFromRootViewController(self.window?.rootViewController)
       }
     }
   }
   
   func createAndLoadInterstitial()->GADInterstitial {
-    var interstitial = GADInterstitial(adUnitID: "ca-app-pub-1048344523427807/2816356772")
+    let interstitial = GADInterstitial(adUnitID: "ca-app-pub-1048344523427807/2816356772")
     interstitial.delegate = self
-    var request = GADRequest()
+    let request = GADRequest()
     request.testDevices = ["2f78537250ad45ed0f48261919acaeeb"]
     interstitial.loadRequest(request)
     
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   }
   
   func interstitialDidReceiveAd(ad: GADInterstitial!) {
-    println("adMobInterstitialDidReceiveAd")
+    print("adMobInterstitialDidReceiveAd")
   }
   
   func interstitialWillDismissScreen(ad: GADInterstitial!) {
@@ -97,37 +97,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   }
   
   func interstitialWillPresentScreen(ad: GADInterstitial!) {
-    println("adMobInterstitialWillPresentScreen")
+    print("adMobInterstitialWillPresentScreen")
   }
   
   // Called after an interstitial has been displayed on the screen.
   func didDisplayInterstitial(location: String!){
-    println("Chartboost ad displayed")
+    print("Chartboost ad displayed")
   }
   
   // Called after an interstitial has been loaded from the Chartboost API
   // servers and cached locally.
   func didCacheInterstitial(location: String!){
-    println("Chartboost ad cached")
+    print("Chartboost ad cached")
   }
   
   func didCacheRewardedVideo(location: String!) {
-    println("Chartboost Rewarded Video cached")
+    print("Chartboost Rewarded Video cached")
   }
   
   func didDismissInterstitial(location: String!) {
-    println("Chartboost ad dismissed")
+    print("Chartboost ad dismissed")
 
   }
   
   // Called after an interstitial has attempted to load from the Chartboost API
   // servers but failed.
   func didFailToLoadInterstitial(location: String!, withError error: CBLoadError) {
-    println("Failed to load Chartboost ad")
+    print("Failed to load Chartboost ad")
   }
   
   func didFailToLoadRewardedVideo(location: String!, withError error: CBLoadError) {
-    println("Failed to load Chartboost Rewarded Video")
+    print("Failed to load Chartboost Rewarded Video")
   }
 
   func applicationWillResignActive(application: UIApplication) {

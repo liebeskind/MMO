@@ -16,7 +16,7 @@ class Boss: SKSpriteNode {
   var leftPoint: CGFloat?
   var health = 100
   
-  override init(texture: SKTexture!, color: SKColor!, size: CGSize) {
+  override init(texture: SKTexture?, color: SKColor, size: CGSize) {
     self.playerPosition = CGPoint()
     super.init(texture: texture, color: color, size: size)
   }

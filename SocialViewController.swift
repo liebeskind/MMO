@@ -30,7 +30,7 @@ class SocialViewController: UIViewController {
   }
   
   @objc private func showTweetSheet(notification: NSNotification){
-    println("twitter button pressed")
+    print("twitter button pressed")
     let tweetSheet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
     tweetSheet.completionHandler = {
       result in

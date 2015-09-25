@@ -15,7 +15,7 @@ class Shield: SKSpriteNode {
   var health = 100
   var purchased = false
   
-  override init(texture: SKTexture!, color: SKColor!, size: CGSize) {
+  override init(texture: SKTexture?, color: SKColor, size: CGSize) {
     self.playerPosition = CGPoint()
     super.init(texture: texture, color: color, size: size)
   }

@@ -31,10 +31,10 @@ class GameViewController: UIViewController, UINavigationControllerDelegate {
     tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "GameViewController")
     
-    var builder = GAIDictionaryBuilder.createScreenView()
+    let builder = GAIDictionaryBuilder.createScreenView()
     tracker.send(builder.build() as [NSObject : AnyObject])
     
-    var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonType)
+    let dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonType)
     self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])
     
     let scene = GameScene(size: view.bounds.size, level: 1, muted: false, coinsCollected: 0, monstersDestroyed: 0, shield: Shield(), dragonType: dragonType!, birthdayMode: birthdayMode, birthdayPicture: birthimg)
@@ -44,11 +44,11 @@ class GameViewController: UIViewController, UINavigationControllerDelegate {
     skView.presentScene(scene)
     
     if let userId = NSUserDefaults.standardUserDefaults().objectForKey("userId") as? String {
-      println("User ID exists: \(userId)")
+      print("User ID exists: \(userId)")
     } else {
-      var uuid = NSUUID().UUIDString
+      let uuid = NSUUID().UUIDString
       NSUserDefaults.standardUserDefaults().setValue(uuid, forKey: "userId")
-      println("Set User ID to \(uuid)")
+      print("Set User ID to \(uuid)")
     }
 
 //    skView.scene!.view!.paused = true

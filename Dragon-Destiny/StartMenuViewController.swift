@@ -96,16 +96,16 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
     localPlayer.authenticateHandler = {(ViewController, error) -> Void in
       if((ViewController) != nil) {
         // 1 Show login if player is not logged in
-        self.presentViewController(ViewController, animated: true, completion: nil)
+        self.presentViewController(ViewController!, animated: true, completion: nil)
       } else if (localPlayer.authenticated) {
         // 2 Player is already euthenticated & logged in, load game center
         self.gcEnabled = true
         // Get the default leaderboard ID
-        localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String!, error: NSError!) -> Void in
+        localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String?, error: NSError?) -> Void in
           if error != nil {
 //            println(error)
           } else {
-            self.gcDefaultLeaderBoard = leaderboardIdentifer
+            self.gcDefaultLeaderBoard = leaderboardIdentifer!
           }
         })
       } else {
@@ -117,7 +117,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
     }
   }
   
-  func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController!) {
+  func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
     gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
   }
   
@@ -132,7 +132,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
     }
     
     if flameDragonPurchased == true {
-      println("flame dragon purchased")
+      print("flame dragon purchased")
       lockFlame.hidden = true
       flameCostLabel.hidden = true
     } else {
@@ -181,7 +181,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
     tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "StartMenuViewController")
     
-    var builder = GAIDictionaryBuilder.createScreenView()
+    let builder = GAIDictionaryBuilder.createScreenView()
     tracker.send(builder.build() as [NSObject : AnyObject])
   }
   
@@ -421,7 +421,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
           } else if enoughCoins >= flameDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
-            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
               self.flameDragonPurchased = true
               self.fireballImage.hidden = true
               self.flameImage.hidden = false
@@ -449,15 +449,15 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
                 
                 self.view.addSubview(player.view)
                 
-                var flameDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost).build()
+                let flameDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "FlameDragonPurchased", value: self.flameDragonCost).build()
                 self.tracker.send(flameDragonPurchasedEvent as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
             }))
             
-            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
-              println("Handle Cancel Logic here")
+            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction) in
+              print("Handle Cancel Logic here")
             }))
             
             presentViewController(purchaseDragonAlert, animated: true, completion: nil)
@@ -479,7 +479,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
           } else if enoughCoins >= laserBallDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
-            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
               self.laserBallDragonPurchased = true
               self.fireballImage.hidden = true
               self.flameImage.hidden = true
@@ -515,8 +515,8 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
               }
             }))
             
-            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
-              println("Handle Cancel Logic here")
+            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction) in
+              print("Handle Cancel Logic here")
             }))
             
             presentViewController(purchaseDragonAlert, animated: true, completion: nil)
@@ -538,7 +538,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
           } else if enoughCoins >= laserBeamDragonCost {
             let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
-            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
+            purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
               self.laserBeamDragonPurchased = true
               self.fireballImage.hidden = true
               self.flameImage.hidden = true
@@ -568,15 +568,15 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
                 
                 self.view.addSubview(player.view)
                 
-                var laserBeamDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
+                let laserBeamDragonPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("PermanentUpgradePurchased", action: "dragonPurchased", label: "LaserBeamDragonPurchased", value: self.laserBeamDragonCost)
                 self.tracker.send(laserBeamDragonPurchasedEvent.build() as [NSObject: AnyObject])
                 
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "doneButtonClick:", name: MPMoviePlayerPlaybackDidFinishNotification, object: nil)
               }
             }))
             
-            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
-              println("Handle Cancel Logic here")
+            purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction) in
+              print("Handle Cancel Logic here")
             }))
             
             presentViewController(purchaseDragonAlert, animated: true, completion: nil)

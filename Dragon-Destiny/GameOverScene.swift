@@ -116,38 +116,38 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     tracker = GAI.sharedInstance().defaultTracker
     tracker.set(kGAIScreenName, value: "GameOverScene")
     
-    var builder = GAIDictionaryBuilder.createScreenView()
+    let builder = GAIDictionaryBuilder.createScreenView()
     tracker.send(builder.build() as [NSObject : AnyObject])
     
-    var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Coins", value: score)
+    let coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Coins", value: score)
     tracker.send(coinsCollected.build() as [NSObject: AnyObject])
     
-    var monstDestroyed = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Destroyed", label: "Monsters", value: monstersDestroyed)
+    let monstDestroyed = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Destroyed", label: "Monsters", value: monstersDestroyed)
     tracker.send(monstDestroyed.build() as [NSObject: AnyObject])
     
-    var levelReach = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "LevelReached", label: "Level", value: levelReached)
+    let levelReach = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "LevelReached", label: "Level", value: levelReached)
     tracker.send(levelReach.build() as [NSObject: AnyObject])
 
     if score > 50 {
-      var coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Over50Coins", value: score)
-      tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+      let coinsCollected50 = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Over50Coins", value: score)
+      tracker.send(coinsCollected50.build() as [NSObject: AnyObject])
     }
     
     if highScoreAchieved == true {
-      var highScoreAchievedEvent = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "HighScore", value: score)
+      let highScoreAchievedEvent = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "HighScore", value: score)
       tracker.send(highScoreAchievedEvent.build() as [NSObject: AnyObject])
       
-      var leaderboardID = "DragonDestinyLeaderboard"
-      var sScore = GKScore(leaderboardIdentifier: leaderboardID)
+      let leaderboardID = "DragonDestinyLeaderboard"
+      let sScore = GKScore(leaderboardIdentifier: leaderboardID)
       sScore.value = Int64(score)
       
-      let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+//      let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
       
-      GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError!) -> Void in
-        if error != nil {
-          println(error.localizedDescription)
+      GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+        if let errorReport = error {
+          print(errorReport.localizedDescription)
         } else {
-          println("Highscore submitted")
+          print("Highscore submitted")
           
         }
       })
@@ -355,13 +355,13 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   override func didMoveToView(view: SKView) {
     // Set IAPS
     if(SKPaymentQueue.canMakePayments()) {
-      println("IAP is enabled, loading")
-      var productID:NSSet = NSSet(objects: "Put IAP id here")
-      var request: SKProductsRequest = SKProductsRequest(productIdentifiers: productID as Set<NSObject>)
+      print("IAP is enabled, loading")
+      let productID:NSSet = NSSet(objects: "Put IAP id here")
+      let request: SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>)
       request.delegate = self
       request.start()
     } else {
-      println("please enable IAPS")
+      print("please enable IAPS")
     }
   }
   
@@ -377,24 +377,24 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         self.gcEnabled = true
         
         // Get the default leaderboard ID
-        localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String!, error: NSError!) -> Void in
+        localPlayer.loadDefaultLeaderboardIdentifierWithCompletionHandler({ (leaderboardIdentifer: String?, error: NSError?) -> Void in
           if error != nil {
-            println(error)
+            print(error)
           } else {
-            self.gcDefaultLeaderBoard = leaderboardIdentifer
+            self.gcDefaultLeaderBoard = leaderboardIdentifer!
           }
         })
       } else {
         // 3 Game center is not enabled on the users device
         self.gcEnabled = false
-        println("Local player could not be authenticated, disabling game center")
-        println(error)
+        print("Local player could not be authenticated, disabling game center")
+        print(error)
       }
     }
   }
   
-  override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    for touch in (touches) {
       let touchLocation = touch.locationInNode(self)
       
       let blueDragonExtendedRect = CGRectMake(blueDragon.position.x - blueDragon.size.width/2, blueDragon.position.y - blueDragon.size.height/2, blueDragon.size.width, blueDragon.size.height * 4)
@@ -407,7 +407,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       
       if eliminateAdsButton.containsPoint(touchLocation) {
         for product in list {
-          var prodID = product.productIdentifier
+          let prodID = product.productIdentifier
           if(prodID == "iAp id here") {
             p = product
             buyProduct()  //This is one of the functions we added earlier
@@ -441,8 +441,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             } else if enoughCoins >= flameDragonCost {
               let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
-              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
-                println("flame dragon purchased")
+              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
+                print("flame dragon purchased")
                 self.flameDragonPurchased = true
                 self.fireball.removeFromParent()
                 self.flame.removeFromParent()
@@ -479,8 +479,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
                 }
               }))
               
-              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
-                println("Handle Cancel Logic here")
+              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction) in
+                print("Handle Cancel Logic here")
               }))
               
               self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
@@ -502,8 +502,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             } else if enoughCoins >= laserBallDragonCost {
               let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
-              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
-                println("laser ball dragon purchased")
+              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
+                print("laser ball dragon purchased")
                 self.laserBallDragonPurchased = true
                 self.fireball.removeFromParent()
                 self.flame.removeFromParent()
@@ -540,8 +540,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
                 }
               }))
               
-              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
-                println("Handle Cancel Logic here")
+              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction) in
+                print("Handle Cancel Logic here")
               }))
               
               self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
@@ -563,8 +563,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             } else if enoughCoins >= laserBeamDragonCost {
               let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
-              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction!) in
-                println("laser beam dragon purchased")
+              purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
+                print("laser beam dragon purchased")
                 self.laserBeamDragonPurchased = true
                 self.fireball.removeFromParent()
                 self.flame.removeFromParent()
@@ -601,8 +601,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
                 }
               }))
               
-              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction!) in
-                println("Handle Cancel Logic here")
+              purchaseDragonAlert.addAction(UIAlertAction(title: "I changed my mind", style: .Default, handler: { (action: UIAlertAction) in
+                print("Handle Cancel Logic here")
               }))
               
               self.view?.window?.rootViewController?.presentViewController(purchaseDragonAlert, animated: true, completion: nil)
@@ -630,8 +630,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     self.moviePlayer.view.removeFromSuperview()
   }
   
-  override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
-    for touch in (touches as! Set<UITouch>) {
+  override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    for touch in (touches) {
       
       let touchLocation = touch.locationInNode(self)
       if restartButton.containsPoint(touchLocation) {
@@ -652,7 +652,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     let pushRestart = SKAction.runBlock() {
       let reveal = SKTransition.flipHorizontalWithDuration(0.5)
 
-      var dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonSelected)
+      let dragonSelected = GAIDictionaryBuilder.createEventWithCategory("GameOptionsSelected", action: "dragonSelected", label: "dragonSelected", value: self.dragonSelected)
       self.tracker.send(dragonSelected.build() as [NSObject: AnyObject])
 
       let scene = GameScene(size: self.size, level: 1, muted: self.muted, coinsCollected: 0, monstersDestroyed: 0, shield: Shield(), dragonType: self.dragonSelected, birthdayMode: self.birthdayMode, birthdayPicture: self.birthdayPicture)
@@ -670,24 +670,24 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   var p = SKProduct()
   
   func buyProduct() {
-    println("buy " + p.productIdentifier)
-    var pay = SKPayment(product: p)
+    print("buy " + p.productIdentifier)
+    let pay = SKPayment(product: p)
     SKPaymentQueue.defaultQueue().addTransactionObserver(self)
     SKPaymentQueue.defaultQueue().addPayment(pay as SKPayment)
   }
   
-  func productsRequest(request: SKProductsRequest!, didReceiveResponse response: SKProductsResponse!) {
-    var myProduct = response.products
-    println("Received \(myProduct.count) products in IAP response")
+  func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse) {
+    let myProduct = response.products
+    print("Received \(myProduct.count) products in IAP response")
     
     for product in myProduct {
-      println("product added")
-      println(product.productIdentifier)
-      println(product.localizedTitle)
-      println(product.localizedDescription)
+      print("product added")
+      print(product.productIdentifier)
+      print(product.localizedTitle)
+      print(product.localizedDescription)
 //      println(product.price)
       
-      list.append(product as! SKProduct)
+      list.append(product)
       
       if product.productIdentifier == "eliminateAds" {
         let eliminateAdsButtonSize = CGFloat(40)
@@ -702,12 +702,12 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     }
   }
   
-  func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue!) {
-    println("transactions restored")
+  func paymentQueueRestoreCompletedTransactionsFinished(queue: SKPaymentQueue) {
+    print("transactions restored")
     
-    var purchasedItemIDS = []
+//    var purchasedItemIDS = []
     for transaction in queue.transactions {
-      var t: SKPaymentTransaction = transaction as! SKPaymentTransaction
+      let t: SKPaymentTransaction = transaction 
       
       let prodID = t.payment.productIdentifier as String
       
@@ -721,48 +721,48 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         
         //Right here is where you should put the function that you want to execute when your in app purchase is complete
       default:
-        println("IAP not setup")
+        print("IAP not setup")
       }
       
     }
     
-    var alert = UIAlertView(title: "Thank You", message: "Your purchase(s) were restored. You may have to restart the app before ads are removed.", delegate: nil, cancelButtonTitle: "OK")
+    let alert = UIAlertView(title: "Thank You", message: "Your purchase(s) were restored. You may have to restart the app before ads are removed.", delegate: nil, cancelButtonTitle: "OK")
     alert.show()
   }
   
   
-  func paymentQueue(queue: SKPaymentQueue!, updatedTransactions transactions: [AnyObject]!) {
-    println("add paymnet")
+  func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    print("add paymnet")
     
     for transaction:AnyObject in transactions {
-      var trans = transaction as! SKPaymentTransaction
-      println(trans.error)
+      let trans = transaction as! SKPaymentTransaction
+      print(trans.error)
       
       switch trans.transactionState {
         
       case .Purchased, .Restored:
-        println("buy, ok unlock iap here")
-        println(p.productIdentifier)
+        print("buy, ok unlock iap here")
+        print(p.productIdentifier)
         
         let prodID = p.productIdentifier as String
         switch prodID {
         case "eliminateAds":
           
           //Here you should put the function you want to execute when the purchase is complete
-          var alert = UIAlertView(title: "Thank You", message: "You may have to restart the app before the banner ads are removed.", delegate: nil, cancelButtonTitle: "OK")
+          let alert = UIAlertView(title: "Thank You", message: "You may have to restart the app before the banner ads are removed.", delegate: nil, cancelButtonTitle: "OK")
           alert.show()
         default:
-          println("IAP not setup")
+          print("IAP not setup")
         }
         
         queue.finishTransaction(trans)
         break;
       case .Failed:
-        println("buy error")
+        print("buy error")
         queue.finishTransaction(trans)
         break;
       default:
-        println("default")
+        print("default")
         break;
         
       }
@@ -771,11 +771,11 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   
   func finishTransaction(trans:SKPaymentTransaction)
   {
-    println("finish trans")
+    print("finish trans")
   }
-  func paymentQueue(queue: SKPaymentQueue!, removedTransactions transactions: [AnyObject]!)
+  func paymentQueue(queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction])
   {
-    println("remove trans");
+    print("remove trans");
   }
 
   // 6

@@ -264,7 +264,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     addChild(levelValueLabel)
     
     self.gamecenterButton.size = CGSize(width: 50.0, height: 50.0)
-    self.gamecenterButton.position = CGPoint(x: self.size.width/2, y: self.levelValueLabel.position.y - self.levelValueLabel.fontSize*2)
+    self.gamecenterButton.position = CGPoint(x: self.size.width - self.gamecenterButton.size.width/1.5, y: self.size.height - self.gamecenterButton.size.height/1.5)
     self.addChild(self.gamecenterButton)
     
     blueDragon.size = CGSize(width: 50, height: 30)
@@ -808,9 +808,9 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       list.append(product)
       
       if product.productIdentifier == "eliminateAds" {
-        let eliminateAdsButtonSize = CGFloat(40)
+        let eliminateAdsButtonSize = CGFloat(50)
         eliminateAdsButton.size = CGSize(width: eliminateAdsButtonSize, height: eliminateAdsButtonSize)
-        eliminateAdsButton.position = CGPoint(x: size.width - eliminateAdsButtonSize/1.5, y: size.height - eliminateAdsButtonSize/1.5)
+        eliminateAdsButton.position = CGPoint(x: gamecenterButton.position.x - gamecenterButton.size.width, y: gamecenterButton.position.y)
         eliminateAdsButton.name = "eliminateAdsButton"
         if !NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased") {
           addChild(eliminateAdsButton)

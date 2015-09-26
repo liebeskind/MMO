@@ -13,7 +13,7 @@ import AudioToolbox
 import GameKit
 import StoreKit
 
-class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDelegate {
+class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDelegate, GKGameCenterControllerDelegate {
   
   var tracker: GAITracker!
   
@@ -65,6 +65,9 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   var muted = false
   
   let eliminateAdsButton = SKSpriteNode(imageNamed: "eliminateAdsButton")
+  
+  let levelValueLabel = SKLabelNode(fontNamed: "Copperplate")
+  let gamecenterButton = SKSpriteNode(imageNamed: "gamecenterButton")
   
   init(size: CGSize, muted: Bool, won:Bool, score: Int, monstersDestroyed: Int, levelReached: Int, coinsPerLevelMultiplier: Int, dragonSelected: Int, birthdayMode: Bool, birthdayPicture: UIImage, highScoreAchieved: Bool) {
     
@@ -136,21 +139,6 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     if highScoreAchieved == true {
       let highScoreAchievedEvent = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "HighScore", value: score)
       tracker.send(highScoreAchievedEvent.build() as [NSObject: AnyObject])
-      
-      let leaderboardID = "DragonDestinyLeaderboard"
-      let sScore = GKScore(leaderboardIdentifier: leaderboardID)
-      sScore.value = Int64(score)
-      
-//      let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
-      
-      GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
-        if let errorReport = error {
-          print(errorReport.localizedDescription)
-        } else {
-          print("Highscore submitted")
-          
-        }
-      })
     }
     
     var message = "Dragon Destiny"
@@ -214,6 +202,18 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       highScoreValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
       addChild(highScoreValueLabel)
       
+      let playerHighScoreRequest = GKLeaderboard()
+      playerHighScoreRequest.identifier = "DragonDestinyLeaderboard"
+      playerHighScoreRequest.loadScoresWithCompletionHandler() { (scores: [GKScore]?, error: NSError?) -> Void in
+        if let myScore = playerHighScoreRequest.localPlayerScore {
+          if Int(myScore.value) < highScore {
+            self.saveHighScoreToGamecenter(highScore)
+          }
+        } else {
+          self.saveHighScoreToGamecenter(highScore)
+        }
+      }
+      
       monstersLabel = SKLabelNode(fontNamed: "Copperplate")
       monstersLabel.position = CGPoint(x: size.width/2, y: highScoreLabel.position.y - highScoreLabel.fontSize)
     } else {
@@ -247,15 +247,17 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     addChild(levelLabel)
     
     message = "\(levelReached)"
-    let levelValueLabel = SKLabelNode(fontNamed: "Copperplate")
+    
     levelValueLabel.text = message
     levelValueLabel.fontSize = 20
     levelValueLabel.fontColor = SKColor.blackColor()
     levelValueLabel.position = CGPoint(x: size.width/2 + 10, y: levelLabel.position.y)
     levelValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
     addChild(levelValueLabel)
-
     
+    self.gamecenterButton.size = CGSize(width: 50.0, height: 50.0)
+    self.gamecenterButton.position = CGPoint(x: self.size.width/2, y: self.levelValueLabel.position.y - self.levelValueLabel.fontSize*2)
+    self.addChild(self.gamecenterButton)
     
     blueDragon.size = CGSize(width: 50, height: 30)
     blueDragon.position = CGPoint(x: self.size.width * 6/24, y: 43 + restartButton.frame.height / 2 + blueDragon.size.height / 2 + 20)
@@ -393,6 +395,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     
   }
   
+  
   override func didMoveToView(view: SKView) {
     // Set IAPS
     if(SKPaymentQueue.canMakePayments()) {
@@ -425,6 +428,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             self.gcDefaultLeaderBoard = leaderboardIdentifer!
           }
         })
+        
       } else {
         // 3 Game center is not enabled on the users device
         self.gcEnabled = false
@@ -432,6 +436,39 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         print(error)
       }
     }
+  }
+  
+  func saveHighScoreToGamecenter(score: Int) {
+    let leaderboardID = "DragonDestinyLeaderboard"
+    let sScore = GKScore(leaderboardIdentifier: leaderboardID)
+    sScore.value = Int64(score)
+    
+    //      let localPlayer: GKLocalPlayer = GKLocalPlayer.localPlayer()
+    
+    GKScore.reportScores([sScore], withCompletionHandler: { (error: NSError?) -> Void in
+      if let errorReport = error {
+        print(errorReport.localizedDescription)
+      } else {
+        print("Highscore submitted")
+        
+      }
+    })
+  }
+  
+  func openGamecenter() {
+    let gcViewController: GKGameCenterViewController = GKGameCenterViewController()
+    gcViewController.gameCenterDelegate = self
+    
+    gcViewController.viewState = GKGameCenterViewControllerState.Leaderboards
+    
+    gcViewController.leaderboardIdentifier = "DragonDestinyLeaderboard"
+    
+    self.view?.window?.rootViewController?.presentViewController(gcViewController, animated: true, completion: nil)
+  }
+  
+  func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController)
+  {
+    gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
   }
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -445,6 +482,10 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       let greenDragonExtendedRect = CGRectMake(greenDragon.position.x - greenDragon.size.width/2, greenDragon.position.y - greenDragon.size.height/2, greenDragon.size.width, greenDragon.size.height * 4)
       
       let yellowDragonExtendedRect = CGRectMake(yellowDragon.position.x - yellowDragon.size.width/2, yellowDragon.position.y - yellowDragon.size.height/2, yellowDragon.size.width, yellowDragon.size.height * 4)
+      
+      if gamecenterButton.containsPoint(touchLocation) {
+        openGamecenter()
+      }
       
       if eliminateAdsButton.containsPoint(touchLocation) {
         for product in list {

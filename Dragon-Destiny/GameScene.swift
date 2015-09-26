@@ -1130,10 +1130,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-    let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
     for touch in (touches) {
       let touchLocation = touch.locationInNode(self)
-      if (CGRectContainsPoint(attackExtendedRect, touchLocation)) {
+      if (!CGRectContainsPoint(self.base.frame, touchLocation)) {
         removeProjectile()
       }
     }

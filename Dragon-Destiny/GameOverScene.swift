@@ -167,7 +167,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       totalCoins += i * self.coinsPerLevelMultiplier
     }
     
-    message = "Score: "
+    message = "Score "
     let coinsLabel = SKLabelNode(fontNamed: "Copperplate")
     coinsLabel.text = message
     coinsLabel.fontSize = 20
@@ -176,12 +176,12 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     coinsLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Right
     addChild(coinsLabel)
     
-    message = "\(score) (\(Int(Float(Float(score) / Float(totalCoins)*100)))%"
+    message = "\(score) (\(Int(Float(Float(score) / Float(totalCoins)*100))))%"
     let coinsValueLabel = SKLabelNode(fontNamed: "Copperplate")
     coinsValueLabel.text = message
     coinsValueLabel.fontSize = 20
     coinsValueLabel.fontColor = SKColor.blackColor()
-    coinsValueLabel.position = CGPoint(x: coinsLabel.position.x + coinsLabel.frame.width/3, y: coinsLabel.position.y)
+    coinsValueLabel.position = CGPoint(x: size.width/2 + 10, y: coinsLabel.position.y)
     coinsValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
     addChild(coinsValueLabel)
     
@@ -196,7 +196,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     var monstersLabel = SKLabelNode()
     
     if let highScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
-      message = "High Score: "
+      message = "High Score "
       let highScoreLabel = SKLabelNode(fontNamed: "Copperplate")
       highScoreLabel.text = message
       highScoreLabel.fontSize = 20
@@ -210,7 +210,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       highScoreValueLabel.text = message
       highScoreValueLabel.fontSize = 20
       highScoreValueLabel.fontColor = SKColor.blackColor()
-      highScoreValueLabel.position = CGPoint(x: highScoreLabel.position.x + highScoreLabel.frame.width/3, y: highScoreLabel.position.y)
+      highScoreValueLabel.position = CGPoint(x: size.width/2 + 10, y: highScoreLabel.position.y)
       highScoreValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
       addChild(highScoreValueLabel)
       
@@ -221,7 +221,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       monstersLabel.position = CGPoint(x: size.width/2, y: coinsLabel.position.y - coinsLabel.fontSize)
     }
     
-    message = "Arrows Destroyed: "
+    message = "Arrows Destroyed "
     monstersLabel.text = message
     monstersLabel.fontSize = 20
     monstersLabel.fontColor = SKColor.blackColor()
@@ -233,11 +233,11 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     monstersValueLabel.text = message
     monstersValueLabel.fontSize = 20
     monstersValueLabel.fontColor = SKColor.blackColor()
-    monstersValueLabel.position = CGPoint(x: monstersLabel.position.x + monstersLabel.frame.width/3, y: monstersLabel.position.y)
+    monstersValueLabel.position = CGPoint(x: size.width/2 + 10, y: monstersLabel.position.y)
     monstersValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
     addChild(monstersValueLabel)
 
-    message = "Level: "
+    message = "Level "
     let levelLabel = SKLabelNode(fontNamed: "Copperplate")
     levelLabel.text = message
     levelLabel.fontSize = 20
@@ -251,7 +251,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     levelValueLabel.text = message
     levelValueLabel.fontSize = 20
     levelValueLabel.fontColor = SKColor.blackColor()
-    levelValueLabel.position = CGPoint(x: levelLabel.position.x + levelLabel.frame.width/3, y: levelLabel.position.y)
+    levelValueLabel.position = CGPoint(x: size.width/2 + 10, y: levelLabel.position.y)
     levelValueLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.Left
     addChild(levelValueLabel)
 
@@ -324,7 +324,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     birthdayPickerLabel.fontName = "MarkerFelt-Thin"
     birthdayPickerLabel.fontSize = 25
     birthdayPickerLabel.fontColor = UIColor.blueColor()
-    birthdayPickerLabel.position = CGPoint(x: size.width - birthdayPickerLabel.frame.width/2, y: size.height - birthdayPickerLabel.fontSize)
+//    birthdayPickerLabel.position = CGPoint(x: size.width - birthdayPickerLabel.frame.width/2, y: size.height - birthdayPickerLabel.fontSize)
 //    self.addChild(birthdayPickerLabel)
     
     let lockHeight = yellowDragon.size.height + flame.size.height
@@ -650,16 +650,16 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             }
           } 
         }
-      } else if (CGRectContainsPoint(birthdayPickerLabel.frame, touchLocation)) {
-        if birthdayMode {
-          birthdayMode = false
-//          birthdayPickerLabel.text = "Dragon Mode"
-          dragonDestinyLabel.text = "Dragon Destiny"
-        } else {
-          birthdayMode = true
-//          birthdayPickerLabel.text = "Birthday Mode"
-          dragonDestinyLabel.text = "Birthday Destiny"
-        }
+//      } else if (CGRectContainsPoint(birthdayPickerLabel.frame, touchLocation)) {
+//        if birthdayMode {
+//          birthdayMode = false
+////          birthdayPickerLabel.text = "Dragon Mode"
+//          dragonDestinyLabel.text = "Dragon Destiny"
+//        } else {
+//          birthdayMode = true
+////          birthdayPickerLabel.text = "Birthday Mode"
+//          dragonDestinyLabel.text = "Birthday Destiny"
+//        }
       }
     }
   }

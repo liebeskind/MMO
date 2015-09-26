@@ -610,7 +610,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
     let gameViewController = self.storyboard!.instantiateViewControllerWithIdentifier("GameViewController") as! GameViewController
     
     gameViewController.dragonType = dragonSelected
-    gameViewController.birthdayMode = self.birthdayMode
+    gameViewController.birthdayMode = false
 //    gameViewController.birthdayImage = self.playerImage
     
     self.navigationController!.pushViewController(gameViewController, animated: true)

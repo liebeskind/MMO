@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     let gai = GAI.sharedInstance()
     gai.trackUncaughtExceptions = true  // report uncaught exceptions
     gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
-    gai.logger.logLevel = GAILogLevel.None  // remove before app release
+//    gai.logger.logLevel = GAILogLevel.None  // remove before app release
     
     UIScreen.mainScreen().brightness = 0.9
     

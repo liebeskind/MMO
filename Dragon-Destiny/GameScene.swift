@@ -1,11 +1,3 @@
-//
-//  GameScene.swift
-//  SpriteKitSimpleGame
-//
-//  Created by Main Account on 9/30/14.
-//  Copyright (c) 2014 Razeware LLC. All rights reserved.
-//
-
 import AVFoundation
 import SpriteKit
 import AudioToolbox
@@ -216,6 +208,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   override func didMoveToView(view: SKView) {
+    
+    self.view?.multipleTouchEnabled = true
+    
     if let _: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
     } else {
       NSUserDefaults.standardUserDefaults().setObject(0,forKey:"HighestScore")
@@ -1070,6 +1065,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   
   override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
     for touch in (touches ) {
+      print(touch)
       let touchLocation = touch.locationInNode(self)
       let attackExtendedRect = CGRectMake(attackButton.position.x - attackButton.size.width/2, attackButton.position.y - attackButton.size.height/2, attackButton.size.width,  attackButton.size.height * 2)
       if (CGRectContainsPoint(attackExtendedRect, touchLocation)) && playerDead != true {
@@ -1492,6 +1488,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       self.musicController.stopUpgradeMusic()
 
       let coinsToEvadeDeath = 10 + 2 * coinsPerLevelMultiplier * (self.levelReached-1)
+//      let coinsToEvadeDeath = 50 * Int((self.levelReached+2)/4)
       
       let gameOverAlert = UIAlertController(title: "Game Over", message: "Spend \(coinsToEvadeDeath) coins to evade death?", preferredStyle: UIAlertControllerStyle.Alert)
       

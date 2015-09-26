@@ -414,6 +414,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
         flameImage.hidden = false
         laserBallImage.hidden = true
         laserImage.hidden = true
+        self.dragonSelected = 1
       } else {
         if let enoughCoins = self.totalCoins {
           if enoughCoins < flameDragonCost {
@@ -472,6 +473,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
         flameImage.hidden = true
         laserBallImage.hidden = false
         laserImage.hidden = true
+        self.dragonSelected = 2
       } else {
         if let enoughCoins = self.totalCoins {
           if enoughCoins < laserBallDragonCost {
@@ -531,6 +533,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
         flameImage.hidden = true
         laserBallImage.hidden = true
         laserImage.hidden = false
+        self.dragonSelected = 3
       } else {
         if let enoughCoins = self.totalCoins {
           if enoughCoins < laserBeamDragonCost {

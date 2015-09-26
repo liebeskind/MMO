@@ -268,20 +268,48 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     self.addChild(self.gamecenterButton)
     
     blueDragon.size = CGSize(width: 50, height: 30)
-    blueDragon.position = CGPoint(x: self.size.width * 6/24, y: 43 + restartButton.frame.height / 2 + blueDragon.size.height / 2 + 20)
+    blueDragon.position = CGPoint(x: self.size.width * 6/24, y: restartButton.position.y + restartButton.frame.height + blueDragon.size.height + 35)
     self.addChild(blueDragon)
     
+    let fireballLabel = SKLabelNode(fontNamed: "Copperplate")
+    fireballLabel.text = "Fireball"
+    fireballLabel.fontSize = 12
+    fireballLabel.fontColor = UIColor.blackColor()
+    fireballLabel.position = CGPoint(x: blueDragon.position.x, y: blueDragon.position.y - blueDragon.size.height)
+    self.addChild(fireballLabel)
+    
     redDragon.size = CGSize(width: 50, height: 30)
-    redDragon.position = CGPoint(x: self.size.width * 10/24, y: 43 + restartButton.frame.height / 2 + redDragon.size.height / 2 + 20)
+    redDragon.position = CGPoint(x: self.size.width * 10/24, y: blueDragon.position.y)
     self.addChild(redDragon)
     
+    let flameLabel = SKLabelNode(fontNamed: "Copperplate")
+    flameLabel.text = "Flame"
+    flameLabel.fontSize = 12
+    flameLabel.fontColor = UIColor.blackColor()
+    flameLabel.position = CGPoint(x: redDragon.position.x, y: fireballLabel.position.y)
+    self.addChild(flameLabel)
+    
     greenDragon.size = CGSize(width: 50, height: 30)
-    greenDragon.position = CGPoint(x: self.size.width * 14/24, y: 43 + restartButton.frame.height / 2 + greenDragon.size.height / 2 + 20)
+    greenDragon.position = CGPoint(x: self.size.width * 14/24, y: blueDragon.position.y)
     self.addChild(greenDragon)
     
+    let laserLabel = SKLabelNode(fontNamed: "Copperplate")
+    laserLabel.text = "Laser"
+    laserLabel.fontSize = 12
+    laserLabel.fontColor = UIColor.blackColor()
+    laserLabel.position = CGPoint(x: greenDragon.position.x, y: fireballLabel.position.y)
+    self.addChild(laserLabel)
+    
     yellowDragon.size = CGSize(width: 50, height: 30)
-    yellowDragon.position = CGPoint(x: self.size.width * 18/24, y: 43 + restartButton.frame.height / 2 + yellowDragon.size.height / 2 + 20)
+    yellowDragon.position = CGPoint(x: self.size.width * 18/24, y: blueDragon.position.y)
     self.addChild(yellowDragon)
+    
+    let laserBeamLabel = SKLabelNode(fontNamed: "Copperplate")
+    laserBeamLabel.text = "Laserbeam"
+    laserBeamLabel.fontSize = 12
+    laserBeamLabel.fontColor = UIColor.blackColor()
+    laserBeamLabel.position = CGPoint(x: yellowDragon.position.x, y: fireballLabel.position.y)
+    self.addChild(laserBeamLabel)
     
     flame.size = CGSize(width: 26, height: 48)
     flame.position = CGPoint(x: redDragon.position.x, y: redDragon.position.y + redDragon.size.height/2 + flame.size.height/2 - 1)

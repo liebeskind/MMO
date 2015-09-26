@@ -784,7 +784,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         
         // Determine speed of the monster
   //      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-        let minimum = max(Double(3 - self.levelReached/6), 0.5)
+        let minimum = max(Double(3 - self.levelReached/5), 0.5)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
         if self.slowmoPurchased {
@@ -850,7 +850,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
           
           // Determine speed of the monster
   //        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
-          let minimum = max(Double(3 - self.levelReached/6), 0.5)
+          let minimum = max(Double(3 - self.levelReached/5), 0.5)
           let maximum = minimum + 1.5
           var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
           if self.slowmoPurchased {

@@ -72,9 +72,9 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
   var laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
   var laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
   
-  let flameDragonCost = 200
-  let laserBallDragonCost = 600
-  let laserBeamDragonCost = 1200
+  let flameDragonCost = 300
+  let laserBallDragonCost = 800
+  let laserBeamDragonCost = 2100
   
   var gcEnabled = Bool() // Stores if the user has Game Center enabled
   var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
@@ -420,7 +420,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
           if enoughCoins < flameDragonCost {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
           } else if enoughCoins >= flameDragonCost {
-            let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+            let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend \(flameDragonCost) coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
               self.flameDragonPurchased = true
@@ -479,7 +479,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
           if enoughCoins < laserBallDragonCost {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
           } else if enoughCoins >= laserBallDragonCost {
-            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend \(laserBallDragonCost) coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
               self.laserBallDragonPurchased = true
@@ -539,7 +539,7 @@ class StartMenuViewController: UIViewController, GKGameCenterControllerDelegate 
           if enoughCoins < laserBeamDragonCost {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
           } else if enoughCoins >= laserBeamDragonCost {
-            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+            let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend \(laserBeamDragonCost) coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
             
             purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
               self.laserBeamDragonPurchased = true

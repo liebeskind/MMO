@@ -55,9 +55,9 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   var laserBallDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBallDragonPurchased") as? Bool
   var laserBeamDragonPurchased = NSUserDefaults.standardUserDefaults().objectForKey("laserBeamDragonPurchased") as? Bool
   
-  let flameDragonCost = 200
-  let laserBallDragonCost = 600
-  let laserBeamDragonCost = 1200
+  let flameDragonCost = 300
+  let laserBallDragonCost = 800
+  let laserBeamDragonCost = 2100
   
   var gcEnabled = Bool() // Stores if the user has Game Center enabled
   var gcDefaultLeaderBoard = String() // Stores the default leaderboardID
@@ -124,6 +124,14 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     
     let coinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "Coins", value: score)
     tracker.send(coinsCollected.build() as [NSObject: AnyObject])
+    
+    var totalCoinsEverCollected = NSUserDefaults.standardUserDefaults().integerForKey("totalCoinsEverCollected")
+    totalCoinsEverCollected += score
+    NSUserDefaults.standardUserDefaults().setInteger(totalCoinsEverCollected, forKey: "totalCoinsEverCollected")
+    print("total coins ever collected is: \(totalCoinsEverCollected)")
+    
+    let totalCoinsCollected = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Collected", label: "TotalCoins", value: self.totalCoins)
+    tracker.send(totalCoinsCollected.build() as [NSObject: AnyObject])
     
     let monstDestroyed = GAIDictionaryBuilder.createEventWithCategory("AtDeath", action: "Destroyed", label: "Monsters", value: monstersDestroyed)
     tracker.send(monstDestroyed.build() as [NSObject: AnyObject])
@@ -338,7 +346,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     
     flameCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
     flameCostLabel.zPosition = 11
-    flameCostLabel.text = "200 Coins"
+    flameCostLabel.text = "300"
     flameCostLabel.fontSize = 10
     lockFlame.addChild(flameCostLabel)
     
@@ -349,7 +357,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     
     laserBallCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
     laserBallCostLabel.zPosition = 11
-    laserBallCostLabel.text = "600 Coins"
+    laserBallCostLabel.text = "800"
     laserBallCostLabel.fontSize = 10
     lockLaserBall.addChild(laserBallCostLabel)
 
@@ -360,7 +368,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     
     laserBeamCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
     laserBeamCostLabel.zPosition = 11
-    laserBeamCostLabel.text = "1200 Coins"
+    laserBeamCostLabel.text = "2,100"
     laserBeamCostLabel.fontSize = 10
     lockLaserBeam.addChild(laserBeamCostLabel)
     

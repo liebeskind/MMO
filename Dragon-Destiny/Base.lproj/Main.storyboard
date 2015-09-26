@@ -131,7 +131,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="f8x-M0-WAW" userLabel="flame_gray_lock.png">
                                 <rect key="frame" x="224" y="405" width="64" height="92"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="200 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nj-bs-C9F">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="300 Coins" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nj-bs-C9F">
                                 <rect key="frame" x="230" y="450" width="53" height="44"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -197,7 +197,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gray_lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="Got-2b-IOH" userLabel="laser_beamgray_lock.png">
                                 <rect key="frame" x="401" y="405" width="64" height="92"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,200 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37N-Ze-KsV">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2,100 Coins" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37N-Ze-KsV">
                                 <rect key="frame" x="407" y="450" width="53" height="44"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -206,10 +206,36 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Nuu-Hs-3DT">
                                 <rect key="frame" x="290" y="290" width="20" height="20"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="600 Coins to Unlock" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNg-UR-LCD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNg-UR-LCD">
                                 <rect key="frame" x="319" y="450" width="53" height="44"/>
+                                <string key="text">800 
+Coins</string>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fireball" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azx-p8-CoC">
+                                <rect key="frame" x="141" y="499" width="53" height="13"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flame" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5t-Y6-b0A">
+                                <rect key="frame" x="238" y="499" width="37" height="13"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-2A-Tkf">
+                                <rect key="frame" x="328" y="499" width="35" height="13"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laserbeam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IY0-QG-CMc">
+                                <rect key="frame" x="401" y="499" width="65" height="13"/>
+                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -217,10 +243,12 @@
                         <constraints>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="top" secondItem="gNg-UR-LCD" secondAttribute="top" constant="-45" id="0Pg-kr-yuH"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="NqC-QT-cQK" secondAttribute="bottom" constant="40" id="3rs-H9-cI2"/>
+                            <constraint firstItem="IY0-QG-CMc" firstAttribute="centerX" secondItem="Got-2b-IOH" secondAttribute="centerX" id="5lT-2t-DyU"/>
                             <constraint firstAttribute="centerX" secondItem="KBI-vB-cu9" secondAttribute="centerX" constant="-44" id="6rX-sD-s7c"/>
                             <constraint firstAttribute="centerY" secondItem="Nuu-Hs-3DT" secondAttribute="centerY" id="7h3-kj-nBT"/>
                             <constraint firstItem="qCj-h7-pmu" firstAttribute="top" secondItem="joe-5f-gcc" secondAttribute="bottom" constant="-1" id="7mG-eV-kED"/>
                             <constraint firstAttribute="centerX" secondItem="hF0-pF-Ci6" secondAttribute="centerX" constant="44" id="AYP-e1-nuG"/>
+                            <constraint firstItem="azx-p8-CoC" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="12" id="AhF-iX-OYg"/>
                             <constraint firstItem="37N-Ze-KsV" firstAttribute="leading" secondItem="Got-2b-IOH" secondAttribute="leading" constant="6" id="Aw2-Re-XOD"/>
                             <constraint firstItem="wZ4-jT-zSP" firstAttribute="width" secondItem="wZ4-jT-zSP" secondAttribute="height" multiplier="537:350" id="BDQ-28-5rT"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="top" secondItem="yhx-7h-sxe" secondAttribute="top" id="BGU-Mh-iz8"/>
@@ -231,6 +259,8 @@
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="RpY-CS-eqQ" secondAttribute="bottom" constant="30" id="FkN-de-RJs"/>
                             <constraint firstItem="wZ4-jT-zSP" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" constant="-16" id="FsX-0Y-Ipf"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="leading" secondItem="gNg-UR-LCD" secondAttribute="leading" constant="-6" id="IM8-4x-IaG"/>
+                            <constraint firstItem="I5t-Y6-b0A" firstAttribute="centerX" secondItem="9nj-bs-C9F" secondAttribute="centerX" id="IMJ-5R-Sg4"/>
+                            <constraint firstItem="kwY-2A-Tkf" firstAttribute="centerY" secondItem="I5t-Y6-b0A" secondAttribute="centerY" id="Ihh-dH-cn3"/>
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="bottom" secondItem="f8x-M0-WAW" secondAttribute="bottom" id="JQz-Ig-Rd3"/>
                             <constraint firstAttribute="centerX" secondItem="Hn1-mL-hst" secondAttribute="centerX" constant="-132" id="Jbp-BQ-jr9"/>
                             <constraint firstItem="9nj-bs-C9F" firstAttribute="bottom" secondItem="f8x-M0-WAW" secondAttribute="bottom" constant="-3" id="Jl6-A1-vcT"/>
@@ -245,6 +275,7 @@
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="leading" secondItem="f8x-M0-WAW" secondAttribute="leading" constant="-8" id="QPX-zu-mbK"/>
                             <constraint firstItem="RpY-CS-eqQ" firstAttribute="top" secondItem="f8x-M0-WAW" secondAttribute="top" id="QT6-pI-RFB"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="qCj-h7-pmu" secondAttribute="bottom" constant="40" id="Ql0-LW-ObF"/>
+                            <constraint firstItem="IY0-QG-CMc" firstAttribute="centerY" secondItem="kwY-2A-Tkf" secondAttribute="centerY" id="RNb-ce-JoB"/>
                             <constraint firstAttribute="centerX" secondItem="XDZ-fk-r18" secondAttribute="centerX" constant="132.5" id="Trz-QL-Uqy"/>
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="Hn1-mL-hst" secondAttribute="bottom" constant="30" id="UVV-Ze-1JG"/>
                             <constraint firstAttribute="centerX" secondItem="koS-DX-OnS" secondAttribute="centerX" constant="-44.5" id="UXX-bp-tTb"/>
@@ -261,6 +292,8 @@
                             <constraint firstItem="h4Y-f1-hNm" firstAttribute="top" secondItem="5e7-rt-A8s" secondAttribute="bottom" constant="40" id="fJa-j7-ruk"/>
                             <constraint firstItem="wZ4-jT-zSP" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leading" constant="-9" id="fXq-WD-zT5"/>
                             <constraint firstItem="yhx-7h-sxe" firstAttribute="bottom" secondItem="gNg-UR-LCD" secondAttribute="bottom" constant="3" id="hYO-us-pCr"/>
+                            <constraint firstItem="kwY-2A-Tkf" firstAttribute="centerX" secondItem="yhx-7h-sxe" secondAttribute="centerX" id="hnt-9x-Re7"/>
+                            <constraint firstItem="I5t-Y6-b0A" firstAttribute="centerY" secondItem="azx-p8-CoC" secondAttribute="centerY" id="igJ-vD-8XL"/>
                             <constraint firstAttribute="centerX" secondItem="Nuu-Hs-3DT" secondAttribute="centerX" id="ixB-AH-5pi"/>
                             <constraint firstAttribute="centerX" secondItem="Ewc-Kp-h4V" secondAttribute="centerX" constant="43" id="jA0-BA-S7s"/>
                             <constraint firstItem="0ZM-rN-WYP" firstAttribute="top" secondItem="h4Y-f1-hNm" secondAttribute="bottom" constant="30" id="jfk-Fu-elW"/>
@@ -272,6 +305,7 @@
                             <constraint firstAttribute="centerX" secondItem="qCj-h7-pmu" secondAttribute="centerX" constant="-133" id="ufy-5K-wtz"/>
                             <constraint firstItem="bkU-i2-xJn" firstAttribute="top" secondItem="Wp8-sC-I9Z" secondAttribute="bottom" constant="-13" id="y17-yG-6Tb"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="bottom" secondItem="yhx-7h-sxe" secondAttribute="bottom" id="y7k-JJ-pph"/>
+                            <constraint firstItem="azx-p8-CoC" firstAttribute="centerX" secondItem="5e7-rt-A8s" secondAttribute="centerX" id="ygZ-XD-U0v"/>
                             <constraint firstAttribute="centerX" secondItem="RpY-CS-eqQ" secondAttribute="centerX" constant="44" id="z6I-qZ-RM7"/>
                             <constraint firstItem="epG-am-tU8" firstAttribute="leading" secondItem="AnG-bG-uhC" secondAttribute="leadingMargin" id="zLC-Kl-DmN"/>
                             <constraint firstItem="KBI-vB-cu9" firstAttribute="leading" secondItem="yhx-7h-sxe" secondAttribute="leading" constant="-9" id="zMF-YK-W6U"/>
@@ -349,6 +383,23 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aLo-8m-gaq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="rkC-Wb-0vp">
+            <objects>
+                <viewController id="Xiz-Uz-Y2x" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U4U-CX-iad"/>
+                        <viewControllerLayoutGuide type="bottom" id="8zz-yX-QCB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GaK-xe-9tS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lax-Xz-Gq9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
         </scene>
     </scenes>

@@ -43,8 +43,11 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   let lockLaserBeam = SKSpriteNode(imageNamed: "gray_lock")
   
   let flameCostLabel = SKLabelNode(fontNamed: "Copperplate")
+  let flameCostLabel2 = SKLabelNode(fontNamed: "Copperplate")
   let laserBallCostLabel = SKLabelNode(fontNamed: "Copperplate")
+  let laserBallCostLabel2 = SKLabelNode(fontNamed: "Copperplate")
   let laserBeamCostLabel = SKLabelNode(fontNamed: "Copperplate")
+  let laserBeamCostLabel2 = SKLabelNode(fontNamed: "Copperplate")
   
   var moviePlayer: MPMoviePlayerController!
   
@@ -328,7 +331,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     chooseDragonLabel.text = message
     chooseDragonLabel.fontSize = 30
     chooseDragonLabel.fontColor = SKColor.blackColor()
-    chooseDragonLabel.position = CGPoint(x: size.width/2, y: blueDragon.position.y + blueDragon.size.height + chooseDragonLabel.fontSize + 8)
+    chooseDragonLabel.position = CGPoint(x: size.width/2, y: blueDragon.position.y + blueDragon.size.height + chooseDragonLabel.fontSize + 15)
     addChild(chooseDragonLabel)
 
 
@@ -372,33 +375,51 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     lockFlame.zPosition = 10
     self.addChild(lockFlame)
     
-    flameCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
+    flameCostLabel.position = CGPoint(x: 0, y: -lockHeight/4 + 6)
     flameCostLabel.zPosition = 11
     flameCostLabel.text = "300"
     flameCostLabel.fontSize = 10
     lockFlame.addChild(flameCostLabel)
+    
+    flameCostLabel2.position = CGPoint(x: 0, y: -lockHeight/4 - 6)
+    flameCostLabel2.zPosition = 11
+    flameCostLabel2.text = "Coins"
+    flameCostLabel2.fontSize = 10
+    lockFlame.addChild(flameCostLabel2)
     
     lockLaserBall.position = CGPoint(x: greenDragon.position.x, y: greenDragon.position.y + 20)
     lockLaserBall.size = CGSize(width: 0.7 * lockHeight, height: lockHeight)
     lockLaserBall.zPosition = 10
     self.addChild(lockLaserBall)
     
-    laserBallCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
+    laserBallCostLabel.position = CGPoint(x: 0, y: -lockHeight/4 + 6)
     laserBallCostLabel.zPosition = 11
     laserBallCostLabel.text = "800"
     laserBallCostLabel.fontSize = 10
     lockLaserBall.addChild(laserBallCostLabel)
+    
+    laserBallCostLabel2.position = CGPoint(x: 0, y: -lockHeight/4 - 6)
+    laserBallCostLabel2.zPosition = 11
+    laserBallCostLabel2.text = "Coins"
+    laserBallCostLabel2.fontSize = 10
+    lockLaserBall.addChild(laserBallCostLabel2)
 
     lockLaserBeam.position = CGPoint(x: yellowDragon.position.x, y: yellowDragon.position.y + 20)
     lockLaserBeam.size = CGSize(width: 0.7 * lockHeight, height: lockHeight)
     lockLaserBeam.zPosition = 10
     self.addChild(lockLaserBeam)
     
-    laserBeamCostLabel.position = CGPoint(x: 0, y: -lockHeight/4)
+    laserBeamCostLabel.position = CGPoint(x: 0, y: -lockHeight/4 + 6)
     laserBeamCostLabel.zPosition = 11
     laserBeamCostLabel.text = "2,100"
     laserBeamCostLabel.fontSize = 10
     lockLaserBeam.addChild(laserBeamCostLabel)
+    
+    laserBeamCostLabel2.position = CGPoint(x: 0, y: -lockHeight/4 - 6)
+    laserBeamCostLabel2.zPosition = 11
+    laserBeamCostLabel2.text = "Coins"
+    laserBeamCostLabel2.fontSize = 10
+    lockLaserBeam.addChild(laserBeamCostLabel2)
     
     if let coinsUnwrapped = self.totalCoins {
       totalCoinsLabel.text = "Total Coins: \(coinsUnwrapped)"
@@ -414,18 +435,21 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     if flameDragonPurchased == true {
       lockFlame.hidden = true
       flameCostLabel.hidden = true
+      flameCostLabel2.hidden = true
     } else {
     }
     
     if laserBallDragonPurchased == true {
       lockLaserBall.hidden = true
       laserBallCostLabel.hidden = true
+      laserBallCostLabel2.hidden = true
     } else {
     }
     
     if laserBeamDragonPurchased == true {
       lockLaserBeam.hidden = true
       laserBeamCostLabel.hidden = true
+      laserBeamCostLabel2.hidden = true
     } else {
     }
     
@@ -557,7 +581,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             if enoughCoins < flameDragonCost {
               AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             } else if enoughCoins >= flameDragonCost {
-              let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend 200 coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+              let purchaseDragonAlert = UIAlertController(title: "Purchase Flame Dragon", message: "Spend \(flameDragonCost) coins to unlock flame dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
               purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
                 print("flame dragon purchased")
@@ -618,7 +642,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             if enoughCoins < laserBallDragonCost {
               AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             } else if enoughCoins >= laserBallDragonCost {
-              let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend 600 coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+              let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Dragon", message: "Spend \(laserBallDragonCost) coins to unlock laser dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
               purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
                 print("laser ball dragon purchased")
@@ -679,7 +703,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             if enoughCoins < laserBeamDragonCost {
               AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             } else if enoughCoins >= laserBeamDragonCost {
-              let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend 1,200 coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
+              let purchaseDragonAlert = UIAlertController(title: "Purchase Laser Beam Dragon", message: "Spend \(laserBeamDragonCost) coins to unlock laser beam dragon?", preferredStyle: UIAlertControllerStyle.Alert)
               
               purchaseDragonAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
                 print("laser beam dragon purchased")

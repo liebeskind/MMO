@@ -30,7 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     gai.defaultTracker.allowIDFACollection = true // Enable IDFA collection to collect user demographic information
 //    gai.logger.logLevel = GAILogLevel.None  // remove before app release
     
-    UIScreen.mainScreen().brightness = 0.9
+    if UIScreen.mainScreen().brightness < 0.6 {
+      UIScreen.mainScreen().brightness = 0.6
+    }
     
     eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
     
@@ -144,7 +146,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
 
   func applicationWillEnterForeground(application: UIApplication) {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    UIScreen.mainScreen().brightness = 0.9
+    if UIScreen.mainScreen().brightness < 0.6 {
+      UIScreen.mainScreen().brightness = 0.6
+    }
   }
 
   func applicationDidBecomeActive(application: UIApplication) {

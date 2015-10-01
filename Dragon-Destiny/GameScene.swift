@@ -784,7 +784,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         
         // Determine speed of the monster
   //      let minimum = max(Double(3 - (coinsCollected)/20), 0.5)
-        let minimum = max(Double(3 - self.levelReached/5), 0.5)
+        let minimum = max(Double(2.8 - Double(self.levelReached)/6.0), 0.8)
         let maximum = minimum + 1.5
         var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
         if self.slowmoPurchased {
@@ -850,7 +850,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
           
           // Determine speed of the monster
   //        let minimum = max(Double(3 - (self.coinsCollected)/20), 0.5)
-          let minimum = max(Double(3 - self.levelReached/5), 0.5)
+          let minimum = max(Double(2.8 - Double(self.levelReached)/6.0), 0.8)
           let maximum = minimum + 1.5
           var actualDuration = self.random(min: CGFloat(minimum), max: CGFloat(maximum))
           if self.slowmoPurchased {
@@ -951,7 +951,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 1.0), withKey: "shrinking")
       
       let shieldPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("UpgradePurchased", action: "shield", label: "shieldPurchased", value: shieldUpgradeCost).build()
-      tracker.send(shieldPurchasedEvent as! [NSObject : AnyObject])
+      tracker.send(shieldPurchasedEvent as? [NSObject : AnyObject])
       
     case purchaseSlowmo:
       if totalCoins < slowmoUpgradeCost { return AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) }
@@ -1506,7 +1506,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame(true)
       }))
       
-      let gameOverVideoAlert = UIAlertController(title: "Bonus Life & Coins!", message: "Watch a short video to evade death & get 50 coins?", preferredStyle: UIAlertControllerStyle.Alert)
+      let gameOverVideoAlert = UIAlertController(title: "Bonus Life & Coins!", message: "Evade death & win 50 coins by watching a short video?", preferredStyle: UIAlertControllerStyle.Alert)
       
       gameOverVideoAlert.addAction(UIAlertAction(title: "YES!", style: .Default, handler: { (action: UIAlertAction) in
         monster.removeFromParent()
@@ -1524,7 +1524,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame(false)
       }))
       
-      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(3) + 1) % 2 == 0 {
+      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(4) + 1) % 3 == 0 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
       } else if totalCoins >= coinsToEvadeDeath {

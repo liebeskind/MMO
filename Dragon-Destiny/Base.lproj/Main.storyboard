@@ -215,25 +215,25 @@ Coins</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fireball" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="azx-p8-CoC">
-                                <rect key="frame" x="141" y="499" width="53" height="13"/>
+                                <rect key="frame" x="141" y="499" width="53" height="12.5"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flame" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I5t-Y6-b0A">
-                                <rect key="frame" x="238" y="499" width="37" height="13"/>
+                                <rect key="frame" x="238" y="499" width="36.5" height="12.5"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laser" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-2A-Tkf">
-                                <rect key="frame" x="328" y="499" width="35" height="13"/>
+                                <rect key="frame" x="328" y="499" width="35" height="12.5"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Laserbeam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IY0-QG-CMc">
-                                <rect key="frame" x="401" y="499" width="65" height="13"/>
+                                <rect key="frame" x="401" y="499" width="64.5" height="12.5"/>
                                 <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="12"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>

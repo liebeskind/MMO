@@ -1,4 +1,5 @@
 PODS:
+  - AdColony (2.6.0)
   - ChartboostSDK (5.5.3)
   - Google-Mobile-Ads-SDK (7.5.0)
   - Google/Analytics (1.1.0):
@@ -19,11 +20,13 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0.0)
 
 DEPENDENCIES:
+  - AdColony
   - ChartboostSDK (= 5.5.3)
   - Google-Mobile-Ads-SDK (= 7.5.0)
   - Google/Analytics
 
 SPEC CHECKSUMS:
+  AdColony: ab47c3e22be7843e08f90989381a222884be4a62
   ChartboostSDK: 9bf9427b4c306773ea9f7d8cf974b4a3a0f1e61e
   Google: ec6c7729037b9579e52a4880ba06eb38ddb1de68
   Google-Mobile-Ads-SDK: 24879c6e4d1c2f9767e68bb9e65640a06c711143

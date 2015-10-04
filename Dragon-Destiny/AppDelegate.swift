@@ -42,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     Chartboost.cacheRewardedVideo(CBLocationGameScreen)
     Chartboost.setShouldRequestInterstitialsInFirstSession(true)
     
+    AdColony.configureWithAppID("app437208845d0c41e39e", zoneIDs: ["vzdda6b3b271824796ad"], delegate: nil, logging: false)
+    
     if eliminateAdsPurchased == nil || eliminateAdsPurchased == false {
 
       Chartboost.cacheInterstitial(CBLocationGameOver)      
@@ -53,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   }
   
   @objc private func presentInterstitial(notification: NSNotification){
+    
     eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
     if eliminateAdsPurchased == true { return }
     if Chartboost.hasInterstitial(CBLocationGameOver) {
@@ -61,6 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
       Chartboost.cacheInterstitial(CBLocationGameOver)
       if let _ = interstitial?.isReady {
         interstitial?.presentFromRootViewController(self.window?.rootViewController)
+      } else {
+        AdColony.playVideoAdForZone("vzdda6b3b271824796ad", withDelegate: nil)
       }
     }
   }

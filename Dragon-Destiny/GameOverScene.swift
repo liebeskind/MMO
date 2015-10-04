@@ -460,7 +460,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     // Set IAPS
     if(SKPaymentQueue.canMakePayments()) {
       print("IAP is enabled, loading")
-      let productID:NSSet = NSSet(objects: "Put IAP id here")
+      let productID:NSSet = NSSet(objects: "eliminateAds")
       let request: SKProductsRequest = SKProductsRequest(productIdentifiers: productID as! Set<String>)
       request.delegate = self
       request.start()
@@ -549,8 +549,10 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       
       if eliminateAdsButton.containsPoint(touchLocation) {
         for product in list {
+          print(product)
           let prodID = product.productIdentifier
-          if(prodID == "iAp id here") {
+          if(prodID == "eliminateAds") {
+            print("buy product tapped")
             p = product
             buyProduct()  //This is one of the functions we added earlier
             break;
@@ -823,10 +825,10 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     print("Received \(myProduct.count) products in IAP response")
     
     for product in myProduct {
-      print("product added")
-      print(product.productIdentifier)
-      print(product.localizedTitle)
-      print(product.localizedDescription)
+//      print("product added")
+//      print(product.productIdentifier)
+//      print(product.localizedTitle)
+//      print(product.localizedDescription)
 //      println(product.price)
       
       list.append(product)
@@ -834,8 +836,9 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       if product.productIdentifier == "eliminateAds" {
         let eliminateAdsButtonSize = CGFloat(50)
         eliminateAdsButton.size = CGSize(width: eliminateAdsButtonSize, height: eliminateAdsButtonSize)
-        eliminateAdsButton.position = CGPoint(x: gamecenterButton.position.x - gamecenterButton.size.width, y: gamecenterButton.position.y)
+        eliminateAdsButton.position = CGPoint(x: gamecenterButton.position.x - gamecenterButton.size.width - 10, y: gamecenterButton.position.y)
         eliminateAdsButton.name = "eliminateAdsButton"
+//        eliminateAdsButton.userInteractionEnabled = true
         if !NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased") {
           addChild(eliminateAdsButton)
         }
@@ -856,7 +859,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       switch prodID {
       case "eliminateAds":
         NSUserDefaults.standardUserDefaults().setBool(true , forKey: "eliminateAdsPurchased")
-        
+        eliminateAdsButton.removeFromParent()
         let eliminateAdsPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("InAppPurchase", action: "eliminateAds", label: "eliminateAdsPurchased", value: 1.99)
         self.tracker.send(eliminateAdsPurchasedEvent.build() as [NSObject: AnyObject])
 
@@ -874,7 +877,7 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   
   
   func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-    print("add paymnet")
+    print("add payment")
     
     for transaction:AnyObject in transactions {
       let trans = transaction as! SKPaymentTransaction
@@ -889,6 +892,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         let prodID = p.productIdentifier as String
         switch prodID {
         case "eliminateAds":
+          NSUserDefaults.standardUserDefaults().setBool(true , forKey: "eliminateAdsPurchased")
+          eliminateAdsButton.removeFromParent()
           
           //Here you should put the function you want to execute when the purchase is complete
           let alert = UIAlertView(title: "Thank You", message: "You may have to restart the app before the banner ads are removed.", delegate: nil, cancelButtonTitle: "OK")
@@ -900,6 +905,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         queue.finishTransaction(trans)
         break;
       case .Failed:
+        let alert = UIAlertView(title: "In App Purchase Failed", message: "Please try again in a couple minutes.", delegate: nil, cancelButtonTitle: "OK")
+        alert.show()
         print("buy error")
         queue.finishTransaction(trans)
         break;

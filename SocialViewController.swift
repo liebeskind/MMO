@@ -10,6 +10,8 @@ import UIKit
 import Social
 class SocialViewController: UIViewController {
   
+  var score: Int?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
 //    let serviceType = SLServiceTypeFacebook
@@ -46,9 +48,9 @@ class SocialViewController: UIViewController {
       }
     }
     
-    tweetSheet.setInitialText("Test Twitter") //The default text in the tweet
-    tweetSheet.addImage(UIImage(named: "TestImage.png")) //Add an image if you like?
-    tweetSheet.addURL(NSURL(string: "http://twitter.com")) //A url which takes you into safari if tapped on
+    tweetSheet.setInitialText("I just scored \(self.score) points in Dragons of Destiny!") //The default text in the tweet
+//    tweetSheet.addImage(UIImage(named: "TestImage.png")) //Add an image if you like?
+    tweetSheet.addURL(NSURL(string: "http://apple.co/1ORfMrR")) //A url which takes you into safari if tapped on
     
     self.presentViewController(tweetSheet, animated: false, completion: {
       //Optional completion statement

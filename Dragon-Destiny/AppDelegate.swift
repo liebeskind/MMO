@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   }
   
   @objc private func presentInterstitial(notification: NSNotification){
+    if NSUserDefaults.standardUserDefaults().integerForKey("totalCoinsEverCollected") < 40 { return }
     
     eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
     if eliminateAdsPurchased == true { return }

@@ -1611,7 +1611,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
 
     if totalCoins >= slowmoUpgradeCost && slowmoPurchased == false {
       purchaseSlowmo.runAction(SKAction.scaleTo(1.0, duration: 0.3))
-      if self.coinsEverCollected <= 40 && totalCoins <= 40 && purchaseSlowmoExplanationActive == false && purchaseShieldExplanationActive == false {
+      if self.coinsEverCollected <= 40 && self.coinsCollected <= 40 && purchaseSlowmoExplanationActive == false && purchaseShieldExplanationActive == false {
+        collectCoinsExplanation.removeFromParent()
+        rightThumbExplanation.removeFromParent()
         purchaseSlowmoExplanationActive = true
         purchaseSlowmoExplanation.size = CGSize(width: 100.0, height: 100.0)
         purchaseSlowmoExplanation.position = CGPoint(x: purchaseSlowmo.position.x - 30, y: navigationBox.position.y + navigationBox.size.height + purchaseSlowmoExplanation.size.height/2)
@@ -1623,7 +1625,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     
     if totalCoins >= shieldUpgradeCost && shield.purchased == false {
       purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
-      if self.coinsEverCollected <= 40 && totalCoins <= 40 && purchaseShieldExplanationActive == false {
+      if self.coinsEverCollected <= 50 && self.coinsCollected <= 50 && purchaseShieldExplanationActive == false {
+        purchaseSlowmoExplanation.removeFromParent()
+        collectCoinsExplanation.removeFromParent()
+        rightThumbExplanation.removeFromParent()
         purchaseShieldExplanationActive = true
         purchaseShieldExplanation.size = CGSize(width: 100.0, height: 100.0)
         purchaseShieldExplanation.position = CGPoint(x: purchaseShield.position.x - 30, y: navigationBox.position.y + navigationBox.size.height + purchaseShieldExplanation.size.height/2)

@@ -194,6 +194,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   var levelReached = 1
   let coinsPerLevelMultiplier = 15
   
+  let leftThumbExplanation = SKSpriteNode(imageNamed: "LeftThumbExplanation")
+  let rightThumbExplanation = SKSpriteNode(imageNamed: "RightThumbExplanation")
+  let collectCoinsExplanation = SKSpriteNode(imageNamed: "CollectCoinsExplanation")
+  let killCrossbowExplanation = SKSpriteNode(imageNamed: "KillCrossbowExplanation")
+  let purchaseSlowmoExplanation = SKSpriteNode(imageNamed: "PurchaseSlowmoExplanation")
+  let purchaseShieldExplanation = SKSpriteNode(imageNamed: "PurchaseShieldExplanation")
+  var leftExplanationActive = false
+  var rightExplanationActive = false
+  var collectCoinsExplanationActive = false
+  var killCrossbowExplanationActive = false
+  var purchaseShieldExplanationActive = false
+  var purchaseSlowmoExplanationActive = false
+  
+  let coinsEverCollected = NSUserDefaults.standardUserDefaults().integerForKey("totalCoinsEverCollected")
+  
+  let fadeAlphaSequence = SKAction.sequence([SKAction.fadeAlphaTo(1.0, duration: 0.5), SKAction.waitForDuration(0.5), SKAction.fadeAlphaTo(0.0, duration: 0.5)])
+  
 //  let crossbowEnemy = Boss(imageNamed: "crossbowFired")
   
   init(size: CGSize, level: Int, muted: Bool, coinsCollected: Int, monstersDestroyed: Int, shield: Shield, dragonType: Int, birthdayMode: Bool, birthdayPicture: UIImage) {
@@ -267,7 +284,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     
     backgroundLayer.addChild(player)
     
-    player.position = CGPoint(x: size.width * 0.1, y: size.height * 0.5)
+    player.position = CGPoint(x: size.width/3, y: size.height * 0.5)
     player.size = CGSize(width: 50, height: 33)
     player.zPosition = 10
     player.zRotation = -1.57079633 //Start off facing right
@@ -505,12 +522,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     purchaseSlowmo.alpha = attackButton.alpha
     purchaseSlowmo.position = CGPoint(x: attackButton.position.x - attackButton.size.width - 12, y: attackButton.position.y)
     purchaseSlowmo.zPosition = 2
+    purchaseSlowmo.runAction(SKAction.scaleTo(0.0, duration: 0.3))
     self.addChild(purchaseSlowmo)
     
     purchaseShield.size = attackButton.size
     purchaseShield.alpha = attackButton.alpha
     purchaseShield.position = CGPoint(x: purchaseSlowmo.position.x - purchaseSlowmo.size.width - 12, y: attackButton.position.y)
     purchaseShield.zPosition = 2
+    purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 0.3))
     self.addChild(purchaseShield)
     if shield.purchased {
       purchaseShield.runAction(SKAction.scaleTo(0.0, duration: 0.0), withKey: "shrinking")
@@ -519,6 +538,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     if !Chartboost.hasRewardedVideo(CBLocationGameScreen) {
       Chartboost.cacheRewardedVideo(CBLocationGameScreen)
     }
+    
+    
+    if coinsEverCollected <= 40 && totalCoins <= 40 && self.levelReached < 3 {
+      leftExplanationActive = true
+      leftThumbExplanation.size = CGSize(width: 100.0, height: 100.0)
+      leftThumbExplanation.position = CGPoint(x: base.position.x + 30, y: navigationBox.position.y + navigationBox.size.height + leftThumbExplanation.size.height/2)
+      self.addChild(leftThumbExplanation)
+      leftThumbExplanation.runAction(SKAction.repeatActionForever(fadeAlphaSequence))
+    }
+    
   }
   
   deinit {
@@ -928,6 +957,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     case purchaseShield:
       if totalCoins < shieldUpgradeCost { return AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) }
       if shield.purchased == true {return}
+      
+      if purchaseShieldExplanationActive {
+//        purchaseShieldExplanationActive = false
+        purchaseShieldExplanation.removeFromParent()
+      }
+      
       shield.purchased = true
       shield.texture = SKTexture(imageNamed: "ShieldActive")
       shield.health = 100
@@ -956,6 +991,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     case purchaseSlowmo:
       if totalCoins < slowmoUpgradeCost { return AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate)) }
       if slowmoPurchased == true {return}
+      
+      if purchaseSlowmoExplanationActive {
+        purchaseSlowmoExplanation.removeFromParent()
+      }
+      
       totalCoins -= slowmoUpgradeCost
       totalCoinsBoard.text = "Total Coins: \(totalCoins)"
       self.slowmoPurchased = true
@@ -1018,9 +1058,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       let quickPop = SKAction.scaleTo(1.1, duration: 0.1)
       let grow = SKAction.scaleTo(1.0, duration: 0.1)
       
-      
       let returnToNormalSpeed = SKAction.runBlock {
         self.slowmoPurchased = false
+//        self.purchaseSlowmoExplanationActive = false
         
         self.removeActionForKey("addingMonsters")
         self.addMonsterBlock(1.0)
@@ -1093,6 +1133,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
           
         if (CGRectContainsPoint(attackButton.frame, touchLocation)) {
           return
+        }
+        
+        if leftExplanationActive {
+          leftExplanationActive = false
+          leftThumbExplanation.removeFromParent()
+          
+          rightExplanationActive = true
+          rightThumbExplanation.size = CGSize(width: 100.0, height: 100.0)
+          rightThumbExplanation.position = CGPoint(x: attackButton.position.x - 30, y: navigationBox.position.y + navigationBox.size.height + rightThumbExplanation.size.height/2)
+          self.addChild(rightThumbExplanation)
+          rightThumbExplanation.runAction(SKAction.repeatActionForever(fadeAlphaSequence))
         }
 
         if touchLocation.x < size.width / 3 {
@@ -1201,6 +1252,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
   }
   
   func attackButtonPushed() {
+    if rightExplanationActive {
+      rightExplanationActive = false
+      rightThumbExplanation.removeFromParent()
+      
+      collectCoinsExplanationActive = true
+      collectCoinsExplanation.size = CGSize(width: 100.0, height: 50.0)
+      collectCoinsExplanation.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+      self.addChild(collectCoinsExplanation)
+      collectCoinsExplanation.runAction(SKAction.repeatActionForever(fadeAlphaSequence))
+    }
+    
     if dragonSelected == 1 || dragonSelected == 0 {
       let projectile = SKSpriteNode(texture: firstFireballFrame)
       
@@ -1524,7 +1586,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
         self.endGame(false)
       }))
       
-      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(4) + 1) % 3 == 0 {
+      if Chartboost.hasRewardedVideo(CBLocationGameScreen) && (arc4random_uniform(4) + 1) % 3 == 0 && self.levelReached > 2 {
         self.musicController.playSoundEffect("PlayerDeath.wav")
         self.view?.window?.rootViewController?.presentViewController(gameOverVideoAlert, animated: true, completion: nil)
       } else if totalCoins >= coinsToEvadeDeath {
@@ -1546,6 +1608,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
     
     scoreBoard.text = "Score: \(coinsCollected)"
     totalCoinsBoard.text = "Total Coins: \(totalCoins)"
+
+    if totalCoins >= slowmoUpgradeCost && slowmoPurchased == false {
+      purchaseSlowmo.runAction(SKAction.scaleTo(1.0, duration: 0.3))
+      if self.coinsEverCollected <= 40 && totalCoins <= 40 && purchaseSlowmoExplanationActive == false && purchaseShieldExplanationActive == false {
+        purchaseSlowmoExplanationActive = true
+        purchaseSlowmoExplanation.size = CGSize(width: 100.0, height: 100.0)
+        purchaseSlowmoExplanation.position = CGPoint(x: purchaseSlowmo.position.x - 30, y: navigationBox.position.y + navigationBox.size.height + purchaseSlowmoExplanation.size.height/2)
+        self.addChild(purchaseSlowmoExplanation)
+        purchaseSlowmoExplanation.runAction(SKAction.repeatActionForever(fadeAlphaSequence))
+      }
+
+    }
+    
+    if totalCoins >= shieldUpgradeCost && shield.purchased == false {
+      purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
+      if self.coinsEverCollected <= 40 && totalCoins <= 40 && purchaseShieldExplanationActive == false {
+        purchaseShieldExplanationActive = true
+        purchaseShieldExplanation.size = CGSize(width: 100.0, height: 100.0)
+        purchaseShieldExplanation.position = CGPoint(x: purchaseShield.position.x - 30, y: navigationBox.position.y + navigationBox.size.height + purchaseShieldExplanation.size.height/2)
+        self.addChild(purchaseShieldExplanation)
+        purchaseShieldExplanation.runAction(SKAction.repeatActionForever(fadeAlphaSequence))
+      }
+    }
+    
+    if collectCoinsExplanationActive && self.rightPoint >= self.backgroundWidth {
+      collectCoinsExplanationActive = false
+      collectCoinsExplanation.removeFromParent()
+      
+      killCrossbowExplanationActive = true
+      killCrossbowExplanation.size = CGSize(width: 100.0, height: 100.0)
+      killCrossbowExplanation.position = CGPoint(x: self.size.width - killCrossbowExplanation.size.width, y: (self.size.height/1.25))
+      self.addChild(killCrossbowExplanation)
+      killCrossbowExplanation.runAction(SKAction.repeatActionForever(fadeAlphaSequence))
+    }
+    
     
     if let savedScore: Int = NSUserDefaults.standardUserDefaults().objectForKey("HighestScore") as? Int {
       if coinsCollected > savedScore {
@@ -1567,10 +1664,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ChartboostDelegate {
       let removeShield = SKAction.removeFromParent()
       let resetShieldTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldActive"))
       shield.runAction(SKAction.sequence([shieldDestroyedSoundEffect, removeShield, resetShieldTexture]))
-      purchaseShield.removeActionForKey("shrinking")
-//      purchaseShield.size = CGSize(width: baseSize * 1.3, height: baseSize * 0.9)
-      purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
       self.shield.purchased = false
+      if totalCoins >= shieldUpgradeCost {
+        purchaseShield.removeActionForKey("shrinking")
+        purchaseShield.runAction(SKAction.scaleTo(1.0, duration: 0.3))
+      }
     } else {
       let changeTexture = SKAction.setTexture(SKTexture(imageNamed: "ShieldBroken"))
       shield.runAction(SKAction.sequence([popShield, shieldHitSoundEffect, changeTexture]))

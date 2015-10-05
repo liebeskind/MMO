@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2604BD8F6DE644847C4ACD9B /* Pods_Dragon_Destiny.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F28E505001B901ED5120882B /* Pods_Dragon_Destiny.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		291BCAC01BC1EEBD00E6689A /* LeftThumbExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCABF1BC1EEBD00E6689A /* LeftThumbExplanation.png */; settings = {ASSET_TAGS = (); }; };
+		291BCAC21BC1EEC400E6689A /* RightThumbExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC11BC1EEC400E6689A /* RightThumbExplanation.png */; settings = {ASSET_TAGS = (); }; };
+		291BCAC51BC1F55300E6689A /* PurchaseShieldExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC31BC1F55300E6689A /* PurchaseShieldExplanation.png */; settings = {ASSET_TAGS = (); }; };
+		291BCAC61BC1F55300E6689A /* PurchaseSlowmoExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC41BC1F55300E6689A /* PurchaseSlowmoExplanation.png */; settings = {ASSET_TAGS = (); }; };
+		291BCAC81BC1F55900E6689A /* KillCrossbowExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC71BC1F55900E6689A /* KillCrossbowExplanation.png */; settings = {ASSET_TAGS = (); }; };
+		291BCACA1BC1F63E00E6689A /* CollectCoinsExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC91BC1F63E00E6689A /* CollectCoinsExplanation.png */; settings = {ASSET_TAGS = (); }; };
 		2927E2A01BB7469E00D718DA /* gamecenterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2927E29F1BB7469E00D718DA /* gamecenterButton.png */; settings = {ASSET_TAGS = (); }; };
 		29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29385B791B793114000D0986 /* arrowImages.atlas */; };
 		29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */; };
@@ -117,6 +123,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		291BCABF1BC1EEBD00E6689A /* LeftThumbExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LeftThumbExplanation.png; path = ../../../../Designs/MMO/LeftThumbExplanation.png; sourceTree = "<group>"; };
+		291BCAC11BC1EEC400E6689A /* RightThumbExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RightThumbExplanation.png; path = ../../../../Designs/MMO/RightThumbExplanation.png; sourceTree = "<group>"; };
+		291BCAC31BC1F55300E6689A /* PurchaseShieldExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseShieldExplanation.png; path = ../../../../Designs/MMO/PurchaseShieldExplanation.png; sourceTree = "<group>"; };
+		291BCAC41BC1F55300E6689A /* PurchaseSlowmoExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PurchaseSlowmoExplanation.png; path = ../../../../Designs/MMO/PurchaseSlowmoExplanation.png; sourceTree = "<group>"; };
+		291BCAC71BC1F55900E6689A /* KillCrossbowExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KillCrossbowExplanation.png; path = ../../../../Designs/MMO/KillCrossbowExplanation.png; sourceTree = "<group>"; };
+		291BCAC91BC1F63E00E6689A /* CollectCoinsExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CollectCoinsExplanation.png; path = ../../../../Designs/MMO/CollectCoinsExplanation.png; sourceTree = "<group>"; };
 		2927E29F1BB7469E00D718DA /* gamecenterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gamecenterButton.png; path = ../../../../Designs/MMO/gamecenterButton.png; sourceTree = "<group>"; };
 		29385B791B793114000D0986 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = arrowImages.atlas; path = ../../../../Designs/MMO/arrowImages.atlas; sourceTree = "<group>"; };
 		29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FlameUpgradeButton.png; path = ../../../../Designs/MMO/FlameUpgradeButton.png; sourceTree = "<group>"; };
@@ -275,6 +287,12 @@
 				2927E29F1BB7469E00D718DA /* gamecenterButton.png */,
 				29500ECB1BA246280043893E /* FlameChooser.png */,
 				29500F191BA749050043893E /* CupcakeDes.png */,
+				291BCABF1BC1EEBD00E6689A /* LeftThumbExplanation.png */,
+				291BCAC11BC1EEC400E6689A /* RightThumbExplanation.png */,
+				291BCAC31BC1F55300E6689A /* PurchaseShieldExplanation.png */,
+				291BCAC41BC1F55300E6689A /* PurchaseSlowmoExplanation.png */,
+				291BCAC71BC1F55900E6689A /* KillCrossbowExplanation.png */,
+				291BCAC91BC1F63E00E6689A /* CollectCoinsExplanation.png */,
 				294E4A7C1BB214E500007CDB /* eliminateAdsButton.png */,
 				29480AC41B9FF0B10020B2BB /* ShieldBroken.png */,
 				29500F251BA887C40043893E /* gray_lock.png */,
@@ -661,7 +679,9 @@
 				29500F0A1BA34F220043893E /* LaserChooser.png in Resources */,
 				2927E2A01BB7469E00D718DA /* gamecenterButton.png in Resources */,
 				29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */,
+				291BCAC01BC1EEBD00E6689A /* LeftThumbExplanation.png in Resources */,
 				29500F081BA34D520043893E /* laserImages.atlas in Resources */,
+				291BCAC61BC1F55300E6689A /* PurchaseSlowmoExplanation.png in Resources */,
 				29C2AE021B7C4445005F74E2 /* Flame.mp3 in Resources */,
 				29500EC71BA0D8A00043893E /* ShieldHit.wav in Resources */,
 				29500F261BA887C40043893E /* gray_lock.png in Resources */,
@@ -678,8 +698,10 @@
 				294E4A791BB1CDCD00007CDB /* AttackButton.png in Resources */,
 				296354851B729EC4003E73D0 /* fireballImages.atlas in Resources */,
 				357164EE19DB1E4800ED38A9 /* Main.storyboard in Resources */,
+				291BCAC21BC1EEC400E6689A /* RightThumbExplanation.png in Resources */,
 				29500F3A1BA9F8030043893E /* soundIcon.png in Resources */,
 				29500F101BA355750043893E /* laserBallImages.atlas in Resources */,
+				291BCACA1BC1F63E00E6689A /* CollectCoinsExplanation.png in Resources */,
 				29500ECC1BA246280043893E /* FlameChooser.png in Resources */,
 				294E4A7B1BB1DF0800007CDB /* GreenDragonChooser.png in Resources */,
 				29500ED21BA254140043893E /* BlueDragonChooser.png in Resources */,
@@ -689,6 +711,8 @@
 				29C2ADF81B7C35CE005F74E2 /* epicMusic.mp3 in Resources */,
 				29EC4ACC1B8BAFBD00E8804D /* PlayerDeath.wav in Resources */,
 				3571650D19DB1F5500ED38A9 /* pew-pew-lei.caf in Resources */,
+				291BCAC51BC1F55300E6689A /* PurchaseShieldExplanation.png in Resources */,
+				291BCAC81BC1F55900E6689A /* KillCrossbowExplanation.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

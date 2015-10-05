@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
 
   var window: UIWindow?
   var interstitial:GADInterstitial?
-  var eliminateAdsPurchased: Bool?
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
@@ -34,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
       UIScreen.mainScreen().brightness = 0.6
     }
     
-    eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
+    
     
     Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
     Chartboost.setAutoCacheAds(true)
@@ -44,7 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
     
     AdColony.configureWithAppID("app437208845d0c41e39e", zoneIDs: ["vzdda6b3b271824796ad"], delegate: nil, logging: false)
     
-    if eliminateAdsPurchased == nil || eliminateAdsPurchased == false {
+    let eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
+    if eliminateAdsPurchased != true {
 
       Chartboost.cacheInterstitial(CBLocationGameOver)      
       interstitial = createAndLoadInterstitial()
@@ -55,10 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   }
   
   @objc private func presentInterstitial(notification: NSNotification){
-    if NSUserDefaults.standardUserDefaults().integerForKey("totalCoinsEverCollected") < 40 { return }
+    let eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
+    let totalCoinsEverCollected = NSUserDefaults.standardUserDefaults().integerForKey("totalCoinsEverCollected")
     
-    eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
-    if eliminateAdsPurchased == true { return }
+    if eliminateAdsPurchased == true || totalCoinsEverCollected < 40 { return }
     if Chartboost.hasInterstitial(CBLocationGameOver) {
       Chartboost.showInterstitial(CBLocationGameOver)
     } else {

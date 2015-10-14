@@ -68,6 +68,9 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   var muted = false
   
   let eliminateAdsButton = SKSpriteNode(imageNamed: "eliminateAdsButton")
+  let gearButton = SKSpriteNode(imageNamed: "gear")
+  let restorePurchasesButton = SKSpriteNode(imageNamed: "restorePurchasesButton")
+  var inAppPurchaseHappening = false
   
   let levelValueLabel = SKLabelNode(fontNamed: "Copperplate")
   let gamecenterButton = SKSpriteNode(imageNamed: "gamecenterButton")
@@ -547,7 +550,11 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         openGamecenter()
       }
       
-      if eliminateAdsButton.containsPoint(touchLocation) {
+      if eliminateAdsButton.containsPoint(touchLocation) && inAppPurchaseHappening == false {
+        inAppPurchaseHappening = true
+        eliminateAdsButton.removeFromParent()
+        restorePurchasesButton.removeFromParent()
+        gearButton.removeFromParent()
         for product in list {
           print(product)
           let prodID = product.productIdentifier
@@ -558,6 +565,19 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
             break;
           }
         }
+      }
+      
+      if gearButton.containsPoint(touchLocation) && inAppPurchaseHappening == false {
+        restorePurchasesButton.size = CGSize(width: 110.0, height: 25.0)
+        restorePurchasesButton.position = CGPoint(x: gearButton.position.x - restorePurchasesButton.size.width/2 - gearButton.size.width, y: gearButton.position.y)
+        restorePurchasesButton.removeFromParent()
+        self.addChild(restorePurchasesButton)
+      }
+      
+      if restorePurchasesButton.containsPoint(touchLocation) && inAppPurchaseHappening == false {
+        inAppPurchaseHappening = true
+        restorePurchasesButton.removeFromParent()
+        self.restorePurchasesButtonPushed()
       }
       
       if restartButton.containsPoint(touchLocation) {
@@ -813,6 +833,11 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
   var list = [SKProduct]()
   var p = SKProduct()
   
+  func restorePurchasesButtonPushed() {
+    SKPaymentQueue.defaultQueue().addTransactionObserver(self)
+    SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
+  }
+  
   func buyProduct() {
     print("buy " + p.productIdentifier)
     let pay = SKPayment(product: p)
@@ -838,11 +863,16 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         eliminateAdsButton.size = CGSize(width: eliminateAdsButtonSize, height: eliminateAdsButtonSize)
         eliminateAdsButton.position = CGPoint(x: gamecenterButton.position.x - gamecenterButton.size.width - 10, y: gamecenterButton.position.y)
         eliminateAdsButton.name = "eliminateAdsButton"
+        
+        gearButton.size = CGSize(width: eliminateAdsButtonSize/2, height: eliminateAdsButtonSize/2)
+        gearButton.position = CGPoint(x: self.size.width - gearButton.size.width, y: gearButton.size.height)
+        gearButton.name = "gearButton"
+
 //        eliminateAdsButton.userInteractionEnabled = true
         if !NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased") {
           addChild(eliminateAdsButton)
+          addChild(gearButton)
         }
-
       }
     }
   }
@@ -856,12 +886,15 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
       
       let prodID = t.payment.productIdentifier as String
       
+      restorePurchasesButton.removeFromParent()
+      
       switch prodID {
       case "eliminateAds":
         NSUserDefaults.standardUserDefaults().setBool(true , forKey: "eliminateAdsPurchased")
         eliminateAdsButton.removeFromParent()
-        let eliminateAdsPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("InAppPurchase", action: "eliminateAds", label: "eliminateAdsPurchased", value: 1.99)
-        self.tracker.send(eliminateAdsPurchasedEvent.build() as [NSObject: AnyObject])
+        gearButton.removeFromParent()
+//        let eliminateAdsPurchasedEvent = GAIDictionaryBuilder.createEventWithCategory("InAppPurchase", action: "eliminateAds", label: "eliminateAdsPurchased", value: 1.99)
+//        self.tracker.send(eliminateAdsPurchasedEvent.build() as [NSObject: AnyObject])
 
         
         //Right here is where you should put the function that you want to execute when your in app purchase is complete
@@ -874,6 +907,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
     let alert = UIAlertView(title: "Thank You", message: "Your purchase(s) were restored. You may have to restart the app before ads are removed.", delegate: nil, cancelButtonTitle: "OK")
     alert.show()
   }
+  
+  
   
   
   func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
@@ -894,6 +929,8 @@ class GameOverScene: SKScene, SKPaymentTransactionObserver, SKProductsRequestDel
         case "eliminateAds":
           NSUserDefaults.standardUserDefaults().setBool(true , forKey: "eliminateAdsPurchased")
           eliminateAdsButton.removeFromParent()
+          gearButton.removeFromParent()
+          restorePurchasesButton.removeFromParent()
           
           //Here you should put the function you want to execute when the purchase is complete
           let alert = UIAlertView(title: "Thank You", message: "You may have to restart the app before the banner ads are removed.", delegate: nil, cancelButtonTitle: "OK")

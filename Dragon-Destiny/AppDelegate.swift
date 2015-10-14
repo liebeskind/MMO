@@ -33,15 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
       UIScreen.mainScreen().brightness = 0.6
     }
     
-    
-    
     Chartboost.startWithAppId("5601ad2143150f235b341dc1", appSignature: "51eefe0cd45fdc0d3b2979c205fb5f4346e4e7eb", delegate: self)
     Chartboost.setAutoCacheAds(true)
     Chartboost.setShouldPrefetchVideoContent(true)
     Chartboost.cacheRewardedVideo(CBLocationGameScreen)
     Chartboost.setShouldRequestInterstitialsInFirstSession(true)
     
-    AdColony.configureWithAppID("app437208845d0c41e39e", zoneIDs: ["vzdda6b3b271824796ad"], delegate: nil, logging: false)
+//    AdColony.configureWithAppID("app437208845d0c41e39e", zoneIDs: ["vzdda6b3b271824796ad"], delegate: nil, logging: false)
     
     let eliminateAdsPurchased = NSUserDefaults.standardUserDefaults().boolForKey("eliminateAdsPurchased")
     if eliminateAdsPurchased != true {
@@ -65,9 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
       Chartboost.cacheInterstitial(CBLocationGameOver)
       if let _ = interstitial?.isReady {
         interstitial?.presentFromRootViewController(self.window?.rootViewController)
-      } else {
-        AdColony.playVideoAdForZone("vzdda6b3b271824796ad", withDelegate: nil)
       }
+//      else {
+//        AdColony.playVideoAdForZone("vzdda6b3b271824796ad", withDelegate: nil)
+//      }
     }
   }
   
@@ -125,8 +124,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, ChartboostDelegate, GADIn
   
   func didDismissInterstitial(location: String!) {
     print("Chartboost ad dismissed")
-
   }
+  
+  func didDismissRewardedVideo(location: String!) {
+    print("dismiss")
+  }
+  
+  func didDisplayRewardedVideo(location: String!) {
+    print("display")
+  }
+  
+  func didCloseRewardedVideo(location: String!) {
+    print("close")
+    NSNotificationCenter.defaultCenter().postNotificationName("RewardVideoClosed", object: self)
+  }
+  
+  func didCompleteRewardedVideo(location: String!, withReward reward: Int32) {
+    print("complete")
+    NSNotificationCenter.defaultCenter().postNotificationName("DisplayedChartboostRewardedVideo", object: self)
+  }
+  
   
   // Called after an interstitial has attempted to load from the Chartboost API
   // servers but failed.

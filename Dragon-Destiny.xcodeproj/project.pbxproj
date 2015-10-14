@@ -15,6 +15,8 @@
 		291BCAC81BC1F55900E6689A /* KillCrossbowExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC71BC1F55900E6689A /* KillCrossbowExplanation.png */; settings = {ASSET_TAGS = (); }; };
 		291BCACA1BC1F63E00E6689A /* CollectCoinsExplanation.png in Resources */ = {isa = PBXBuildFile; fileRef = 291BCAC91BC1F63E00E6689A /* CollectCoinsExplanation.png */; settings = {ASSET_TAGS = (); }; };
 		2927E2A01BB7469E00D718DA /* gamecenterButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 2927E29F1BB7469E00D718DA /* gamecenterButton.png */; settings = {ASSET_TAGS = (); }; };
+		29349CFC1BC4850300D89DA6 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 29349CFB1BC4850200D89DA6 /* gear.png */; settings = {ASSET_TAGS = (); }; };
+		29349CFE1BC486B400D89DA6 /* restorePurchasesButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29349CFD1BC486B400D89DA6 /* restorePurchasesButton.png */; settings = {ASSET_TAGS = (); }; };
 		29385B7A1B793114000D0986 /* arrowImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 29385B791B793114000D0986 /* arrowImages.atlas */; };
 		29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */; };
 		29385B7F1B7A8CA4000D0986 /* SlowmoUpgradeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */; };
@@ -130,6 +132,8 @@
 		291BCAC71BC1F55900E6689A /* KillCrossbowExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = KillCrossbowExplanation.png; path = ../../../../Designs/MMO/KillCrossbowExplanation.png; sourceTree = "<group>"; };
 		291BCAC91BC1F63E00E6689A /* CollectCoinsExplanation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CollectCoinsExplanation.png; path = ../../../../Designs/MMO/CollectCoinsExplanation.png; sourceTree = "<group>"; };
 		2927E29F1BB7469E00D718DA /* gamecenterButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gamecenterButton.png; path = ../../../../Designs/MMO/gamecenterButton.png; sourceTree = "<group>"; };
+		29349CFB1BC4850200D89DA6 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gear.png; path = ../../../../Designs/MMO/gear.png; sourceTree = "<group>"; };
+		29349CFD1BC486B400D89DA6 /* restorePurchasesButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = restorePurchasesButton.png; path = ../../../../Designs/MMO/restorePurchasesButton.png; sourceTree = "<group>"; };
 		29385B791B793114000D0986 /* arrowImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; name = arrowImages.atlas; path = ../../../../Designs/MMO/arrowImages.atlas; sourceTree = "<group>"; };
 		29385B7C1B7941E0000D0986 /* FlameUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FlameUpgradeButton.png; path = ../../../../Designs/MMO/FlameUpgradeButton.png; sourceTree = "<group>"; };
 		29385B7E1B7A8CA4000D0986 /* SlowmoUpgradeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlowmoUpgradeButton.png; path = ../../../../Designs/MMO/SlowmoUpgradeButton.png; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 			isa = PBXGroup;
 			children = (
 				29500F231BA76C3B0043893E /* gift.png */,
+				29349CFD1BC486B400D89DA6 /* restorePurchasesButton.png */,
+				29349CFB1BC4850200D89DA6 /* gear.png */,
 				294E4A781BB1CDCD00007CDB /* AttackButton.png */,
 				29480AC31B9FF0B10020B2BB /* ShieldActive.png */,
 				2927E29F1BB7469E00D718DA /* gamecenterButton.png */,
@@ -665,6 +671,7 @@
 				296354771B727DE1003E73D0 /* playerImages.atlas in Resources */,
 				294E4A7D1BB214E500007CDB /* eliminateAdsButton.png in Resources */,
 				3571650C19DB1F5500ED38A9 /* background-music-aac.caf in Resources */,
+				29349CFE1BC486B400D89DA6 /* restorePurchasesButton.png in Resources */,
 				294E4A771BB1046800007CDB /* dragonMainScreenBackground.png in Resources */,
 				29500EC91BA0D8C70043893E /* ShieldDestroyed.wav in Resources */,
 				29500F141BA379900043893E /* laserBallSound.wav in Resources */,
@@ -676,6 +683,7 @@
 				2963548B1B75BBEF003E73D0 /* flameImages.atlas in Resources */,
 				29500F1C1BA75B1D0043893E /* windBlowing.png in Resources */,
 				29500F321BA8D2DF0043893E /* laserBallVideo.mov in Resources */,
+				29349CFC1BC4850300D89DA6 /* gear.png in Resources */,
 				29500F0A1BA34F220043893E /* LaserChooser.png in Resources */,
 				2927E2A01BB7469E00D718DA /* gamecenterButton.png in Resources */,
 				29385B7D1B7941E0000D0986 /* FlameUpgradeButton.png in Resources */,
